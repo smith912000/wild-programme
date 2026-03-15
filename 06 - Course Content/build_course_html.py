@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
 WILD Programme — Course HTML Builder
-Converts Tier 2 and Tier 3 markdown course files to polished, themed HTML.
+Converts all 6 markdown course files to polished, themed HTML.
 
 Run from this directory:
     python build_course_html.py
 
 Outputs:
-    Tier_2_Biohacker_Advanced.html   (dark teal — tech aesthetic)
+    Tier_1_Biohacker_Foundation.html (green — entry-level tech aesthetic)
+    Tier_1_Spiritual_Foundation.html (sky blue — entry-level contemplative)
+    Tier_2_Biohacker_Advanced.html   (dark teal — advanced tech aesthetic)
     Tier_2_Spiritual_Advanced.html   (deep purple — contemplative aesthetic)
     Tier_3_Biohacker_Master.html     (dark indigo — prestige tech aesthetic)
     Tier_3_Spiritual_Master.html     (deep gold — ceremonial aesthetic)
@@ -19,6 +21,38 @@ import os, re, html as esc
 #  FILE MANIFEST
 # ─────────────────────────────────────────────────────────
 FILES = [
+    {
+        'input':     'Tier_1_Biohacker_Foundation.md',
+        'output':    'Tier_1_Biohacker_Foundation.html',
+        'stream':    'bio',
+        'tier':      1,
+        'title':     'Foundations',
+        'subtitle':  'Biohacker Stream',
+        'lessons':   7,
+        'price':     '£50',
+        'community': 'Telegram',
+        'accent':    '#3fb950',
+        'accent2':   '#2ea043',
+        'glow':      'rgba(63,185,80,.18)',
+        'badge_bg':  'rgba(63,185,80,.1)',
+        'badge_border': 'rgba(63,185,80,.35)',
+    },
+    {
+        'input':     'Tier_1_Spiritual_Foundation.md',
+        'output':    'Tier_1_Spiritual_Foundation.html',
+        'stream':    'spirit',
+        'tier':      1,
+        'title':     'Foundations',
+        'subtitle':  'Consciousness Stream',
+        'lessons':   7,
+        'price':     '£50',
+        'community': 'Discord',
+        'accent':    '#7dd3fc',
+        'accent2':   '#38bdf8',
+        'glow':      'rgba(125,211,252,.15)',
+        'badge_bg':  'rgba(125,211,252,.08)',
+        'badge_border': 'rgba(125,211,252,.3)',
+    },
     {
         'input':     'Tier_2_Biohacker_Advanced.md',
         'output':    'Tier_2_Biohacker_Advanced.html',

@@ -65,10 +65,12 @@ LEAD_MAGNET_FILES = [
 # ── Course HTML files (after build_course_html.py has been run) ───────────────
 COURSE_DIR   = ROOT_DIR / '06 - Course Content'
 COURSE_FILES = {
-    '03 — Tier 2 Advanced/Biohacker Stream':    'Tier_2_Biohacker_Advanced.html',
-    '03 — Tier 2 Advanced/Consciousness Stream': 'Tier_2_Spiritual_Advanced.html',
-    '04 — Tier 3 Master/Biohacker Stream':       'Tier_3_Biohacker_Master.html',
-    '04 — Tier 3 Master/Consciousness Stream':   'Tier_3_Spiritual_Master.html',
+    '02 — Tier 1 Foundations/Biohacker Stream':    'Tier_1_Biohacker_Foundation.html',
+    '02 — Tier 1 Foundations/Consciousness Stream': 'Tier_1_Spiritual_Foundation.html',
+    '03 — Tier 2 Advanced/Biohacker Stream':        'Tier_2_Biohacker_Advanced.html',
+    '03 — Tier 2 Advanced/Consciousness Stream':    'Tier_2_Spiritual_Advanced.html',
+    '04 — Tier 3 Master/Biohacker Stream':          'Tier_3_Biohacker_Master.html',
+    '04 — Tier 3 Master/Consciousness Stream':      'Tier_3_Spiritual_Master.html',
 }
 
 
