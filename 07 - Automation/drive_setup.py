@@ -81,13 +81,13 @@ def get_service():
         from google.auth.transport.requests import Request
         from googleapiclient.discovery import build
     except ImportError:
-        print('\n  ✗  Missing dependencies. Run:\n')
+        print('\n  ERROR  Missing dependencies. Run:\n')
         print('     pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client\n')
         sys.exit(1)
 
     if not CREDS_FILE.exists():
-        print(f'\n  ✗  credentials.json not found in {THIS_DIR}')
-        print('     See SETUP.md → Script 1, Step 2 for how to create it.\n')
+        print(f'\n  ERROR  credentials.json not found in {THIS_DIR}')
+        print('     See SETUP.md -> Script 1, Step 2 for how to create it.\n')
         sys.exit(1)
 
     creds = None
@@ -128,7 +128,7 @@ def build_folder_tree(service, tree, parent_id=None, path=''):
         folder_path = f'{path}/{name}' if path else name
         fid = get_or_create_folder(service, name, parent_id)
         ids[folder_path] = fid
-        print(f'  📁  {folder_path}  ({fid})')
+        print(f'  DIR  {folder_path}  ({fid})')
         if children:
             child_ids = build_folder_tree(service, children, fid, folder_path)
             ids.update(child_ids)
@@ -153,13 +153,13 @@ def upload_file(service, local_path, parent_id, mime_type='application/pdf'):
     results = service.files().list(q=query, fields='files(id,name)').execute()
     if results.get('files'):
         fid = results['files'][0]['id']
-        print(f'  ↩  Already exists: {name}  (skipped)')
+        print(f'  EXISTS  {name}  (skipped)')
         return fid
 
     meta  = {'name': name, 'parents': [parent_id]}
     media = MediaFileUpload(local_path, mimetype=mime_type, resumable=True)
     f = service.files().create(body=meta, media_body=media, fields='id').execute()
-    print(f'  ⬆  Uploaded: {name}')
+    print(f'  UPLOAD  {name}')
     return f['id']
 
 
@@ -170,7 +170,7 @@ def get_webview_link(service, file_id):
 
 # ──────────────────────────────────────────────────────────────────────────────
 def main():
-    print('\n━━ WILD Programme — Google Drive Setup ━━\n')
+    print('\n== WILD Programme - Google Drive Setup ==\n')
     service = get_service()
     links   = {}
 
@@ -190,7 +190,7 @@ def main():
     for fname in LEAD_MAGNET_FILES:
         fpath = LEAD_MAGNET_DIR / fname
         if not fpath.exists():
-            print(f'  ✗  Not found locally: {fname}  (skipping)')
+            print(f'  SKIP  Not found locally: {fname}')
             continue
         fid = upload_file(service, str(fpath), lm_folder_id)
         set_anyone_reader(service, fid)
@@ -210,12 +210,12 @@ def main():
     for folder_subpath, html_fname in COURSE_FILES.items():
         html_path = COURSE_DIR / html_fname
         if not html_path.exists():
-            print(f'  ✗  Not found: {html_fname}  — run build_course_html.py first')
+            print(f'  SKIP  Not found: {html_fname}  -- run build_course_html.py first')
             continue
         folder_key = f'WILD Programme/{folder_subpath}'
         fol_id = folder_ids.get(folder_key)
         if not fol_id:
-            print(f'  ✗  Folder not found in map: {folder_key}')
+            print(f'  SKIP  Folder not found in map: {folder_key}')
             continue
         fid = upload_file(service, str(html_path), fol_id, 'text/html')
         set_anyone_reader(service, fid)
@@ -227,11 +227,11 @@ def main():
     with open(LINKS_FILE, 'w') as f:
         json.dump(links, f, indent=2)
 
-    print(f'\n✓  All done. URLs saved to:\n   {LINKS_FILE}\n')
-    print('━━ NEXT STEPS ━━')
+    print(f'\nALL DONE. URLs saved to:\n   {LINKS_FILE}\n')
+    print('== NEXT STEPS ==')
     print('1. Copy the lead magnet "download" links into thankyou.html (replace Google Drive placeholders)')
     print('2. Copy the course HTML "view" links into purchase-confirmed.html (replace YOUR_TIER*_GOOGLE_DRIVE_LINK)')
-    print('3. Those links are permanent and "anyone with the link" can view — no sign-in required')
+    print('3. Those links are permanent and "anyone with the link" can view - no sign-in required')
     print('4. Test each link in an incognito tab before sending to customers\n')
 
 
