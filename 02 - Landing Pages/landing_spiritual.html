@@ -174,10 +174,12 @@
           }).then(function(r){ return r.json(); })
             .then(function(){
               try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track', 'spirit'); }catch(e){}
+              try{ gtag('event','generate_lead',{event_category:'lead_magnet',event_label:'spiritual_hero',value:0}); }catch(e){}
               window.location.href = 'thankyou.html';
             })
             .catch(function(){
               try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track', 'spirit'); }catch(e){}
+              try{ gtag('event','generate_lead',{event_category:'lead_magnet',event_label:'spiritual_hero',value:0}); }catch(e){}
               window.location.href = 'thankyou.html';
             });
         });

@@ -173,6 +173,7 @@
           }).then(function(r){ return r.json(); })
             .then(function(){
               try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track', 'bio'); }catch(e){}
+              try{ gtag('event','generate_lead',{event_category:'lead_magnet',event_label:'biohacker_hero',value:0}); }catch(e){}
               window.location.href = 'thankyou.html';
             })
             .catch(function(){
@@ -336,9 +337,11 @@ if(bform){
       body: JSON.stringify({ api_key: KIT_API_KEY, email: email, first_name: fname, fields: { source: 'biohacker' } })
     }).then(function(){
       try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track','bio'); }catch(e){}
+      try{ gtag('event','generate_lead',{event_category:'lead_magnet',event_label:'biohacker_bottom',value:0}); }catch(e){}
       window.location.href = 'thankyou.html';
     }).catch(function(){
       try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track','bio'); }catch(e){}
+      try{ gtag('event','generate_lead',{event_category:'lead_magnet',event_label:'biohacker_bottom',value:0}); }catch(e){}
       window.location.href = 'thankyou.html';
     });
   });
