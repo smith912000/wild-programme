@@ -164,14 +164,14 @@
           fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ api_key: KIT_API_KEY, email: email, first_name: fname })
+            body: JSON.stringify({ api_key: KIT_API_KEY, email: email, first_name: fname, fields: { source: 'biohacker' } })
           }).then(function(r){ return r.json(); })
             .then(function(){
-              try{ sessionStorage.setItem('wild_fname', fname); }catch(e){}
+              try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track', 'bio'); }catch(e){}
               window.location.href = 'thankyou.html';
             })
             .catch(function(){
-              try{ sessionStorage.setItem('wild_fname', fname); }catch(e){}
+              try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track', 'bio'); }catch(e){}
               window.location.href = 'thankyou.html';
             });
         });
@@ -328,9 +328,14 @@ if(bform){
     fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ api_key: KIT_API_KEY, email: email, first_name: fname })
-    }).then(function(){ window.location.href = 'thankyou.html'; })
-      .catch(function(){ window.location.href = 'thankyou.html'; });
+      body: JSON.stringify({ api_key: KIT_API_KEY, email: email, first_name: fname, fields: { source: 'biohacker' } })
+    }).then(function(){
+      try{ sessionStorage.setItem('wild_track','bio'); }catch(e){}
+      window.location.href = 'thankyou.html';
+    }).catch(function(){
+      try{ sessionStorage.setItem('wild_track','bio'); }catch(e){}
+      window.location.href = 'thankyou.html';
+    });
   });
 }
 
