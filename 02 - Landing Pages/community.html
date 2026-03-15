@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>WILD Community — Discord + Telegram Membership</title>
+<meta name="description" content="Join the WILD Community. Consciousness stream on Discord, biohacker stream on Telegram. Live practice sessions, data accountability, guided ceremonies. From £15/month."/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--surface:#161b22;--s2:#21262d;--border:#30363d;
+  --accent:#1a9b8a;--a2:#14827433;--green:#3fb950;--blue:#5865f2;
+  --purple:#9333ea;--gold:#e3a008;--gray:#8b949e;--white:#e6edf3;--text:#c9d1d9;
+  --glow:rgba(26,155,138,.15);
+  --discord:#5865f2;--telegram:#2aabee;
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-size:13px;color:var(--gray);text-decoration:none}
+.nav-cta{padding:8px 20px;background:var(--accent);border-radius:6px;color:#fff!important;font-weight:700;font-size:13px}
+.nav-cta:hover{opacity:.9}
+/* HERO */
+.hero{padding:80px 24px 60px;text-align:center;background:radial-gradient(ellipse 90% 60% at 50% 0%,rgba(26,155,138,.12) 0%,transparent 70%)}
+.community-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(26,155,138,.1);border:1px solid rgba(26,155,138,.35);border-radius:20px;padding:6px 18px;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;color:var(--white);line-height:1.15;letter-spacing:-.02em;max-width:820px;margin:0 auto 20px}
+h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:clamp(1rem,2vw,1.15rem);color:var(--gray);max-width:600px;margin:0 auto 36px;line-height:1.7}
+/* PLATFORM INDICATORS */
+.platform-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:40px}
+.plat{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:8px 16px;font-size:13px;font-weight:600}
+.plat-discord{background:rgba(88,101,242,.12);border:1px solid rgba(88,101,242,.3);color:#818cf8}
+.plat-telegram{background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.25);color:#7dd3fc}
+/* PRICING CARDS */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:880px;margin:0 auto 32px}
+.price-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center;transition:border-color .2s}
+.price-card:hover{border-color:var(--accent)}
+.price-card.featured{border-color:rgba(26,155,138,.5);background:linear-gradient(135deg,rgba(26,155,138,.08) 0%,var(--surface) 100%);position:relative}
+.popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.card-platform{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.card-platform.discord{color:#818cf8}
+.card-platform.telegram{color:#7dd3fc}
+.card-platform.both{color:var(--accent)}
+.card-name{font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:16px}
+.card-price{font-size:2.8rem;font-weight:800;color:var(--white);line-height:1}
+.card-price sup{font-size:1.2rem;vertical-align:top;margin-top:6px;color:var(--gray)}
+.card-period{font-size:13px;color:var(--gray);margin-top:4px;margin-bottom:20px}
+.card-features{text-align:left;margin-bottom:24px}
+.cf-row{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid rgba(48,54,61,.5)}
+.cf-row:last-child{border-bottom:none}
+.cf-check{color:var(--green);flex-shrink:0;font-size:12px;margin-top:2px}
+.btn-card{display:block;width:100%;padding:14px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;transition:all .2s}
+.btn-discord{background:rgba(88,101,242,.2);border:1px solid rgba(88,101,242,.4);color:#a5b4fc}
+.btn-discord:hover{background:#5865f2;color:#fff}
+.btn-telegram{background:rgba(42,171,238,.12);border:1px solid rgba(42,171,238,.3);color:#7dd3fc}
+.btn-telegram:hover{background:#2aabee;color:#fff}
+.btn-both{background:var(--accent);color:#fff}
+.btn-both:hover{opacity:.9}
+.card-guarantee{font-size:11px;color:var(--gray);margin-top:10px}
+.card-guarantee span{color:var(--green)}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);text-align:center}
+.stat{padding:32px 20px;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-n{font-size:2rem;font-weight:800;color:var(--accent);line-height:1;margin-bottom:6px}
+.stat-l{font-size:12px;color:var(--gray)}
+/* SECTIONS */
+section{padding:72px 24px;max-width:960px;margin:0 auto}
+.section-tag{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--white);line-height:1.2;letter-spacing:-.02em;margin-bottom:14px}
+.section-sub{font-size:1rem;color:var(--gray);max-width:580px;margin-bottom:48px;line-height:1.7}
+/* DUAL PLATFORM */
+.dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:680px){.dual-grid{grid-template-columns:1fr}}
+.platform-card{border-radius:16px;overflow:hidden}
+.platform-card.discord-card{border:1px solid rgba(88,101,242,.3)}
+.platform-card.telegram-card{border:1px solid rgba(42,171,238,.25)}
+.platform-header{padding:20px 24px;font-size:15px;font-weight:700;color:#fff;display:flex;align-items:center;gap:10px}
+.platform-header.discord-h{background:linear-gradient(135deg,rgba(88,101,242,.2) 0%,rgba(88,101,242,.05) 100%);border-bottom:1px solid rgba(88,101,242,.3)}
+.platform-header.telegram-h{background:linear-gradient(135deg,rgba(42,171,238,.15) 0%,rgba(42,171,238,.03) 100%);border-bottom:1px solid rgba(42,171,238,.2)}
+.platform-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.platform-icon.d{background:rgba(88,101,242,.2);border:1px solid rgba(88,101,242,.3)}
+.platform-icon.t{background:rgba(42,171,238,.15);border:1px solid rgba(42,171,238,.25)}
+.platform-sub{font-size:11px;color:var(--gray);font-weight:400;margin-top:2px}
+.channels{display:flex;flex-direction:column;background:var(--surface)}
+.channel{display:flex;gap:10px;align-items:flex-start;padding:12px 20px;border-bottom:1px solid rgba(48,54,61,.5);font-size:13px}
+.channel:last-child{border-bottom:none}
+.channel-icon{font-size:12px;color:var(--gray);flex-shrink:0;margin-top:2px}
+.channel-name{font-weight:600;color:var(--white);margin-bottom:2px;font-size:13px}
+.channel-desc{font-size:11px;color:var(--gray)}
+/* WEEKLY SCHEDULE */
+.schedule-tabs{display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;width:fit-content}
+.stab{padding:10px 20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--surface);color:var(--gray);border:none;text-transform:uppercase;letter-spacing:.1em}
+.stab.active-discord{background:rgba(88,101,242,.15);color:#818cf8}
+.stab.active-telegram{background:rgba(42,171,238,.12);color:#7dd3fc}
+.schedule-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+@media(max-width:700px){.schedule-grid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr))}}
+.day-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px}
+.day-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.day-name.discord{color:#818cf8}
+.day-name.telegram{color:#7dd3fc}
+.day-event{font-size:11px;color:var(--text);line-height:1.4;margin-bottom:4px;padding:4px 6px;border-radius:4px}
+.day-event.discord-ev{background:rgba(88,101,242,.08)}
+.day-event.telegram-ev{background:rgba(42,171,238,.06)}
+/* PROGRESSION */
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--border)}
+.prog-step{background:var(--surface);padding:24px;position:relative}
+.prog-step::after{content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);color:var(--gray);font-size:16px;z-index:1}
+.prog-step:last-child::after{display:none}
+.prog-n{font-size:24px;font-weight:800;margin-bottom:6px}
+.prog-n.discord{color:#818cf8}
+.prog-n.telegram{color:#7dd3fc}
+.prog-title{font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px}
+.prog-desc{font-size:11px;color:var(--gray);line-height:1.5}
+.prog-unlock{font-size:10px;color:var(--accent);margin-top:6px;font-weight:600}
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.testi{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
+.testi-stars{font-size:13px;margin-bottom:10px;letter-spacing:2px}
+.testi-stars.discord{color:#818cf8}
+.testi-stars.telegram{color:#7dd3fc}
+.testi-text{font-size:13px;color:var(--text);line-height:1.6;margin-bottom:14px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.testi-av.discord{background:rgba(88,101,242,.15);border:1px solid rgba(88,101,242,.3);color:#818cf8}
+.testi-av.telegram{background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.25);color:#7dd3fc}
+.testi-name{font-size:13px;font-weight:700;color:var(--white)}
+.testi-role{font-size:11px;color:var(--gray)}
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:1px;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.faq-item{background:var(--surface);padding:20px 24px}
+.faq-q{font-size:14px;font-weight:700;color:var(--white);margin-bottom:8px}
+.faq-a{font-size:13px;color:var(--gray);line-height:1.6}
+/* BOTTOM CTA */
+.bottom-cta{padding:80px 24px;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(26,155,138,.1) 0%,transparent 70%);border-top:1px solid var(--border)}
+.cta-pricing-row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.cta-option{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 28px;text-align:center;min-width:160px}
+.cta-option-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.cta-option-price{font-size:1.8rem;font-weight:800;color:var(--white)}
+.cta-option-price sup{font-size:.9rem;vertical-align:top;margin-top:4px;color:var(--gray)}
+.cta-option-note{font-size:11px;margin-top:4px}
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:32px 24px;text-align:center}
+.footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px}
+.footer-links a{font-size:12px;color:var(--gray);text-decoration:none}
+.footer-links a:hover{color:var(--white)}
+.footer-copy{font-size:11px;color:var(--border)}
+</style>
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your actual Measurement ID -->
+  <!-- Get your ID at analytics.google.com → Admin → Data Streams → Web Stream -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⬡ WILD Programme</div>
+  <div class="nav-links">
+    <a href="tier1.html">Tier 1</a>
+    <a href="tier2.html">Tier 2</a>
+    <a href="tier3.html">Tier 3</a>
+    <a href="#pricing" class="nav-cta">Join Community</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="community-badge">⬡ Community Membership</div>
+  <h1>Practice Every Day.<br/>With People Who <em>Actually Do This</em>.</h1>
+  <p class="hero-sub">Two dedicated communities for two paths. Discord for the consciousness stream — guided practice, tradition, depth, dream sharing. Telegram for the biohacker stream — data, hardware, protocol critique. Or both.</p>
+  <div class="platform-row">
+    <span class="plat plat-discord">◈ Discord — Consciousness Stream</span>
+    <span class="plat plat-telegram">⬡ Telegram — Biohacker Stream</span>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section id="pricing" style="padding-top:48px">
+  <div class="section-tag" style="text-align:center">Choose your stream</div>
+  <h2 style="text-align:center">Simple, Transparent Pricing.</h2>
+  <p class="section-sub" style="margin:0 auto 40px;text-align:center">No annual lock-in. Cancel any time. Tier 3 members get 3 months free before any charge applies.</p>
+  <div class="pricing-grid">
+
+    <!-- DISCORD — CONSCIOUSNESS -->
+    <div class="price-card">
+      <div class="card-platform discord">Discord</div>
+      <div class="card-name">Consciousness Stream</div>
+      <div class="card-price"><sup>£</sup>20</div>
+      <div class="card-period">per month · cancel anytime</div>
+      <div class="card-features">
+        <div class="cf-row"><span class="cf-check">✓</span><span>7 channels: guided practice, symbols, tradition, dream circle, contemplation</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Weekly live group practice sessions (guided by voice)</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Daily intention-setting messages and contemplation prompts</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Ancient tradition deep-dives: Tibetan, Sufi, Western esoteric</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Dream sharing and collective interpretation</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Role progression: Seeker → Apprentice → Awakened → Guide</span></div>
+      </div>
+      <a href="https://whop.com/checkout/plan_EM2adR2eK68Rk/" target="_blank" class="btn-card btn-discord">Join Discord Community</a>
+      <div class="card-guarantee"><span>30-day money-back</span> · Instant access</div>
+    </div>
+
+    <!-- BUNDLE -->
+    <div class="price-card featured">
+      <div class="popular-badge">Most Popular</div>
+      <div class="card-platform both">Both Platforms</div>
+      <div class="card-name">Full Community Bundle</div>
+      <div class="card-price"><sup>£</sup>30</div>
+      <div class="card-period">per month · cancel anytime</div>
+      <div class="card-features">
+        <div class="cf-row"><span class="cf-check">✓</span><span>Everything in Discord Consciousness Stream</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Everything in Telegram Biohacker Stream</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Cross-platform content drops — same technique, both languages</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Bundle-exclusive integration sessions (science + tradition unified)</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Priority access to live events and retreats</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>All future community additions — both platforms</span></div>
+      </div>
+      <a href="https://whop.com/checkout/plan_cjvgz5WmJGhS0/" target="_blank" class="btn-card btn-both">Join Both Communities</a>
+      <div class="card-guarantee"><span>30-day money-back</span> · Save £10/month</div>
+    </div>
+
+    <!-- TELEGRAM — BIOHACKER -->
+    <div class="price-card">
+      <div class="card-platform telegram">Telegram</div>
+      <div class="card-name">Biohacker Stream</div>
+      <div class="card-price"><sup>£</sup>15</div>
+      <div class="card-period">per month · cancel anytime</div>
+      <div class="card-features">
+        <div class="cf-row"><span class="cf-check">✓</span><span>11 channels: data, hardware, protocol critique, accountability pods</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Weekly live Q&amp;A sessions (biohacker focus)</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Accountability pod matching — 4-person weekly check-ins</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Data sharing + peer review of sleep logs</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Hardware reviews + group buys</span></div>
+        <div class="cf-row"><span class="cf-check">✓</span><span>Role progression: Dreamer → Practitioner → Lucid → Master</span></div>
+      </div>
+      <a href="https://whop.com/checkout/plan_RVrTaIHvTiLP6/" target="_blank" class="btn-card btn-telegram">Join Telegram Community</a>
+      <div class="card-guarantee"><span>30-day money-back</span> · Instant access</div>
+    </div>
+
+  </div>
+  <p style="text-align:center;font-size:13px;color:var(--gray)">Tier 3 members: your 3 months free are activated automatically. <a href="tier3.html" style="color:var(--accent)">See Tier 3 →</a></p>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-n">7×</div><div class="stat-l">Live sessions/week</div></div>
+  <div class="stat"><div class="stat-n">2</div><div class="stat-l">Platforms, 1 system</div></div>
+  <div class="stat"><div class="stat-n">18+</div><div class="stat-l">Channels + groups</div></div>
+  <div class="stat"><div class="stat-n">4</div><div class="stat-l">Role progression levels</div></div>
+</div>
+
+<!-- DUAL PLATFORM ARCHITECTURE -->
+<section>
+  <div class="section-tag">Platform architecture</div>
+  <h2>Two Paths. Same Destination.</h2>
+  <p class="section-sub">Both communities are built around the same WILD technique — different language, different culture, same practice. You can live in one or bridge both.</p>
+  <div class="dual-grid">
+
+    <!-- DISCORD — CONSCIOUSNESS -->
+    <div class="platform-card discord-card">
+      <div class="platform-header discord-h">
+        <div class="platform-icon d">◈</div>
+        <div>
+          <div>Discord — Consciousness Stream</div>
+          <div class="platform-sub">Tradition-rooted · Practice-first · £20/mo</div>
+        </div>
+      </div>
+      <div class="channels">
+        <div class="channel">
+          <div class="channel-icon">◈</div>
+          <div><div class="channel-name">🌅 morning-intentions</div><div class="channel-desc">Daily guided intention-setting at 06:30. Set your dream intention for the coming night.</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">◈</div>
+          <div><div class="channel-name">🔮 symbol-exploration</div><div class="channel-desc">Recurring dream symbols and their cross-tradition interpretations</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">◈</div>
+          <div><div class="channel-name">🎙️ guided-practice</div><div class="channel-desc">Twice-weekly voice-guided practice sessions: body scan, hypnagogia, intention</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">◈</div>
+          <div><div class="channel-name">🏛️ ancient-traditions</div><div class="channel-desc">Deep-dives into Tibetan Dream Yoga, Sufi dreamwork, Western esoteric traditions</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">◈</div>
+          <div><div class="channel-name">🌙 dream-circle</div><div class="channel-desc">Share dreams, receive reflections from the community — held with care</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">◈</div>
+          <div><div class="channel-name">🌿 contemplation</div><div class="channel-desc">Weekly philosophical inquiry: what is consciousness? What is a dreamer?</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">◈</div>
+          <div><div class="channel-name">✨ transmissions</div><div class="channel-desc">Monthly extended practice sessions with readings from primary tradition texts</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELEGRAM — BIOHACKER -->
+    <div class="platform-card telegram-card">
+      <div class="platform-header telegram-h">
+        <div class="platform-icon t">⬡</div>
+        <div>
+          <div>Telegram — Biohacker Stream</div>
+          <div class="platform-sub">Data-driven · Protocol-focused · £15/mo</div>
+        </div>
+      </div>
+      <div class="channels">
+        <div class="channel">
+          <div class="channel-icon">#</div>
+          <div><div class="channel-name">📊 sleep-data-lab</div><div class="channel-desc">Share your tracking sheets, get peer review on your REM entry window</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">#</div>
+          <div><div class="channel-name">🧪 protocol-critique</div><div class="channel-desc">Post your current WBTB stack — community critique and optimisation</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">#</div>
+          <div><div class="channel-name">🎧 hardware-reviews</div><div class="channel-desc">Dreem 2, Muse S, Aurora — honest reviews and configuration sharing</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">#</div>
+          <div><div class="channel-name">💊 supplements-stack</div><div class="channel-desc">Galantamine cycles, alpha-GPC timing, harm reduction — evidence-first</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">#</div>
+          <div><div class="channel-name">🏆 wins-and-data</div><div class="channel-desc">Log your lucid dreams with date, method, duration, and technique used</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">#</div>
+          <div><div class="channel-name">🔬 research-drops</div><div class="channel-desc">New sleep science papers, summarised and filed weekly by community leads</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">#</div>
+          <div><div class="channel-name">👥 accountability-pods</div><div class="channel-desc">Matched 4-person groups for weekly check-ins and habit accountability</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEEKLY SCHEDULE -->
+<section style="padding-top:0">
+  <div class="section-tag">Weekly rhythm</div>
+  <h2>Something Happens Every Day.</h2>
+  <p class="section-sub">Both communities run structured weekly programming so there's always a reason to show up — and always a record to come back to.</p>
+
+  <p style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#818cf8;margin-bottom:16px">◈ Discord — Weekly Schedule</p>
+  <div class="schedule-grid" style="margin-bottom:32px">
+    <div class="day-card"><div class="day-name discord">Mon</div><div class="day-event discord-ev">Week intention setting</div><div class="day-event discord-ev">Symbol of the week</div></div>
+    <div class="day-card"><div class="day-name discord">Tue</div><div class="day-event discord-ev">Tradition deep-dive</div><div class="day-event discord-ev">Reading share</div></div>
+    <div class="day-card"><div class="day-name discord">Wed</div><div class="day-event discord-ev">Guided practice session</div><div class="day-event discord-ev">Hypnagogia focus</div></div>
+    <div class="day-card"><div class="day-name discord">Thu</div><div class="day-event discord-ev">Dream circle open</div><div class="day-event discord-ev">Community sharing</div></div>
+    <div class="day-card"><div class="day-name discord">Fri</div><div class="day-event discord-ev">Contemplation prompt</div><div class="day-event discord-ev">Weekly reflection</div></div>
+    <div class="day-card"><div class="day-name discord">Sat</div><div class="day-event discord-ev">Group practice night</div><div class="day-event discord-ev">Ancient text reading</div></div>
+    <div class="day-card"><div class="day-name discord">Sun</div><div class="day-event discord-ev">Integration reflection</div><div class="day-event discord-ev">Transmission drop</div></div>
+  </div>
+
+  <p style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7dd3fc;margin-bottom:16px">⬡ Telegram — Weekly Schedule</p>
+  <div class="schedule-grid">
+    <div class="day-card"><div class="day-name telegram">Mon</div><div class="day-event telegram-ev">Weekly Challenge Launch</div><div class="day-event telegram-ev">Data submission open</div></div>
+    <div class="day-card"><div class="day-name telegram">Tue</div><div class="day-event telegram-ev">Research paper drop</div><div class="day-event telegram-ev">Protocol critique thread</div></div>
+    <div class="day-card"><div class="day-name telegram">Wed</div><div class="day-event telegram-ev">Mid-week data check</div><div class="day-event telegram-ev">Hardware spotlight</div></div>
+    <div class="day-card"><div class="day-name telegram">Thu</div><div class="day-event telegram-ev">Live Q&amp;A session</div><div class="day-event telegram-ev">Guest practitioner</div></div>
+    <div class="day-card"><div class="day-name telegram">Fri</div><div class="day-event telegram-ev">Week-in-review stats</div><div class="day-event telegram-ev">Community wins log</div></div>
+    <div class="day-card"><div class="day-name telegram">Sat</div><div class="day-event telegram-ev">WBTB group night</div><div class="day-event telegram-ev">Deep-dive article</div></div>
+    <div class="day-card"><div class="day-name telegram">Sun</div><div class="day-event telegram-ev">Pod check-ins due</div><div class="day-event telegram-ev">Next week planning</div></div>
+  </div>
+</section>
+
+<!-- PROGRESSION -->
+<section style="padding-top:0">
+  <div class="section-tag">Member progression</div>
+  <h2>Earn Your Role. Prove Your Practice.</h2>
+  <p class="section-sub">Both platforms use a four-level progression system. Roles unlock access to deeper channels and mentor opportunities — and they require real logged practice to earn.</p>
+
+  <p style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#818cf8;margin-bottom:14px">Discord Progression</p>
+  <div class="prog-grid" style="margin-bottom:28px">
+    <div class="prog-step"><div class="prog-n discord">01</div><div class="prog-title">Seeker</div><div class="prog-desc">Entry level. Join morning intentions and dream circle.</div><div class="prog-unlock">Unlock: on joining</div></div>
+    <div class="prog-step"><div class="prog-n discord">02</div><div class="prog-title">Apprentice</div><div class="prog-desc">30 days of logged intention-setting, first dream shared.</div><div class="prog-unlock">Unlock: contemplation channel</div></div>
+    <div class="prog-step"><div class="prog-n discord">03</div><div class="prog-title">Awakened</div><div class="prog-desc">First verified lucid experience shared with the group.</div><div class="prog-unlock">Unlock: transmission archive</div></div>
+    <div class="prog-step"><div class="prog-n discord">04</div><div class="prog-title">Guide</div><div class="prog-desc">90+ days of consistent practice, mentoring newer members.</div><div class="prog-unlock">Unlock: co-host practice sessions</div></div>
+  </div>
+
+  <p style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7dd3fc;margin-bottom:14px">Telegram Progression</p>
+  <div class="prog-grid">
+    <div class="prog-step"><div class="prog-n telegram">01</div><div class="prog-title">Dreamer</div><div class="prog-desc">Entry level. Access to core channels and community.</div><div class="prog-unlock">Unlock: join + first post</div></div>
+    <div class="prog-step"><div class="prog-n telegram">02</div><div class="prog-title">Practitioner</div><div class="prog-desc">7 consecutive days of logged practice data.</div><div class="prog-unlock">Unlock: protocol-critique + pods</div></div>
+    <div class="prog-step"><div class="prog-n telegram">03</div><div class="prog-title">Lucid</div><div class="prog-desc">First verified WILD success logged with method + data.</div><div class="prog-unlock">Unlock: research-drops, AMA access</div></div>
+    <div class="prog-step"><div class="prog-n telegram">04</div><div class="prog-title">Master</div><div class="prog-desc">10+ WILD successes logged, 90+ days of consistent practice.</div><div class="prog-unlock">Unlock: mentor role, private channel</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="padding-top:0">
+  <div class="section-tag">Member experiences</div>
+  <h2>What Active Members Say.</h2>
+  <div class="testi-grid">
+    <div class="testi">
+      <div class="testi-stars discord">★★★★★</div>
+      <p class="testi-text">"The Discord community has a quality I've not found anywhere online. These are real practitioners. The Wednesday guided sessions and the dream circle have become the anchor of my week. The group energy is genuinely different."</p>
+      <div class="testi-author">
+        <div class="testi-av discord">AR</div>
+        <div><div class="testi-name">Amara R.</div><div class="testi-role">Discord member — Awakened role</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="testi-stars telegram">★★★★★</div>
+      <p class="testi-text">"The Telegram accountability pod is the reason I actually stuck with it. Four of us checking in every Sunday — I couldn't let the group down. Six weeks in, I had my first WILD. The data review from the group found my optimal window in one session."</p>
+      <div class="testi-author">
+        <div class="testi-av telegram">TK</div>
+        <div><div class="testi-name">Thomas K.</div><div class="testi-role">Telegram member — Lucid role</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="testi-stars discord">★★★★★</div>
+      <p class="testi-text">"I'm in both communities with the bundle. During the week I'm in Telegram analysing my sleep data. On weekends I drop into Discord for the guided practice. Same technique, completely different dimension to it. Worth every penny of the £30."</p>
+      <div class="testi-author">
+        <div class="testi-av discord">PL</div>
+        <div><div class="testi-name">Priya L.</div><div class="testi-role">Bundle member — both platforms</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="padding-top:0">
+  <div class="section-tag">Questions</div>
+  <h2>Common Questions.</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-q">Do I need to have bought a course to join the community?</div>
+      <div class="faq-a">No — community membership is standalone. However, the community is built around the WILD Programme curriculum, so members without the course will find many references to modules, protocols, and tracking sheets they won't have access to. If you haven't started yet, we recommend at minimum getting the free 7-Night Protocol PDF first.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How does cancellation work?</div>
+      <div class="faq-a">Cancel anytime through Whop — your access continues until the end of the current billing period, then stops. No lock-in, no cancellation fees. You can rejoin at any time and your previous role progress will be remembered if you return within 6 months.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What's the difference between the two communities really?</div>
+      <div class="faq-a">Discord is tradition-rooted and practice-first. Think guided meditation, dream sharing, contemplative inquiry, and ancient text study. The culture is warm and reflective. Telegram is data-first and protocol-driven. Think spreadsheets, hardware reviews, peer critique of your WBTB timing. The culture is curious and scientific. Many members use both.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How active are the communities?</div>
+      <div class="faq-a">Both platforms run structured weekly programming — something happens every day. As membership grows, so does the depth of conversation. New members are welcomed with an onboarding thread and matched with an accountability partner within their first week.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">I'm a Tier 3 member — when does my free community access start?</div>
+      <div class="faq-a">You'll receive a redemption code in your Tier 3 welcome email that activates 3 months of bundle access (both platforms). After 3 months, you'll be prompted to continue at £30/mo if you wish, with a permanent 20% loyalty discount bringing it to £24/mo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="section-tag" style="margin-bottom:16px">Ready to practice with others?</div>
+  <h2>Join the Stream That Fits.</h2>
+  <p style="color:var(--gray);max-width:500px;margin:0 auto 32px;font-size:1rem;line-height:1.7">Monthly membership. Cancel any time. Both streams available together for £30 — or choose just the one that calls you.</p>
+  <div class="cta-pricing-row">
+    <div class="cta-option">
+      <div class="cta-option-label" style="color:#818cf8">Discord</div>
+      <div class="cta-option-price"><sup>£</sup>20</div>
+      <div class="cta-option-note" style="color:#818cf8">Consciousness Stream</div>
+    </div>
+    <div class="cta-option" style="border-color:rgba(26,155,138,.4);background:rgba(26,155,138,.06)">
+      <div class="cta-option-label" style="color:var(--accent)">Bundle</div>
+      <div class="cta-option-price"><sup>£</sup>30</div>
+      <div class="cta-option-note" style="color:var(--accent)">Both Communities</div>
+    </div>
+    <div class="cta-option">
+      <div class="cta-option-label" style="color:#7dd3fc">Telegram</div>
+      <div class="cta-option-price"><sup>£</sup>15</div>
+      <div class="cta-option-note" style="color:#7dd3fc">Biohacker Stream</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:10px;max-width:340px;margin:0 auto">
+    <a href="https://whop.com/checkout/plan_cjvgz5WmJGhS0/" target="_blank" style="display:block;width:100%;padding:16px;background:var(--accent);color:#fff;text-align:center;border-radius:10px;font-weight:700;font-size:16px;text-decoration:none">Join Both — £30/month</a>
+    <a href="https://whop.com/checkout/plan_EM2adR2eK68Rk/" target="_blank" style="display:block;width:100%;padding:13px;background:rgba(88,101,242,.15);border:1px solid rgba(88,101,242,.35);color:#a5b4fc;text-align:center;border-radius:10px;font-weight:600;font-size:14px;text-decoration:none">Discord only — £20/month</a>
+    <a href="https://whop.com/checkout/plan_RVrTaIHvTiLP6/" target="_blank" style="display:block;width:100%;padding:13px;background:rgba(42,171,238,.08);border:1px solid rgba(42,171,238,.25);color:#7dd3fc;text-align:center;border-radius:10px;font-weight:600;font-size:14px;text-decoration:none">Telegram only — £15/month</a>
+    <div style="font-size:12px;color:var(--gray);margin-top:4px">30-day money-back guarantee on all plans · Cancel anytime via Whop</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Free Protocol</a>
+    <a href="tier1.html">Tier 1 — £50</a>
+    <a href="tier2.html">Tier 2 — £100</a>
+    <a href="tier3.html">Tier 3 — £200</a>
+    <a href="community.html">Community</a>
+  </div>
+  <div class="footer-copy">© 2024 WILD Programme · Two communities, one practice · Cancel community anytime</div>
+
+
+</body>
+</html>

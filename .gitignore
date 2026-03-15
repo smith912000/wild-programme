@@ -1,0 +1,19 @@
+# Windows system files
+desktop.ini
+Thumbs.db
+*.lnk
+
+# Claude internal files
+.claude/
+
+# Sensitive / local-only files
+*.env
+*.secret
+token.txt
+
+# Push tools (these live on Desktop, not in the repo)
+push.ps1
+push.bat
+
+# macOS
+.DS_Store

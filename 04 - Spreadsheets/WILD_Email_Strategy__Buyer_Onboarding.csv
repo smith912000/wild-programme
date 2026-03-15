@@ -1,0 +1,93 @@
+"Buyer Onboarding Sequences  |  Tier 1, Tier 2, Tier 3",,,,,,,,,,
+#,Track,Day,Trigger,Subject Line,Preview Text,Email Body (full copy),CTA Text,CTA URL,Tag on Open,Tag on Click
+1,T1 Onboarding,Day 0,course_tier1 purchase confirmed,Your Tier 1 course access is live. Start here.,"Login link, course map, and the one thing to do in the next 10 minutes.","Your Tier 1 course is live.
+
+Login here: [COURSE LINK]
+
+Before you start Module 1: read the Course Map on the welcome page. Understand where Module 1 (Nights 1-2) leads. The system is designed as a progression — each module unlocks the next.
+
+In the next 10 minutes:
+1. Log in to the course
+2. Watch the 3-minute intro video
+3. Download the Night 1 preparation checklist
+
+Your Discord community access is below. The WILD Performance Lab has channels specifically for Tier 1 practitioners. The most important one right now: #night-logs.
+
+Post your first log after Night 1. The community is tracking.",Access Your Course →,[LINK]/course/tier1,,community_discord
+2,T1 Onboarding,Day 2,Day 2 delay,How did Night 1 go?,Your log template + the most common Night 1 mistake.,"How was Night 1?
+
+The most common Night 1 mistake: expectation management.
+
+Night 1 is NOT about having a lucid dream. It is about calibrating your WBTB timing and beginning the body-scan practice. If you set an alarm, woke up, stayed awake for 20-30 minutes, and returned to sleep with relaxed awareness — Night 1 was a success.
+
+The log template is in Module 1. Use it. The data you collect in the first 7 nights is the foundation for everything that follows.
+
+Any questions — post in #protocol-qa in Discord.",Module 1: Night Preparation →,[LINK]/course/tier1/module1,,
+3,T1 Onboarding,Day 5,Day 5 delay,The community is where the practice sticks,How to use Discord to 3x your progress speed.,"After 5 days in the course, here is what I have noticed separates people who progress from people who plateau:
+
+Community accountability.
+
+The practitioners posting daily logs in #night-logs are making progress at 2-3x the rate of people who practice solo.
+
+Specifically, I want you to:
+1. Post in #introductions if you have not
+2. Drop your Night 3-5 logs in #night-logs
+3. Join the Saturday coaching call this week (voice channel)
+
+The community knows things I have not written down yet. Learn from them.",Join the Discord Community →,[LINK]/discord-invite,,community_discord
+4,T1 Onboarding,Day 7,Day 7 delay,One week in. Here is your personalised next step.,"Based on where you are in the protocol, here is what to focus on now.","One week in the course.
+
+Here is your decision tree for next steps:
+
+Had 0 lucid dreams: Focus exclusively on WBTB timing and body-scan quality. Do not add any technique until you can consistently cross the hypnagogic threshold without snapping back awake. Module 3 covers this.
+
+Had 1-2 lucid dreams: You are on track. Start Module 4 stabilisation work.
+
+Had 3+ lucid dreams: Jump to Module 5. You are ready for intentional dream work.
+
+Whatever your path: the course has you covered. And the community has people exactly where you are.
+
+Keep going.",Continue to Module 4 →,[LINK]/course/tier1/module4,,
+1,T2 Onboarding,Day 0,course_tier2 purchase confirmed,Advanced Practitioner access granted. Your first priority: the Advanced Lab.,What to tackle first in Tier 2 and why.,"You are in the Advanced Lab.
+
+Your course access: [LINK]
+
+Discord Advanced Lab access: Message me or a mod with your purchase confirmation if the @Advanced Lab role has not been automatically assigned.
+
+Where to start in Tier 2:
+
+Module 1: DEILD foundations. This single technique will change your morning practice.
+
+Module 4: Nootropic stack setup. Before you run the protocol at full intensity, get your supplement stack calibrated. Start low.
+
+First Advanced Q&A call is the first Tuesday of each month. 8pm EST. Voice channel.
+
+Welcome to the next level.",Access Tier 2 Course →,[LINK]/course/tier2,,community_discord
+2,T2 Onboarding,Day 3,Day 3 delay,The DEILD technique: everything you need to start tonight,Re-enter dreams within 30 seconds of waking. Step by step.,"DEILD — Dream-Exit Induced Lucid Dreaming — is the technique most likely to produce your highest-frequency lucid dreaming period.
+
+The mechanism: when you naturally wake from a REM period, your brain is primed. Acetylcholine is elevated. Dream content is still present in working memory. If you remain absolutely still and keep your eyes closed, you can re-enter the dream with full awareness within 30-60 seconds.
+
+The key variables:
+• No movement whatsoever upon waking. Movement signals to the brain that you are awake and need to be alert.
+• Eyes closed before conscious awareness fully returns.
+• Hold a neutral, receptive mental state. Do not try to visualise — just observe what comes.
+
+Full technique breakdown with timing specifics is in Module 1.
+
+Try it on your next natural morning wake. Post in #advanced-techniques when you get a result.",Module 1: DEILD Deep Dive →,[LINK]/course/tier2/module1,,
+1,T3 Onboarding,Day 0,course_tier3 purchase confirmed,You are inside the Master tier. Here is what the next 90 days look like.,Welcome to the inner circle. Everything you need to get started.,"Welcome to the Master tier.
+
+Your course access: [LINK]
+
+Discord Master inner circle: The @Master role grants access to #master-lounge, #personal-system-builds, #retreat-planning, and #founder-hotline.
+
+Your 90-day plan:
+• Days 1-30: Module 1-3. Personal system architecture audit. What is your current practice? What are the gaps? I will review your system if you post it in #personal-system-builds.
+• Days 31-60: Module 4-5. Advanced integration work. Shadow work, cognitive task protocols, personal mythology.
+• Days 61-90: Retreat preparation module. Pre-work for the annual retreat.
+
+Monthly Master Roundtable: Last Friday of each month, 7pm EST. Voice channel. Max 8 people. Come prepared with one question.
+
+My founder hotline: post in #founder-hotline anytime. I will respond within 48 hours.
+
+You have made a serious commitment to this practice. I take that seriously.",Access Tier 3 Course →,[LINK]/course/tier3,,

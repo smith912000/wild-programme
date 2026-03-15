@@ -1,0 +1,30 @@
+WILD Bizz — Email Strategy Master Overview,,,,,,
+Sequence Name,Track / Audience,Trigger,# Emails,Duration,Primary Goal,Next Sequence / Exit
+Biohacker Welcome Nurture,Biohacker,Lead magnet opt-in (biohacker tag),7,21 days,Build trust + convert to T1 course,Sales Sequence if no purchase → Re-engagement at Day 60
+Spiritual Welcome Nurture,Spiritual,Lead magnet opt-in (spiritual tag),7,21 days,Build trust + convert to T1 course,Sales Sequence if no purchase → Re-engagement at Day 60
+Tier 1 Buyer Onboarding,Both,T1 course purchase,5,7 days,Activate course + invite to community,T1→T2 Upsell at Day 30
+Tier 2 Buyer Onboarding,Both,T2 course purchase,4,5 days,Activate advanced content + Advanced Lab,T2→T3 Upsell at Day 60
+Tier 3 Buyer Onboarding,Both,T3 course purchase,3,3 days,Activate Master tier + retreat prep,Retention loop
+T1 → T2 Upsell,Both,T1 purchase tag + Day 30,3,5 days,Convert T1 buyers to T2 ($100),If purchased → T2 Onboarding. If not → nurture
+T2 → T3 Upsell,Both,T2 purchase tag + Day 60,3,5 days,Convert T2 buyers to T3 ($200),If purchased → T3 Onboarding. If not → retention
+Re-engagement (Cold),Both,No open in 30 days,4,10 days,Win back inactive subscribers,If no action → remove tag / unsubscribe
+Community Onboarding,Biohacker,Discord invite (T1+ purchase),3,7 days,Get member active in Discord,Weekly community digest email
+Community Onboarding,Spiritual,Telegram invite (T1+ purchase),3,7 days,Get member active in Telegram Circle,Weekly community digest email
+Weekly Community Digest,Biohacker,Recurring: every Monday,1,Weekly,Drive Discord engagement + retention,Ongoing loop
+Weekly Community Digest,Spiritual,Recurring: every Monday,1,Weekly,Drive Telegram engagement + retention,Ongoing loop
+Course Launch / Promo,Both,Manual trigger (launch events),5,7 days,Drive course sales during launch,Post-launch nurture
+Retreat Announcement,T3 buyers,1 week before retreat registration,3,5 days,Fill 30 retreat spots,Retreat waitlist if full
+▸  TAG ARCHITECTURE  (ConvertKit / ActiveCampaign),,,,,,
+Tag Name,Applied When,Removes Tag,Enters Sequence,Notes,,
+wild_biohacker,Opts in via biohacker form / landing page,—,Biohacker Welcome Nurture,Set at opt-in. Determines all future content.,,
+wild_spiritual,Opts in via spiritual form / landing page,—,Spiritual Welcome Nurture,Set at opt-in. Determines all future content.,,
+course_tier1,Purchases T1 course ($50),—,Tier 1 Buyer Onboarding,Also grants Discord/Telegram invite.,,
+course_tier2,Purchases T2 course ($100),—,Tier 2 Buyer Onboarding,Removes T1 upsell from queue.,,
+course_tier3,Purchases T3 course ($200),—,Tier 3 Buyer Onboarding,VIP flag. Triggers retreat comms.,,
+community_discord,Clicks Discord invite link in email,—,Community Onboarding (Bio),Tracks Discord join intent.,,
+community_telegram,Clicks Telegram invite link in email,—,Community Onboarding (Spir),Tracks Telegram join intent.,,
+upsell_t1_t2_sent,T1→T2 upsell sequence started at Day 30,—,—,Prevents duplicate upsell triggers.,,
+upsell_t2_t3_sent,T2→T3 upsell sequence started at Day 60,—,—,Prevents duplicate upsell triggers.,,
+cold_30d,No email open in 30 days,removed if reopens,Re-engagement Sequence,Applied by automation rule.,,
+unsubscribed_intent,No action after re-engagement sequence,—,—,Flag for manual review / list clean.,,
+retreat_interest,Clicks retreat CTA in any email,—,Retreat Announcement,Warm flag for retreat fills.,,

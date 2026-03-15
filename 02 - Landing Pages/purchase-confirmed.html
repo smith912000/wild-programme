@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Confirmed — WILD Programme</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--accent:#5865f2;--green:#3fb950;--gray:#8b949e;--white:#e6edf3;--text:#c9d1d9}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+    .card{max-width:560px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;text-align:center}
+    .icon{font-size:4rem;margin-bottom:16px}
+    h1{font-size:2rem;font-weight:800;color:var(--white);margin-bottom:12px}
+    .subtitle{color:var(--gray);font-size:1.05rem;margin-bottom:32px;line-height:1.7}
+    .divider{height:1px;background:var(--border);margin:32px 0}
+    .section-title{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--gray);margin-bottom:16px}
+    .download-btn{display:block;background:var(--accent);color:#fff;text-decoration:none;padding:16px 24px;border-radius:10px;font-weight:700;font-size:1rem;margin-bottom:12px;transition:opacity .2s}
+    .download-btn:hover{opacity:.88}
+    .download-btn.secondary{background:rgba(88,101,242,.15);border:1px solid rgba(88,101,242,.35);color:#a5b4fc}
+    .tier-content{display:none;text-align:left}
+    .tier-content.active{display:block}
+    .content-item{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:10px}
+    .content-item h3{font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:4px}
+    .content-item p{font-size:.85rem;color:var(--gray)}
+    .badge{display:inline-block;background:var(--green);color:#0d1117;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;letter-spacing:.05em}
+    .note{font-size:.82rem;color:var(--gray);margin-top:20px;line-height:1.6}
+    .note a{color:var(--accent)}
+    .linktree-btn{display:block;background:rgba(88,101,242,.1);border:1px solid rgba(88,101,242,.3);color:var(--white);text-decoration:none;padding:14px 20px;border-radius:10px;font-weight:700;font-size:.95rem;text-align:center;margin-bottom:8px;transition:background .2s}
+    .linktree-btn:hover{background:rgba(88,101,242,.2)}
+    .linktree-note{font-size:.78rem;color:var(--gray);text-align:center}
+    footer{margin-top:32px;font-size:.8rem;color:var(--gray);text-align:center}
+    footer a{color:var(--accent)}
+  </style>
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your actual Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+<div class="card">
+  <div class="icon">🌙</div>
+  <span class="badge">Payment Confirmed</span>
+  <h1 id="page-title">Welcome to WILD</h1>
+  <p class="subtitle" id="page-subtitle">Your access is ready. Everything you need is below.</p>
+
+  <!-- TIER 1 CONTENT -->
+  <div class="tier-content" id="content-tier1">
+    <p class="section-title">Your Tier 1 Downloads</p>
+    <div class="content-item">
+      <h3>📘 WILD Foundations — Core Course</h3>
+      <p>Complete video course + PDF workbook. All 7 modules.</p>
+    </div>
+    <div class="content-item">
+      <h3>🎵 Audio Toolkit</h3>
+      <p>Binaural beats, WBTB alarm sequences, and guided induction tracks.</p>
+    </div>
+    <div class="content-item">
+      <h3>📓 Dream Journal Template</h3>
+      <p>Structured for WILD — tracks REM windows, reality checks, and recall.</p>
+    </div>
+    <a href="YOUR_TIER1_GOOGLE_DRIVE_LINK" class="download-btn">⬇ Download Tier 1 Content Pack</a>
+    <p class="note">Content is hosted on Google Drive. If you have any trouble accessing, email <a href="mailto:smith@negotiorum.com">smith@negotiorum.com</a> with your PayPal receipt.</p>
+  </div>
+
+  <!-- TIER 2 CONTENT -->
+  <div class="tier-content" id="content-tier2">
+    <p class="section-title">Your Tier 2 Downloads</p>
+    <div class="content-item">
+      <h3>📘 WILD Foundations + Advanced — Full Courses</h3>
+      <p>Everything in Tier 1 plus the full advanced curriculum.</p>
+    </div>
+    <div class="content-item">
+      <h3>🔬 Sleep Tracking Protocol</h3>
+      <p>Integration guides for Oura Ring, Garmin, and Apple Watch.</p>
+    </div>
+    <div class="content-item">
+      <h3>💊 Supplement Stack Reference</h3>
+      <p>Galantamine, Alpha-GPC, melatonin timing — full evidence-backed guide.</p>
+    </div>
+    <div class="content-item">
+      <h3>🎵 Full Audio Toolkit</h3>
+      <p>Extended binaural pack + all Tier 1 audio content.</p>
+    </div>
+    <a href="YOUR_TIER2_GOOGLE_DRIVE_LINK" class="download-btn">⬇ Download Tier 2 Content Pack</a>
+    <p class="note">Content is hosted on Google Drive. If you have any trouble accessing, email <a href="mailto:smith@negotiorum.com">smith@negotiorum.com</a> with your PayPal receipt.</p>
+  </div>
+
+  <!-- TIER 3 CONTENT -->
+  <div class="tier-content" id="content-tier3">
+    <p class="section-title">Your Tier 3 Master Programme</p>
+    <div class="content-item">
+      <h3>📘 Complete WILD Curriculum</h3>
+      <p>All Tier 1 + Tier 2 content included in full.</p>
+    </div>
+    <div class="content-item">
+      <h3>🧠 Neuroscience Deep-Dive Series</h3>
+      <p>Advanced sessions on REM architecture, memory consolidation, and consciousness.</p>
+    </div>
+    <div class="content-item">
+      <h3>🎧 Mastery Audio Pack</h3>
+      <p>Complete binaural library including theta entrainment and custom WBTB sequences.</p>
+    </div>
+    <div class="content-item">
+      <h3>🏆 3 Months Community Access (Free)</h3>
+      <p>Full access to both Discord and Telegram communities included.</p>
+    </div>
+    <a href="YOUR_TIER3_GOOGLE_DRIVE_LINK" class="download-btn">⬇ Download Master Programme Pack</a>
+    <a href="https://whop.com/checkout/plan_EM2adR2eK68Rk/" target="_blank" class="download-btn secondary">🎮 Discord — Esoteric Stream (3 months free)</a>
+    <a href="https://whop.com/checkout/plan_RVrTaIHvTiLP6/" target="_blank" class="download-btn secondary">✈ Telegram — Neuromodulation Stream (3 months free)</a>
+    <p class="note">Discord is the esoteric/consciousness approach. Telegram is the biohacker/neuromodulation approach. Both are included free for 3 months with Tier 3. For access issues email <a href="mailto:smith@negotiorum.com">smith@negotiorum.com</a>.</p>
+  </div>
+
+  <!-- COMMUNITY CONTENT -->
+  <div class="tier-content" id="content-community">
+    <p class="section-title">Your Community Access</p>
+    <div class="content-item">
+      <h3>🎮 Discord — The Esoteric Stream</h3>
+      <p>Consciousness-first approach. Tibetan dream yoga, Sufi and Western esoteric traditions, collective dream interpretation, role progression: Seeker → Apprentice → Awakened → Guide. This is the deep-dive into the <em>why</em> of lucid dreaming.</p>
+    </div>
+    <div class="content-item">
+      <h3>✈ Telegram — The Neuromodulation Stream</h3>
+      <p>Biohacker-first approach. Supplement stacks, sleep tracking data, Alpha-GPC and Galantamine protocols, accountability pods, peer-reviewed sleep logs. This is the <em>how</em> — optimised, measurable, repeatable.</p>
+    </div>
+    <p style="font-size:.85rem;color:var(--gray);margin-bottom:18px;line-height:1.7">Not sure which? Most members join both — they cover different angles of the same practice. Your subscription gives you access to whichever you signed up for.</p>
+    <a href="https://whop.com/checkout/plan_EM2adR2eK68Rk/" target="_blank" class="download-btn secondary">🎮 Join Discord — Esoteric Stream</a>
+    <a href="https://whop.com/checkout/plan_RVrTaIHvTiLP6/" target="_blank" class="download-btn secondary">✈ Join Telegram — Neuromodulation Stream</a>
+    <p class="note">Your subscription is now active. To manage billing or cancel, visit <a href="https://www.paypal.com/myaccount/autopay/" target="_blank">PayPal AutoPay settings</a>. Questions? <a href="mailto:smith@negotiorum.com">smith@negotiorum.com</a></p>
+  </div>
+
+  <!-- FALLBACK -->
+  <div class="tier-content active" id="content-default">
+    <p class="section-title">Access Your Content</p>
+    <a href="mailto:smith@negotiorum.com" class="download-btn">📧 Contact to Receive Your Files</a>
+    <p class="note">Reply with your PayPal payment confirmation and we'll send your content within 1 hour.</p>
+  </div>
+
+  <div class="divider"></div>
+  <a href="YOUR_LINKTREE_URL" target="_blank" class="linktree-btn">🌿 &nbsp;Follow the journey — find us everywhere</a>
+  <p class="linktree-note">TikTok · Instagram · YouTube · Discord · Telegram — all in one place</p>
+  <div class="divider"></div>
+  <p class="note">📧 Questions? <a href="mailto:smith@negotiorum.com">smith@negotiorum.com</a> · We respond within 24 hours.</p>
+</div>
+
+<footer>
+  <a href="landing_page.html">WILD Programme</a> &nbsp;·&nbsp;
+  <a href="tier1.html">Tier 1</a> &nbsp;·&nbsp;
+  <a href="tier2.html">Tier 2</a> &nbsp;·&nbsp;
+  <a href="tier3.html">Tier 3</a> &nbsp;·&nbsp;
+  <a href="community.html">Community</a>
+  <a href="legal.html">Legal &amp; Privacy</a>
+</footer>
+
+<script>
+  // Read ?tier= param from PayPal return URL and show the right content
+  const params = new URLSearchParams(window.location.search);
+  const tier = params.get('tier') || params.get('item_name') || '';
+
+  const map = {
+    '1': 'tier1', 'tier1': 'tier1', 'foundations': 'tier1',
+    '2': 'tier2', 'tier2': 'tier2', 'advanced': 'tier2',
+    '3': 'tier3', 'tier3': 'tier3', 'master': 'tier3',
+    'community': 'community', 'discord': 'community', 'telegram': 'community'
+  };
+
+  const key = map[tier.toLowerCase()] || null;
+  if (key) {
+    document.getElementById('content-default').classList.remove('active');
+    document.getElementById('content-' + key).classList.add('active');
+    const titles = {
+      tier1: ['Welcome to WILD Foundations', 'Your Tier 1 content is ready to download below.'],
+      tier2: ['Welcome to WILD Advanced', 'Your Tier 2 content pack is ready below.'],
+      tier3: ['Welcome to the Master Programme', 'Your full content pack and community access are below.'],
+      community: ['Welcome to the WILD Community', 'Your community invite links are below.']
+    };
+    if (titles[key]) {
+      document.getElementById('page-title').textContent = titles[key][0];
+      document.getElementById('page-subtitle').textContent = titles[key][1];
+    }
+  }
+</script>
+</body>
+</html>

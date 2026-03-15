@@ -1,0 +1,135 @@
+GOOGLE APPS SCRIPT — EMAIL AUTOMATION,
+SETUP INSTRUCTIONS,
+Step 1,"In your Google Sheet (the CRM sheet), go to Extensions > Apps Script"
+Step 2,Delete any existing code and paste the code from cell B7 below
+Step 3,Save the project and name it 'WILD Email Automation'
+Step 4,Set up a trigger: Edit > Current project's triggers > Add Trigger > sendEmailSequence > From spreadsheet > On form submit
+Step 5,"When Google Form submits to this sheet, it auto-triggers the email sequence"
+FULL CODE,"// ═══════════════════════════════════════════════════════
+// WILD PROTOCOL — GOOGLE APPS SCRIPT EMAIL AUTOMATION
+// Paste this entire block into Extensions > Apps Script
+// ═══════════════════════════════════════════════════════
+
+// CONFIG — Update these values
+var CONFIG = {
+  CRM_SHEET: 'Lead CRM',
+  LEAD_MAGNET_URL: 'YOUR_GOOGLE_DRIVE_LINK_HERE', // Share link to your PDF
+  COURSE_URL: 'YOUR_GUMROAD_LINK_HERE',
+  YOUR_NAME: 'YOUR NAME',
+  EMAIL_SIGNATURE: 'YOUR NAME',
+};
+
+// ─── EMAIL 01: Immediate delivery ────────────────────
+function getEmail1(firstName) {
+  return {
+    subject: 'Your 7-Night WILD Protocol is here — start tonight',
+    body: 'Hey ' + firstName + ',\n\n' +
+      'Your 7-Night Wake-Induced Lucid Dreaming Protocol is ready.\n\n' +
+      'Download it here: ' + CONFIG.LEAD_MAGNET_URL + '\n\n' +
+      'Before you dive in — this protocol is designed for analytical, performance-focused people. Not the spiritual version.\n\n' +
+      'Key things to know:\n' +
+      '• Nights 1-2 are pure setup. Do not skip them.\n' +
+      '• Night 5 covers sleep paralysis. I reframed it in physiological terms.\n' +
+      '• The tracking template is non-optional. Without data, you are guessing.\n\n' +
+      'Tonight: just observe hypnagogia — the 10-minute window between alertness and sleep. Don\'t try anything yet. Just watch what your brain does.\n\n' +
+      'Night 1 starts tonight.\n\n' +
+      CONFIG.EMAIL_SIGNATURE + '\n\n' +
+      'P.S. Reply and tell me: are you coming to WILD with a specific use case (problem-solving, creativity, rehearsal) or just curious? I read every reply.'
+  };
+}
+
+// ─── EMAIL 02: Day 3 — Neurotechnology ──────────────
+function getEmail2(firstName) {
+  return {
+    subject: 'The EEG data on lucid dreaming (and the £3,000 shortcut)',
+    body: 'Hey ' + firstName + ',\n\n' +
+      'You are on Night 3 — the night we move into hypnagogic transition work.\n\n' +
+      'Quick context: In lab studies using high-density EEG, lucid dreamers show a distinctive spike in gamma wave activity (35-45 Hz) in the prefrontal cortex during REM. This is not present in non-lucid REM. Lucid dreaming has a measurable, distinct neural signature.\n\n' +
+      'Hardware is emerging around this — EEG headbands from £300-£3,000+ that detect REM onset and deliver stimuli to trigger lucidity. They work, but the practitioners getting the best results are the ones who already have the underlying skill.\n\n' +
+      'That is what you are building this week.\n\n' +
+      'Tonight: Use the breath anchor technique from the guide. Stay passive. Watch the hypnagogic imagery like it is a screen.\n\n' +
+      'How is the tracking going? Hit reply.\n\n' +
+      CONFIG.EMAIL_SIGNATURE + '\n\n' +
+      'P.S. Advanced content on the consumer neurotechnology landscape is coming in the full practitioner course. More on that at the end of the week.'
+  };
+}
+
+// ─── EMAIL 03: Day 7 — Results + Course bridge ──────
+function getEmail3(firstName) {
+  return {
+    subject: 'How did your 7 nights go? (And what comes next)',
+    body: 'Hey ' + firstName + ',\n\n' +
+      'Seven days ago, you downloaded a protocol for training conscious awareness during REM sleep.\n\n' +
+      'If you hit lucidity at least once — even briefly — you have proven this is real.\n\n' +
+      'If you are still at zero, check your tracking log: Was your sleep onset consistent? Did you complete the WBTB practice? Did you reach Night 5? Most zero-result cases are circadian calibration or sleep paralysis avoidance issues — both fixable.\n\n' +
+      'Here is what I want you to think about: You just spent seven nights optimizing an eight-hour window that most people use passively. The same instinct that leads people to optimize morning routines, nutrition, and HRV scores.\n\n' +
+      'What comes next:\n\n' +
+      '• The WILD Foundations Course — the full structured curriculum for reliable nightly lucidity\n' +
+      '• Advanced techniques, hardware integration, and practitioner-level tracking\n' +
+      '• A private community of practitioners sharing results and data\n\n' +
+      'The Tier 1 course is available now: ' + CONFIG.COURSE_URL + '\n\n' +
+      'If you have questions, just reply.\n\n' +
+      CONFIG.EMAIL_SIGNATURE + '\n\n' +
+      'P.S. Reply and tell me: what was your biggest obstacle this week? Your answer is genuinely useful data for improving the protocol.'
+  };
+}
+
+// ─── MAIN: Send emails on schedule ──────────────────
+function sendEmailSequence() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.CRM_SHEET);
+  var data = sheet.getDataRange().getValues();
+  var headers = data[1]; // Row 2 is headers (Row 1 is title)
+  var today = new Date();
+
+  for (var i = 2; i < data.length; i++) { // Start from row 3 (data)
+    var email = data[i][0];
+    var firstName = data[i][1] || 'there';
+    var signupDate = new Date(data[i][2]);
+    var email1Sent = data[i][4];
+    var email2Sent = data[i][6];
+    var email3Sent = data[i][8];
+
+    if (!email || email === '') continue;
+
+    var daysSinceSignup = Math.floor((today - signupDate) / (1000 * 60 * 60 * 24));
+
+    // Email 01: Send immediately (day 0)
+    if (!email1Sent || email1Sent === '') {
+      var e1 = getEmail1(firstName);
+      GmailApp.sendEmail(email, e1.subject, e1.body);
+      sheet.getRange(i + 1, 5).setValue('Yes');
+      sheet.getRange(i + 1, 6).setValue(new Date());
+    }
+
+    // Email 02: Send on day 3+
+    if (daysSinceSignup >= 3 && (!email2Sent || email2Sent === '')) {
+      var e2 = getEmail2(firstName);
+      GmailApp.sendEmail(email, e2.subject, e2.body);
+      sheet.getRange(i + 1, 7).setValue('Yes');
+      sheet.getRange(i + 1, 8).setValue(new Date());
+    }
+
+    // Email 03: Send on day 7+
+    if (daysSinceSignup >= 7 && (!email3Sent || email3Sent === '')) {
+      var e3 = getEmail3(firstName);
+      GmailApp.sendEmail(email, e3.subject, e3.body);
+      sheet.getRange(i + 1, 9).setValue('Yes');
+      sheet.getRange(i + 1, 10).setValue(new Date());
+    }
+  }
+}
+
+// ─── TRIGGER: Run on form submit + daily check ──────
+function onFormSubmit(e) {
+  sendEmailSequence();
+}
+
+// Set this as a daily trigger in Edit > Triggers
+function dailyEmailCheck() {
+  sendEmailSequence();
+}"
+TRIGGER SETUP,"After pasting the code:
+1. Click the clock icon (Triggers) in Apps Script
+2. Add Trigger #1: sendEmailSequence > From spreadsheet > On form submit
+3. Add Trigger #2: dailyEmailCheck > Time-driven > Day timer > 9am-10am
+4. This means: new signups get Email 01 instantly, and the daily check sends Email 02/03 on schedule"

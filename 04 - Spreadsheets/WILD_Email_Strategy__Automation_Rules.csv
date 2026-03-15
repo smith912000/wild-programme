@@ -1,0 +1,17 @@
+Automation Rules  |  ConvertKit / Make / Zapier Logic,,,,
+Rule Name,Trigger Condition,Action,Tags Applied/Removed,Platform / Notes
+Opt-in → Biohacker Track,"Form submit with field audience=""biohacker"" OR source=twitter/reddit/tiktok biohacker campaign",Add to Biohacker Welcome Nurture sequence,ADD: wild_biohacker,ConvertKit: form tag on submit. Make: catch webhook from landing page.
+Opt-in → Spiritual Track,"Form submit with field audience=""spiritual"" OR source=spiritual campaign UTM",Add to Spiritual Welcome Nurture sequence,ADD: wild_spiritual,ConvertKit: alternate form tag. Separate form per landing page variant.
+T1 Purchase → Onboarding,Gumroad/Stripe webhook: product=tier1,Start T1 Buyer Onboarding seq. Grant Discord role.,ADD: course_tier1,Make: Gumroad webhook → ConvertKit tag → Discord API role grant. Send course login.
+T2 Purchase → Onboarding,Gumroad/Stripe webhook: product=tier2,Start T2 Onboarding seq. Grant Advanced Lab role.,"ADD: course_tier2, REMOVE: upsell_t1_t2_sent flag",Make: Same webhook flow. Discord Advanced Lab role via API.
+T3 Purchase → Onboarding,Gumroad/Stripe webhook: product=tier3,Start T3 Onboarding seq. Grant Master role.,"ADD: course_tier3, REMOVE: upsell_t2_t3_sent flag",Make: Same webhook flow. Discord Master role + Telegram VIP invite.
+T1→T2 Upsell Trigger,course_tier1 tag present + 30 days since tag applied + course_tier2 NOT present,Start T1→T2 Upsell sequence,ADD: upsell_t1_t2_sent,ConvertKit automation: time delay 30d from tag date. Check NOT has tag course_tier2.
+T2→T3 Upsell Trigger,course_tier2 tag present + 60 days since tag applied + course_tier3 NOT present,Start T2→T3 Upsell sequence,ADD: upsell_t2_t3_sent,ConvertKit automation: time delay 60d from tag date. Check NOT has tag course_tier3.
+Cold Subscriber Flag,Subscriber has NOT opened any email in 30 days,Apply cold_30d tag → start Re-engagement sequence,ADD: cold_30d,ConvertKit: automation trigger on 30d inactivity. Suppress from regular broadcasts.
+Re-engagement Success,Subscriber opens OR clicks any email while in re-engagement sequence,Remove cold_30d tag. Return to regular broadcast.,REMOVE: cold_30d,ConvertKit: any open/click during re-engagement seq removes flag and exits sequence.
+Permanent Unsubscribe Flag,Re-engagement sequence completes with no action,Tag as unsubscribed_intent. Remove from all sequences.,ADD: unsubscribed_intent,Manual review monthly. Remove from list if confirmed inactive 60+ days.
+Discord Invite Sent,T1/T2/T3 purchase AND wild_biohacker tag,Include Discord invite link in onboarding email.,ADD: community_discord,ConvertKit: conditional block in T1 onboarding email based on tag.
+Telegram Invite Sent,T1/T2/T3 purchase AND wild_spiritual tag,Include Telegram invite link in onboarding email.,ADD: community_telegram,Make: Telegram bot API to generate unique invite link on purchase. Send via email.
+Weekly Digest — Biohacker,"Every Monday, 8am EST. Has course_tier1+ tag. Has community_discord tag.",Send Weekly Discord Digest email.,—,ConvertKit: RSS broadcast or template broadcast scheduled weekly.
+Weekly Digest — Spiritual,"Every Monday, 8am EST. Has course_tier1+ tag. Has community_telegram tag.",Send Weekly Telegram Digest email.,—,ConvertKit: separate template for spiritual track. Same schedule.
+Retreat Interest Flag,Subscriber clicks any retreat CTA link,Apply retreat_interest tag. Add to Retreat Announcement sequence.,ADD: retreat_interest,ConvertKit: link trigger on all retreat CTAs. Separate retreat announcement sequence fires 1 week pre-registration.
