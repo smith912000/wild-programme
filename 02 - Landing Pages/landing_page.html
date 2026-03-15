@@ -122,6 +122,11 @@
     <div class="fcard" id="getaccess">
       <div class="ftitle">Download the 7-Night WILD Protocol &mdash; Free</div>
       <div class="fsub">A cognitive performance system for optimizing REM sleep awareness</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:18px">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#3fb950"><span>✓</span><span>7-Night WILD Protocol — 16-page PDF</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#3fb950"><span>✓</span><span>Bonus: The WILD Sleep Architecture Map — 7-page timing guide</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#3fb950"><span>✓</span><span>7-day biohacker email course — free</span></div>
+      </div>
       <!--
         SETUP OPTION A (Recommended — free, handles email sequence automatically):
         Replace this entire form block with your Kit (kit.com) embed code.
@@ -291,7 +296,7 @@
   <p class="lead">730 hours of REM sleep per year. The protocol is free. The only cost is following it.</p>
   <div class="fcard" style="text-align:left;margin-top:0">
     <div class="ftitle">Get the Free 7-Night Protocol</div>
-    <div class="fsub">Delivered to your inbox instantly. 16-page PDF + tracking template included.</div>
+    <div class="fsub">Delivered to your inbox instantly. 16-page PDF + Sleep Architecture Map included.</div>
     <form id="bform">
       <div class="frow">
         <input type="text" name="first_name" placeholder="First name" required>
@@ -330,10 +335,10 @@ if(bform){
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ api_key: KIT_API_KEY, email: email, first_name: fname, fields: { source: 'biohacker' } })
     }).then(function(){
-      try{ sessionStorage.setItem('wild_track','bio'); }catch(e){}
+      try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track','bio'); }catch(e){}
       window.location.href = 'thankyou.html';
     }).catch(function(){
-      try{ sessionStorage.setItem('wild_track','bio'); }catch(e){}
+      try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track','bio'); }catch(e){}
       window.location.href = 'thankyou.html';
     });
   });
