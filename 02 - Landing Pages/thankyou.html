@@ -124,16 +124,6 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
         <span class="also-name">The WILD Sleep Architecture Map</span>
         <span class="also-pages">7 pages</span>
       </a>
-      <a href="https://smith912000.github.io/wild-programme/05%20-%20Lead%20Magnet/7_Night_Lucid_Dream_Initiation.pdf" class="also-link" target="_blank" rel="noopener">
-        <span class="also-pill sp">Spiritual</span>
-        <span class="also-name">7-Night Lucid Dream Initiation</span>
-        <span class="also-pages">12 pages</span>
-      </a>
-      <a href="https://smith912000.github.io/wild-programme/05%20-%20Lead%20Magnet/WILD_Hypnagogic_Gateway.pdf" class="also-link" target="_blank" rel="noopener">
-        <span class="also-pill sp">Spiritual</span>
-        <span class="also-name">The Hypnagogic Gateway</span>
-        <span class="also-pages">7 pages</span>
-      </a>
       <a href="https://smith912000.github.io/wild-programme/05%20-%20Lead%20Magnet/WILD_5_Signs_Youre_Ready.pdf" class="also-link" target="_blank" rel="noopener">
         <span class="also-pill" style="background:rgba(63,185,80,.12);color:#3fb950;border:1px solid rgba(63,185,80,.3)">Qualifier</span>
         <span class="also-name">5 Signs You're Ready to Lucid Dream Tonight</span>
@@ -154,17 +144,11 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
         <div class="next-title">WILD Foundations — £50</div>
         <div class="next-desc">7-module course. REM science, protocols, performance tracking.</div>
       </a>
-      <a href="tier1.html" class="next-card spirit-card">
-        <div class="next-icon">◈</div>
-        <div class="next-label sp">Consciousness Path</div>
-        <div class="next-title">WILD Foundations — £50</div>
-        <div class="next-desc">Same course, tradition-rooted framing, contemplative depth.</div>
-      </a>
       <a href="community.html" class="next-card">
         <div class="next-icon">🌐</div>
         <div class="next-label comm">Community</div>
         <div class="next-title">Join the Community</div>
-        <div class="next-desc">Discord (biohacker) or Telegram (spiritual) — from £15/mo.</div>
+        <div class="next-desc">Discord biohacker community — protocols, data labs, live Q&amp;A. From £15/mo.</div>
       </a>
       <a href="tier3.html" class="next-card">
         <div class="next-icon">✦</div>
@@ -210,32 +194,13 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
       emailClass:  '',
       noticeText:  '<strong>Also check your inbox</strong> — we\'ve sent your download link so you can access it on any device, any time.',
     },
-    spirit: {
-      navClass:    'spirit',
-      mainClass:   'spirit',
-      iconClass:   'spirit',
-      greeting:    'Welcome, dreamer.',
-      title:       'Your 7-Night Lucid Dream\nInitiation is Ready',
-      sub:         'A journey into conscious dreaming rooted in Tibetan Dream Yoga, Sufi tradition, and Jungian depth work. Begin tonight.',
-      primaryHref: BASE + '7_Night_Lucid_Dream_Initiation.pdf',
-      primaryLabel:'Download — 7-Night Lucid Dream Initiation',
-      primaryMeta: '12 pages · PDF · Free',
-      bonusHref:   BASE + 'WILD_Hypnagogic_Gateway.pdf',
-      bonusLabel:  '+ Bonus: The Hypnagogic Gateway',
-      bonusMeta:   '7 pages · The threshold between worlds',
-      bonusClass:  'spirit',
-      emailClass:  'spirit',
-      noticeText:  '<strong>Also check your inbox</strong> — we\'ve sent your download link so you can access it on any device, any time.',
-    }
   };
 
   var track = 'bio';
-  try{ var s = sessionStorage.getItem('wild_track'); if(s === 'spirit') track = 'spirit'; }catch(e){}
   var t = tracks[track];
 
   // Apply track
   var navLogo = document.getElementById('nav-logo');
-  if(track === 'spirit') navLogo.classList.add('spirit');
 
   var mainEl = document.getElementById('main-el');
   if(t.mainClass) mainEl.classList.add(t.mainClass);
