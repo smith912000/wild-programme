@@ -181,6 +181,10 @@
   .link-card.red::before    { background: linear-gradient(90deg,rgba(248,81,73,.06),transparent); }
   .link-card.red:hover    { border-color: var(--red); }
 
+  .link-card.x-black { border-left: 3px solid #fff; }
+  .link-card.x-black::before { background: linear-gradient(90deg,rgba(255,255,255,.05),transparent); }
+  .link-card.x-black:hover { border-color: #fff; box-shadow: 0 6px 24px rgba(255,255,255,.06); }
+
   .card-icon {
     font-size: 1.4rem;
     width: 36px;
@@ -485,7 +489,7 @@
   <div class="section-label">Socials &amp; more</div>
 
   <a href="https://x.com/NeuroModulation"
-     class="link-card sky" target="_blank" rel="noopener"
+     class="link-card x-black" target="_blank" rel="noopener"
      onclick="gtag('event','click',{event_category:'hub',event_label:'social_twitter'})">
     <div class="card-icon">𝕏</div>
     <div class="card-body">
@@ -524,15 +528,6 @@
     </div>
   </a>
 
-  <a href="https://reddit.com/r/luciddreaming"
-     class="link-card purple" target="_blank" rel="noopener"
-     onclick="gtag('event','click',{event_category:'hub',event_label:'social_reddit'})">
-    <div class="card-icon">👽</div>
-    <div class="card-body">
-      <div class="card-title">Reddit — r/luciddreaming</div>
-      <div class="card-sub">Community discussions &amp; WILD posts</div>
-    </div>
-  </a>
 
   <!-- ── DIVIDER / FOOTER ──────────────────── -->
   <div class="divider"></div>
