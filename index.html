@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WILD Programme — Wake-Induced Lucid Dreaming</title>
+<meta name="description" content="The complete system for Wake-Induced Lucid Dreaming. Free protocol, advanced courses, and live community — for biohackers and consciousness explorers.">
+
+<!-- OG / Social -->
+<meta property="og:type"        content="website" />
+<meta property="og:title"       content="WILD Programme — Wake-Induced Lucid Dreaming" />
+<meta property="og:description" content="Free 7-night protocol, advanced courses, and live community for biohackers and consciousness explorers." />
+<meta property="og:url"         content="https://smith912000.github.io/wild-programme/" />
+<meta property="og:image"       content="https://smith912000.github.io/wild-programme/og-image.png" />
+<meta name="twitter:card"       content="summary_large_image" />
+<meta name="twitter:title"      content="WILD Programme" />
+<meta name="twitter:description" content="Master Wake-Induced Lucid Dreaming. Free protocol inside." />
+<meta name="twitter:image"      content="https://smith912000.github.io/wild-programme/og-image.png" />
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<style>
+  :root {
+    --bg:       #0d1117;
+    --surface:  #161b22;
+    --border:   rgba(255,255,255,.07);
+    --text:     #e6edf3;
+    --muted:    #8b949e;
+    --green:    #3fb950;
+    --green2:   #2ea043;
+    --sky:      #7dd3fc;
+    --sky2:     #38bdf8;
+    --gold:     #f0b429;
+    --purple:   #a78bfa;
+    --red:      #f85149;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── HEADER ─────────────────────────────── */
+  .hero {
+    text-align: center;
+    padding: 52px 24px 36px;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    display: block;
+    width: 200px; height: 1px;
+    background: linear-gradient(90deg,transparent,rgba(125,211,252,.4),rgba(63,185,80,.4),transparent);
+    margin: 36px auto 0;
+  }
+  .logo-ring {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, rgba(125,211,252,.2) 0%, rgba(63,185,80,.12) 60%, transparent 100%);
+    border: 1px solid rgba(125,211,252,.25);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 30px;
+    box-shadow: 0 0 32px rgba(125,211,252,.12);
+  }
+  .wordmark {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    background: linear-gradient(135deg, #7dd3fc 0%, #3fb950 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .wordmark span {
+    font-weight: 300;
+    letter-spacing: .04em;
+    font-size: 1rem;
+    display: block;
+    -webkit-text-fill-color: var(--muted);
+    color: var(--muted);
+    margin-top: 4px;
+    background: none;
+  }
+  .tagline {
+    margin-top: 14px;
+    font-size: .9rem;
+    color: var(--muted);
+    max-width: 340px;
+    margin-left: auto; margin-right: auto;
+    line-height: 1.55;
+  }
+
+  /* ── LAYOUT ──────────────────────────────── */
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* ── SECTION LABELS ─────────────────────── */
+  .section-label {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 32px 0 10px;
+    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── LINK CARDS ─────────────────────────── */
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all .18s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .link-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity .18s;
+  }
+  .link-card:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255,255,255,.14);
+    box-shadow: 0 6px 24px rgba(0,0,0,.4);
+  }
+  .link-card:hover::before { opacity: 1; }
+
+  /* accent variants */
+  .link-card.green  { border-left: 3px solid var(--green); }
+  .link-card.green::before  { background: linear-gradient(90deg,rgba(63,185,80,.06),transparent); }
+  .link-card.green:hover  { border-color: var(--green); }
+
+  .link-card.sky    { border-left: 3px solid var(--sky); }
+  .link-card.sky::before    { background: linear-gradient(90deg,rgba(125,211,252,.06),transparent); }
+  .link-card.sky:hover    { border-color: var(--sky); }
+
+  .link-card.gold   { border-left: 3px solid var(--gold); }
+  .link-card.gold::before   { background: linear-gradient(90deg,rgba(240,180,41,.06),transparent); }
+  .link-card.gold:hover   { border-color: var(--gold); }
+
+  .link-card.purple { border-left: 3px solid var(--purple); }
+  .link-card.purple::before { background: linear-gradient(90deg,rgba(167,139,250,.06),transparent); }
+  .link-card.purple:hover { border-color: var(--purple); }
+
+  .link-card.red    { border-left: 3px solid var(--red); }
+  .link-card.red::before    { background: linear-gradient(90deg,rgba(248,81,73,.06),transparent); }
+  .link-card.red:hover    { border-color: var(--red); }
+
+  .card-icon {
+    font-size: 1.4rem;
+    width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .card-body {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+  .card-title {
+    font-size: .9rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .card-sub {
+    font-size: .75rem;
+    color: var(--muted);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-badge {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .badge-free   { background: rgba(63,185,80,.15);  color: var(--green);  border: 1px solid rgba(63,185,80,.3); }
+  .badge-paid   { background: rgba(240,180,41,.12); color: var(--gold);   border: 1px solid rgba(240,180,41,.3); }
+  .badge-live   { background: rgba(248,81,73,.12);  color: var(--red);    border: 1px solid rgba(248,81,73,.3); }
+  .badge-community { background: rgba(125,211,252,.1); color: var(--sky); border: 1px solid rgba(125,211,252,.25); }
+
+  /* ── PATH CARDS (big choose-your-path) ─── */
+  .path-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .path-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 12px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all .18s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .path-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,0,0,.5);
+  }
+  .path-card.bio {
+    border-top: 2px solid var(--green);
+  }
+  .path-card.bio:hover { border-color: var(--green); box-shadow: 0 8px 28px rgba(63,185,80,.12); }
+  .path-card.spirit {
+    border-top: 2px solid var(--sky);
+  }
+  .path-card.spirit:hover { border-color: var(--sky); box-shadow: 0 8px 28px rgba(125,211,252,.12); }
+  .path-icon { font-size: 2rem; }
+  .path-label {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .path-label.bio   { color: var(--green); }
+  .path-label.spirit { color: var(--sky); }
+  .path-name {
+    font-size: .85rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .path-desc {
+    font-size: .72rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .path-cta {
+    font-size: .72rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-top: 4px;
+  }
+  .path-card.bio .path-cta   { background: rgba(63,185,80,.15);  color: var(--green);  border: 1px solid rgba(63,185,80,.3); }
+  .path-card.spirit .path-cta { background: rgba(125,211,252,.1); color: var(--sky);   border: 1px solid rgba(125,211,252,.25); }
+
+  /* ── DIVIDER ─────────────────────────────── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 36px 0 0;
+  }
+
+  /* ── FOOTER ──────────────────────────────── */
+  .footer {
+    text-align: center;
+    padding: 28px 24px 0;
+    font-size: .72rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--text); }
+  .footer-brand {
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    background: linear-gradient(135deg, #7dd3fc, #3fb950);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+  }
+
+  @media (max-width: 380px) {
+    .path-grid { grid-template-columns: 1fr; }
+    .wordmark { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<div class="hero">
+  <div class="logo-ring">🌙</div>
+  <div class="wordmark">
+    WILD
+    <span>Wake-Induced Lucid Dreaming</span>
+  </div>
+  <p class="tagline">Master conscious dreaming — from free protocol to advanced practitioner. Choose your path below.</p>
+</div>
+
+<div class="container">
+
+  <!-- ── CHOOSE YOUR PATH ─────────────────── -->
+  <div class="section-label">Choose your path</div>
+
+  <div class="path-grid">
+    <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/landing_page.html"
+       class="path-card bio"
+       onclick="gtag('event','click',{event_category:'hub',event_label:'path_biohacker'})">
+      <div class="path-icon">🔬</div>
+      <div class="path-label bio">Biohacker</div>
+      <div class="path-name">Performance &amp; Neuro-optimisation</div>
+      <div class="path-desc">REM architecture, HRV, nootropics, sleep science</div>
+      <div class="path-cta">Enter →</div>
+    </a>
+    <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/landing_spiritual.html"
+       class="path-card spirit"
+       onclick="gtag('event','click',{event_category:'hub',event_label:'path_spiritual'})">
+      <div class="path-icon">🌀</div>
+      <div class="path-label spirit">Consciousness</div>
+      <div class="path-name">Lucid Dreaming &amp; Inner Exploration</div>
+      <div class="path-desc">Hypnagogic states, shadow work, dream ritual</div>
+      <div class="path-cta">Enter →</div>
+    </a>
+  </div>
+
+  <!-- ── FREE RESOURCES ───────────────────── -->
+  <div class="section-label">Free resources</div>
+
+  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/landing_page.html"
+     class="link-card green"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'free_biohacker_protocol'})">
+    <div class="card-icon">📋</div>
+    <div class="card-body">
+      <div class="card-title">7-Night WILD Protocol</div>
+      <div class="card-sub">Science-backed entry guide — biohacker track</div>
+    </div>
+    <span class="card-badge badge-free">Free</span>
+  </a>
+
+  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/landing_spiritual.html"
+     class="link-card sky"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'free_spiritual_protocol'})">
+    <div class="card-icon">🌙</div>
+    <div class="card-body">
+      <div class="card-title">7-Night Lucid Dream Initiation</div>
+      <div class="card-sub">Ritual-based entry guide — consciousness track</div>
+    </div>
+    <span class="card-badge badge-free">Free</span>
+  </a>
+
+  <a href="https://smith912000.github.io/wild-programme/05%20-%20Lead%20Magnet/Sleep_Architecture_Map.pdf"
+     class="link-card green" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'free_sleep_map'})">
+    <div class="card-icon">🧠</div>
+    <div class="card-body">
+      <div class="card-title">Sleep Architecture Map</div>
+      <div class="card-sub">Visual guide to REM cycles &amp; WILD entry points</div>
+    </div>
+    <span class="card-badge badge-free">PDF</span>
+  </a>
+
+  <a href="https://smith912000.github.io/wild-programme/05%20-%20Lead%20Magnet/Hypnagogic_Gateway_Guide.pdf"
+     class="link-card sky" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'free_hypnagogic'})">
+    <div class="card-icon">✨</div>
+    <div class="card-body">
+      <div class="card-title">Hypnagogic Gateway Guide</div>
+      <div class="card-sub">Navigate the threshold between waking &amp; dreaming</div>
+    </div>
+    <span class="card-badge badge-free">PDF</span>
+  </a>
+
+  <!-- ── COURSES ───────────────────────────── -->
+  <div class="section-label">Courses</div>
+
+  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/tier1.html"
+     class="link-card green"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'course_tier1'})">
+    <div class="card-icon">🌱</div>
+    <div class="card-body">
+      <div class="card-title">Tier 1 — Foundations</div>
+      <div class="card-sub">7-module core programme · Both streams available</div>
+    </div>
+    <span class="card-badge badge-paid">£50</span>
+  </a>
+
+  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/tier2.html"
+     class="link-card gold"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'course_tier2'})">
+    <div class="card-icon">⚡</div>
+    <div class="card-body">
+      <div class="card-title">Tier 2 — Advanced Practitioner</div>
+      <div class="card-sub">DEILD, SSILD, nootropics, EEG tracking · 10 modules</div>
+    </div>
+    <span class="card-badge badge-paid">£100</span>
+  </a>
+
+  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/tier3.html"
+     class="link-card purple"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'course_tier3'})">
+    <div class="card-icon">🔮</div>
+    <div class="card-body">
+      <div class="card-title">Tier 3 — Master + Retreat</div>
+      <div class="card-sub">Live Q&amp;A, workshop &amp; annual virtual retreat · 6 modules</div>
+    </div>
+    <span class="card-badge badge-paid">£200</span>
+  </a>
+
+  <!-- ── COMMUNITY ─────────────────────────── -->
+  <div class="section-label">Community</div>
+
+  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/community.html"
+     class="link-card sky"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'community_main'})">
+    <div class="card-icon">🏛️</div>
+    <div class="card-body">
+      <div class="card-title">WILD Community</div>
+      <div class="card-sub">Discord (biohacker) · Telegram (consciousness) · from £10/mo</div>
+    </div>
+    <span class="card-badge badge-community">Members</span>
+  </a>
+
+  <a href="https://discord.gg/YOUR_DISCORD_INVITE"
+     class="link-card green" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'community_discord'})">
+    <div class="card-icon">💬</div>
+    <div class="card-body">
+      <div class="card-title">Discord — Biohacker Hub</div>
+      <div class="card-sub">Protocols · tracking · peer labs · live sessions</div>
+    </div>
+    <span class="card-badge badge-community">Discord</span>
+  </a>
+
+  <a href="https://t.me/YOUR_TELEGRAM_CHANNEL"
+     class="link-card sky" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'community_telegram'})">
+    <div class="card-icon">📡</div>
+    <div class="card-body">
+      <div class="card-title">Telegram — Dream Transmissions</div>
+      <div class="card-sub">Daily broadcasts · rituals · consciousness thread</div>
+    </div>
+    <span class="card-badge badge-community">Telegram</span>
+  </a>
+
+  <!-- ── ABOUT / SOCIALS ───────────────────── -->
+  <div class="section-label">Socials &amp; more</div>
+
+  <a href="https://twitter.com/YOUR_TWITTER"
+     class="link-card sky" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'social_twitter'})">
+    <div class="card-icon">𝕏</div>
+    <div class="card-body">
+      <div class="card-title">Follow on X / Twitter</div>
+      <div class="card-sub">Daily sleep science threads &amp; WILD tips</div>
+    </div>
+  </a>
+
+  <a href="https://tiktok.com/@YOUR_TIKTOK"
+     class="link-card red" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'social_tiktok'})">
+    <div class="card-icon">🎵</div>
+    <div class="card-body">
+      <div class="card-title">TikTok</div>
+      <div class="card-sub">Short-form lucid dream tutorials &amp; protocols</div>
+    </div>
+  </a>
+
+  <a href="https://youtube.com/@YOUR_YOUTUBE"
+     class="link-card red" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'social_youtube'})">
+    <div class="card-icon">▶️</div>
+    <div class="card-body">
+      <div class="card-title">YouTube</div>
+      <div class="card-sub">Full-length guides, walkthroughs &amp; Q&amp;A</div>
+    </div>
+  </a>
+
+  <a href="https://reddit.com/r/luciddreaming"
+     class="link-card purple" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'social_reddit'})">
+    <div class="card-icon">👽</div>
+    <div class="card-body">
+      <div class="card-title">Reddit — r/luciddreaming</div>
+      <div class="card-sub">Community discussions &amp; WILD posts</div>
+    </div>
+  </a>
+
+  <!-- ── DIVIDER / FOOTER ──────────────────── -->
+  <div class="divider"></div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <div class="footer-brand">WILD Programme</div>
+  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/legal.html">Privacy &amp; Terms</a>
+  &nbsp;·&nbsp;
+  <a href="mailto:smith@negotiorum.com">Contact</a>
+  <br>
+  © 2026 WILD Programme. All rights reserved.
+</div>
+
+</body>
+</html>
