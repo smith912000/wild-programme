@@ -117,6 +117,8 @@ footer a{color:var(--accent);text-decoration:none}
 .tier-links a:hover{border-color:var(--accent);color:var(--white)}
 @media(max-width:600px){nav{padding:12px 16px}.nav-links a:not(.nav-cta){display:none}}
 </style>
+  <!-- PayPal Hosted Buttons SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=BAAyDDiIvYNChjvqNy0CI4DtZLOxXJ4GgSdFu8ejMtY8nDGQ2f3IgOr3YhbhGEyrS-3i56tsvNt7b4LEaQ&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
   <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your actual Measurement ID -->
   <!-- Get your ID at analytics.google.com → Admin → Data Streams → Web Stream -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -135,61 +137,83 @@ footer a{color:var(--accent);text-decoration:none}
     <a href="#modules">Modules</a>
     <a href="#hardware">Hardware</a>
     <a href="#faq">FAQ</a>
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="display:inline"><input type="hidden" name="cmd" value="_xclick"><input type="hidden" name="business" value="smith@negotiorum.com"><input type="hidden" name="item_name" value="WILD Advanced — Tier 2"><input type="hidden" name="amount" value="100.00"><input type="hidden" name="currency_code" value="GBP"><input type="hidden" name="return" value="https://smith912000.github.io/wild-programme/purchase-confirmed.html?tier=2"><input type="hidden" name="cancel_return" value="https://smith912000.github.io/wild-programme/tier2.html"><input type="hidden" name="no_shipping" value="1"><input type="hidden" name="no_note" value="1"><button type="submit" class="nav-cta">Enrol — £100</button></form>
+    <a href="#enrol" class="nav-cta">Enrol — £100</a>
   </div>
 </nav>
 
 <div class="hero">
-  <div class="tier-badge">Tier 2 · Advanced Practitioner</div>
+  <div class="tier-badge">Tier 2 · Body + Soul</div>
   <p class="prereq">✓ Recommended: complete Tier 1 first &nbsp;·&nbsp; Or join if you have existing WILD experience</p>
-  <h1>Go Deeper.<br/><em>Go Further.</em></h1>
-  <p class="hero-sub">Advanced induction techniques, hardware integration, supplement stacks, and ancient tradition deep-dives. For practitioners who've built their foundation and are ready for consistent nightly practice.</p>
-  <div class="price-hero">
+  <h1>Fuel the Vessel.<br/><em>Deepen the Practice.</em></h1>
+  <p class="hero-sub">Tier 2 adds the Body pillar. Nutrition for sleep quality, circadian eating, blood sugar and REM, gut-brain connection, exercise timing — combined with advanced WILD techniques. The practice is shaped by everything you put in and how you move.</p>
+  <div class="price-hero" id="enrol">
     <p class="price-label">One-time payment · Lifetime access</p>
     <div class="price-main"><sup>£</sup>100</div>
     <p class="price-note">✓ Includes everything in Tier 1 &nbsp;·&nbsp; ✓ 30-day guarantee</p>
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_xclick"><input type="hidden" name="business" value="smith@negotiorum.com"><input type="hidden" name="item_name" value="WILD Advanced — Tier 2"><input type="hidden" name="amount" value="100.00"><input type="hidden" name="currency_code" value="GBP"><input type="hidden" name="return" value="https://smith912000.github.io/wild-programme/purchase-confirmed.html?tier=2"><input type="hidden" name="cancel_return" value="https://smith912000.github.io/wild-programme/tier2.html"><input type="hidden" name="no_shipping" value="1"><input type="hidden" name="no_note" value="1"><button type="submit" class="btn-primary">Enrol in WILD Advanced →</button></form>
+    <div id="paypal-container-L7XL3UG3WUJ4W"></div>
     <a href="#modules" class="btn-secondary">See the full curriculum</a>
     <p class="guarantee"><span>Tier 1 already purchased?</span> Pay the £50 difference — email us for a code.</p>
   </div>
 </div>
 
 <div class="stats">
-  <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Advanced Modules</div></div>
-  <div class="stat"><div class="stat-n">4</div><div class="stat-l">Hardware Reviews</div></div>
-  <div class="stat"><div class="stat-n">3</div><div class="stat-l">Supplement Protocols</div></div>
-  <div class="stat"><div class="stat-n">5</div><div class="stat-l">Tradition Deep-Dives</div></div>
+  <div class="stat"><div class="stat-n">16</div><div class="stat-l">Total Lessons</div></div>
+  <div class="stat"><div class="stat-n">8</div><div class="stat-l">Body Modules</div></div>
+  <div class="stat"><div class="stat-n">8</div><div class="stat-l">Soul Modules</div></div>
+  <div class="stat"><div class="stat-n">2</div><div class="stat-l">Pillars</div></div>
 </div>
 
 <!-- MODULES -->
 <section id="modules">
-  <div class="section-tag">Advanced curriculum</div>
-  <h2>Everything in Tier 1, Plus<br/>the Advanced Practitioner System</h2>
-  <p class="section-sub">Tier 2 extends the foundation with techniques for practitioners who've achieved basic lucidity and are ready to make it consistent and purposeful.</p>
+  <div class="section-tag">Tier 2 curriculum</div>
+  <h2>Two Pillars. 16 Lessons.</h2>
+  <p class="section-sub">Tier 2 runs two tracks in parallel — the Body pillar (how nutrition and physical health shape the dream state) and the Soul pillar (advanced WILD techniques). Both are required. The body is the instrument.</p>
+
+  <!-- BODY TRACK -->
+  <div style="background:rgba(26,155,138,.06);border:1px solid rgba(26,155,138,.25);border-radius:10px;padding:14px 20px;margin-bottom:2px;display:flex;align-items:center;gap:12px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)">Body Pillar</div>
+    <div style="font-size:14px;font-weight:700;color:var(--white)">Modules B1–B8: Nutrition, Physical Health &amp; Control Capacity</div>
+  </div>
   <div class="mods">
-    <div class="mod"><div class="mod-n">A1</div><div class="mod-body"><div class="mod-title">WILD Chaining: Multiple Lucid Dreams Per Night</div><div class="mod-desc">How to re-enter lucidity after brief waking without fully surfacing to consciousness. The DEILD technique and REM pressure exploitation. Practitioners report 3-5 lucid segments per night with this method.</div><div class="mod-tags"><span class="mtag mtag-bio">Advanced protocol</span><span class="mtag mtag-gold">High-yield technique</span></div></div></div>
-    <div class="mod"><div class="mod-n">A2</div><div class="mod-body"><div class="mod-title">Supplement Stack for REM Enhancement</div><div class="mod-desc">Galantamine (acetylcholinesterase inhibitor, 4-8mg at WBTB), Alpha-GPC (300mg, 30 min before WBTB), Mugwort (traditional, anecdotal evidence), 5-HTP timing. Safety profiles, dosing windows, interaction considerations. Evidence-based only.</div><div class="mod-tags"><span class="mtag mtag-bio">Pharmacology</span><span class="mtag mtag-gold">Evidence-rated</span></div></div></div>
-    <div class="mod"><div class="mod-n">A3</div><div class="mod-body"><div class="mod-title">Hardware Integration: EEG-Assisted Induction</div><div class="mod-desc">Consumer EEG headbands for sleep state detection. How acoustic and light stimuli can trigger lucidity without waking. Device reviews, software options, setup protocols. The intersection of hardware and trained skill.</div><div class="mod-tags"><span class="mtag mtag-bio">Neurotechnology</span><span class="mtag mtag-gold">Consumer EEG guide</span></div></div></div>
-    <div class="mod"><div class="mod-n">A4</div><div class="mod-body"><div class="mod-title">Dream Architecture: Building Intentional Environments</div><div class="mod-desc">Advanced environment generation — creating specific, stable, high-detail dream environments for rehearsal, exploration, or creative work. Techniques used by practitioners to build recurring spaces that persist across sessions.</div><div class="mod-tags"><span class="mtag mtag-bio">Performance workspace</span><span class="mtag mtag-sp">Inner sanctuary</span></div></div></div>
-    <div class="mod"><div class="mod-n">A5</div><div class="mod-body"><div class="mod-title">Cognitive Performance Benchmarking</div><div class="mod-desc">How to design and run in-dream performance tasks and measure waking carryover. Mental math, spatial navigation, motor sequence rehearsal — with data from both anecdotal and peer-reviewed research. Building your personal performance baseline.</div><div class="mod-tags"><span class="mtag mtag-bio">Cognitive benchmarks</span><span class="mtag mtag-gold">Performance data</span></div></div></div>
-    <div class="mod"><div class="mod-n">A6</div><div class="mod-body"><div class="mod-title">Neuromodulation Stack: Advanced Protocol Design</div><div class="mod-desc">Combining WILD technique with targeted neurochemical support. Cholinergic modulation, acetylcholine timing, the ACh/DA balance during REM. How to build a personalized nootropic stack based on your wearable data and tracked response patterns.</div><div class="mod-tags"><span class="mtag mtag-bio">Advanced pharmacology</span><span class="mtag mtag-gold">Personalised stack</span></div></div></div>
-    <div class="mod"><div class="mod-n">A7</div><div class="mod-body"><div class="mod-title">Polyphasic Sleep Integration</div><div class="mod-desc">How polyphasic sleep schedules increase WILD attempt windows. The Uberman, Everyman, and CATNAP schedules assessed for WILD compatibility. Sleep pressure manipulation for enhanced induction. Not for everyone — but potent for those who can adapt.</div><div class="mod-tags"><span class="mtag mtag-bio">Advanced timing</span><span class="mtag mtag-gold">High-commitment</span></div></div></div>
-    <div class="mod"><div class="mod-n">A8</div><div class="mod-body"><div class="mod-title">Advanced Data Analysis: Reading Your 90-Day Dataset</div><div class="mod-desc">What long-term tracking reveals that short-term tracking misses. Personal pattern identification: your specific dream signs, optimal timing, environmental correlations. Building a personalised protocol from 90 days of data. Teaching others as deepening practice.</div><div class="mod-tags"><span class="mtag mtag-bio">Long-term tracking</span><span class="mtag mtag-gold">Protocol optimisation</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B1</div><div class="mod-body"><div class="mod-title">The Sleep-Nutrition Axis</div><div class="mod-desc">How what you eat directly shapes your REM architecture. Macronutrient timing, tryptophan and serotonin conversion, the foods that suppress REM and those that deepen it. The foundation of the Body pillar.</div><div class="mod-tags"><span class="mtag mtag-bio">REM nutrition</span><span class="mtag mtag-bio">Tryptophan pathway</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B2</div><div class="mod-body"><div class="mod-title">Circadian Eating — Meal Timing as a Sleep Signal</div><div class="mod-desc">The body clock runs on light and food. Late meals push your circadian phase forward and shorten the early REM periods where WILD is easiest. Precise eating windows aligned to your target WBTB time — with the physiology explained.</div><div class="mod-tags"><span class="mtag mtag-bio">Circadian rhythm</span><span class="mtag mtag-bio">Meal timing</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B3</div><div class="mod-body"><div class="mod-title">Blood Sugar and Dream Depth</div><div class="mod-desc">Unstable blood glucose causes micro-arousals during sleep — the enemy of sustained REM. Continuous glucose monitoring data mapped against dream quality. The pre-bed nutrition protocol that stabilises overnight glucose without suppressing REM.</div><div class="mod-tags"><span class="mtag mtag-bio">Glucose variability</span><span class="mtag mtag-bio">HRV correlation</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B4</div><div class="mod-body"><div class="mod-title">The Gut-Brain Axis</div><div class="mod-desc">90% of serotonin is produced in the gut — the same serotonin that converts to melatonin and shapes REM. Microbiome diversity directly correlates with dream quality and cognitive performance. The dietary interventions with the strongest evidence.</div><div class="mod-tags"><span class="mtag mtag-bio">Microbiome</span><span class="mtag mtag-bio">Serotonin pathway</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B5</div><div class="mod-body"><div class="mod-title">Anti-Inflammatory Nutrition</div><div class="mod-desc">Chronic low-grade inflammation elevates cortisol, fragments sleep, and disrupts REM architecture. The anti-inflammatory dietary pattern — not a fad, a documented physiological intervention — and why it matters specifically for WILD practitioners.</div><div class="mod-tags"><span class="mtag mtag-bio">Cortisol regulation</span><span class="mtag mtag-bio">Inflammation</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B6</div><div class="mod-body"><div class="mod-title">Exercise Timing and Sleep Architecture</div><div class="mod-desc">Morning exercise raises core temperature, which drops more sharply at night — deepening slow-wave sleep and increasing subsequent REM rebound. Evening exercise does the opposite. The timing protocols for WILD-optimised sleep.</div><div class="mod-tags"><span class="mtag mtag-bio">Exercise physiology</span><span class="mtag mtag-bio">SWS &amp; REM rebound</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B7</div><div class="mod-body"><div class="mod-title">Foundational Supplements</div><div class="mod-desc">Magnesium glycinate (GABA enhancement, sleep architecture), L-theanine (alpha wave induction, hypnagogic support), melatonin micro-dosing (0.3–0.5mg for circadian calibration, not sedation). The evidence base, correct dosing, and what to avoid.</div><div class="mod-tags"><span class="mtag mtag-bio">Magnesium</span><span class="mtag mtag-bio">L-theanine</span><span class="mtag mtag-bio">Melatonin</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B8</div><div class="mod-body"><div class="mod-title">HRV and Sleep Tracking — Your Readiness Score</div><div class="mod-desc">Heart rate variability is the single most useful metric for tracking your body's readiness for deep sleep and successful WILD. How to read HRV trends, what low HRV predicts for that night's practice, and the three variables that make up your personal system readiness score.</div><div class="mod-tags"><span class="mtag mtag-bio">HRV tracking</span><span class="mtag mtag-bio">System readiness</span></div></div></div>
+  </div>
+
+  <!-- SOUL TRACK -->
+  <div style="background:rgba(88,101,242,.06);border:1px solid rgba(88,101,242,.25);border-radius:10px;padding:14px 20px;margin-bottom:2px;margin-top:24px;display:flex;align-items:center;gap:12px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)">Soul Pillar</div>
+    <div style="font-size:14px;font-weight:700;color:var(--white)">Modules S1–S8: Advanced WILD Techniques</div>
+  </div>
+  <div class="mods">
+    <div class="mod"><div class="mod-n">S1</div><div class="mod-body"><div class="mod-title">Advanced Entry Methods — DEILD, SSILD, FILD</div><div class="mod-desc">Three entry techniques beyond the standard WILD approach. DEILD (Dream Exit Induced) re-enters a dream within seconds of waking. SSILD (Senses Initiated) cycles through sensory channels. FILD (Finger Induced) uses micro-movement to sustain awareness. Each suits a different neurotype.</div><div class="mod-tags"><span class="mtag mtag-gold">Advanced induction</span><span class="mtag mtag-gold">Chaining</span></div></div></div>
+    <div class="mod"><div class="mod-n">S2</div><div class="mod-body"><div class="mod-title">Dream Stabilisation — Holding the State</div><div class="mod-desc">The phased stabilisation protocol: reality grounding, scene anchoring, proprioceptive engagement, pre-destabilisation signals and how to respond. Why most lucid dreams end before 5 minutes — and how to extend that to 20.</div><div class="mod-tags"><span class="mtag mtag-gold">Stability protocol</span><span class="mtag mtag-sp">Duration extension</span></div></div></div>
+    <div class="mod"><div class="mod-n">S3</div><div class="mod-body"><div class="mod-title">Extended Lucidity — Staying In</div><div class="mod-desc">The neuroscience of why lucid dreams end and the phase-by-phase strategy to extend them. Arousal management, the role of working memory, scene transition without losing awareness. Targets: 20 minutes, then 30.</div><div class="mod-tags"><span class="mtag mtag-gold">Duration</span><span class="mtag mtag-sp">Depth</span></div></div></div>
+    <div class="mod"><div class="mod-n">S4</div><div class="mod-body"><div class="mod-title">Dream Control — Directing the Experience</div><div class="mod-desc">Expectation as the mechanism of dream control. Scene construction using working memory load principles. How to navigate, transform environments, and move through the dream intentionally without triggering arousal.</div><div class="mod-tags"><span class="mtag mtag-gold">Scene construction</span><span class="mtag mtag-sp">Intention</span></div></div></div>
+    <div class="mod"><div class="mod-n">S5</div><div class="mod-body"><div class="mod-title">Dream Characters — First Contact</div><div class="mod-desc">Dream characters as dissociated brain subsystems with genuine partial autonomy. How to engage them with direct questioning, perspective-taking, and collaboration. What they can and cannot tell you — and why taking them seriously changes the practice.</div><div class="mod-tags"><span class="mtag mtag-gold">Inner dialogue</span><span class="mtag mtag-sp">Subsystems</span></div></div></div>
+    <div class="mod"><div class="mod-n">S6</div><div class="mod-body"><div class="mod-title">The Creative Workspace</div><div class="mod-desc">Using the lucid dream as a studio. Problem incubation protocol, dream-derived creative material, and extraction on waking. How practitioners across creative fields have used REM to produce work they couldn't access while awake.</div><div class="mod-tags"><span class="mtag mtag-gold">Creative incubation</span><span class="mtag mtag-sp">Problem solving</span></div></div></div>
+    <div class="mod"><div class="mod-n">S7</div><div class="mod-body"><div class="mod-title">Failure Analysis and Troubleshooting</div><div class="mod-desc">The most common failure modes mapped to their causes: falling asleep too fast, losing the thread, false awakenings, premature waking. The diagnostic protocol — matching symptom to cause — and the targeted fix for each.</div><div class="mod-tags"><span class="mtag mtag-gold">Diagnostics</span><span class="mtag mtag-gold">Protocol fixes</span></div></div></div>
+    <div class="mod"><div class="mod-n">S8</div><div class="mod-body"><div class="mod-title">Personal WILD Protocol Design</div><div class="mod-desc">Synthesising your Body and Soul data into a personal practice system. Baseline practice, optimised sessions, integration nights, monthly review. Building a protocol that reflects your specific neurobiology and practice goals — not a generic template.</div><div class="mod-tags"><span class="mtag mtag-gold">Protocol design</span><span class="mtag mtag-sp">Long game</span></div></div></div>
   </div>
 </section>
 
-<!-- HARDWARE -->
-<section id="hardware" style="border-top:1px solid var(--border)">
-  <div class="section-tag">Hardware guide (Tier 2 exclusive)</div>
-  <h2>The Consumer EEG Landscape</h2>
-  <p class="section-sub">Module A3 covers these devices in depth — what they do, what they don't, and how to integrate them with the skill you've built.</p>
+<!-- BODY SCIENCE CALLOUT -->
+<section id="body" style="border-top:1px solid var(--border)">
+  <div class="section-tag">Why the Body pillar matters</div>
+  <h2>The Body Is the Instrument.</h2>
+  <p class="section-sub">REM quality doesn't start when you close your eyes. It starts with what you ate, when you ate it, how you moved, and what your HRV says about your nervous system's readiness. Most WILD practitioners optimise their technique. Almost none optimise the substrate.</p>
   <div class="hw-grid">
-    <div class="hw-card"><div class="hw-badge">Best for: Detection</div><h3>Dreem 3 (Beacon Biosignals)</h3><p>Medical-grade EEG. Detects REM onset accurately and can deliver acoustic stimulation. Used in research settings.</p><div class="hw-price">£300–£600 · Subscription required</div></div>
-    <div class="hw-card"><div class="hw-badge">Best for: Developers</div><h3>Neurosity Crown</h3><p>Developer-focused EEG. Being used by researchers for sleep state classification. Full API access.</p><div class="hw-price">£999 · No subscription</div></div>
-    <div class="hw-card"><div class="hw-badge">Best for: WILD specifically</div><h3>Zmax Headband (Hypnodyne)</h3><p>Research-grade with built-in software for automated lucidity induction via light/sound stimulation at REM detection.</p><div class="hw-price">£300–£500 · One-time</div></div>
-    <div class="hw-card"><div class="hw-badge">Best for: Budget entry</div><h3>Aurora Dreamband (iWinks)</h3><p>Consumer product designed specifically for lucid dream induction. Limited availability but most affordable option.</p><div class="hw-price">£150–£250 · Limited stock</div></div>
+    <div class="hw-card"><div class="hw-badge">Control Capacity Signal</div><h3>HRV — Heart Rate Variability</h3><p>Your single most predictive daily metric for deep sleep and WILD success. Low HRV = elevated sympathetic tone = shallow REM and failed induction. Module B8 shows you how to read it and what to do about it.</p></div>
+    <div class="hw-card"><div class="hw-badge">REM Disruptor</div><h3>Blood Glucose Variability</h3><p>Unstable overnight glucose causes micro-arousals — brief awakenings you don't remember but that fragment your REM. Module B3 covers the pre-bed nutrition protocol that stabilises it.</p></div>
+    <div class="hw-card"><div class="hw-badge">Circadian Signal</div><h3>Meal Timing</h3><p>Late meals push your circadian phase forward and shorten the early REM windows where WILD is most accessible. Module B2 covers the eating window aligned to your WBTB target.</p></div>
+    <div class="hw-card"><div class="hw-badge">Serotonin Source</div><h3>Gut Microbiome</h3><p>90% of serotonin — the precursor to melatonin — is produced in the gut. Microbiome diversity directly correlates with dream quality. Module B4 covers the dietary interventions with the strongest evidence.</p></div>
   </div>
-  <p style="font-size:13px;color:var(--gray);margin-top:24px;padding:16px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">⚠️ Module A3 assessment: <strong style="color:var(--white)">Hardware accelerates but doesn't replace the skill.</strong> Practitioners getting the best results with hardware are those who developed the underlying WILD ability first. The £100 you spend here may save you from spending £500 on hardware prematurely.</p>
+  <p style="font-size:13px;color:var(--gray);margin-top:24px;padding:16px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">⬡ Body pillar principle: <strong style="color:var(--white)">Every signal your body sends shapes the sleep it builds.</strong> Optimising technique while ignoring nutrition and physiology is working with one hand tied. Tier 2 removes that constraint.</p>
 </section>
 
 <!-- INCLUDES -->
@@ -198,12 +222,12 @@ footer a{color:var(--accent);text-decoration:none}
   <h2>What You Get With Tier 2</h2>
   <p class="section-sub">All of Tier 1, plus the advanced curriculum, hardware guide, and supplement protocol.</p>
   <div class="inc-grid">
-    <div class="inc-item"><div class="inc-ic">📚</div><div class="inc-body"><h3>All Tier 1 Content</h3><p>Every module from WILD Foundations is included. If you've purchased Tier 1, you already have this.</p></div></div>
-    <div class="inc-item"><div class="inc-ic">🔬</div><div class="inc-body"><h3>8 Advanced Modules</h3><p>Chaining, supplements, hardware, cognitive benchmarking, advanced neuromodulation stack, polyphasic integration, long-term data analysis.</p></div></div>
-    <div class="inc-item"><div class="inc-ic">💊</div><div class="inc-body"><h3>Supplement Protocol PDF</h3><p>Evidence-graded supplement guide: galantamine, alpha-GPC, 5-HTP, mugwort. Dosing, timing, safety, interactions.</p></div></div>
-    <div class="inc-item"><div class="inc-ic">🧠</div><div class="inc-body"><h3>Hardware Integration Guide</h3><p>Full reviews and setup guides for 4 consumer EEG devices. Which is worth it for your use case.</p></div></div>
-    <div class="inc-item"><div class="inc-ic">📊</div><div class="inc-body"><h3>90-Day Tracking System</h3><p>Pre-built data system for long-term pattern analysis. Find your optimal WBTB timing, response to stack variables, and success-rate trajectory.</p></div></div>
-    <div class="inc-item"><div class="inc-ic">⬆️</div><div class="inc-body"><h3>Tier 3 Upgrade Path</h3><p>£100 of your Tier 2 purchase is credited toward Tier 3. Add 1-on-1 coaching and retreat access at any time.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">📚</div><div class="inc-body"><h3>All Tier 1 Content (Soul Pillar)</h3><p>Every module from WILD Foundations. The complete 7-lesson WILD guide plus 7-night protocol PDF and tracking spreadsheet.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">🥗</div><div class="inc-body"><h3>8 Body Modules</h3><p>Sleep-nutrition axis, circadian eating, blood sugar and REM, gut-brain connection, anti-inflammatory nutrition, exercise timing, foundational supplements, HRV tracking.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">🌙</div><div class="inc-body"><h3>8 Advanced Soul Modules</h3><p>DEILD/SSILD/FILD entry methods, stabilisation protocol, extended lucidity, dream control, dream characters, creative workspace, failure analysis, personal protocol design.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">📊</div><div class="inc-body"><h3>90-Day Tracking System</h3><p>Pre-built tracking for both pillars — HRV and nutrition logs alongside WILD frequency and duration. Find your optimal protocol from your own data.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">💊</div><div class="inc-body"><h3>Foundational Supplement Guide PDF</h3><p>Magnesium, L-theanine, melatonin micro-dosing, and first-tier nootropics. Evidence-graded, with dosing, timing, and safety profiles.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">⬆️</div><div class="inc-body"><h3>Tier 3 Upgrade Path</h3><p>When ready for the Mind pillar — psychology, nervous system regulation, shadow work, advanced nootropics — Tier 3 is the next step.</p></div></div>
   </div>
 </section>
 
@@ -246,13 +270,13 @@ footer a{color:var(--accent);text-decoration:none}
 <div class="cta-section">
   <div class="cta-inner">
     <div class="section-tag">Advanced practitioner</div>
-    <h2>The Foundation Is Set.<br/>Now Go Further.</h2>
-    <p class="section-sub">Advanced techniques, hardware, supplements, and the deepest teaching from both modern neuroscience and ancient tradition.</p>
+    <h2>The Body Changes Everything.<br/>Add the Second Pillar.</h2>
+    <p class="section-sub">16 lessons across nutrition, physical health, and advanced WILD technique. The Body pillar is the difference between a practice that plateaus and one that compounds.</p>
     <div class="cta-price-row">
       <div class="cta-price"><sup>£</sup>100</div>
       <span class="cta-save">LIFETIME ACCESS · ALL TIERS INCLUDED</span>
     </div>
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_xclick"><input type="hidden" name="business" value="smith@negotiorum.com"><input type="hidden" name="item_name" value="WILD Advanced — Tier 2"><input type="hidden" name="amount" value="100.00"><input type="hidden" name="currency_code" value="GBP"><input type="hidden" name="return" value="https://smith912000.github.io/wild-programme/purchase-confirmed.html?tier=2"><input type="hidden" name="cancel_return" value="https://smith912000.github.io/wild-programme/tier2.html"><input type="hidden" name="no_shipping" value="1"><input type="hidden" name="no_note" value="1"><button type="submit" class="btn-lg">Enrol in WILD Advanced →</button></form>
+    <div id="paypal-container-L7XL3UG3WUJ4W-cta"></div>
     <p class="cta-sub">✓ All Tier 1 content included &nbsp;·&nbsp; ✓ 30-day guarantee &nbsp;·&nbsp; ✓ Tier 2 upgrade credit on purchase</p>
   </div>
 </div>
@@ -267,5 +291,9 @@ footer a{color:var(--accent);text-decoration:none}
     <a href="community.html">Community — from £15/mo</a>
   </div>
 
+<script>
+  paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W");
+  paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W-cta");
+</script>
 </body>
 </html>
