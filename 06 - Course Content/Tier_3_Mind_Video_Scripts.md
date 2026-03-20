@@ -8,7 +8,7 @@
 - Each script runs approximately 14-16 minutes at natural speaking pace
 - Anonymous — no presenter name used
 - Direct-to-camera, conversational but precise and rigorous
-- Biohacker/neuromodulation frame throughout — systems thinking woven naturally
+- Biohacker/neuroperformance frame throughout — systems thinking woven naturally
 - Written companion lessons exist in Tier_3_Mind_Written.md
 
 ---

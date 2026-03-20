@@ -3,6 +3,10 @@
 
 ---
 
+> **Note:** Modules marked [INTEGRATION PENDING] are structural placeholders. Content will be extracted and adapted from the existing nutrition course during the integration phase.
+
+---
+
 # B1: The Sleep-Nutrition Axis
 
 ## Learning Objectives
@@ -551,6 +555,78 @@ The recovery night is not wasted practice time. It is the practice. Every high-r
 ## Practice Assignment
 
 Set up your readiness tracking system this week. Create a simple daily log (spreadsheet or notes app) with three columns: HRV reading, nocturnal waking events (yes/no/time), and sleep consistency flag (on-time/late). Score each variable (+1/0/-1) and sum to your daily readiness score. Run this for thirty days. At the end of thirty days, correlate your daily readiness score with your WILD practice outcomes. The correlation is typically strong enough to see clearly by day twenty. Use this data to identify your personal readiness threshold — the minimum score at which your WILD attempts succeed — and make it a hard rule: below that threshold, it is a recovery night.
+
+---
+
+---
+
+# B9: NUTRITION FOUNDATIONS — CORE PROTOCOL [INTEGRATION PENDING]
+
+This module establishes the fundamental nutritional framework that underpins every other intervention in the Body track. Students will be introduced to the core dietary principles governing energy regulation, macronutrient function, and micronutrient sufficiency — establishing a baseline protocol that is both practical and physiologically grounded. The focus is on building the nutritional floor from which all subsequent performance optimisation operates: without this foundation in place, advanced protocols in later modules cannot be applied effectively.
+
+> **Full lesson content will be populated from the existing nutrition course during the integration phase. Placeholder structure only.**
+
+## Learning Objectives
+- Establish a personal macronutrient baseline calibrated to body composition, activity level, and sleep performance goals.
+- Identify the key micronutrients most commonly deficient in modern diets and directly relevant to cognitive and sleep function (magnesium, zinc, B6, omega-3).
+- Apply a consistent daily meal structure that stabilises blood glucose, supports circadian feeding rhythms, and avoids the nutritional patterns that suppress REM depth.
+- Distinguish between foods and dietary patterns that actively support sleep architecture versus those that are merely neutral.
+- Build and implement a personalised core protocol suitable for daily use, with clear rules for adjustment based on training load, stress, and sleep feedback.
+
+## Integration Notes
+Content to be extracted and adapted from the existing nutrition course will include:
+- Core macronutrient frameworks and personal calculation methods (protein, carbohydrate, fat targets)
+- Micronutrient priority stack with dosing guidance and food-first sourcing options
+- Meal timing templates aligned to standard sleep schedules and WBTB protocols
+- Foundational recipes and food lists organised by function (sleep support, cognitive performance, recovery)
+- Practical meal planning frameworks for weekly prep and consistency
+
+---
+
+# B10: NUTRITION FOR COGNITIVE PERFORMANCE [INTEGRATION PENDING]
+
+This module bridges general nutritional adequacy and targeted cognitive optimisation, focusing on the specific dietary inputs that drive neurotransmitter synthesis, neuroplasticity, and the brain states most relevant to lucid dreaming. Students will move from the general to the precise: understanding how individual food choices and meal compositions shift acetylcholine availability, dopamine tone, and inflammatory load in ways that directly affect REM quality and lucid access. The goal is to translate nutritional science into actionable, daily dietary decisions that produce measurable changes in cognitive performance and dream recall.
+
+> **Full lesson content will be populated from the existing nutrition course during the integration phase. Placeholder structure only.**
+
+## Learning Objectives
+- Identify the primary dietary precursors to acetylcholine, serotonin, and dopamine synthesis, and map them to specific food sources and timing windows.
+- Apply targeted pre-sleep and WBTB-window nutritional interventions that enhance cholinergic tone without disrupting sleep onset.
+- Evaluate the cognitive performance impact of common dietary patterns — including low-carbohydrate, high-fat, and standard Western diets — against the specific demands of REM-rich sleep and lucid dreaming.
+- Understand the role of neuroinflammation as a suppressor of cognitive performance and identify the dietary patterns that drive or reduce it.
+- Design a cognitive performance nutrition protocol that integrates with the supplement timing stacks covered in parallel modules.
+
+## Integration Notes
+Content to be extracted and adapted from the existing nutrition course will include:
+- Cognitive performance food lists and their mechanistic rationale (choline-rich foods, omega-3 sources, polyphenol sources)
+- Macro protocols specifically designed for brain performance (carbohydrate timing for neurotransmitter synthesis, fat ratios for membrane function)
+- Supplement timing stacks that integrate with dietary intake (choline + B5 timing, omega-3 dose and timing)
+- Anti-inflammatory dietary protocols with specific food swaps and elimination guidance
+- Sample meal plans demonstrating the cognitive performance framework in practice
+
+---
+
+# B11: ADVANCED DIETARY PROTOCOLS [INTEGRATION PENDING]
+
+This module covers the high-leverage, evidence-informed dietary protocols that go beyond foundational nutrition into targeted physiological manipulation. Intermittent fasting structures, carbohydrate periodisation, ketogenic cycling, and targeted fasting-mimicking approaches are each examined for their specific effects on sleep architecture, REM quality, and the hormonal and metabolic conditions that support WILD practice. Students will be equipped to select, implement, and cycle advanced protocols based on their individual physiology, training load, and practice schedule — treating diet as a precision tool rather than a fixed habit.
+
+> **Full lesson content will be populated from the existing nutrition course during the integration phase. Placeholder structure only.**
+
+## Learning Objectives
+- Evaluate the evidence base for intermittent fasting protocols (16:8, 18:6, 5:2) and their specific effects on sleep quality, HRV, and REM architecture.
+- Apply carbohydrate periodisation strategies that align higher carbohydrate intake to recovery and high-readiness sleep nights, and lower intake to hormetic stress days.
+- Understand the trade-offs of sustained ketogenic eating on REM suppression versus potential cognitive clarity benefits, and implement cycling strategies that capture benefits while minimising REM cost.
+- Design a dietary periodisation schedule that integrates with the readiness tracking system from B8, using readiness score as a guide for protocol selection on any given day.
+- Identify individual variation signals — subjective and biometric — that indicate whether a given advanced protocol is producing positive or negative adaptation.
+
+## Integration Notes
+Content to be extracted and adapted from the existing nutrition course will include:
+- Structured intermittent fasting protocols with implementation guides and common failure points
+- Carbohydrate periodisation templates mapped to training and practice cycles
+- Ketogenic cycling frameworks with specific transition protocols and REM-monitoring guidance
+- Fasting-mimicking day recipes and caloric targets
+- Decision frameworks for protocol selection based on biometric readiness data
+- Personalisation guides covering common individual variation patterns and adjustment rules
 
 ---
 *End of Tier 2 Body Track — Written Lessons*

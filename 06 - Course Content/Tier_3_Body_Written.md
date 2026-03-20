@@ -4,6 +4,10 @@
 
 ---
 
+> **Note:** Modules marked [INTEGRATION PENDING] are structural placeholders. Content will be extracted and adapted from the existing nutrition course during the integration phase.
+
+---
+
 **Prerequisites:** Tier 2 Body content (foundational nutrition, basic HRV tracking, exercise timing)
 **Track:** Body pillar of the Body-Mind-Soul framework
 **Framework:** Physiological systems approach — dietary, autonomic, and circadian inputs as precision modulators
@@ -553,3 +557,78 @@ Circadian alignment does not expand control capacity in the way that hormetic st
 For the next 21 days, implement all three components of the precision light protocol without exception: (1) 10+ minutes outdoor light within 30 minutes of waking, (2) shift to red-spectrum/dim lighting 2 hours before sleep, (3) total darkness in the final 60 minutes before sleep. Keep your waking time consistent to within 30 minutes, 7 days a week. After 21 days, review your dream log and WILD frequency. The 21-day window is chosen because circadian phase stabilisation takes approximately 2-3 weeks to fully manifest in measurable sleep architecture improvements.
 
 ---
+
+---
+
+# BODY 7: ADVANCED NUTRITIONAL PERIODISATION [INTEGRATION PENDING]
+
+This module introduces the systematic cycling of dietary variables — caloric intake, macronutrient ratios, feeding windows, and fasting structures — across weekly and monthly timescales to maximise both physiological adaptation and sleep performance. At Tier 3, nutrition is no longer a static protocol but a dynamic system calibrated to training phases, practice intensity, and biometric readiness data. Students will learn to read their own physiological feedback and adjust nutritional periodisation in real time, using HRV trends, sleep architecture data, and performance markers as inputs to an adaptive dietary strategy rather than following a fixed prescription.
+
+> **Full lesson content will be populated from the existing nutrition course during the integration phase. Placeholder structure only.**
+
+## Learning Objectives
+- Design a structured nutritional periodisation plan that cycles caloric surplus, deficit, and maintenance phases in alignment with training load, practice intensity, and recovery demands.
+- Integrate dietary periodisation with the readiness tracking framework established in Tier 2, using biometric inputs (HRV, glucose variability, sleep staging) to guide real-time protocol adjustments.
+- Apply advanced carbohydrate and fat periodisation strategies — including targeted ketogenic phases and carbohydrate backloading — with a clear mechanistic understanding of their effects on sleep architecture and REM quality.
+- Evaluate the hormonal consequences of different periodisation approaches (cortisol patterns, insulin sensitivity cycles, growth hormone pulsatility) and their downstream effects on sleep and cognitive performance.
+- Build a personalised periodisation framework that accommodates individual variation, practical constraints, and long-term sustainability without sacrificing performance outcomes.
+
+## Integration Notes
+Content to be extracted and adapted from the existing nutrition course will include:
+- Structured periodisation templates for 4-week, 8-week, and 12-week cycles
+- Macro and caloric targets for each periodisation phase with adjustment rules
+- Meal planning frameworks for surplus, deficit, and maintenance phases
+- Integration protocols linking dietary phase to readiness score thresholds
+- Recipes and food preparation strategies suited to each periodisation phase
+- Monitoring and adjustment guides — what to track, what signals trigger a protocol change
+
+---
+
+# BODY 8: METABOLIC FLEXIBILITY AND COGNITIVE PERFORMANCE [INTEGRATION PENDING]
+
+This module examines metabolic flexibility — the capacity to efficiently switch between glucose and fat as primary fuel sources — as a foundational determinant of both cognitive performance and sleep quality. Students will understand why metabolic inflexibility (the inability to readily access fat oxidation) degrades brain performance, disrupts sleep architecture, and creates the glucose volatility that suppresses REM depth. The module covers the dietary, exercise, and lifestyle interventions that systematically build metabolic flexibility over weeks and months, with specific attention to how increased fat oxidation capacity translates into more stable cognitive performance, reduced nocturnal hypoglycaemia risk, and improved access to the physiological states that support lucid dreaming.
+
+> **Full lesson content will be populated from the existing nutrition course during the integration phase. Placeholder structure only.**
+
+## Learning Objectives
+- Define metabolic flexibility precisely and explain its mechanistic relationship to cognitive performance, nocturnal glucose stability, and REM architecture.
+- Identify the dietary patterns that drive metabolic inflexibility — chronic high carbohydrate intake, frequent feeding, ultra-processed food consumption — and apply targeted interventions to reverse them.
+- Implement a structured protocol for building fat oxidation capacity through dietary manipulation (fasting windows, fat-adapted eating phases) combined with appropriate exercise modalities.
+- Monitor personal metabolic flexibility using accessible biomarkers — fasting glucose, glucose variability from CGM, respiratory quotient proxy measures — and interpret trends to guide protocol adjustments.
+- Apply metabolic flexibility as a cognitive performance tool: understanding how increased fat oxidation capacity produces stable cognitive output across the day and into the overnight sleep period, reducing the energy substrate volatility that disrupts deep and REM sleep.
+
+## Integration Notes
+Content to be extracted and adapted from the existing nutrition course will include:
+- Metabolic flexibility assessment protocols and baseline measurement tools
+- Progressive fat adaptation dietary protocols with week-by-week implementation guides
+- Fasting window structures calibrated to metabolic flexibility building without excessive cortisol burden
+- CGM interpretation guides for nocturnal glucose patterns and their correlation with REM quality
+- Exercise modality recommendations for fat oxidation enhancement (fasted low-intensity, zone 2 training protocols)
+- Supplement timing stacks that support the metabolic flexibility transition phase
+
+---
+
+# BODY 9: PERSONALISED NUTRITION PROTOCOL DESIGN [INTEGRATION PENDING]
+
+This capstone nutrition module moves from prescribed frameworks to individualised system design. Students will synthesise the nutritional principles, periodisation strategies, and metabolic flexibility tools covered in this track into a fully personalised nutrition protocol — one calibrated to their specific physiology, lifestyle constraints, biometric patterns, and WILD practice goals. The emphasis is on developing the skill of self-directed nutritional adjustment: reading personal feedback signals accurately, making evidence-informed protocol changes, and iterating toward a long-term dietary system that is both high-performing and sustainable. This module treats the student as the primary researcher of their own physiology.
+
+> **Full lesson content will be populated from the existing nutrition course during the integration phase. Placeholder structure only.**
+
+## Learning Objectives
+- Integrate biometric data (HRV trends, glucose variability, sleep architecture metrics, subjective energy and cognition ratings) into a coherent personal nutrition feedback loop that guides ongoing protocol refinement.
+- Apply a structured self-experimentation methodology — hypothesis, intervention, measurement period, analysis — to test dietary changes and assess their true impact on sleep and cognitive performance.
+- Design a complete personalised nutrition protocol document covering daily structure, periodisation cycles, supplement timing, and decision rules for protocol adjustment based on defined biometric triggers.
+- Identify and address the most common individual variation patterns that cause standard protocols to underperform: poor carbohydrate tolerance, low fat oxidation capacity, micronutrient depletion patterns, and circadian-feeding misalignment.
+- Build a long-term nutritional maintenance system that sustains performance outcomes over months and years without requiring constant high-effort adherence — integrating simplicity, flexibility, and feedback responsiveness as design principles.
+
+## Integration Notes
+Content to be extracted and adapted from the existing nutrition course will include:
+- Personal protocol design templates and documentation frameworks
+- Self-experimentation methodology guides with tracking spreadsheets
+- Individual variation diagnostic tools and correction protocols
+- Recipes and meal prep systems designed for long-term sustainability and low cognitive overhead
+- Supplement protocol consolidation — a full personal stack with timing, dosing, and cycling rules
+- Integration guides connecting the personalised nutrition protocol to the other Body track systems (HRV tracking, circadian alignment, exercise timing)
+
+---
+*End of Tier 3 Body Track — Written Lessons*

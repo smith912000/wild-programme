@@ -6,7 +6,7 @@
 - No teleprompter — these are conversational delivery guides, not word-for-word reads
 - Each script = ~10–14 minutes at a natural pace
 - End cards: link to next lesson + community link
-- Biohacker track only (neuromodulation frame throughout)
+- Biohacker track only (neuroperformance frame throughout)
 
 ---
 

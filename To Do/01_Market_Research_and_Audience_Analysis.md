@@ -1,7 +1,7 @@
 # WILD Programme — Market Research & Target Audience Analysis
 
 **Prepared:** March 2026
-**Brand:** WILD Programme (Wake-Induced Lucid Dreaming) — Cognitive Performance / Neuromodulation
+**Brand:** WILD Programme (Wake-Induced Lucid Dreaming) — Cognitive Performance / Neuroperformance
 
 ---
 

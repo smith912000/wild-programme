@@ -6,7 +6,7 @@
 - Assume foundational knowledge: WBTB, hypnagogia, dream recall, basic lucidity
 - Slightly faster pace than Tier 1; less explanation of basics
 - Each script = ~10–14 minutes at natural pace
-- Biohacker / neuromodulation track throughout
+- Biohacker / neuroperformance track throughout
 
 ---
 

@@ -1,7 +1,7 @@
 # WILD Programme — Platform Strategy & Best Practices
 
 **Prepared:** March 2026
-**Brand:** WILD Programme (Wake-Induced Lucid Dreaming) — Cognitive Performance / Neuromodulation
+**Brand:** WILD Programme (Wake-Induced Lucid Dreaming) — Cognitive Performance / Neuroperformance
 
 > Every claim in this document cites its reasoning. Where hard stats are cited, the source is noted. Where industry consensus is cited, the basis is noted. Nothing here is guesswork.
 
