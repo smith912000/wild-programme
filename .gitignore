@@ -17,3 +17,14 @@ push.bat
 
 # macOS
 .DS_Store
+
+# Course content - local only, not for public repo
+06 - Course Content/
+08 - Brand Assets/
+07 - Automation/
+01 - Strategy/
+03 - Content Calendars/
+04 - Spreadsheets/
+05 - Lead Magnet/
+To Do/
+Telegram_Handler_Briefing.md
