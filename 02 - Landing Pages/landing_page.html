@@ -111,7 +111,7 @@
 
 <nav>
   <div class="nav-logo">WILD Protocol</div>
-  <a href="#getaccess" class="nav-cta">Get Free Protocol</a>
+  <span style="font-size:12px;font-weight:600;color:#8b949e;padding:7px 18px;background:#21262d;border:1px solid #30363d;border-radius:6px;letter-spacing:.04em">🕐 Coming Soon</span>
 </nav>
 
 <section class="hero">
@@ -122,67 +122,15 @@
     <div class="fcard" id="getaccess">
       <div class="ftitle">Download the 7-Night WILD Protocol &mdash; Free</div>
       <div class="fsub">A cognitive performance system for optimizing REM sleep awareness</div>
-      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:18px">
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:24px">
         <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#3fb950"><span>✓</span><span>7-Night WILD Protocol — 16-page PDF</span></div>
         <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#3fb950"><span>✓</span><span>Bonus: The WILD Sleep Architecture Map — 7-page timing guide</span></div>
         <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#3fb950"><span>✓</span><span>7-day biohacker email course — free</span></div>
       </div>
-      <!--
-        SETUP OPTION A (Recommended — free, handles email sequence automatically):
-        Replace this entire form block with your Kit (kit.com) embed code.
-        In Kit: Create a Form → set "Success" redirect to thankyou.html → copy embed code here.
-        Kit handles: email capture, welcome email, PDF delivery link, and the 7-email nurture sequence.
-
-        SETUP OPTION B (No extra account needed — Google Forms fallback):
-        Keep this form. Replace GOOGLE_FORM_ACTION_URL below with your Google Form POST URL.
-        The form submits in the background and redirects to thankyou.html.
-        You still need the Apps Script from WILD_Command_Center.xlsx to send the PDF email.
-      -->
-      <form id="hform" novalidate>
-        <div class="frow">
-          <input type="text" id="fname" name="first_name" placeholder="First name" required>
-          <input type="text" id="lname" name="last_name" placeholder="Last name">
-        </div>
-        <input type="email" id="femail_input" name="email" class="femail" placeholder="Your email address" required>
-        <button type="submit" class="btn" id="submitbtn">Send Me the Free Protocol →</button>
-      </form>
-      <p class="disc">No spam. Unsubscribe any time. Your email is never sold or shared.</p>
-      <script>
-      (function(){
-        var KIT_FORM_ID = '9206237';
-        var KIT_API_KEY = 'bIOgOJmqrVA6SvEHrI9b6Q';
-
-        var form = document.getElementById('hform');
-        var btn  = document.getElementById('submitbtn');
-
-        form.addEventListener('submit', function(e){
-          e.preventDefault();
-          var fname = document.getElementById('fname').value.trim();
-          var email = document.getElementById('femail_input').value.trim();
-          if(!email || !email.includes('@')){
-            document.getElementById('femail_input').style.borderColor='#f85149';
-            return;
-          }
-          btn.textContent = 'Sending…';
-          btn.disabled = true;
-
-          fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ api_key: KIT_API_KEY, email: email, first_name: fname, fields: { source: 'biohacker' } })
-          }).then(function(r){ return r.json(); })
-            .then(function(){
-              try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track', 'bio'); }catch(e){}
-              try{ gtag('event','generate_lead',{event_category:'lead_magnet',event_label:'biohacker_hero',value:0}); }catch(e){}
-              window.location.href = 'thankyou.html';
-            })
-            .catch(function(){
-              try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track', 'bio'); }catch(e){}
-              window.location.href = 'thankyou.html';
-            });
-        });
-      })();
-      </script>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#21262d;border:1px solid #30363d;border-radius:8px;color:#8b949e;font-size:14px;font-weight:600;letter-spacing:.04em">
+        <span style="font-size:18px">🕐</span> Download launching soon — check back shortly
+      </div>
+      <p class="disc" style="margin-top:16px">Free protocol. No credit card required.</p>
     </div>
     <div class="sp">
       <div class="sp-i"><span class="sp-d"></span>Science-based, no spirituality</div>
@@ -297,16 +245,11 @@
   <p class="lead">730 hours of REM sleep per year. The protocol is free. The only cost is following it.</p>
   <div class="fcard" style="text-align:left;margin-top:0">
     <div class="ftitle">Get the Free 7-Night Protocol</div>
-    <div class="fsub">Delivered to your inbox instantly. 16-page PDF + Sleep Architecture Map included.</div>
-    <form id="bform">
-      <div class="frow">
-        <input type="text" name="first_name" placeholder="First name" required>
-        <input type="text" name="last_name" placeholder="Last name">
-      </div>
-      <input type="email" name="email" class="femail" placeholder="Your email address" required>
-      <button type="submit" class="btn">Send Me the Free Protocol</button>
-    </form>
-    <p class="disc">No spam. Unsubscribe any time. Your email is never sold or shared.</p>
+    <div class="fsub">16-page PDF + Sleep Architecture Map — launching soon.</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#21262d;border:1px solid #30363d;border-radius:8px;color:#8b949e;font-size:14px;font-weight:600;letter-spacing:.04em">
+      <span style="font-size:18px">🕐</span> Download launching soon — check back shortly
+    </div>
+    <p class="disc" style="margin-top:16px">Free protocol. No credit card required.</p>
   </div>
 </section>
 
@@ -317,36 +260,6 @@
 
 
 <script>
-var KIT_FORM_ID = '9206237';
-var KIT_API_KEY = 'bIOgOJmqrVA6SvEHrI9b6Q';
-
-// Bottom form (#bform) — also submits to Kit then redirects
-var bform = document.getElementById('bform');
-if(bform){
-  bform.addEventListener('submit', function(e){
-    e.preventDefault();
-    var fname = bform.querySelector('[name=first_name]').value.trim();
-    var email = bform.querySelector('[name=email]').value.trim();
-    var btn = bform.querySelector('.btn');
-    if(!email || !email.includes('@')) return;
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-    fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ api_key: KIT_API_KEY, email: email, first_name: fname, fields: { source: 'biohacker' } })
-    }).then(function(){
-      try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track','bio'); }catch(e){}
-      try{ gtag('event','generate_lead',{event_category:'lead_magnet',event_label:'biohacker_bottom',value:0}); }catch(e){}
-      window.location.href = 'thankyou.html';
-    }).catch(function(){
-      try{ sessionStorage.setItem('wild_fname', fname); sessionStorage.setItem('wild_track','bio'); }catch(e){}
-      try{ gtag('event','generate_lead',{event_category:'lead_magnet',event_label:'biohacker_bottom',value:0}); }catch(e){}
-      window.location.href = 'thankyou.html';
-    });
-  });
-}
-
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
   a.addEventListener('click',function(e){
