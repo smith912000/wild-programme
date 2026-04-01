@@ -227,6 +227,18 @@
   .badge-paid   { background: rgba(240,180,41,.12); color: var(--gold);   border: 1px solid rgba(240,180,41,.3); }
   .badge-live   { background: rgba(248,81,73,.12);  color: var(--red);    border: 1px solid rgba(248,81,73,.3); }
   .badge-community { background: rgba(125,211,252,.1); color: var(--sky); border: 1px solid rgba(125,211,252,.25); }
+  .badge-soon   { background: rgba(139,148,158,.1); color: var(--muted);  border: 1px solid rgba(139,148,158,.25); }
+
+  .link-card.disabled {
+    opacity: .55;
+    cursor: default;
+    pointer-events: none;
+  }
+  .link-card.disabled:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+  }
 
   /* ── PATH CARDS (big choose-your-path) ─── */
   .path-grid {
@@ -410,63 +422,53 @@
   <!-- ── COURSES ───────────────────────────── -->
   <div class="section-label">Courses</div>
 
-  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/tier1.html"
-     class="link-card green"
-     onclick="gtag('event','click',{event_category:'hub',event_label:'course_tier1'})">
+  <div class="link-card green disabled">
     <div class="card-icon">🌱</div>
     <div class="card-body">
       <div class="card-title">Tier 1 — Foundations</div>
       <div class="card-sub">7-module core programme · Both streams available</div>
     </div>
-    <span class="card-badge badge-paid">£50</span>
-  </a>
+    <span class="card-badge badge-soon">🕐 Soon</span>
+  </div>
 
-  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/tier2.html"
-     class="link-card gold"
-     onclick="gtag('event','click',{event_category:'hub',event_label:'course_tier2'})">
+  <div class="link-card gold disabled">
     <div class="card-icon">⚡</div>
     <div class="card-body">
       <div class="card-title">Tier 2 — Advanced Practitioner</div>
       <div class="card-sub">DEILD, SSILD, nootropics, EEG tracking · 10 modules</div>
     </div>
-    <span class="card-badge badge-paid">£100</span>
-  </a>
+    <span class="card-badge badge-soon">🕐 Soon</span>
+  </div>
 
-  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/tier3.html"
-     class="link-card purple"
-     onclick="gtag('event','click',{event_category:'hub',event_label:'course_tier3'})">
+  <div class="link-card purple disabled">
     <div class="card-icon">🔮</div>
     <div class="card-body">
       <div class="card-title">Tier 3 — Master + Retreat</div>
       <div class="card-sub">Live Q&amp;A, workshop &amp; annual virtual retreat · 6 modules</div>
     </div>
-    <span class="card-badge badge-paid">£200</span>
-  </a>
+    <span class="card-badge badge-soon">🕐 Soon</span>
+  </div>
 
   <!-- ── COMMUNITY ─────────────────────────── -->
   <div class="section-label">Community</div>
 
-  <a href="https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/community.html"
-     class="link-card sky"
-     onclick="gtag('event','click',{event_category:'hub',event_label:'community_main'})">
+  <div class="link-card sky disabled">
     <div class="card-icon">🏛️</div>
     <div class="card-body">
       <div class="card-title">WILD Community</div>
       <div class="card-sub">Discord (biohacker) · Telegram (consciousness) · from £10/mo</div>
     </div>
-    <span class="card-badge badge-community">Members</span>
-  </a>
+    <span class="card-badge badge-soon">🕐 Soon</span>
+  </div>
 
-  <a href="https://discord.gg/YOUR_DISCORD_INVITE"
-     class="link-card green" target="_blank" rel="noopener"
-     onclick="gtag('event','click',{event_category:'hub',event_label:'community_discord'})">
+  <div class="link-card green disabled">
     <div class="card-icon">💬</div>
     <div class="card-body">
       <div class="card-title">Discord — Biohacker Hub</div>
       <div class="card-sub">Protocols · peer labs · data accountability · live sessions</div>
     </div>
-    <span class="card-badge badge-community">Discord</span>
-  </a>
+    <span class="card-badge badge-soon">🕐 Soon</span>
+  </div>
 
   <!-- ── ABOUT / SOCIALS ───────────────────── -->
   <div class="section-label">Socials &amp; more</div>
