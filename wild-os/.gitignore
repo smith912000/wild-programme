@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Environment — NEVER commit secrets
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# PWA generated (rebuilt on build)
+public/sw.js
+public/workbox-*.js
+public/sw.js.map
+public/workbox-*.js.map
