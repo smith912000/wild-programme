@@ -1,3 +1,10 @@
+# Node / build outputs — NEVER commit
+node_modules/
+**/node_modules/
+dist/
+build/
+*.log
+
 # Windows system files
 desktop.ini
 Thumbs.db
@@ -18,13 +25,23 @@ push.bat
 # macOS
 .DS_Store
 
-# Course content - local only, not for public repo
+# Paid course content — kept local (repo is private but conservative)
 06 - Course Content/
 08 - Brand Assets/
+
+# Automation scripts contain credentials — local only
 07 - Automation/
+
+# Strategy + business internals — local only
 01 - Strategy/
 03 - Content Calendars/
 04 - Spreadsheets/
-05 - Lead Magnet/
 To Do/
 Telegram_Handler_Briefing.md
+
+# NOW INCLUDED (private repo, public-facing content):
+# 02 - Landing Pages/
+# 05 - Lead Magnet/  (free resources)
+# 09 - Course Portal/
+# covers/
+# pdf uploads/

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { supabase, isSupabaseConfigured } from '@lib/supabase'
+import { useAccessStore } from '@store/accessStore'
 
 const MOCK_SESSION_KEY = 'wos_mock_session'
 
@@ -66,21 +67,22 @@ export const useAuthStore = create((set, get) => ({
   signIn: async (email, password) => {
     set({ loading: true, error: null })
 
-    if (!isSupabaseConfigured) {
-      // Check hardcoded test accounts first
-      const testAccount = TEST_ACCOUNTS[email.toLowerCase()]
-      if (testAccount) {
-        if (testAccount.password !== password) {
-          set({ error: 'Invalid password', loading: false })
-          return { error: { message: 'Invalid password' } }
-        }
-        const mockUser = createMockUser(email)
-        const mockSession = { user: mockUser, access_token: 'mock-token' }
-        setMockSession(mockSession)
-        localStorage.setItem('wos_tier', testAccount.tier)
-        set({ user: mockUser, session: mockSession, loading: false })
-        return { error: null }
+    // Test accounts always bypass Supabase regardless of configuration
+    const testAccount = TEST_ACCOUNTS[email.toLowerCase()]
+    if (testAccount) {
+      if (testAccount.password !== password) {
+        set({ error: 'Invalid email or password', loading: false })
+        return { error: { message: 'Invalid email or password' } }
       }
+      const mockUser = createMockUser(email)
+      const mockSession = { user: mockUser, access_token: 'mock-token' }
+      setMockSession(mockSession)
+      useAccessStore.getState().setTier(testAccount.tier)
+      set({ user: mockUser, session: mockSession, loading: false })
+      return { error: null, user: mockUser }
+    }
+
+    if (!isSupabaseConfigured) {
       // Generic mock mode — accept any credentials
       const mockUser = createMockUser(email)
       const mockSession = { user: mockUser, access_token: 'mock-token' }

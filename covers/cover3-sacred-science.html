@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #07090f; font-family: 'Georgia', serif; }
+</style>
+</head>
+<body>
+<svg width="1920" height="1080" style="position:absolute;top:0;left:0;">
+  <defs>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="0.8" fill="rgba(201,168,76,0.12)"/>
+    </pattern>
+    <filter id="glow3"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="aura"><feGaussianBlur stdDeviation="30"/></filter>
+    <filter id="softglow2"><feGaussianBlur stdDeviation="14"/></filter>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(201,168,76,0.18)"/>
+      <stop offset="50%" stop-color="rgba(100,149,237,0.06)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+    <radialGradient id="auraGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(201,168,76,0.35)"/>
+      <stop offset="100%" stop-color="rgba(201,168,76,0)"/>
+    </radialGradient>
+    <linearGradient id="lFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#07090f" stop-opacity="1"/>
+      <stop offset="35%" stop-color="#07090f" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="rFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="60%" stop-color="#07090f" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#07090f" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#07090f"/>
+  <rect width="1920" height="1080" fill="url(#dots)"/>
+  <rect width="1920" height="1080" fill="url(#centerGlow)"/>
+
+  <!-- ── SACRED GEOMETRY CENTRED ──
+    Centre: (960, 540), R1=360 (outer), R2=254.6 (mid), R3=127.3 (inner)
+  -->
+
+  <!-- Aura/glow -->
+  <circle cx="960" cy="540" r="340" fill="url(#auraGrad)" filter="url(#aura)" opacity="0.6"/>
+
+  <!-- Outer circle C1 - R1=360 -->
+  <circle cx="960" cy="540" r="360" stroke="rgba(201,168,76,0.25)" stroke-width="1.2" fill="none"/>
+
+  <!-- Square inscribed in C1 (circumradius=360, rotated 0°) -->
+  <!-- Corner at: (960±360/√2, 540±360/√2) = (960±254.6, 540±254.6) -->
+  <polygon points="960,180 1214.6,540 960,900 705.4,540"
+    stroke="rgba(201,168,76,0.35)" stroke-width="1.2" fill="none" opacity="0.6"/>
+
+  <!-- Middle circle C2 - R2=254.6 -->
+  <circle cx="960" cy="540" r="254.6" stroke="rgba(201,168,76,0.2)" stroke-width="1" fill="none"/>
+
+  <!-- Triangle inscribed in C2 -->
+  <!-- Vertices at: 90°, 210°, 330° from C2 -->
+  <polygon points="960,285.4 740.5,667.3 1179.5,667.3"
+    stroke="rgba(201,168,76,0.35)" stroke-width="1.2" fill="none" opacity="0.6"/>
+
+  <!-- Inner circle C3 - R3=127.3 -->
+  <circle cx="960" cy="540" r="127.3" stroke="rgba(201,168,76,0.18)" stroke-width="1" fill="none"/>
+
+  <!-- Hexagram (Star of David) -->
+  <!-- Triangle 1: up -->
+  <polygon points="960,285.4 1180.5,667.3 739.5,667.3"
+    stroke="rgba(201,168,76,0.7)" stroke-width="1.8" fill="none" filter="url(#glow3)" opacity="0.7"/>
+  <!-- Triangle 2: down -->
+  <polygon points="960,794.6 739.5,412.7 1180.5,412.7"
+    stroke="rgba(201,168,76,0.7)" stroke-width="1.8" fill="none" filter="url(#glow3)" opacity="0.7"/>
+
+  <!-- Octagram (two overlapping squares, rotated 22.5° each side) -->
+  <!-- Square 1: 0° (circumscribes in R1) at R2 scale = 254.6 -->
+  <rect x="705.4" y="285.4" width="509.2" height="509.2"
+    stroke="rgba(100,149,237,0.5)" stroke-width="1.8" fill="none"
+    transform="rotate(0 960 540)" filter="url(#glow3)" opacity="0.6"/>
+  <!-- Square 2: rotated 45° -->
+  <rect x="705.4" y="285.4" width="509.2" height="509.2"
+    stroke="rgba(100,149,237,0.5)" stroke-width="1.8" fill="none"
+    transform="rotate(45 960 540)" filter="url(#glow3)" opacity="0.6"/>
+
+  <!-- Flower of life - 7 small circles at R3 -->
+  <!-- Centre -->
+  <circle cx="960" cy="540" r="127.3" stroke="rgba(201,168,76,0.15)" stroke-width="0.8" fill="none"/>
+  <!-- 6 petals at 60° -->
+  <circle cx="960" cy="412.7" r="127.3" stroke="rgba(201,168,76,0.1)" stroke-width="0.8" fill="none"/>
+  <circle cx="1070.3" cy="476.35" r="127.3" stroke="rgba(201,168,76,0.1)" stroke-width="0.8" fill="none"/>
+  <circle cx="1070.3" cy="603.65" r="127.3" stroke="rgba(201,168,76,0.1)" stroke-width="0.8" fill="none"/>
+  <circle cx="960" cy="667.3" r="127.3" stroke="rgba(201,168,76,0.1)" stroke-width="0.8" fill="none"/>
+  <circle cx="849.7" cy="603.65" r="127.3" stroke="rgba(201,168,76,0.1)" stroke-width="0.8" fill="none"/>
+  <circle cx="849.7" cy="476.35" r="127.3" stroke="rgba(201,168,76,0.1)" stroke-width="0.8" fill="none"/>
+
+  <!-- Centre dot -->
+  <circle cx="960" cy="540" r="4" fill="rgba(201,168,76,0.9)" filter="url(#glow3)"/>
+  <circle cx="960" cy="540" r="12" fill="rgba(201,168,76,0.2)" filter="url(#softglow2)"/>
+
+  <!-- Scientific annotation lines radiating outward -->
+  <!-- DLPFC -->
+  <line x1="960" y1="178" x2="960" y2="95" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="4,5"/>
+  <line x1="860" y1="95" x2="1120" y2="95" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+  <text x="990" y="89" fill="rgba(201,168,76,0.7)" font-size="12" font-family="Courier New" letter-spacing="2">DLPFC REACTIVATION</text>
+  <text x="990" y="68" fill="rgba(201,168,76,0.35)" font-size="10" font-family="Courier New" letter-spacing="1">Dorsolateral Prefrontal Cortex  ·  Self-Awareness</text>
+
+  <!-- Gamma -->
+  <line x1="1214" y1="540" x2="1440" y2="480" stroke="rgba(100,210,180,0.35)" stroke-width="1" stroke-dasharray="4,5"/>
+  <line x1="1440" y1="480" x2="1700" y2="480" stroke="rgba(100,210,180,0.35)" stroke-width="1"/>
+  <text x="1450" y="473" fill="rgba(100,210,180,0.75)" font-size="12" font-family="Courier New" letter-spacing="2">40 Hz GAMMA BURST</text>
+  <text x="1450" y="494" fill="rgba(100,210,180,0.35)" font-size="10" font-family="Courier New" letter-spacing="1">Neural binding  ·  Conscious experience</text>
+
+  <!-- REM / Acetylcholine -->
+  <line x1="1214" y1="620" x2="1440" y2="680" stroke="rgba(100,149,237,0.35)" stroke-width="1" stroke-dasharray="4,5"/>
+  <line x1="1440" y1="680" x2="1700" y2="680" stroke="rgba(100,149,237,0.35)" stroke-width="1"/>
+  <text x="1450" y="673" fill="rgba(100,149,237,0.75)" font-size="12" font-family="Courier New" letter-spacing="2">ACETYLCHOLINE ↑</text>
+  <text x="1450" y="694" fill="rgba(100,149,237,0.35)" font-size="10" font-family="Courier New" letter-spacing="1">REM neuromodulator  ·  Dream vividness</text>
+
+  <!-- Sleep paralysis / atonia -->
+  <line x1="960" y1="902" x2="960" y2="970" stroke="rgba(180,100,230,0.3)" stroke-width="1" stroke-dasharray="4,5"/>
+  <line x1="750" y1="970" x2="1050" y2="970" stroke="rgba(180,100,230,0.3)" stroke-width="1"/>
+  <text x="760" y="963" fill="rgba(180,100,230,0.65)" font-size="12" font-family="Courier New" letter-spacing="2">MUSCLE ATONIA</text>
+  <text x="760" y="984" fill="rgba(180,100,230,0.3)" font-size="10" font-family="Courier New" letter-spacing="1">Brainstem inhibition  ·  Entry window</text>
+
+  <!-- HRV / coherent breathing -->
+  <line x1="706" y1="540" x2="480" y2="420" stroke="rgba(255,150,50,0.3)" stroke-width="1" stroke-dasharray="4,5"/>
+  <line x1="180" y1="420" x2="480" y2="420" stroke="rgba(255,150,50,0.3)" stroke-width="1"/>
+  <text x="190" y="413" fill="rgba(255,150,50,0.65)" font-size="12" font-family="Courier New" letter-spacing="2">COHERENT BREATHING</text>
+  <text x="190" y="434" fill="rgba(255,150,50,0.3)" font-size="10" font-family="Courier New" letter-spacing="1">5.5 BPM  ·  HRV resonance  ·  Vagal tone</text>
+
+  <!-- Hypnagogia -->
+  <line x1="740" y1="460" x2="480" y2="340" stroke="rgba(201,168,76,0.25)" stroke-width="1" stroke-dasharray="4,5"/>
+  <line x1="180" y1="340" x2="480" y2="340" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+  <text x="190" y="333" fill="rgba(201,168,76,0.55)" font-size="12" font-family="Courier New" letter-spacing="2">HYPNAGOGIC STATE</text>
+  <text x="190" y="354" fill="rgba(201,168,76,0.25)" font-size="10" font-family="Courier New" letter-spacing="1">Theta imagery  ·  WILD entry threshold</text>
+
+  <!-- Side fades -->
+  <rect x="0" y="0" width="500" height="1080" fill="url(#lFade)"/>
+  <rect x="1420" y="0" width="500" height="1080" fill="url(#rFade)"/>
+
+  <!-- Title block -->
+  <text x="140" y="420" fill="rgba(201,168,76,0.4)" font-size="13" font-family="Courier New" letter-spacing="5">WILD OS  ·  Framework</text>
+  <text x="140" y="500" fill="#f5f0e8" font-size="100" font-weight="900" font-family="Georgia" letter-spacing="-3" opacity="0.95">THE</text>
+  <text x="140" y="610" fill="#c9a84c" font-size="100" font-weight="900" font-family="Georgia" letter-spacing="-3" opacity="0.95">SYSTEM</text>
+  <text x="140" y="690" fill="#f5f0e8" font-size="28" font-family="Georgia" letter-spacing="0" opacity="0.6">of Conscious Dreaming</text>
+
+  <!-- Bottom tag -->
+  <text x="140" y="980" fill="rgba(201,168,76,0.3)" font-size="11" font-family="Courier New" letter-spacing="4">
+    NEUROSCIENCE  ·  BREATHWORK  ·  PROTOCOL  ·  PRACTICE
+  </text>
+
+  <!-- Top right watermark -->
+  <text x="1780" y="60" fill="rgba(201,168,76,0.2)" font-size="11" font-family="Courier New" text-anchor="end" letter-spacing="3">WILD OS</text>
+</svg>
+</body>
+</html>

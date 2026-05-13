@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #080c14; font-family: 'Georgia', serif; }
+  canvas { position: absolute; top: 0; left: 0; }
+  .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .content {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+    padding: 0 140px;
+  }
+  .tag {
+    font-size: 15px; letter-spacing: 5px; text-transform: uppercase;
+    color: #c9a84c; opacity: 0.7; margin-bottom: 24px;
+    font-family: 'Courier New', monospace;
+  }
+  .title {
+    font-size: 108px; font-weight: 900; line-height: 0.92;
+    color: #f5f0e8; letter-spacing: -3px;
+    font-family: 'Georgia', serif;
+    text-shadow: 0 0 80px rgba(201,168,76,0.25);
+  }
+  .title span { color: #c9a84c; }
+  .divider {
+    width: 80px; height: 2px; background: #c9a84c;
+    margin: 36px 0; opacity: 0.6;
+  }
+  .subtitle {
+    font-size: 22px; color: #8a9bb5; letter-spacing: 3px;
+    text-transform: uppercase; font-family: 'Courier New', monospace;
+    line-height: 1.8;
+  }
+  .data-pill {
+    display: inline-block; border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px; padding: 6px 14px; font-size: 13px;
+    color: #c9a84c; font-family: 'Courier New', monospace;
+    margin-right: 12px; margin-top: 32px; letter-spacing: 2px;
+  }
+  .right-panel {
+    position: absolute; right: 0; top: 0; width: 680px; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="c" width="1920" height="1080"></canvas>
+
+<div class="overlay">
+  <!-- Vertical separator -->
+  <svg style="position:absolute;top:0;left:0;width:100%;height:100%;" viewBox="0 0 1920 1080">
+    <!-- Grid lines -->
+    <defs>
+      <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+        <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(201,168,76,0.04)" stroke-width="1"/>
+      </pattern>
+      <radialGradient id="glow1" cx="75%" cy="50%" r="45%">
+        <stop offset="0%" stop-color="rgba(100,149,237,0.12)"/>
+        <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+      </radialGradient>
+      <radialGradient id="glow2" cx="75%" cy="50%" r="30%">
+        <stop offset="0%" stop-color="rgba(201,168,76,0.08)"/>
+        <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+      </radialGradient>
+      <filter id="blur"><feGaussianBlur stdDeviation="3"/></filter>
+      <filter id="blur2"><feGaussianBlur stdDeviation="12"/></filter>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#grid)"/>
+    <rect width="1920" height="1080" fill="url(#glow1)"/>
+    <rect width="1920" height="1080" fill="url(#glow2)"/>
+
+    <!-- Left gradient overlay -->
+    <rect width="800" height="1080" fill="url(#leftFade)"/>
+    <defs>
+      <linearGradient id="leftFade" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#080c14" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#080c14" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="rightFade" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#080c14" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#080c14" stop-opacity="0.9"/>
+      </linearGradient>
+    </defs>
+    <rect x="1100" width="820" height="1080" fill="url(#rightFade)"/>
+
+    <!-- EEG brain waves - main display -->
+    <!-- Channel 1: DELTA (deep sleep) -->
+    <text x="1130" y="262" fill="rgba(201,168,76,0.45)" font-size="11" font-family="Courier New" letter-spacing="2">DELTA  0.5–4 Hz</text>
+    <path d="M1130,280 Q1155,280 1160,250 Q1165,220 1180,280 Q1195,340 1210,280 Q1225,220 1240,280 Q1255,340 1270,280 Q1285,220 1300,280 Q1315,340 1330,280 Q1345,240 1360,280 Q1380,320 1400,280 Q1415,250 1440,280 Q1455,300 1480,280 Q1510,260 1540,280 Q1565,295 1600,280 Q1635,265 1680,280 Q1710,290 1760,280 Q1800,270 1840,280 Q1870,287 1900,280"
+      fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1.5"/>
+    <!-- glow duplicate -->
+    <path d="M1130,280 Q1155,280 1160,250 Q1165,220 1180,280 Q1195,340 1210,280 Q1225,220 1240,280 Q1255,340 1270,280 Q1285,220 1300,280 Q1315,340 1330,280 Q1345,240 1360,280 Q1380,320 1400,280 Q1415,250 1440,280 Q1455,300 1480,280 Q1510,260 1540,280 Q1565,295 1600,280 Q1635,265 1680,280 Q1710,290 1760,280 Q1800,270 1840,280 Q1870,287 1900,280"
+      fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="8" filter="url(#blur)"/>
+
+    <!-- Channel 2: THETA -->
+    <text x="1130" y="372" fill="rgba(100,149,237,0.55)" font-size="11" font-family="Courier New" letter-spacing="2">THETA  4–8 Hz</text>
+    <path d="M1130,390 Q1145,370 1155,390 Q1165,410 1175,390 Q1185,370 1200,390 Q1215,410 1230,390 Q1245,370 1260,390 Q1275,410 1295,390 Q1310,370 1325,390 Q1340,410 1360,390 Q1378,370 1395,390 Q1415,410 1435,390 Q1455,368 1475,390 Q1495,412 1520,390 Q1545,368 1570,390 Q1600,412 1630,390 Q1655,370 1685,390 Q1715,410 1750,390 Q1780,370 1820,390 Q1855,410 1900,390"
+      fill="none" stroke="rgba(100,149,237,0.45)" stroke-width="1.5"/>
+    <path d="M1130,390 Q1145,370 1155,390 Q1165,410 1175,390 Q1185,370 1200,390 Q1215,410 1230,390 Q1245,370 1260,390 Q1275,410 1295,390 Q1310,370 1325,390 Q1340,410 1360,390 Q1378,370 1395,390 Q1415,410 1435,390 Q1455,368 1475,390 Q1495,412 1520,390 Q1545,368 1570,390 Q1600,412 1630,390 Q1655,370 1685,390 Q1715,410 1750,390 Q1780,370 1820,390 Q1855,410 1900,390"
+      fill="none" stroke="rgba(100,149,237,0.12)" stroke-width="10" filter="url(#blur)"/>
+
+    <!-- Channel 3: ALPHA -->
+    <text x="1130" y="462" fill="rgba(100,210,180,0.55)" font-size="11" font-family="Courier New" letter-spacing="2">ALPHA  8–12 Hz</text>
+    <path d="M1130,480 Q1137,468 1144,480 Q1151,492 1158,480 Q1165,468 1172,480 Q1179,492 1186,480 Q1193,468 1200,480 Q1207,492 1214,480 Q1221,468 1228,480 Q1235,492 1242,480 Q1249,468 1256,480 Q1263,492 1270,480 Q1277,468 1284,480 Q1291,492 1298,480 Q1305,468 1312,480 Q1319,492 1326,480 Q1340,468 1354,480 Q1368,492 1382,480 Q1400,466 1420,480 Q1445,494 1470,480 Q1498,464 1530,480 Q1558,494 1590,480 Q1620,466 1660,480 Q1700,494 1750,480 Q1800,464 1860,480 Q1885,490 1910,480"
+      fill="none" stroke="rgba(100,210,180,0.4)" stroke-width="1.5"/>
+    <path d="M1130,480 Q1137,468 1144,480 Q1151,492 1158,480 Q1165,468 1172,480 Q1179,492 1186,480 Q1193,468 1200,480 Q1207,492 1214,480 Q1221,468 1228,480 Q1235,492 1242,480 Q1249,468 1256,480 Q1263,492 1270,480 Q1277,468 1284,480 Q1291,492 1298,480 Q1305,468 1312,480 Q1319,492 1326,480 Q1340,468 1354,480 Q1368,492 1382,480 Q1400,466 1420,480 Q1445,494 1470,480 Q1498,464 1530,480 Q1558,494 1590,480 Q1620,466 1660,480 Q1700,494 1750,480 Q1800,464 1860,480 Q1885,490 1910,480"
+      fill="none" stroke="rgba(100,210,180,0.1)" stroke-width="10" filter="url(#blur)"/>
+
+    <!-- Channel 4: GAMMA (lucid) - bright, highlighted -->
+    <text x="1130" y="562" fill="rgba(201,168,76,0.9)" font-size="11" font-family="Courier New" letter-spacing="2">GAMMA  40 Hz  ██ LUCID STATE</text>
+    <path d="M1130,580 Q1133,573 1136,580 Q1139,587 1142,580 Q1145,573 1148,580 Q1151,587 1154,580 Q1157,573 1160,580 Q1163,587 1166,580 Q1169,573 1172,580 Q1175,587 1178,580 Q1181,573 1184,580 Q1187,587 1190,580 Q1193,573 1196,580 Q1199,587 1202,580 Q1205,573 1208,580 Q1211,587 1214,580 Q1217,573 1220,580 Q1223,587 1226,580 Q1229,573 1232,580 Q1235,587 1238,580 Q1241,573 1244,580 Q1247,587 1250,580 Q1253,573 1256,580 Q1259,587 1262,580 Q1265,573 1268,580 Q1271,587 1274,580 Q1277,573 1280,580 Q1283,587 1286,580 Q1289,573 1292,580 Q1295,587 1298,580 Q1301,573 1304,580 Q1307,587 1310,580 Q1313,573 1316,580 Q1319,587 1322,580 Q1325,573 1328,580 Q1331,587 1334,580 Q1337,573 1340,580 Q1343,587 1346,580 Q1349,573 1352,580 Q1355,587 1358,580 Q1361,573 1364,580 Q1367,587 1370,580 Q1373,573 1376,580 Q1379,587 1382,580 Q1385,573 1388,580 Q1391,587 1394,580 Q1397,573 1400,580 Q1403,587 1406,580 Q1409,573 1412,580 Q1415,587 1418,580 Q1421,573 1424,580 Q1427,587 1430,580 Q1433,573 1436,580 Q1439,587 1442,580 Q1445,573 1448,580 Q1451,587 1454,580 Q1457,573 1460,580 Q1463,587 1466,580 Q1469,573 1472,580 Q1475,587 1478,580 Q1481,573 1484,580 Q1487,587 1490,580 Q1493,573 1496,580 Q1499,587 1502,580 Q1505,573 1508,580 Q1511,587 1514,580 Q1517,573 1520,580 Q1523,587 1526,580 Q1529,573 1532,580 Q1535,587 1538,580 Q1541,573 1544,580 Q1547,587 1550,580 Q1553,573 1556,580 Q1559,587 1562,580 Q1565,573 1568,580 Q1571,587 1574,580 Q1577,573 1580,580 Q1583,587 1586,580 Q1589,573 1592,580 Q1595,587 1598,580 Q1601,573 1604,580 Q1607,587 1610,580 Q1613,573 1616,580 Q1619,587 1622,580 Q1625,573 1628,580 Q1631,587 1634,580 Q1637,573 1640,580 Q1643,587 1646,580 Q1649,573 1652,580 Q1655,587 1658,580 Q1661,573 1664,580 Q1667,587 1670,580 Q1673,573 1676,580 Q1679,587 1682,580 Q1685,573 1688,580 Q1691,587 1694,580 Q1697,573 1700,580 Q1703,587 1706,580 Q1709,573 1712,580 Q1715,587 1718,580 Q1721,573 1724,580 Q1727,587 1730,580 Q1733,573 1736,580 Q1739,587 1742,580 Q1745,573 1748,580 Q1751,587 1754,580 Q1757,573 1760,580 Q1763,587 1766,580 Q1769,573 1772,580 Q1775,587 1778,580 Q1781,573 1784,580 Q1787,587 1790,580 Q1793,573 1796,580 Q1799,587 1802,580 Q1805,573 1808,580 Q1811,587 1814,580 Q1817,573 1820,580 Q1823,587 1826,580 Q1829,573 1832,580 Q1835,587 1838,580 Q1841,573 1844,580 Q1847,587 1850,580 Q1853,573 1856,580 Q1859,587 1862,580 Q1865,573 1868,580 Q1871,587 1874,580 Q1877,573 1880,580 Q1883,587 1886,580 Q1889,573 1892,580 Q1895,587 1898,580 Q1901,573 1904,580 Q1907,587 1910,580"
+      fill="none" stroke="rgba(201,168,76,0.85)" stroke-width="1.5"/>
+    <path d="M1130,580 Q1133,573 1136,580 Q1139,587 1142,580 Q1145,573 1148,580 Q1151,587 1154,580 Q1157,573 1160,580 Q1163,587 1166,580 Q1169,573 1172,580 Q1175,587 1178,580 Q1181,573 1184,580 Q1187,587 1190,580 Q1193,573 1196,580 Q1199,587 1202,580 Q1205,573 1208,580 Q1211,587 1214,580 Q1217,573 1220,580 Q1223,587 1226,580 Q1229,573 1232,580 Q1235,587 1238,580 Q1241,573 1244,580 Q1247,587 1250,580 Q1253,573 1256,580 Q1259,587 1262,580 Q1265,573 1268,580 Q1271,587 1274,580 Q1277,573 1280,580 Q1283,587 1286,580 Q1289,573 1292,580 Q1295,587 1298,580 Q1301,573 1304,580 Q1307,587 1310,580 Q1313,573 1316,580 Q1319,587 1322,580 Q1325,573 1328,580 Q1331,587 1334,580 Q1337,573 1340,580 Q1343,587 1346,580 Q1349,573 1352,580 Q1355,587 1358,580 Q1361,573 1364,580 Q1367,587 1370,580 Q1373,573 1376,580 Q1379,587 1382,580 Q1385,573 1388,580 Q1391,587 1394,580 Q1397,573 1400,580 Q1403,587 1406,580 Q1409,573 1412,580 Q1415,587 1418,580"
+      fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="12" filter="url(#blur2)"/>
+
+    <!-- Vertical scan line -->
+    <line x1="1520" y1="200" x2="1520" y2="750" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="4,6"/>
+    <text x="1524" y="216" fill="rgba(201,168,76,0.4)" font-size="10" font-family="Courier New" letter-spacing="1">REM ONSET</text>
+
+    <!-- Channel labels vertical line -->
+    <line x1="1120" y1="240" x2="1120" y2="640" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+
+    <!-- Bottom data row -->
+    <text x="1130" y="700" fill="rgba(100,149,237,0.4)" font-size="11" font-family="Courier New" letter-spacing="3">
+      DLPFC ACTIVATION  ·  ACETYLCHOLINE ↑  ·  REM PRESSURE  ·  AWARENESS ANCHOR
+    </text>
+
+    <!-- Top right label -->
+    <text x="1820" y="60" fill="rgba(201,168,76,0.3)" font-size="11" font-family="Courier New" letter-spacing="2" text-anchor="end">EEG MONTAGE  ·  10-20 SYSTEM</text>
+  </svg>
+</div>
+
+<div class="content">
+  <div class="tag">WILD OS  ·  Scientific Protocol</div>
+  <div class="title">THE<br/>NEURO<span>SCIENCE</span><br/>OF DREAMS</div>
+  <div class="divider"></div>
+  <div class="subtitle">
+    Wake-Initiated Lucid Dreaming<br/>
+    Evidence-Based Practice
+  </div>
+  <div>
+    <span class="data-pill">DLPFC</span>
+    <span class="data-pill">40Hz γ</span>
+    <span class="data-pill">ACh ↑</span>
+    <span class="data-pill">REM</span>
+  </div>
+</div>
+
+</body>
+</html>

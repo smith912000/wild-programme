@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { User, Key, Bell, Trash2, Download, Shield, ExternalLink } from 'lucide-react'
+import { User, Key, Bell, Trash2, Download, Shield, Clock } from 'lucide-react'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Card } from '@shared/ui/Card'
@@ -89,14 +89,14 @@ export function SettingsPage() {
             action={<Badge tier={tier || 0}>{tier ? TIER_LABELS[tier] : 'None'}</Badge>}
           />
           <Row
-            label='Enter new code'
-            value='Upgrade or restore access'
+            label='Enter access code'
+            value='Restore access with an existing code'
             action={<Button variant='ghost' size='sm' onClick={() => navigate('/unlock')}>Enter code</Button>}
           />
           <Row
             label='Get a plan'
-            value='Visit Whop to purchase access'
-            action={<ExternalLink className='w-4 h-4 text-text-muted' />}
+            value='Purchases opening soon'
+            action={<div className='flex items-center gap-1 text-text-faint text-xs'><Clock className='w-3.5 h-3.5' />Coming Soon</div>}
           />
         </Section>
 

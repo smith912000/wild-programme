@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
+  base: '/wild-os/',
   plugins: [
     tailwindcss(),
     react(),
@@ -22,7 +23,7 @@ export default defineConfig({
         background_color: '#0d0f14',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/',
+        start_url: '/wild-os/',
         icons: [
           { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },

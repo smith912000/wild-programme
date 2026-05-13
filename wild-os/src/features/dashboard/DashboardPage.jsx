@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Activity, Moon, MoreHorizontal, BookOpen } from 'lucide-react'
+import { Activity, Moon, MoreHorizontal, BookOpen, Clock } from 'lucide-react'
 import { useAuthStore } from '@store/authStore'
 import { useAccessStore } from '@store/accessStore'
 import { useTracker } from '@hooks/useTracker'
@@ -126,11 +126,12 @@ export function DashboardPage() {
           >
             <div className="absolute inset-0 rounded-2xl pointer-events-none"
               style={{ boxShadow: '0 0 32px rgba(201,168,76,0.08) inset' }} />
-            <p className="font-display font-semibold text-text-primary mb-1">Unlock Advanced Features</p>
-            <p className="text-text-muted text-sm mb-4">Upgrade to Advanced or Master for binaural tones, attempt logging, analytics, and more.</p>
-            <Button variant="gold" fullWidth onClick={() => window.open(WHOP_URL, '_blank')}>
-              Upgrade Access
-            </Button>
+            <p className="font-display font-semibold text-text-primary mb-1">Advanced & Master Tiers</p>
+            <p className="text-text-muted text-sm mb-4">Binaural tones, attempt logging, analytics, and more — launching soon.</p>
+            <div className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-bg-surface border border-border text-text-faint text-sm">
+              <Clock className="w-4 h-4" />
+              Coming Soon
+            </div>
           </div>
         )}
       </PageWrapper>

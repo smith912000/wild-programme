@@ -75,15 +75,7 @@ export function UnlockPage() {
             </form>
 
             <p className="text-text-faint text-xs text-center mt-6">
-              Don't have a code?{' '}
-              <a
-                href={import.meta.env.VITE_WHOP_UPGRADE_URL || 'https://whop.com/wild-programme/'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent-gold hover:text-yellow-400 transition-colors"
-              >
-                Get WILD OS
-              </a>
+              Purchases opening soon — check back shortly.
             </p>
           </>
         ) : (

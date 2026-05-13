@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #060a10; font-family: 'Georgia', serif; }
+  .content {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    align-items: flex-start; padding: 0 140px 100px;
+  }
+  .tag { font-size: 13px; letter-spacing: 5px; text-transform: uppercase; color: #c9a84c; opacity: 0.6; margin-bottom: 20px; font-family: 'Courier New', monospace; }
+  .title { font-size: 90px; font-weight: 900; line-height: 0.9; color: #f5f0e8; letter-spacing: -2px; font-family: 'Georgia', serif; }
+  .title em { color: #c9a84c; font-style: normal; }
+  .sub { font-size: 18px; color: #6a7f9a; letter-spacing: 4px; text-transform: uppercase; font-family: 'Courier New', monospace; margin-top: 28px; }
+</style>
+</head>
+<body>
+<svg width="1920" height="1080" style="position:absolute;top:0;left:0;">
+  <defs>
+    <pattern id="g" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(201,168,76,0.03)" stroke-width="1"/>
+    </pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="softglow"><feGaussianBlur stdDeviation="20"/></filter>
+    <linearGradient id="cycleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a3a6e"/>
+      <stop offset="100%" stop-color="#0d1f42"/>
+    </linearGradient>
+    <linearGradient id="remGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(201,168,76,0.6)"/>
+      <stop offset="100%" stop-color="rgba(201,168,76,0.05)"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060a10"/>
+      <stop offset="60%" stop-color="#0a1220"/>
+      <stop offset="100%" stop-color="#060a10"/>
+    </linearGradient>
+    <linearGradient id="leftMask" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#060a10" stop-opacity="1"/>
+      <stop offset="15%" stop-color="#060a10" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="rightMask" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="70%" stop-color="#060a10" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#060a10" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+
+  <!-- Ambient glow -->
+  <ellipse cx="960" cy="300" rx="700" ry="300" fill="rgba(30,60,120,0.18)" filter="url(#softglow)"/>
+  <ellipse cx="1400" cy="480" rx="400" ry="200" fill="rgba(201,168,76,0.05)" filter="url(#softglow)"/>
+
+  <!-- ── HYPNOGRAM ─────────────────────────────────── -->
+  <!-- Graph boundaries: x: 200–1820, y: 160–700 -->
+  <!-- Stages y positions: WAKE=180, REM=280, N1=380, N2=480, N3=620 -->
+
+  <!-- Stage labels (left axis) -->
+  <text x="175" y="185" fill="rgba(255,100,100,0.7)" font-size="13" font-family="Courier New" text-anchor="end" letter-spacing="1">WAKE</text>
+  <text x="175" y="285" fill="rgba(201,168,76,0.9)" font-size="13" font-family="Courier New" text-anchor="end" letter-spacing="1">REM</text>
+  <text x="175" y="385" fill="rgba(100,149,237,0.7)" font-size="13" font-family="Courier New" text-anchor="end" letter-spacing="1">N1</text>
+  <text x="175" y="485" fill="rgba(100,149,237,0.7)" font-size="13" font-family="Courier New" text-anchor="end" letter-spacing="1">N2</text>
+  <text x="175" y="625" fill="rgba(60,120,220,0.8)" font-size="13" font-family="Courier New" text-anchor="end" letter-spacing="1">N3</text>
+
+  <!-- Horizontal guide lines -->
+  <line x1="192" y1="181" x2="1820" y2="181" stroke="rgba(255,100,100,0.08)" stroke-width="1"/>
+  <line x1="192" y1="281" x2="1820" y2="281" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+  <line x1="192" y1="381" x2="1820" y2="381" stroke="rgba(100,149,237,0.06)" stroke-width="1"/>
+  <line x1="192" y1="481" x2="1820" y2="481" stroke="rgba(100,149,237,0.06)" stroke-width="1"/>
+  <line x1="192" y1="621" x2="1820" y2="621" stroke="rgba(60,120,220,0.08)" stroke-width="1"/>
+
+  <!-- Left axis -->
+  <line x1="192" y1="160" x2="192" y2="660" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+
+  <!-- Time axis -->
+  <line x1="192" y1="660" x2="1820" y2="660" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+
+  <!-- Time labels -->
+  <text x="192" y="685" fill="rgba(201,168,76,0.4)" font-size="12" font-family="Courier New" text-anchor="middle">0h</text>
+  <text x="465" y="685" fill="rgba(201,168,76,0.4)" font-size="12" font-family="Courier New" text-anchor="middle">1h</text>
+  <text x="737" y="685" fill="rgba(201,168,76,0.4)" font-size="12" font-family="Courier New" text-anchor="middle">2h</text>
+  <text x="1010" y="685" fill="rgba(201,168,76,0.4)" font-size="12" font-family="Courier New" text-anchor="middle">3h</text>
+  <text x="1282" y="685" fill="rgba(201,168,76,0.4)" font-size="12" font-family="Courier New" text-anchor="middle">4h</text>
+  <text x="1555" y="685" fill="rgba(201,168,76,0.4)" font-size="12" font-family="Courier New" text-anchor="middle">5h</text>
+  <text x="1820" y="685" fill="rgba(201,168,76,0.4)" font-size="12" font-family="Courier New" text-anchor="middle">6h</text>
+  <text x="960" y="715" fill="rgba(201,168,76,0.25)" font-size="11" font-family="Courier New" text-anchor="middle" letter-spacing="3">SLEEP TIME</text>
+
+  <!-- ── HYPNOGRAM PATH ──
+    Cycle 1: 0-90min (x: 192-465)   Heavy N3, short REM
+    Cycle 2: 90-180min (x: 465-737) Some N3, longer REM
+    Cycle 3: 180-270min (x: 737-1010) Little N3, longer REM
+    Cycle 4: 270-360min (x: 1010-1282) No N3, long REM ← WBTB target
+    WBTB: 330min → x≈1174 → Wake, then Cycle 5 → target REM
+    Cycle 5: post-WBTB entry → straight into REM
+  -->
+
+  <!-- Hypnogram - fill areas -->
+  <!-- REM fills (gold) -->
+  <!-- Cycle 1 REM: x≈430-465, y=281 -->
+  <rect x="430" y="281" width="35" height="379" fill="rgba(201,168,76,0.06)" rx="0"/>
+  <!-- Cycle 2 REM: x≈650-737 -->
+  <rect x="650" y="281" width="87" height="379" fill="rgba(201,168,76,0.06)"/>
+  <!-- Cycle 3 REM: x≈900-1010 -->
+  <rect x="900" y="281" width="110" height="379" fill="rgba(201,168,76,0.06)"/>
+  <!-- Cycle 4 REM: x≈1140-1282 -->
+  <rect x="1140" y="281" width="142" height="379" fill="rgba(201,168,76,0.09)"/>
+  <!-- Cycle 5 (post-WBTB) REM: x≈1420-1820 — highlighted -->
+  <rect x="1420" y="220" width="400" height="440" fill="rgba(201,168,76,0.12)" rx="4"/>
+  <!-- glow for last REM -->
+  <rect x="1420" y="220" width="400" height="440" fill="rgba(201,168,76,0.04)" filter="url(#softglow)"/>
+
+  <!-- Hypnogram line (polyline) -->
+  <polyline
+    points="
+      192,181
+      210,381 210,481 230,621
+      290,621 290,481
+      320,481 320,381
+      360,381 360,281
+      430,281 430,381
+      465,381 465,481 475,621
+      530,621 530,481
+      560,481 560,381
+      605,381 605,281
+      650,281 650,381
+      737,381 737,481 750,621
+      800,621 800,481
+      840,481 840,381
+      895,381 895,281
+      900,281 900,381 1000,381 1000,281
+      1010,281 1010,381 1020,481
+      1070,481 1070,381
+      1110,381 1110,281
+      1140,281 1140,381 1280,381 1282,281
+      1282,181
+    "
+    fill="none" stroke="rgba(100,149,237,0.6)" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- WBTB wake period: x: 1282-1360 -->
+  <rect x="1282" y="150" width="78" height="520" fill="rgba(255,150,50,0.05)"/>
+  <line x1="1282" y1="150" x2="1282" y2="680" stroke="rgba(255,150,50,0.4)" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="1360" y1="150" x2="1360" y2="680" stroke="rgba(255,150,50,0.4)" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="1321" y="145" fill="rgba(255,150,50,0.7)" font-size="11" font-family="Courier New" text-anchor="middle" letter-spacing="1">WBTB</text>
+  <text x="1321" y="158" fill="rgba(255,150,50,0.5)" font-size="10" font-family="Courier New" text-anchor="middle">20–40 min</text>
+
+  <!-- Wake during WBTB -->
+  <line x1="1282" y1="181" x2="1360" y2="181" stroke="rgba(255,150,50,0.7)" stroke-width="2.5"/>
+
+  <!-- Post-WBTB: direct REM entry -->
+  <polyline
+    points="1360,181 1380,281 1420,281 1820,281"
+    fill="none" stroke="rgba(201,168,76,0.9)" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Glow on last REM line -->
+  <polyline
+    points="1360,181 1380,281 1420,281 1820,281"
+    fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="14" filter="url(#softglow)"/>
+
+  <!-- REM label on last segment -->
+  <text x="1600" y="268" fill="rgba(201,168,76,0.85)" font-size="13" font-family="Courier New" text-anchor="middle" letter-spacing="2">DIRECT REM ENTRY</text>
+  <text x="1600" y="284" fill="rgba(201,168,76,0.45)" font-size="10" font-family="Courier New" text-anchor="middle" letter-spacing="2">WILD WINDOW  ·  3–5× SUCCESS RATE</text>
+
+  <!-- Cycle brackets below time axis -->
+  <line x1="192" y1="728" x2="465" y2="728" stroke="rgba(100,149,237,0.25)" stroke-width="1"/>
+  <text x="328" y="744" fill="rgba(100,149,237,0.35)" font-size="10" font-family="Courier New" text-anchor="middle" letter-spacing="1">CYCLE 1</text>
+  <line x1="465" y1="728" x2="737" y2="728" stroke="rgba(100,149,237,0.25)" stroke-width="1"/>
+  <text x="601" y="744" fill="rgba(100,149,237,0.35)" font-size="10" font-family="Courier New" text-anchor="middle" letter-spacing="1">CYCLE 2</text>
+  <line x1="737" y1="728" x2="1010" y2="728" stroke="rgba(100,149,237,0.25)" stroke-width="1"/>
+  <text x="873" y="744" fill="rgba(100,149,237,0.35)" font-size="10" font-family="Courier New" text-anchor="middle" letter-spacing="1">CYCLE 3</text>
+  <line x1="1010" y1="728" x2="1282" y2="728" stroke="rgba(100,149,237,0.25)" stroke-width="1"/>
+  <text x="1146" y="744" fill="rgba(100,149,237,0.35)" font-size="10" font-family="Courier New" text-anchor="middle" letter-spacing="1">CYCLE 4</text>
+  <line x1="1360" y1="728" x2="1820" y2="728" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+  <text x="1590" y="744" fill="rgba(201,168,76,0.6)" font-size="10" font-family="Courier New" text-anchor="middle" letter-spacing="2">CYCLE 5  ·  TARGET</text>
+
+  <!-- Top annotations -->
+  <text x="960" y="100" fill="rgba(201,168,76,0.18)" font-size="11" font-family="Courier New" text-anchor="middle" letter-spacing="5">HUMAN SLEEP ARCHITECTURE  ·  HYPNOGRAM  ·  8h RECORDING</text>
+
+  <!-- Masks for clean edges -->
+  <rect x="0" y="0" width="192" height="1080" fill="url(#leftMask)"/>
+  <rect x="1820" y="0" width="100" height="1080" fill="url(#rightMask)"/>
+
+  <!-- Bottom left fade -->
+  <rect x="0" y="800" width="700" height="280" fill="url(#bottomFade)"/>
+  <defs>
+    <linearGradient id="bottomFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060a10" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#060a10" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="content">
+  <div class="tag">WILD OS  ·  Sleep Architecture</div>
+  <div class="title">SLEEP<br/>CYCLES <em>&</em><br/>THE WILD<br/>WINDOW</div>
+  <div class="sub">Wake-Back-To-Bed Protocol<br/>Evidence from Polysomnography</div>
+</div>
+
+</body>
+</html>

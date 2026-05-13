@@ -1,12 +1,9 @@
 import React from 'react'
-import { Lock } from 'lucide-react'
+import { Lock, Clock } from 'lucide-react'
 import { useAccessStore } from '@store/accessStore'
 import { tierCanAccess, TIERS, FEATURE_TIERS } from '@config/tiers'
 import { Card } from '@shared/ui/Card'
-import { Button } from '@shared/ui/Button'
 import { Badge } from '@shared/ui/Badge'
-
-const WHOP_URL = import.meta.env.VITE_WHOP_UPGRADE_URL || 'https://whop.com/wild-programme/'
 
 export function TierGate({ feature, children }) {
   const { tier } = useAccessStore()
@@ -35,13 +32,10 @@ export function TierGate({ feature, children }) {
           tier and above.
         </p>
       </div>
-      <Button
-        variant="gold"
-        onClick={() => window.open(WHOP_URL, '_blank')}
-        size="md"
-      >
-        Upgrade Access
-      </Button>
+      <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-bg-surface border border-border text-text-faint text-sm">
+        <Clock className="w-4 h-4" />
+        Coming Soon
+      </div>
     </Card>
   )
 }

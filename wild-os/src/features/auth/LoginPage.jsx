@@ -19,14 +19,16 @@ export function LoginPage() {
   const from = location.state?.from?.pathname || '/'
 
   const afterLogin = (loggedInUser) => {
-    const email = loggedInUser?.email || user?.email
-    if (email === MASTER_EMAIL) {
+    const loggedEmail = loggedInUser?.email || user?.email
+    if (loggedEmail === MASTER_EMAIL) {
       setTier('T3')
       navigate(from, { replace: true })
       return
     }
     initAccess()
-    if (!tier) {
+    // Read tier directly from store state (not stale closure)
+    const currentTier = useAccessStore.getState().tier
+    if (!currentTier) {
       navigate('/unlock', { replace: true })
     } else {
       navigate(from, { replace: true })
