@@ -5,7 +5,12 @@ import { useAccessStore } from '@store/accessStore'
 const MOCK_SESSION_KEY = 'wos_mock_session'
 
 const TEST_ACCOUNTS = {
+  // Master tester — unlocks all tiers
   'memberof31@truth.com': { password: 'SeekTruthIn13', tier: 'T3' },
+  // Tier 1 tester
+  'tier1@truth.com':      { password: 'SeekTruthIn1',  tier: 'T1' },
+  // Tier 2 tester
+  'tier2@truth.com':      { password: 'SeekTruthIn2',  tier: 'T2' },
 }
 
 function getMockSession() {
