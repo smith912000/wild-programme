@@ -38,6 +38,11 @@ function createMockUser(email) {
   }
 }
 
+// Module-level guards — prevent multiple initAuth runs from racing the Supabase
+// auth-token lock, and prevent registering onAuthStateChange more than once.
+let _initStarted = false
+let _authListenerRegistered = false
+
 export const useAuthStore = create((set, get) => ({
   user: null,
   session: null,
@@ -45,15 +50,23 @@ export const useAuthStore = create((set, get) => ({
   error: null,
 
   initAuth: async () => {
+    // Run once. Subsequent calls (e.g. AuthGuard remounts) are no-ops.
+    if (_initStarted) return
+    _initStarted = true
+
     set({ loading: true, error: null })
 
+    // PRIORITY 1: mock test session — bypass Supabase entirely.
+    // Without this check, navigation after a test-account login causes
+    // supabase.auth.getSession() to return null and wipe the mock user.
+    const mockSession = getMockSession()
+    if (mockSession) {
+      set({ user: mockSession.user, session: mockSession, loading: false })
+      return
+    }
+
     if (!isSupabaseConfigured) {
-      const mockSession = getMockSession()
-      if (mockSession) {
-        set({ user: mockSession.user, session: mockSession, loading: false })
-      } else {
-        set({ user: null, session: null, loading: false })
-      }
+      set({ user: null, session: null, loading: false })
       return
     }
 
@@ -61,9 +74,15 @@ export const useAuthStore = create((set, get) => ({
       const { data: { session } } = await supabase.auth.getSession()
       set({ user: session?.user || null, session, loading: false })
 
-      supabase.auth.onAuthStateChange((_event, session) => {
-        set({ user: session?.user || null, session })
-      })
+      // Register the listener only once for the lifetime of the app.
+      if (!_authListenerRegistered) {
+        _authListenerRegistered = true
+        supabase.auth.onAuthStateChange((_event, session) => {
+          // If a mock session is active, ignore Supabase state changes.
+          if (getMockSession()) return
+          set({ user: session?.user || null, session })
+        })
+      }
     } catch (e) {
       set({ error: e.message, loading: false })
     }
@@ -147,12 +166,17 @@ export const useAuthStore = create((set, get) => ({
   },
 
   signOut: async () => {
-    if (!isSupabaseConfigured) {
-      setMockSession(null)
-      set({ user: null, session: null })
-      return
+    // Always clear mock session + tier first (covers test-account logouts
+    // even when Supabase is configured).
+    const wasMock = !!getMockSession()
+    setMockSession(null)
+    useAccessStore.getState().clearAccess()
+
+    // Only call Supabase signOut for real Supabase sessions.
+    if (!wasMock && isSupabaseConfigured) {
+      try { await supabase.auth.signOut() } catch (_) { /* non-fatal */ }
     }
-    await supabase.auth.signOut()
+
     set({ user: null, session: null })
   },
 

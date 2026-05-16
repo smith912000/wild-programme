@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuthStore } from '@store/authStore'
 import { Spinner } from '@shared/ui/Spinner'
 
 export function AuthGuard({ children }) {
-  const { user, loading, initAuth } = useAuthStore()
+  // initAuth is called once by AppInitialiser at the root — don't re-call here.
+  // Re-calling on every protected-route mount caused (a) racing the Supabase
+  // navigator-lock for sb-...-auth-token, and (b) wiping mock test sessions
+  // back to null on navigation.
+  const { user, loading } = useAuthStore()
   const location = useLocation()
-
-  useEffect(() => {
-    initAuth()
-  }, [initAuth])
 
   if (loading) {
     return (
