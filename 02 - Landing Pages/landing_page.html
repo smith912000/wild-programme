@@ -127,9 +127,11 @@
         <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#3fb950"><span>✓</span><span>Bonus: The WILD Sleep Architecture Map — 7-page timing guide</span></div>
         <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#3fb950"><span>✓</span><span>7-day biohacker email course — free</span></div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#21262d;border:1px solid #30363d;border-radius:8px;color:#8b949e;font-size:14px;font-weight:600;letter-spacing:.04em">
-        <span style="font-size:18px">🕐</span> Download launching soon — check back shortly
-      </div>
+      <form class="wild-optin" data-stream="biohacker" onsubmit="return wildKitSubmit(event)">
+        <input class="femail" type="email" name="email" required placeholder="you@domain.com" autocomplete="email">
+        <button type="submit" class="nav-cta wild-btn" style="width:100%;padding:14px;font-size:14px;cursor:pointer;border:0">Send me the protocol →</button>
+        <div class="wild-msg" style="margin-top:10px;font-size:12px;color:#8b949e;min-height:16px"></div>
+      </form>
       <p class="disc" style="margin-top:16px">Free protocol. No credit card required.</p>
     </div>
     <div class="sp">
@@ -246,9 +248,11 @@
   <div class="fcard" style="text-align:left;margin-top:0">
     <div class="ftitle">Get the Free 7-Night Protocol</div>
     <div class="fsub">16-page PDF + Sleep Architecture Map — launching soon.</div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#21262d;border:1px solid #30363d;border-radius:8px;color:#8b949e;font-size:14px;font-weight:600;letter-spacing:.04em">
-      <span style="font-size:18px">🕐</span> Download launching soon — check back shortly
-    </div>
+    <form class="wild-optin" data-stream="biohacker" onsubmit="return wildSubmit(event)">
+      <input class="femail" type="email" name="email" required placeholder="you@domain.com" autocomplete="email">
+      <button type="submit" class="nav-cta" style="width:100%;padding:14px;font-size:14px;cursor:pointer;border:0">Send me the protocol →</button>
+      <div class="wild-msg" style="margin-top:10px;font-size:12px;color:#8b949e;min-height:16px"></div>
+    </form>
     <p class="disc" style="margin-top:16px">Free protocol. No credit card required.</p>
   </div>
 </section>
@@ -260,6 +264,34 @@
 
 
 <script>
+// === WILD lead capture (Kit/ConvertKit direct) ===
+// Same pattern as landing_spiritual.html. Single form ID, tagged by stream.
+// If you split forms later, set window.WILD_KIT_FORM_BIOHACKER and update logic.
+window.WILD_KIT_FORM_ID = '9206237';
+window.WILD_KIT_API_KEY = 'bIOgOJmqrVA6SvEHrI9b6Q';
+
+async function wildKitSubmit(e){
+  e.preventDefault();
+  var f=e.target, msg=f.querySelector('.wild-msg'), btn=f.querySelector('button');
+  var email=f.email.value.trim(), stream=f.dataset.stream||'biohacker';
+  if(!email || email.indexOf('@')===-1){ msg.style.color='#f85149'; msg.textContent='Please enter a valid email.'; return false; }
+  btn.disabled=true; var orig=btn.textContent; btn.textContent='Sending…';
+  try{
+    await fetch('https://api.convertkit.com/v3/forms/'+window.WILD_KIT_FORM_ID+'/subscribe',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ api_key: window.WILD_KIT_API_KEY, email: email, fields: { source: stream } })
+    });
+    try{ sessionStorage.setItem('wild_track','bio'); }catch(_){}
+    try{ if(window.gtag) gtag('event','generate_lead',{event_category:'lead_magnet',event_label:stream+'_hero',value:0}); }catch(_){}
+    window.location.href = 'thankyou.html';
+  }catch(err){
+    // Always proceed to thankyou even on network blip — Kit usually succeeded.
+    try{ sessionStorage.setItem('wild_track','bio'); }catch(_){}
+    window.location.href = 'thankyou.html';
+  }
+  return false;
+}
+
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
   a.addEventListener('click',function(e){
