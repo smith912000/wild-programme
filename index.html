@@ -336,9 +336,88 @@
     .path-grid { grid-template-columns: 1fr; }
     .wordmark { font-size: 1.7rem; }
   }
+
+  /* ══ FLUIDITY PASS ══════════════════════════ */
+  :root { --ease: cubic-bezier(.22,.61,.36,1); }
+
+  /* Ambient aurora — matches the rest of the WILD family */
+  .aurora { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+  .aurora::before, .aurora::after, .aurora .a3 {
+    content: ''; position: absolute; border-radius: 50%;
+    filter: blur(115px); mix-blend-mode: screen; will-change: transform;
+  }
+  .aurora::before {
+    width: 72vmax; height: 72vmax; opacity: .55;
+    background: radial-gradient(circle, rgba(125,211,252,.16), transparent 62%);
+    top: -28%; left: -22%; animation: aur1 34s ease-in-out infinite alternate;
+  }
+  .aurora::after {
+    width: 66vmax; height: 66vmax; opacity: .5;
+    background: radial-gradient(circle, rgba(167,139,250,.15), transparent 62%);
+    bottom: -28%; right: -22%; animation: aur2 46s ease-in-out infinite alternate;
+  }
+  .aurora .a3 {
+    width: 56vmax; height: 56vmax; opacity: .42;
+    background: radial-gradient(circle, rgba(63,185,80,.11), transparent 60%);
+    top: 28%; left: 32%; animation: aur3 54s ease-in-out infinite alternate;
+  }
+  @keyframes aur1 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(11vw,8vh) scale(1.14)} }
+  @keyframes aur2 { 0%{transform:translate(0,0) scale(1.1)} 100%{transform:translate(-9vw,-6vh) scale(.95)} }
+  @keyframes aur3 { 0%{transform:translate(0,0)} 100%{transform:translate(-8vw,9vh)} }
+
+  /* Fine film grain for depth */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Hero breathing */
+  .logo-ring { animation: ringPulse 6.5s ease-in-out infinite; }
+  @keyframes ringPulse {
+    0%,100% { box-shadow: 0 0 32px rgba(125,211,252,.12); transform: translateY(0); }
+    50%     { box-shadow: 0 0 52px rgba(125,211,252,.24); transform: translateY(-3px); }
+  }
+  .wordmark { background-size: 220% auto; animation: shimmer 9s linear infinite; }
+  @keyframes shimmer { to { background-position: 220% center; } }
+
+  /* Smoother, longer card motion + sheen sweep */
+  .link-card, .path-card {
+    transition: transform .38s var(--ease), box-shadow .38s var(--ease),
+                border-color .38s var(--ease), background .38s var(--ease);
+  }
+  .link-card::after, .path-card::after {
+    content: ''; position: absolute; top: 0; left: -65%; width: 55%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.07), transparent);
+    transform: skewX(-18deg); transition: left .65s var(--ease);
+    pointer-events: none; z-index: 3;
+  }
+  .link-card:hover::after, .path-card:hover::after { left: 135%; }
+  .link-card:hover  { transform: translateY(-2px); }
+  .path-card:hover  { transform: translateY(-3px) scale(1.01); }
+  .card-icon, .path-icon { transition: transform .38s var(--ease); }
+  .link-card:hover .card-icon { transform: scale(1.12) translateY(-1px); }
+  .path-card:hover .path-icon { transform: scale(1.1) translateY(-2px); }
+
+  /* Section label gradient rule */
+  .section-label::after {
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  /* Scroll-reveal choreography */
+  .reveal { opacity: 0; transform: translateY(18px); }
+  .reveal.in { opacity: 1; transform: none;
+    transition: opacity .7s var(--ease), transform .7s var(--ease); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora::before, .aurora::after, .aurora .a3,
+    .logo-ring, .wordmark { animation: none; }
+    .reveal { opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body>
+
+<div class="aurora" aria-hidden="true"><div class="a3"></div></div>
 
 <!-- ══════════════════════════════════════════
      HERO
@@ -576,6 +655,36 @@
   © 2026 WILD Programme. All rights reserved.
 </div>
 
+
+<!-- Scroll-reveal choreography -->
+<script>(function(){
+  var sel = '.path-card, .link-card, .section-label';
+  var nodes = Array.prototype.slice.call(document.querySelectorAll(sel));
+  nodes.forEach(function(el){ el.classList.add('reveal'); });
+  if (!('IntersectionObserver' in window)) {
+    nodes.forEach(function(el){ el.classList.add('in'); }); return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting) {
+        var el = en.target;
+        var d = Math.min(parseInt(el.dataset.i || 0, 10) * 45, 240);
+        el.style.transitionDelay = d + 'ms';
+        el.classList.add('in');
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  // group stagger by proximity
+  var i = 0, lastTop = -999;
+  nodes.forEach(function(el){
+    var t = el.getBoundingClientRect().top;
+    if (Math.abs(t - lastTop) > 8) i = 0; else i++;
+    lastTop = t;
+    el.dataset.i = i;
+    io.observe(el);
+  });
+})();</script>
 
 <!-- WILD cookie consent (privacy-preserving: analytics OFF unless accepted) -->
 <div id="wild-consent" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;
