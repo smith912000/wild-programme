@@ -282,7 +282,7 @@ footer a{color:var(--accent);text-decoration:none}
 </div>
 
 <footer>
-  <p>WILD — The Threshold &nbsp;·&nbsp; <a href="#">Privacy</a> &nbsp;·&nbsp; <a href="mailto:smith@negotiorum.com">Contact</a></p>
+  <p>WILD — The Threshold &nbsp;·&nbsp; <a href="legal.html">Privacy</a> &nbsp;·&nbsp; <a href="mailto:smith@negotiorum.com">Contact</a></p>
   <div class="tier-links">
     <a href="index.html">The Free Door</a>
     <a href="tier1.html">Tier 1 — £50</a>
@@ -295,5 +295,25 @@ footer a{color:var(--accent);text-decoration:none}
   paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W");
   paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W-cta");
 </script>
+
+<!-- WILD cookie consent (privacy-preserving: analytics OFF unless accepted) -->
+<div id="wild-consent" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;
+  background:rgba(13,17,23,.97);border-top:1px solid #30363d;color:#c9d1d9;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;
+  padding:14px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;text-align:center">
+  <span style="max-width:560px">We use only essential cookies. Optional analytics stay off unless you accept.
+    See our <a href="legal.html" style="color:#e3a008;text-decoration:none">privacy notice</a>.</span>
+  <span style="display:flex;gap:8px">
+    <button data-consent="decline" style="padding:7px 16px;border:1px solid #30363d;background:transparent;color:#c9d1d9;border-radius:6px;cursor:pointer;font-size:13px">Essential only</button>
+    <button data-consent="accept" style="padding:7px 16px;border:none;background:#e3a008;color:#0d1117;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px">Accept analytics</button>
+  </span>
+</div>
+<script>(function(){var K='wild_consent_v1',bar=document.getElementById('wild-consent');if(!bar)return;
+function set(v){try{localStorage.setItem(K,v);}catch(e){}bar.style.display='none';
+if(v==='accept'&&typeof gtag==='function'){try{gtag('consent','update',{analytics_storage:'granted'});}catch(e){}}}
+var saved=null;try{saved=localStorage.getItem(K);}catch(e){}
+if(!saved){bar.style.display='flex';}
+bar.addEventListener('click',function(e){var b=e.target.closest('[data-consent]');if(b)set(b.getAttribute('data-consent'));});
+})();</script>
 </body>
 </html>
