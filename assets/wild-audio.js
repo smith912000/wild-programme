@@ -29,7 +29,7 @@ const WildAudio = (function () {
   const CARRIER      = 110;     // Hz — base carrier (A2). Warm, low, non-fatiguing.
   const BEAT_START   = 13;      // Hz — restless Beta (tension / anticipation)
   const BEAT_END     = 5;       // Hz — relaxing Theta (let-go)
-  const CUTOFF_START = 1000;    // Hz — LPF open: square harmonics pass -> edgy
+  const CUTOFF_START = 700;     // Hz — LPF: lets a little movement through, but warm not harsh
   const CUTOFF_END   = 350;     // Hz — LPF closed: muffled, soft
   const DRONE_HOOK   = 0.26;    // drone level in Phase 1 (primary)
   const DRONE_REST   = 0.15;    // drone level in Phase 3 (background undertone)
@@ -88,7 +88,7 @@ const WildAudio = (function () {
 
     // ── DRONE (binaural pair -> filter -> level -> dry/wet) ──────────────
     oscL = ctx.createOscillator(); oscR = ctx.createOscillator();
-    oscL.type = 'square'; oscR.type = 'square'; // harmonics for the filter to bite
+    oscL.type = 'triangle'; oscR.type = 'triangle'; // soft, gentle harmonics -> a low warm hum (not a buzzy square)
     oscL.frequency.value = CARRIER;
     oscR.frequency.value = CARRIER + BEAT_START;
 
