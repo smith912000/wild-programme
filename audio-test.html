@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WILD — Audio Engine Test</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--bg:#050309;--elev:#0A0612;--ind:#6349B8;--ind2:#8A6FE0;--amber:#C9A84C;--text:#F4F1ED;--dim:rgba(244,241,237,.6)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px;
+    background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(99,73,184,.14),transparent 70%),var(--bg)}
+  .panel{max-width:460px;width:100%}
+  h1{font-family:Georgia,serif;font-size:1.8rem;letter-spacing:.06em;margin-bottom:4px}
+  .sub{color:var(--dim);font-size:.85rem;margin-bottom:24px;line-height:1.6}
+  .phase{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+  .row{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  button{flex:1;min-width:130px;padding:14px 16px;border-radius:10px;border:1px solid rgba(99,73,184,.4);
+    background:var(--elev);color:var(--text);font-size:.9rem;font-weight:600;cursor:pointer;transition:.2s}
+  button:hover{border-color:var(--ind2);background:#160F26}
+  button.primary{background:var(--amber);color:#0A0612;border:none}
+  button.primary:hover{filter:brightness(1.08)}
+  button:disabled{opacity:.4;cursor:default}
+  .ctl{margin:18px 0;display:flex;align-items:center;gap:12px;font-size:.82rem;color:var(--dim)}
+  input[type=range]{flex:1;accent-color:var(--amber)}
+  .hint{font-size:.78rem;color:var(--dim);line-height:1.6;margin-top:22px;padding:14px 16px;
+    background:var(--elev);border:1px solid rgba(99,73,184,.25);border-radius:10px}
+  code{color:var(--amber);font-size:.78rem}
+</style>
+</head>
+<body>
+  <div class="panel">
+    <h1>WILD Audio Engine</h1>
+    <p class="sub">Test harness for the three-phase morph. Use headphones for the binaural effect.</p>
+    <div class="phase" id="phase">Phase: idle</div>
+
+    <div class="row">
+      <button class="primary" id="bStart">▶ Start the Hook (Phase 1)</button>
+    </div>
+    <div class="row">
+      <button id="bMorph">✦ Morph → Resolution</button>
+      <button id="bResolved">Start already-calm</button>
+    </div>
+    <div class="row">
+      <button id="bStop">■ Stop (fade out)</button>
+    </div>
+
+    <div class="ctl">
+      <span>Morph&nbsp;<b id="durLbl">12</b>s</span>
+      <input type="range" id="dur" min="6" max="20" value="12" step="1">
+    </div>
+    <div class="ctl">
+      <span>Volume</span>
+      <input type="range" id="vol" min="0" max="100" value="50">
+    </div>
+
+    <div class="hint">
+      <b>How to read it:</b> Start the Hook and listen for the edgy, restless drone (13 Hz beta, open filter).
+      Hit <b>Morph</b> and over your chosen seconds it should sweep dark, the beat slows to ~5 Hz, the drone
+      sinks into reverb, and a soft pentatonic pad breathes in on top.<br><br>
+      Tell me what to tune — every dial is a named constant at the top of <code>assets/wild-audio.js</code>.
+    </div>
+  </div>
+
+  <script src="assets/wild-audio.js"></script>
+  <script>
+    var ph = document.getElementById('phase');
+    var dur = document.getElementById('dur'), durLbl = document.getElementById('durLbl');
+    var vol = document.getElementById('vol');
+    function setPhase(t){ ph.textContent = 'Phase: ' + t; }
+
+    document.getElementById('bStart').addEventListener('click', function(){
+      WildAudio.start(); setPhase('1 — the Hook (restless drone)');
+    });
+    document.getElementById('bMorph').addEventListener('click', function(){
+      if(!WildAudio.isPlaying()){ WildAudio.start(); }
+      var d = parseInt(dur.value,10);
+      WildAudio.morph(d); setPhase('2 → 3 — morphing over ' + d + 's…');
+      setTimeout(function(){ setPhase('3 — the Resolution (calm pad)'); }, d*1000);
+    });
+    document.getElementById('bResolved').addEventListener('click', function(){
+      WildAudio.startResolved(); setPhase('3 — the Resolution (started calm)');
+    });
+    document.getElementById('bStop').addEventListener('click', function(){
+      WildAudio.stop(2); setPhase('idle');
+    });
+    dur.addEventListener('input', function(){ durLbl.textContent = dur.value; });
+    vol.addEventListener('input', function(){ WildAudio.setMasterVolume(vol.value/100); });
+  </script>
+</body>
+</html>
