@@ -25,15 +25,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
-
 <style>
   :root {
     --bg:        #050309;
@@ -258,6 +249,7 @@
     .hero { padding-top: 12vh; }
   }
 </style>
+  <script src="assets/analytics.js"></script>
 </head>
 <body>
 
@@ -497,25 +489,6 @@
     last = t; el.dataset.i = i; io.observe(el);
   });
 })();</script>
-
-<!-- WILD cookie consent (privacy-preserving: analytics OFF unless accepted) -->
-<div id="wild-consent" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;
-  background:rgba(10,6,18,.97);border-top:1px solid rgba(99,73,184,.4);color:#F4F1ED;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;
-  padding:14px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;text-align:center">
-  <span style="max-width:560px">We use only essential cookies. Optional analytics stay off unless you accept.
-    See our <a href="02%20-%20Landing%20Pages/legal.html" style="color:#C9A84C;text-decoration:none">privacy notice</a>.</span>
-  <span style="display:flex;gap:8px">
-    <button data-consent="decline" style="padding:7px 16px;border:1px solid rgba(244,241,237,.2);background:transparent;color:#F4F1ED;border-radius:6px;cursor:pointer;font-size:13px">Essential only</button>
-    <button data-consent="accept" style="padding:7px 16px;border:none;background:#C9A84C;color:#0A0612;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px">Accept analytics</button>
-  </span>
-</div>
-<script>(function(){var K='wild_consent_v1',bar=document.getElementById('wild-consent');if(!bar)return;
-function set(v){try{localStorage.setItem(K,v);}catch(e){}bar.style.display='none';
-if(v==='accept'&&typeof gtag==='function'){try{gtag('consent','update',{analytics_storage:'granted'});}catch(e){}}}
-var saved=null;try{saved=localStorage.getItem(K);}catch(e){}
-if(!saved){bar.style.display='flex';}
-bar.addEventListener('click',function(e){var b=e.target.closest('[data-consent]');if(b)set(b.getAttribute('data-consent'));});
-})();</script>
+<script id="wild-consent-js" data-legal="02%20-%20Landing%20Pages/legal.html" src="assets/consent.js" defer></script>
 </body>
 </html>

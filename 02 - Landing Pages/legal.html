@@ -44,13 +44,7 @@ footer a:hover{color:var(--text)}
 </style>
 <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your actual Measurement ID -->
 <!-- Get your ID at analytics.google.com → Admin → Data Streams → Web Stream -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+  <script src="../assets/analytics.js"></script>
 </head>
 <body>
 
@@ -212,5 +206,6 @@ footer a:hover{color:var(--text)}
   © 2026 WILD Programme · <a href="mailto:smith@negotiorum.com">smith@negotiorum.com</a>
 </footer>
 
+<script id="wild-consent-js" data-legal="legal.html" src="../assets/consent.js" defer></script>
 </body>
 </html>
