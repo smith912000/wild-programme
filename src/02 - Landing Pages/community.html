@@ -1,0 +1,381 @@
+---
+layout: base.njk
+permalink: "02 - Landing Pages/community.html"
+title: "WILD \u2014 The Open Door &amp; The Inner Room"
+description: "The Open Door is free, for anyone who has crossed any threshold. The Inner Room is for those who have decided this is the work. \u00a310 / month."
+ogUrl: "https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/community.html"
+---
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--surface:#161b22;--s2:#21262d;--border:#30363d;
+  --accent:#818cf8;--a2:#6366f1;--green:#3fb950;--gold:#e3a008;
+  --teal:#1a9b8a;--purple:#a78bfa;--gray:#8b949e;--white:#e6edf3;--text:#c9d1d9;
+  --glow:rgba(129,140,248,.16);
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;position:relative;overflow-x:hidden}
+
+/* Background vibrance */
+.vibrance{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.vibrance::before,.vibrance::after{content:'';position:absolute;width:130%;height:130%;border-radius:50%;filter:blur(120px);opacity:.4;animation:drift 28s ease-in-out infinite}
+.vibrance::before{background:radial-gradient(circle,rgba(129,140,248,.18) 0%,transparent 60%);top:-20%;left:-15%;animation-direction:alternate}
+.vibrance::after{background:radial-gradient(circle,rgba(167,139,250,.14) 0%,transparent 60%);bottom:-20%;right:-15%;animation-direction:alternate-reverse;animation-duration:36s}
+@keyframes drift{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(40px,-30px) rotate(8deg)}100%{transform:translate(-30px,40px) rotate(-6deg)}}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-size:13px;color:var(--gray);text-decoration:none}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{padding:8px 20px;background:var(--accent);border-radius:6px;color:#0d1117!important;font-weight:700;font-size:13px}
+.nav-cta:hover{background:var(--a2);color:#fff!important}
+@media(max-width:600px){nav{padding:12px 16px}.nav-links a:not(.nav-cta){display:none}}
+
+.hero{padding:96px 24px 56px;text-align:center;background:radial-gradient(ellipse 90% 60% at 50% 0%,rgba(129,140,248,.10) 0%,transparent 70%)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.18;letter-spacing:-.02em;max-width:760px;margin:0 auto 18px}
+h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:clamp(1rem,2vw,1.15rem);color:var(--gray);max-width:600px;margin:0 auto;line-height:1.75}
+
+section{padding:64px 24px;max-width:1000px;margin:0 auto}
+.section-tag{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--white);line-height:1.2;letter-spacing:-.02em;margin-bottom:14px}
+.section-sub{font-size:1rem;color:var(--gray);max-width:620px;margin-bottom:40px;line-height:1.75}
+
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:720px){.doors{grid-template-columns:1fr}}
+.door{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:14px}
+.door-open{border-color:rgba(227,160,8,.3);background:linear-gradient(135deg,rgba(227,160,8,.04) 0%,var(--surface) 100%)}
+.door-inner{border-color:rgba(129,140,248,.4);background:linear-gradient(135deg,rgba(129,140,248,.07) 0%,var(--surface) 100%);box-shadow:0 0 60px rgba(129,140,248,.08)}
+.door-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:5px 12px;border-radius:20px;width:fit-content}
+.door-open .door-badge{background:rgba(227,160,8,.1);color:var(--gold);border:1px solid rgba(227,160,8,.3)}
+.door-inner .door-badge{background:rgba(129,140,248,.12);color:var(--accent);border:1px solid rgba(129,140,248,.35)}
+.door h3{font-size:1.4rem;font-weight:800;color:var(--white);line-height:1.2}
+.door-price{font-size:1.1rem;color:var(--gray);font-weight:600}
+.door-price strong{color:var(--white);font-size:1.4rem}
+.door p{font-size:14px;color:var(--text);line-height:1.7}
+.door ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--text)}
+.door ul li{padding-left:18px;position:relative}
+.door ul li::before{content:'·';position:absolute;left:6px;color:var(--accent);font-weight:700}
+.door-open ul li::before{color:var(--gold)}
+.door-cta{margin-top:auto;display:inline-block;padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:700;text-align:center;font-size:14px;transition:transform .12s}
+.door-open .door-cta{background:transparent;border:1px solid rgba(227,160,8,.5);color:var(--gold)}
+.door-open .door-cta:hover{background:rgba(227,160,8,.08);transform:translateY(-1px)}
+.door-inner .door-cta{background:var(--accent);color:#0d1117}
+.door-inner .door-cta:hover{background:var(--a2);color:#fff;transform:translateY(-1px)}
+
+.landscape{margin-top:40px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface)}
+.landscape-head{display:grid;grid-template-columns:140px 1fr 1fr;background:rgba(129,140,248,.05);border-bottom:1px solid var(--border)}
+.lh-cell{padding:14px 20px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);text-align:center;border-right:1px solid var(--border)}
+.lh-cell:last-child{border-right:none}
+.lh-cell.first{text-align:left;color:var(--accent)}
+.landscape-row{display:grid;grid-template-columns:140px 1fr 1fr;border-bottom:1px solid var(--border)}
+.landscape-row:last-child{border-bottom:none}
+.lr-label{padding:18px 20px;font-size:13px;font-weight:700;color:var(--white);background:rgba(13,17,23,.5);border-right:1px solid var(--border);display:flex;align-items:center}
+.lr-body{background:rgba(26,155,138,.04);color:#7fd1c3}
+.lr-mind{background:rgba(167,139,250,.05);color:#c4b5fd}
+.lr-soul{background:rgba(129,140,248,.05);color:#b4bdf8}
+.lr-cell{padding:18px 20px;font-size:13px;color:var(--text);line-height:1.6;border-right:1px solid var(--border)}
+.lr-cell:last-child{border-right:none}
+.lr-cell em{font-style:normal;color:var(--white);font-weight:600}
+@media(max-width:720px){.landscape-head{grid-template-columns:1fr 1fr}.landscape-head .lh-cell.first{display:none}.landscape-row{grid-template-columns:1fr}.lr-label{border-right:none;border-bottom:1px solid var(--border)}.lr-cell{border-right:none;border-bottom:1px solid var(--border)}}
+
+.inside-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:32px}
+.inside-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px}
+.inside-item h4{font-size:14px;font-weight:700;color:var(--white);margin-bottom:6px}
+.inside-item p{font-size:13px;color:var(--gray);line-height:1.6}
+.inside-item .icon{font-size:18px;margin-bottom:10px;display:block;color:var(--accent)}
+
+.isnt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:24px}
+.isnt-item{background:rgba(13,17,23,.5);border:1px dashed var(--border);border-radius:10px;padding:18px}
+.isnt-item h4{font-size:13px;font-weight:700;color:var(--gray);margin-bottom:4px}
+.isnt-item p{font-size:12px;color:var(--gray);line-height:1.55}
+
+.vignettes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:32px}
+.vignette{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
+.vignette .v-tag{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.vignette h4{font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.3}
+.vignette p{font-size:13px;color:var(--text);line-height:1.7}
+
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:32px}
+.test-card{background:var(--surface);border:1px solid rgba(129,140,248,.2);border-radius:12px;padding:22px}
+.test-stars{color:var(--accent);font-size:14px;margin-bottom:12px;letter-spacing:2px}
+.test-text{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:16px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:10px}
+.test-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#0d1117}
+.test-info{font-size:12px}
+.test-name{color:var(--white);font-weight:700}
+.test-role{color:var(--gray)}
+
+.price-card{margin:40px auto 0;max-width:440px;background:var(--surface);border:1px solid rgba(129,140,248,.35);border-radius:16px;padding:32px;text-align:center;box-shadow:0 0 80px var(--glow)}
+.price-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.15em;margin-bottom:10px}
+.price-main{font-size:3.2rem;font-weight:800;color:var(--white);line-height:1}
+.price-main sup{font-size:1.4rem;vertical-align:top;margin-top:8px;color:var(--gray)}
+.price-main .per{font-size:1rem;color:var(--gray);font-weight:500;margin-left:6px}
+.price-note{font-size:13px;color:var(--green);margin-top:8px;margin-bottom:24px}
+.btn-primary{display:block;width:100%;padding:16px;background:var(--accent);border:none;border-radius:10px;color:#0d1117;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;transition:background .2s,transform .1s}
+.btn-primary:hover{background:var(--a2);color:#fff;transform:translateY(-1px)}
+.btn-secondary{display:block;width:100%;padding:13px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;font-weight:600;text-decoration:none;text-align:center;margin-top:10px}
+.btn-secondary:hover{border-color:var(--accent);color:var(--white)}
+.price-foot{font-size:11px;color:var(--gray);margin-top:14px}
+
+.faq{display:flex;flex-direction:column;gap:1px;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-top:32px}
+.faq-item{background:var(--surface);padding:22px 26px}
+.faq-q{font-size:14px;font-weight:700;color:var(--white);margin-bottom:8px}
+.faq-a{font-size:13px;color:var(--gray);line-height:1.7}
+
+.bottom-cta{padding:80px 24px;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(129,140,248,.12) 0%,transparent 70%);border-top:1px solid var(--border)}
+.bottom-cta h2{margin-bottom:14px}
+.bottom-cta p{color:var(--gray);max-width:520px;margin:0 auto 32px;font-size:1rem;line-height:1.75}
+
+footer{padding:32px 24px;text-align:center;border-top:1px solid var(--border);background:var(--surface)}
+footer p{font-size:12px;color:var(--gray);margin-bottom:12px}
+footer a{color:var(--accent);text-decoration:none}
+.tier-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+.tier-links a{font-size:12px;color:var(--gray);text-decoration:none;padding:6px 14px;border:1px solid var(--border);border-radius:6px}
+.tier-links a:hover{border-color:var(--accent);color:var(--white)}
+</style>
+<div class="vibrance" aria-hidden="true"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">⬡ WILD — The Inner Room</a>
+  <div class="nav-links">
+    <a href="tier1.html">Tier 1</a>
+    <a href="tier2.html">Tier 2</a>
+    <a href="tier3.html">Tier 3</a>
+    <a href="#join" class="nav-cta">Step Inside — £10</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">⬡ The two rooms</div>
+  <h1>The Door Is Open.<br/><em>Some Choose To Step Further In.</em></h1>
+  <p class="hero-sub">There is a room outside the door, free, for anyone who has crossed any threshold even once. And there is a room further in — held, quieter, for those who have decided this is the work, not a passing interest.</p>
+</div>
+
+<!-- TWO DOORS -->
+<section>
+  <div class="doors">
+    <div class="door door-open">
+      <div class="door-badge">The Open Door</div>
+      <h3>The Free Room</h3>
+      <div class="door-price"><strong>Free</strong> — no application</div>
+      <p>For anyone who has crossed any threshold once. The shared space outside the inner room. Questions, first crossings, what came back from a night that surprised you.</p>
+      <ul>
+        <li>Open conversation, all welcome</li>
+        <li>Shared logs from those willing to share</li>
+        <li>Practice questions answered by other practitioners</li>
+        <li>No pressure to stay, no pressure to go further</li>
+      </ul>
+      <a href="[USER: paste free Discord invite link]" class="door-cta" onclick="gtag('event','click',{event_category:'community',event_label:'open_door'})">Step into The Open Door →</a>
+    </div>
+
+    <div class="door door-inner">
+      <div class="door-badge">The Inner Room</div>
+      <h3>The Held Room</h3>
+      <div class="door-price"><strong>£10</strong> / month — cancel any time</div>
+      <p>For those who have decided this is the work. Held in three pillars — Body, Mind, Soul — and across the languages of both science and spirit. A slower, deeper conversation than the open door can hold.</p>
+      <ul>
+        <li>One quiet channel per pillar — Body, Mind, Soul</li>
+        <li>A bridge between scientific and spiritual framings</li>
+        <li>A monthly gathering — <em>[USER: confirm format: call, audio, written reflection]</em></li>
+        <li>Priority for live gatherings, after Tier 3 members</li>
+      </ul>
+      <a href="#join" class="door-cta" onclick="gtag('event','click',{event_category:'community',event_label:'inner_room_top'})">Step Inside The Inner Room →</a>
+    </div>
+  </div>
+</section>
+
+<!-- LANDSCAPE -->
+<section style="border-top:1px solid var(--border)">
+  <div class="section-tag">What the Inner Room is held in</div>
+  <h2>Three Pillars. Two Languages. One Room.</h2>
+  <p class="section-sub">The Inner Room is organised around two axes that match the rest of the work. Three stages of cultivation — Body, Mind, Soul. Two languages — scientific, spiritual. Members enter wherever they are, and the room makes room for the movement.</p>
+
+  <div class="landscape">
+    <div class="landscape-head">
+      <div class="lh-cell first">Pillar</div>
+      <div class="lh-cell">Scientific framing</div>
+      <div class="lh-cell">Spiritual framing</div>
+    </div>
+    <div class="landscape-row">
+      <div class="lr-label lr-body">⬡ Body</div>
+      <div class="lr-cell">Sleep architecture, the inner clock, food, movement, the quiet allies, reading the body's signals.</div>
+      <div class="lr-cell">The body as the instrument the soul plays. What the old practices knew about food, breath, posture, and the night.</div>
+    </div>
+    <div class="landscape-row">
+      <div class="lr-label lr-mind">◈ Mind</div>
+      <div class="lr-cell">Nervous system, attention, the vagal channel, polyvagal practice, working memory.</div>
+      <div class="lr-cell">Inner work, the figures you meet, what you have refused, the parts of yourself the night returns.</div>
+    </div>
+    <div class="landscape-row">
+      <div class="lr-label lr-soul">✦ Soul</div>
+      <div class="lr-cell">The neuroscience of awareness, the third state between sleep and waking, time on the other side.</div>
+      <div class="lr-cell">The crossing, the long sequences, the deeper waters, the place every tradition named differently.</div>
+    </div>
+  </div>
+
+  <p style="font-size:13px;color:var(--gray);margin-top:20px;padding:18px;background:var(--surface);border-radius:8px;border:1px solid var(--border);line-height:1.7">⬡ <strong style="color:var(--white)">The quiet rule of the Inner Room.</strong> Both languages are welcome. Translation between them is part of the practice. No one has to choose a side; the work is older than the split.</p>
+</section>
+
+<!-- INSIDE -->
+<section style="border-top:1px solid var(--border)">
+  <div class="section-tag">What is actually inside</div>
+  <h2>What You Find When You Step In.</h2>
+  <p class="section-sub">Specific, honest, no inflated promises. If something here is marked as forthcoming, that is because it is — and you will know when it arrives.</p>
+
+  <div class="inside-grid">
+    <div class="inside-item"><span class="icon">⬡</span><h4>One Channel Per Pillar</h4><p>Body, Mind, Soul — each with a quiet thread of its own. Read, write, ask.</p></div>
+    <div class="inside-item"><span class="icon">◈</span><h4>The Bridge Channel</h4><p>A space where the same insight is named in two languages — scientific and spiritual — and members learn each other's tongue.</p></div>
+    <div class="inside-item"><span class="icon">✦</span><h4>The Night Feed</h4><p>A members-only feed where practitioners share what came back from a night that surprised them.</p></div>
+    <div class="inside-item"><span class="icon">📜</span><h4>Curated Short Reading</h4><p>A small, rotating selection of writing from many traditions, pointed at the same place from different sides. <em>[USER: confirm cadence]</em></p></div>
+    <div class="inside-item"><span class="icon">🜂</span><h4>A Monthly Gathering</h4><p>One held meeting each month. <em>[USER: confirm format — live call, audio, written reflection]</em></p></div>
+    <div class="inside-item"><span class="icon">🜄</span><h4>Direct Access</h4><p><em>[USER: define — direct access to whom, and how. To you? To other practitioners? A private question channel?]</em></p></div>
+    <div class="inside-item"><span class="icon">✦</span><h4>Priority For The Gatherings</h4><p>When live gatherings are held, Inner Room members are next in the queue after Tier 3 members.</p></div>
+    <div class="inside-item"><span class="icon">⬡</span><h4>For Tier 3 Members</h4><p>Three months in the Inner Room on the house, and a permanent discount afterward.</p></div>
+  </div>
+</section>
+
+<!-- WHAT IT ISN'T -->
+<section style="border-top:1px solid var(--border)">
+  <div class="section-tag">Honest limits</div>
+  <h2>What The Inner Room Is Not.</h2>
+  <p class="section-sub">Set the expectations honestly so you can decide. The room only works when the people inside know what they joined.</p>
+  <div class="isnt-grid">
+    <div class="isnt-item"><h4>Not a course</h4><p>The teaching lives in the tier pages. The Inner Room is what happens between the lessons.</p></div>
+    <div class="isnt-item"><h4>Not therapy</h4><p>If you need a therapist, please find a real one. Inner work is welcomed; clinical work is not the room's job.</p></div>
+    <div class="isnt-item"><h4>Not a fan club</h4><p>The room is held, not centred on one person. The practice is the centre, not the founder.</p></div>
+    <div class="isnt-item"><h4>Not a chatroom</h4><p>Quiet days are normal. The room is slower than ordinary servers. That is by design.</p></div>
+    <div class="isnt-item"><h4>Not anonymous</h4><p>You do not have to use your legal name, but you are a person here, not a handle. People remember each other.</p></div>
+    <div class="isnt-item"><h4>Not forever, unless</h4><p>You can leave any month. The room is for now, while now is when you need it.</p></div>
+  </div>
+</section>
+
+<!-- VIGNETTES -->
+<section style="border-top:1px solid var(--border)">
+  <div class="section-tag">Who finds their way here</div>
+  <h2>Three Who Step Inside.</h2>
+  <p class="section-sub">Composite descriptions of the practitioners the room is held for. You may recognise yourself in one, or in pieces of all three.</p>
+
+  <div class="vignettes">
+    <div class="vignette">
+      <div class="v-tag">⬡ Came in scientific</div>
+      <h4>The one who measured everything else.</h4>
+      <p>Arrived through a measured door. Reads research, tracks sleep, knows the body's signals. Has noticed that the work goes somewhere measurement no longer follows. Comes to the Inner Room because the bridge channel is the only place those two languages are allowed in the same sentence.</p>
+    </div>
+    <div class="vignette">
+      <div class="v-tag">✦ Came in spiritual</div>
+      <h4>The one who already knew there was more.</h4>
+      <p>Arrived through a deeper door. Sat with the traditions, read the old books, knows the figures meet you back. Comes to the Inner Room because the body pillar is the part of their practice they have been quietly skipping, and they are ready to stop.</p>
+    </div>
+    <div class="vignette">
+      <div class="v-tag">◈ Came in mid-fraction</div>
+      <h4>The one who felt something was missing.</h4>
+      <p>Did not arrive through either side cleanly. Found their way here through a feeling that something inside them had not fully shown up. Comes to the Inner Room because the mind pillar — what you carry, what you have refused — is the work, and it is held here without diagnosis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="border-top:1px solid var(--border)">
+  <div class="section-tag">From the room itself</div>
+  <h2>From Those Already Inside.</h2>
+  <p class="section-sub">Voices from members of the Inner Room. When you join, your voice can sit here too, if you choose.</p>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">[USER: insert real testimonial — Inner Room member who came in through the scientific side. Do not fabricate.]</p>
+      <div class="test-author"><div class="test-av">—</div><div class="test-info"><div class="test-name">[USER: name or initials]</div><div class="test-role">[USER: short role / context]</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">[USER: insert real testimonial — Inner Room member who came in through the spiritual side.]</p>
+      <div class="test-author"><div class="test-av">—</div><div class="test-info"><div class="test-name">[USER: name or initials]</div><div class="test-role">[USER: short role / context]</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">[USER: insert real testimonial — Inner Room member on the bridge work or the monthly gathering.]</p>
+      <div class="test-author"><div class="test-av">—</div><div class="test-info"><div class="test-name">[USER: name or initials]</div><div class="test-role">[USER: short role / context]</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING / JOIN -->
+<section id="join" style="border-top:1px solid var(--border)">
+  <div class="section-tag" style="text-align:center;display:block">Step inside</div>
+  <h2 style="text-align:center">A Small Door. A Held Room.</h2>
+  <p class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center">Ten pounds a month. No application. No tier required. Step in when you are ready, step out when you are not.</p>
+
+  <div class="price-card">
+    <div class="price-label">The Inner Room — monthly</div>
+    <div class="price-main"><sup>£</sup>10<span class="per">/mo</span></div>
+    <p class="price-note">✓ Cancel any time &nbsp;·&nbsp; ✓ Tier 3: 3 months on the house</p>
+    <div id="paypal-container-inner-room">
+      <!-- [USER: paste PayPal hosted-button SDK + container for the £10/mo Inner Room subscription] -->
+      <a href="#" class="btn-primary" onclick="alert('[USER: wire up Inner Room subscription button]');return false;">Step Inside — £10 / mo</a>
+    </div>
+    <a href="[USER: paste free Discord invite link]" class="btn-secondary">Just want The Open Door? Step in here →</a>
+    <p class="price-foot">Tier 3 already purchased? Your three free months are sent with your Tier 3 welcome — no action needed.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="border-top:1px solid var(--border)">
+  <div class="section-tag">Questions</div>
+  <h2>Things People Ask Before They Step In.</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-q">Do I need to have bought a tier to join the Inner Room?</div>
+      <div class="faq-a">No. The Inner Room is open to anyone who has decided this is the work — whether you came in through a tier, the free Seven Nights, the open door, or somewhere else entirely. The tier pages are how the teaching is delivered. The Inner Room is what happens between lessons.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What is the difference between the Open Door and the Inner Room?</div>
+      <div class="faq-a">The Open Door is the free Discord — anyone who has crossed any threshold can step in. It is faster, more open, less held. The Inner Room is quieter, slower, organised around the three pillars, and held more carefully. Both rooms have their place.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What does "held" mean?</div>
+      <div class="faq-a">A held room has rules of conversation. People do not interrupt. Speed is not the point. The founder is present without being central. Questions are answered when they are ready to be answered, not the moment they are posted. It is closer to a study circle than to a server.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I leave?</div>
+      <div class="faq-a">Yes, any month. Cancel and the room closes for you at the end of the period. Come back later if you want; nothing is lost.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">I bought Tier 3. How do I claim my three free months?</div>
+      <div class="faq-a">Your Tier 3 welcome includes the invitation. You do not need to subscribe; the room opens to you for three months from your Tier 3 purchase date, then continues at a permanent discount afterward.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Will my testimonial be used publicly?</div>
+      <div class="faq-a">Only if you offer it and explicitly agree. The room is held, not harvested.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a refund if I subscribe and the room is not for me?</div>
+      <div class="faq-a">The subscription is month-to-month, so if it is not for you, cancel before the next cycle and nothing more is charged. The first month is not refunded; it pays for the room you walked into.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="section-tag" style="margin-bottom:14px">Ready?</div>
+  <h2>The Inner Room Is Already Holding A Place For You.</h2>
+  <p>Step in for a month. Read, write, sit quietly with the channels. If the room is for you, you will know. If it is not, you leave it the same way you came — without anyone making it a thing.</p>
+  <div style="max-width:380px;margin:0 auto;display:flex;flex-direction:column;gap:10px">
+    <a href="#join" class="btn-primary" onclick="gtag('event','click',{event_category:'community',event_label:'inner_room_bottom'})">Step Inside — £10 / mo</a>
+    <a href="[USER: paste free Discord invite link]" class="btn-secondary">Or step into The Open Door (free)</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>WILD — The Threshold &nbsp;·&nbsp; <a href="../index.html">Home</a> &nbsp;·&nbsp; <a href="mailto:smith@negotiorum.com">Contact</a></p>
+  <div class="tier-links">
+    <a href="../index.html">The Free Door</a>
+    <a href="tier1.html">Tier 1 — £50</a>
+    <a href="tier2.html">Tier 2 — £100</a>
+    <a href="tier3.html">Tier 3 — £200</a>
+    <a href="community.html">The Inner Room — £10/mo</a>
+  </div>
+</footer>

@@ -1,0 +1,14 @@
+{
+  "name": "wild-programme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WILD Programme marketing + funnel site (Eleventy static build).",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "clean": "node -e \"require('fs').rmSync('docs',{recursive:true,force:true})\""
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

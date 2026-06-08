@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WILD — The threshold most people walk past</title>
+<meta name="description" content="The practice of being awake when you are supposed to be asleep. A door most people walk past every night.">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="WILD — The threshold most people walk past" />
+<meta property="og:description" content="The practice of being awake when you are supposed to be asleep. A door most people walk past every night." />
+<meta property="og:url" content="https://smith912000.github.io/wild-programme/" />
+<meta property="og:image" content="https://smith912000.github.io/wild-programme/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="WILD — The threshold most people walk past" />
+<meta name="twitter:image" content="https://smith912000.github.io/wild-programme/og-image.png" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Crect width='100' height='120' fill='%23050309'/%3E%3Cg fill='none' stroke='%236349B8' stroke-width='3'%3E%3Ccircle cx='50' cy='44' r='34'/%3E%3Ccircle cx='50' cy='76' r='34'/%3E%3C/g%3E%3Cline x1='50' y1='52' x2='50' y2='68' stroke='%23C9A84C' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="/wild-programme/assets/analytics.js"></script>
+</head>
+<body>
+<style>
+  :root {
+    --bg:        #050309;
+    --bg-elev:   #0A0612;
+    --surface:   #120C1F;
+    --surface-2: #160F26;
+    --border:    rgba(244,241,237,.08);
+    --border-lit:rgba(99,73,184,.45);
+    --text:      #F4F1ED;
+    --dim:       rgba(244,241,237,.58);
+    --dimmer:    rgba(244,241,237,.38);
+    --indigo:    #6349B8;
+    --indigo-2:  #8A6FE0;
+    --indigo-deep:#2D1B69;
+    --amber:     #C9A84C;
+    --amber-lit: #E9C766;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+    --ease: cubic-bezier(.22,.61,.36,1);
+    --ease-out: cubic-bezier(.16,1,.3,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 0 0 64px;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── AMBIENT AURORA ─────────────────────── */
+  .aurora { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+  .aurora i {
+    position: absolute; border-radius: 50%; filter: blur(120px);
+    mix-blend-mode: screen; will-change: transform; display: block;
+  }
+  .aurora .a1 { width: 70vmax; height: 70vmax; top: -26%; left: -20%;
+    background: radial-gradient(circle, rgba(99,73,184,.30), transparent 62%);
+    animation: aur1 38s ease-in-out infinite alternate; }
+  .aurora .a2 { width: 60vmax; height: 60vmax; bottom: -26%; right: -18%;
+    background: radial-gradient(circle, rgba(138,111,224,.18), transparent 62%);
+    animation: aur2 50s ease-in-out infinite alternate; }
+  .aurora .a3 { width: 48vmax; height: 48vmax; top: 30%; left: 40%;
+    background: radial-gradient(circle, rgba(201,168,76,.10), transparent 60%);
+    animation: aur3 60s ease-in-out infinite alternate; }
+  @keyframes aur1 { to { transform: translate(12vw,9vh) scale(1.15); } }
+  @keyframes aur2 { to { transform: translate(-10vw,-7vh) scale(.92); } }
+  @keyframes aur3 { to { transform: translate(-9vw,11vh) scale(1.1); } }
+
+  /* film grain */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero { text-align: center; padding: 16vh 24px 7vh; position: relative; }
+  .mark { width: 86px; height: 104px; margin: 0 auto 26px; display: block; overflow: visible; }
+  .mark circle { transform-origin: 50px 60px; }
+  .mark .ring { animation: breathe 7s ease-in-out infinite; }
+  .mark .ring2 { animation: breathe 7s ease-in-out infinite reverse; }
+  .mark .aperture { animation: glow 5s ease-in-out infinite; }
+  @keyframes breathe { 0%,100%{ opacity:.85; transform:scale(1); } 50%{ opacity:1; transform:scale(1.025); } }
+  @keyframes glow { 0%,100%{ opacity:.7; } 50%{ opacity:1; filter:drop-shadow(0 0 6px rgba(233,199,102,.8)); } }
+
+  .wordmark {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(3.2rem, 11vw, 5.2rem);
+    letter-spacing: .14em;
+    line-height: 1;
+    margin-left: .14em;
+    background: linear-gradient(180deg, #FFFEFA 0%, #E9DEC8 55%, var(--amber) 130%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 30px rgba(201,168,76,.18));
+  }
+  .kicker {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.1rem, 3.4vw, 1.5rem);
+    color: var(--amber);
+    margin-top: 10px;
+    letter-spacing: .01em;
+  }
+  .lede {
+    margin: 22px auto 0;
+    max-width: 440px;
+    font-size: .95rem;
+    line-height: 1.7;
+    color: var(--dim);
+  }
+  .lede .em { color: var(--text); }
+  .scroll-cue {
+    margin: 40px auto 0; width: 22px; height: 36px; border: 1px solid var(--border-lit);
+    border-radius: 12px; position: relative; opacity: .6;
+  }
+  .scroll-cue::after {
+    content: ''; position: absolute; top: 7px; left: 50%; width: 3px; height: 7px;
+    background: var(--amber); border-radius: 2px; transform: translateX(-50%);
+    animation: scrolldot 2.2s var(--ease) infinite;
+  }
+  @keyframes scrolldot { 0%{opacity:0;transform:translate(-50%,0)} 30%{opacity:1} 80%{opacity:0;transform:translate(-50%,12px)} 100%{opacity:0} }
+
+  /* ── LAYOUT ──────────────────────────────── */
+  .container { max-width: 540px; margin: 0 auto; padding: 0 18px; }
+
+  .section-label {
+    font-size: .66rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--dimmer); margin: 46px 4px 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content:''; width: 18px; height: 1px; background: var(--indigo); opacity:.6; }
+  .section-label::after  { content:''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+
+  /* ── DOORWAYS (centerpiece) ─────────────── */
+  .doorways { display: flex; flex-direction: column; gap: 12px; }
+  .door {
+    --c: var(--indigo);
+    position: relative; display: grid; grid-template-columns: 60px 1fr auto; align-items: center; gap: 16px;
+    background: linear-gradient(180deg, var(--surface) 0%, var(--bg-elev) 100%);
+    border: 1px solid var(--border); border-radius: 16px; padding: 22px 22px;
+    text-decoration: none; color: var(--text); overflow: hidden;
+    transition: transform .42s var(--ease-out), border-color .42s var(--ease), box-shadow .42s var(--ease);
+  }
+  .door::before { /* aperture glow that opens on hover */
+    content: ''; position: absolute; left: 30px; top: 50%; width: 0; height: 0; border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--c) 55%, transparent), transparent 70%);
+    transform: translate(-50%,-50%); transition: width .55s var(--ease-out), height .55s var(--ease-out), opacity .5s;
+    opacity: 0; pointer-events: none;
+  }
+  .door:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--c) 60%, transparent);
+    box-shadow: 0 14px 40px -12px color-mix(in srgb, var(--c) 50%, transparent); }
+  .door:hover::before { width: 260px; height: 260px; opacity: .16; }
+  .door:focus-visible { outline: 2px solid var(--c); outline-offset: 3px; }
+  .door-mark { width: 38px; height: 38px; justify-self: center; position: relative; z-index: 1; }
+  .door-mark svg { width: 100%; height: 100%; display: block; stroke: var(--c); transition: transform .42s var(--ease-out); }
+  .door:hover .door-mark svg { transform: translateY(-2px) scale(1.08); }
+  .door-body { position: relative; z-index: 1; min-width: 0; }
+  .door-label { font-family: var(--serif); font-size: 1.32rem; font-weight: 600; line-height: 1.15; color: var(--text); }
+  .door-for { font-size: .72rem; color: var(--c); letter-spacing: .04em; margin-top: 3px; filter: brightness(1.25); }
+  .door-desc { font-size: .82rem; color: var(--dim); line-height: 1.5; margin-top: 7px; }
+  .door-arrow { position: relative; z-index: 1; color: var(--dimmer); font-size: 1.1rem; transition: transform .42s var(--ease-out), color .42s; }
+  .door:hover .door-arrow { transform: translateX(4px); color: var(--c); filter: brightness(1.3); }
+  .door.fire  { --c: var(--amber); }
+  .door.air   { --c: var(--indigo-2); }
+  .door.water { --c: var(--indigo); }
+
+  /* ── LINK CARDS ─────────────────────────── */
+  .card {
+    position: relative; display: flex; align-items: center; gap: 14px;
+    background: var(--bg-elev); border: 1px solid var(--border); border-radius: 13px;
+    padding: 15px 17px; margin-bottom: 9px; text-decoration: none; color: var(--text);
+    overflow: hidden; transition: transform .38s var(--ease-out), border-color .38s var(--ease), background .38s var(--ease);
+  }
+  .card::after { /* sheen */
+    content:''; position:absolute; top:0; left:-65%; width:55%; height:100%;
+    background: linear-gradient(100deg, transparent, rgba(244,241,237,.06), transparent);
+    transform: skewX(-18deg); transition: left .7s var(--ease); pointer-events:none;
+  }
+  .card:hover { transform: translateY(-2px); border-color: var(--border-lit); background: var(--surface); }
+  .card:hover::after { left: 135%; }
+  .card:focus-visible { outline: 2px solid var(--indigo); outline-offset: 3px; }
+  .card-ico { width: 34px; height: 34px; flex-shrink: 0; display: grid; place-items: center; color: var(--indigo-2); }
+  .card-ico svg { width: 22px; height: 22px; stroke: currentColor; fill: none; }
+  .card-body { flex: 1; min-width: 0; }
+  .card-title { font-size: .92rem; font-weight: 600; line-height: 1.3; }
+  .card-sub { font-size: .76rem; color: var(--dim); margin-top: 3px; line-height: 1.4; }
+  .badge {
+    font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    padding: 4px 9px; border-radius: 20px; flex-shrink: 0; white-space: nowrap;
+  }
+  .badge.free  { background: rgba(201,168,76,.12); color: var(--amber-lit); border: 1px solid rgba(201,168,76,.3); }
+  .badge.pdf   { background: rgba(99,73,184,.14);  color: var(--indigo-2); border: 1px solid rgba(99,73,184,.3); }
+  .badge.price { background: rgba(99,73,184,.14);  color: var(--indigo-2); border: 1px solid rgba(99,73,184,.3); }
+  .badge.sub   { background: rgba(201,168,76,.1);  color: var(--amber);    border: 1px solid rgba(201,168,76,.25); }
+  .card.feature { background: linear-gradient(135deg, rgba(99,73,184,.10), var(--bg-elev) 70%); border-color: var(--border-lit); }
+  .card.amber .card-ico { color: var(--amber); }
+
+  /* tier row */
+  .tier { border-left: 2px solid var(--indigo); }
+  .tier.t2 { border-left-color: var(--indigo-2); }
+  .tier.t3 { border-left-color: var(--amber); }
+  .tier.t3 .card-ico { color: var(--amber); }
+
+  /* ── SOCIALS ─────────────────────────────── */
+  .socials { display: flex; justify-content: center; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+  .soc {
+    width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center;
+    background: var(--bg-elev); border: 1px solid var(--border); color: var(--dim);
+    transition: transform .35s var(--ease-out), border-color .35s, color .35s, background .35s;
+  }
+  .soc svg { width: 20px; height: 20px; fill: currentColor; }
+  .soc:hover { transform: translateY(-3px); color: var(--text); border-color: var(--border-lit); background: var(--surface); }
+  .soc:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
+
+  /* ── FOOTER ──────────────────────────────── */
+  .footer { text-align: center; padding: 48px 24px 0; font-size: .74rem; color: var(--dimmer); line-height: 1.9; }
+  .footer .fmark { width: 30px; height: 36px; margin: 0 auto 14px; opacity: .55; }
+  .footer-brand { font-family: var(--serif); font-size: 1rem; letter-spacing: .14em; color: var(--dim); margin-bottom: 8px; }
+  .footer a { color: var(--dim); text-decoration: none; transition: color .3s; }
+  .footer a:hover { color: var(--amber); }
+
+  /* ── REVEAL ──────────────────────────────── */
+  .reveal { opacity: 0; transform: translateY(20px); }
+  .reveal.in { opacity: 1; transform: none; transition: opacity .75s var(--ease-out), transform .75s var(--ease-out); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora i, .mark .ring, .mark .ring2, .mark .aperture, .scroll-cue::after { animation: none; }
+    .reveal { opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+  @media (max-width: 420px) {
+    .door { grid-template-columns: 48px 1fr; }
+    .door-arrow { display: none; }
+    .hero { padding-top: 12vh; }
+  }
+</style>
+<div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+
+<!-- ══ HERO ══════════════════════════════════ -->
+<header class="hero">
+  <svg class="mark" viewBox="0 0 100 120" role="img" aria-label="WILD">
+    <defs>
+      <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(99,73,184,.45)"/>
+        <stop offset="100%" stop-color="rgba(99,73,184,0)"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="50" cy="60" rx="46" ry="54" fill="url(#halo)"/>
+    <g fill="none" stroke="#6349B8" stroke-width="2.4">
+      <circle class="ring"  cx="50" cy="44" r="34"/>
+      <circle class="ring2" cx="50" cy="76" r="34"/>
+    </g>
+    <line class="aperture" x1="50" y1="51" x2="50" y2="69" stroke="#E9C766" stroke-width="3.4" stroke-linecap="round"/>
+  </svg>
+  <h1 class="wordmark">WILD</h1>
+  <p class="kicker">The threshold most people walk past</p>
+  <p class="lede">Every night you cross a threshold. <span class="em">You have never been awake for it.</span> WILD is the practice of being there.</p>
+  <div class="scroll-cue" aria-hidden="true"></div>
+</header>
+
+<main class="container">
+
+  <!-- ══ THE THREE DOORS ══ -->
+  <div class="section-label">Three doors · One room</div>
+  <div class="doorways">
+
+    <a class="door fire" href="/wild-programme/02%20-%20Landing%20Pages/micropages/01_the_hidden_third.html"
+       onclick="gtag('event','click',{event_category:'hub',event_label:'door_hidden_third'})">
+      <span class="door-mark"><svg viewBox="0 0 40 40" fill="none" stroke-width="2" aria-hidden="true"><path d="M20 6 L34 32 L6 32 Z"/></svg></span>
+      <span class="door-body">
+        <span class="door-label">The Hidden Third</span>
+        <span class="door-for">For the one who has measured everything else</span>
+        <span class="door-desc">A third of your life is happening without you. This is the door to the rest.</span>
+      </span>
+      <span class="door-arrow" aria-hidden="true">→</span>
+    </a>
+
+    <a class="door air" href="/wild-programme/02%20-%20Landing%20Pages/micropages/02_the_fraction.html"
+       onclick="gtag('event','click',{event_category:'hub',event_label:'door_fraction'})">
+      <span class="door-mark"><svg viewBox="0 0 40 40" fill="none" stroke-width="2" aria-hidden="true"><path d="M20 6 L34 32 L6 32 Z"/><line x1="13" y1="23" x2="27" y2="23"/></svg></span>
+      <span class="door-body">
+        <span class="door-label">The Fraction</span>
+        <span class="door-for">For the one who feels something is missing</span>
+        <span class="door-desc">Most of what you are is somewhere you have not been awake for. This is the way back.</span>
+      </span>
+      <span class="door-arrow" aria-hidden="true">→</span>
+    </a>
+
+    <a class="door water" href="/wild-programme/02%20-%20Landing%20Pages/micropages/03_the_other_version.html"
+       onclick="gtag('event','click',{event_category:'hub',event_label:'door_other_version'})">
+      <span class="door-mark"><svg viewBox="0 0 40 40" fill="none" stroke-width="2" aria-hidden="true"><path d="M20 34 L6 8 L34 8 Z"/></svg></span>
+      <span class="door-body">
+        <span class="door-label">The Other Version</span>
+        <span class="door-for">For the one who knows there is more of them</span>
+        <span class="door-desc">The version of yourself you have not yet met lives in the hours you sleep through.</span>
+      </span>
+      <span class="door-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <!-- ══ BEGIN, FREE ══ -->
+  <div class="section-label">Begin — free</div>
+
+  <a class="card feature amber" href="/wild-programme/02%20-%20Landing%20Pages/integrated_landing.html"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'free_seven_nights'})">
+    <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18M3 12h18M3 19h12" stroke-linecap="round"/></svg></span>
+    <span class="card-body">
+      <span class="card-title">The Seven Nights</span>
+      <span class="card-sub">The way in — for anyone who has approached a door</span>
+    </span>
+    <span class="badge free">Free</span>
+  </a>
+
+  <a class="card" href="/wild-programme/05%20-%20Lead%20Magnet/WILD_Sleep_Architecture_Map.pdf" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'free_sleep_map'})">
+    <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2Z" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" /></svg></span>
+    <span class="card-body">
+      <span class="card-title">The Sleep Map</span>
+      <span class="card-sub">When the door opens, and how to be there for it</span>
+    </span>
+    <span class="badge pdf">PDF</span>
+  </a>
+
+  <a class="card" href="/wild-programme/05%20-%20Lead%20Magnet/WILD_5_Signs_Youre_Ready.pdf" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'free_5signs'})">
+    <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <span class="card-body">
+      <span class="card-title">Five Signs the Door Is Open to You</span>
+      <span class="card-sub">A two-minute read to know if tonight is a night to try</span>
+    </span>
+    <span class="badge pdf">PDF</span>
+  </a>
+
+  <a class="card" href="/wild-programme/05%20-%20Lead%20Magnet/WILD_Hypnagogic_Gateway.pdf" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'free_threshold_guide'})">
+    <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12c4-7 12-7 16 0-4 7-12 7-16 0Z"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+    <span class="card-body">
+      <span class="card-title">The Threshold Guide</span>
+      <span class="card-sub">Seven pages on the edge between waking and sleep</span>
+    </span>
+    <span class="badge pdf">PDF</span>
+  </a>
+
+  <!-- ══ THE COMPANION ══ -->
+  <div class="section-label">The companion</div>
+
+  <a class="card feature" href="https://smith912000.github.io/wild-os/" target="_blank" rel="noopener"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'wild_os_app'})">
+    <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M3 12c2-2 2 2 4 0s2 2 4 0 2 2 4 0 2 2 4 0" stroke-linecap="round"/></svg></span>
+    <span class="card-body">
+      <span class="card-title">WILD OS — the practice app</span>
+      <span class="card-sub">Tones · breathing · a place to record what comes back</span>
+    </span>
+    <span class="badge free">Open</span>
+  </a>
+
+  <!-- ══ THE DEEPER PATH ══ -->
+  <div class="section-label">The deeper path</div>
+
+  <a class="card tier" href="/wild-programme/02%20-%20Landing%20Pages/tier1.html"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'tier1'})">
+    <span class="card-ico"><svg viewBox="0 0 40 40" fill="none" stroke-width="2.2" aria-hidden="true"><path d="M20 8 L31 28 L9 28 Z"/></svg></span>
+    <span class="card-body">
+      <span class="card-title">Tier 1 — The Seven Nights</span>
+      <span class="card-sub">The first door. The foundation of the practice.</span>
+    </span>
+    <span class="badge price">£50</span>
+  </a>
+
+  <a class="card tier t2" href="/wild-programme/02%20-%20Landing%20Pages/tier2.html"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'tier2'})">
+    <span class="card-ico"><svg viewBox="0 0 40 40" fill="none" stroke-width="2.2" aria-hidden="true"><path d="M20 8 L31 28 L9 28 Z"/><line x1="14" y1="22" x2="26" y2="22"/></svg></span>
+    <span class="card-body">
+      <span class="card-title">Tier 2 — The Body Pillar</span>
+      <span class="card-sub">The body that carries the crossing, and the deeper crossings</span>
+    </span>
+    <span class="badge price">£100</span>
+  </a>
+
+  <a class="card tier t3" href="/wild-programme/02%20-%20Landing%20Pages/tier3.html"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'tier3'})">
+    <span class="card-ico"><svg viewBox="0 0 40 40" fill="none" stroke-width="2.2" aria-hidden="true"><path d="M20 34 L9 14 L31 14 Z"/><circle cx="20" cy="22" r="3"/></svg></span>
+    <span class="card-body">
+      <span class="card-title">Tier 3 — The Third Door</span>
+      <span class="card-sub">All three pillars, a private session, and the inner room</span>
+    </span>
+    <span class="badge price">£200</span>
+  </a>
+
+  <!-- ══ THE TWO ROOMS ══ -->
+  <div class="section-label">The two rooms</div>
+
+  <a class="card" href="/wild-programme/02%20-%20Landing%20Pages/community.html"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'community_open_door'})">
+    <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="12" height="18" rx="1.5"/><circle cx="12.5" cy="12" r="1"/></svg></span>
+    <span class="card-body">
+      <span class="card-title">The Open Door</span>
+      <span class="card-sub">A free room for anyone who has crossed a threshold once</span>
+    </span>
+    <span class="badge free">Free</span>
+  </a>
+
+  <a class="card feature" href="/wild-programme/02%20-%20Landing%20Pages/community.html"
+     onclick="gtag('event','click',{event_category:'hub',event_label:'community_inner_room'})">
+    <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="8" height="14" rx="1.5"/><rect x="13" y="8" width="8" height="11" rx="1.5"/></svg></span>
+    <span class="card-body">
+      <span class="card-title">The Inner Room</span>
+      <span class="card-sub">A held room for those who decide this is the work</span>
+    </span>
+    <span class="badge sub">£10 / mo</span>
+  </a>
+
+  <!-- ══ ELSEWHERE ══ -->
+  <div class="section-label">Find us elsewhere</div>
+  <div class="socials">
+    <a class="soc" href="https://x.com/NeuroModulation" target="_blank" rel="noopener" aria-label="X"
+       onclick="gtag('event','click',{event_category:'hub',event_label:'social_twitter'})">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21.5l-7.5 8.57L22.5 22h-6.6l-5.17-6.76L4.8 22H1.54l8.02-9.17L1.5 2h6.77l4.67 6.18L18.244 2Zm-1.16 18h1.83L7.01 3.9H5.05L17.084 20Z"/></svg>
+    </a>
+    <a class="soc" href="https://www.instagram.com/neuromodulate" target="_blank" rel="noopener" aria-label="Instagram"
+       onclick="gtag('event','click',{event_category:'hub',event_label:'social_instagram'})">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.62c-3.15 0-3.5.01-4.74.07-.97.04-1.5.21-1.85.34-.46.18-.8.4-1.15.74-.34.35-.56.69-.74 1.15-.13.35-.3.88-.34 1.85-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.04.97.21 1.5.34 1.85.18.46.4.8.74 1.15.35.34.69.56 1.15.74.35.13.88.3 1.85.34 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c.97-.04 1.5-.21 1.85-.34.46-.18.8-.4 1.15-.74.34-.35.56-.69.74-1.15.13-.35.3-.88.34-1.85.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.04-.97-.21-1.5-.34-1.85a3.1 3.1 0 0 0-.74-1.15 3.1 3.1 0 0 0-1.15-.74c-.35-.13-.88-.3-1.85-.34-1.24-.06-1.59-.07-4.74-.07Zm0 2.76a5.46 5.46 0 1 1 0 10.92 5.46 5.46 0 0 1 0-10.92Zm0 9a3.54 3.54 0 1 0 0-7.08 3.54 3.54 0 0 0 0 7.08Zm6.95-9.22a1.28 1.28 0 1 1-2.55 0 1.28 1.28 0 0 1 2.55 0Z"/></svg>
+    </a>
+    <a class="soc" href="https://www.youtube.com/@Neuromodz" target="_blank" rel="noopener" aria-label="YouTube"
+       onclick="gtag('event','click',{event_category:'hub',event_label:'social_youtube'})">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.74a2.5 2.5 0 0 0-1.76-1.77C19.3 5.09 12 5.09 12 5.09s-7.3 0-8.84.4A2.5 2.5 0 0 0 1.4 7.26C1 8.8 1 12 1 12s0 3.2.4 4.74a2.5 2.5 0 0 0 1.76 1.77c1.54.4 8.84.4 8.84.4s7.3 0 8.84-.4a2.5 2.5 0 0 0 1.76-1.77C23 15.2 23 12 23 12Zm-13 3.27V8.73L15.6 12 10 15.27Z"/></svg>
+    </a>
+    <a class="soc" href="https://www.facebook.com/profile.php?id=61582020931613" target="_blank" rel="noopener" aria-label="Facebook"
+       onclick="gtag('event','click',{event_category:'hub',event_label:'social_facebook'})">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07Z"/></svg>
+    </a>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <svg class="fmark" viewBox="0 0 100 120" aria-hidden="true">
+    <g fill="none" stroke="#C9A84C" stroke-width="2.4" opacity=".9">
+      <circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/>
+    </g>
+    <line x1="50" y1="51" x2="50" y2="69" stroke="#C9A84C" stroke-width="3.4" stroke-linecap="round"/>
+  </svg>
+  <div class="footer-brand">WILD&nbsp;·&nbsp;NEGOTIORUM</div>
+  <a href="/wild-programme/02%20-%20Landing%20Pages/legal.html">Privacy &amp; Terms</a>
+  &nbsp;·&nbsp;
+  <a href="mailto:smith@negotiorum.com">Contact</a>
+  <br>
+  <span style="opacity:.6">© 2026 Negotium Maximus Ltd. The door is always there.</span>
+</footer>
+
+<!-- Scroll-reveal choreography -->
+<script>(function(){
+  var sel = '.door, .card, .section-label, .socials';
+  var nodes = Array.prototype.slice.call(document.querySelectorAll(sel));
+  nodes.forEach(function(el){ el.classList.add('reveal'); });
+  if (!('IntersectionObserver' in window)) { nodes.forEach(function(el){ el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting){
+        var el = en.target;
+        el.style.transitionDelay = Math.min((parseInt(el.dataset.i||0,10))*55, 240) + 'ms';
+        el.classList.add('in'); io.unobserve(el);
+      }
+    });
+  }, { threshold:.12, rootMargin:'0px 0px -40px 0px' });
+  var i=0, last=-999;
+  nodes.forEach(function(el){
+    var t = Math.round(el.getBoundingClientRect().top);
+    if (Math.abs(t-last) > 10) i=0; else i++;
+    last = t; el.dataset.i = i; io.observe(el);
+  });
+})();</script>
+
+<script id="wild-consent-js" data-legal="/wild-programme/02 - Landing Pages/legal.html" src="/wild-programme/assets/consent.js" defer></script>
+</body>
+</html>

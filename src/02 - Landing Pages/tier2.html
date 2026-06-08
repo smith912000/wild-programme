@@ -1,0 +1,273 @@
+---
+layout: base.njk
+permalink: "02 - Landing Pages/tier2.html"
+title: "WILD Tier 2 \u2014 The Body Pillar"
+description: "The second door. Body, substance, deeper practice. For those who have already crossed once and want to make it reliable. \u00a3100 one-time."
+ogUrl: "https://smith912000.github.io/wild-programme/tier2.html"
+---
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--surface:#161b22;--s2:#21262d;--border:#30363d;
+  --accent:#e3a008;--a2:#b7820a;--green:#3fb950;--blue:#5865f2;
+  --teal:#1a9b8a;--gray:#8b949e;--white:#e6edf3;--text:#c9d1d9;
+  --glow:rgba(227,160,8,.18);
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-size:13px;color:var(--gray);text-decoration:none}
+.nav-cta{padding:8px 20px;background:var(--accent);border-radius:6px;color:#0d1117!important;font-weight:700;font-size:13px}
+.nav-cta:hover{background:var(--a2)}
+.hero{padding:80px 24px 60px;text-align:center;background:radial-gradient(ellipse 90% 60% at 50% 0%,rgba(227,160,8,.12) 0%,transparent 70%)}
+.tier-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(227,160,8,.1);border:1px solid rgba(227,160,8,.35);border-radius:20px;padding:6px 18px;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px}
+.prereq{display:inline-flex;align-items:center;gap:8px;background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.25);border-radius:8px;padding:8px 18px;font-size:13px;color:var(--green);margin-bottom:28px}
+h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.15;letter-spacing:-.02em;max-width:820px;margin:0 auto 20px}
+h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:clamp(1rem,2vw,1.15rem);color:var(--gray);max-width:620px;margin:0 auto 16px;line-height:1.7}
+.price-hero{margin:32px auto;max-width:400px;background:var(--surface);border:1px solid rgba(227,160,8,.3);border-radius:16px;padding:28px;box-shadow:0 0 60px var(--glow)}
+.price-label{font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.price-main{font-size:3.2rem;font-weight:800;color:var(--white);line-height:1}
+.price-main sup{font-size:1.4rem;vertical-align:top;margin-top:8px;color:var(--gray)}
+.price-note{font-size:13px;color:var(--green);margin-top:6px;margin-bottom:20px}
+.btn-primary{display:block;width:100%;padding:16px;background:var(--accent);border:none;border-radius:10px;color:#0d1117;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;transition:background .2s,transform .1s}
+.btn-primary:hover{background:var(--a2);transform:translateY(-1px)}
+.btn-secondary{display:block;width:100%;padding:14px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;font-weight:600;text-decoration:none;text-align:center;margin-top:10px}
+.btn-secondary:hover{border-color:var(--accent);color:var(--white)}
+.guarantee{font-size:12px;color:var(--gray);margin-top:14px;text-align:center}
+.guarantee span{color:var(--green)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);text-align:center}
+.stat{padding:32px 20px;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-n{font-size:2rem;font-weight:800;color:var(--accent);line-height:1;margin-bottom:6px}
+.stat-l{font-size:12px;color:var(--gray)}
+section{padding:72px 24px;max-width:960px;margin:0 auto}
+.section-tag{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--white);line-height:1.2;letter-spacing:-.02em;margin-bottom:14px}
+.section-sub{font-size:1rem;color:var(--gray);max-width:580px;margin-bottom:48px;line-height:1.7}
+/* ADVANCED MODULES */
+.mods{display:flex;flex-direction:column;gap:1px;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.mod{display:grid;grid-template-columns:56px 1fr;background:var(--surface);transition:background .2s}
+.mod:hover{background:var(--s2)}
+.mod-n{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--accent);border-right:1px solid var(--border);padding:20px 0;background:rgba(227,160,8,.06)}
+.mod-body{padding:20px 24px}
+.mod-title{font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px}
+.mod-desc{font-size:13px;color:var(--gray);line-height:1.5}
+.mod-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.mtag{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}
+.mtag-bio{background:rgba(26,155,138,.12);color:var(--teal);border:1px solid rgba(26,155,138,.25)}
+.mtag-sp{background:rgba(107,33,168,.12);color:#a78bfa;border:1px solid rgba(107,33,168,.25)}
+.mtag-gold{background:rgba(227,160,8,.1);color:var(--accent);border:1px solid rgba(227,160,8,.25)}
+/* INCLUDES */
+.inc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.inc-item{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px}
+.inc-ic{width:36px;height:36px;border-radius:8px;background:rgba(227,160,8,.1);border:1px solid rgba(227,160,8,.25);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.inc-body h3{font-size:14px;font-weight:700;color:var(--white);margin-bottom:3px}
+.inc-body p{font-size:12px;color:var(--gray)}
+/* HARDWARE SECTION */
+.hw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.hw-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.hw-card .hw-badge{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.hw-card h3{font-size:14px;font-weight:700;color:var(--white);margin-bottom:6px}
+.hw-card p{font-size:12px;color:var(--gray);margin-bottom:10px}
+.hw-price{font-size:12px;color:var(--gray);border-top:1px solid var(--border);padding-top:8px;margin-top:8px}
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:1px;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.faq-item{background:var(--surface);padding:20px 24px}
+.faq-q{font-size:14px;font-weight:700;color:var(--white);margin-bottom:8px}
+.faq-a{font-size:13px;color:var(--gray);line-height:1.6}
+/* TESTIMONIALS */
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.test-card{background:var(--surface);border:1px solid rgba(227,160,8,.2);border-radius:12px;padding:22px}
+.test-stars{color:var(--accent);font-size:14px;margin-bottom:12px;letter-spacing:2px}
+.test-text{font-size:13px;color:var(--text);line-height:1.6;margin-bottom:16px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:10px}
+.test-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--teal));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#0d1117}
+.test-info{font-size:12px}
+.test-name{color:var(--white);font-weight:700}
+.test-role{color:var(--gray)}
+/* CTA */
+.cta-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 24px;text-align:center}
+.cta-inner{max-width:560px;margin:0 auto}
+.cta-price-row{display:flex;align-items:baseline;justify-content:center;gap:12px;margin-bottom:24px}
+.cta-price{font-size:3.5rem;font-weight:800;color:var(--white)}
+.cta-price sup{font-size:1.5rem;vertical-align:top;margin-top:10px;color:var(--gray)}
+.cta-save{background:rgba(227,160,8,.1);border:1px solid rgba(227,160,8,.3);border-radius:6px;padding:3px 10px;font-size:12px;font-weight:700;color:var(--accent)}
+.btn-lg{display:inline-block;padding:18px 48px;background:var(--accent);border-radius:10px;color:#0d1117;font-size:17px;font-weight:700;text-decoration:none;transition:background .2s,transform .1s}
+.btn-lg:hover{background:var(--a2);transform:translateY(-2px)}
+.cta-sub{font-size:12px;color:var(--gray);margin-top:16px}
+footer{padding:32px 24px;text-align:center;border-top:1px solid var(--border)}
+footer p{font-size:12px;color:var(--gray)}
+footer a{color:var(--accent);text-decoration:none}
+.tier-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:16px}
+.tier-links a{font-size:13px;color:var(--gray);text-decoration:none;padding:6px 14px;border:1px solid var(--border);border-radius:6px}
+.tier-links a:hover{border-color:var(--accent);color:var(--white)}
+@media(max-width:600px){nav{padding:12px 16px}.nav-links a:not(.nav-cta){display:none}}
+</style>
+<script src="https://www.paypal.com/sdk/js?client-id=BAAyDDiIvYNChjvqNy0CI4DtZLOxXJ4GgSdFu8ejMtY8nDGQ2f3IgOr3YhbhGEyrS-3i56tsvNt7b4LEaQ&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+<nav>
+  <span class="nav-logo">WILD — Tier 2</span>
+  <div class="nav-links">
+    <a href="#modules">Modules</a>
+    <a href="#hardware">Hardware</a>
+    <a href="#faq">FAQ</a>
+    <a href="#enrol" class="nav-cta">Enrol — £100</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="tier-badge">Tier 2 · Body + Soul</div>
+  <p class="prereq">✓ Recommended: complete Tier 1 first &nbsp;·&nbsp; Or join if you have existing WILD experience</p>
+  <h1>You Have Crossed Once.<br/><em>Tier 2 Is Where It Stops Being An Accident.</em></h1>
+  <p class="hero-sub">If you have done Tier 1 — or arrived with your own crossings already behind you — you know the door is real. You have also noticed it does not always open. Tier 2 is where you fix that. The Body pillar is the second door: what you eat, when you eat, how you move, what your nervous system is doing when you lie down. <strong>The first door was the mind. The second is the body that carries it.</strong></p>
+  <div class="price-hero" id="enrol">
+    <p class="price-label">One-time payment · Lifetime access</p>
+    <div class="price-main"><sup>£</sup>100</div>
+    <p class="price-note">✓ Includes everything in Tier 1 &nbsp;·&nbsp; ✓ 30-day guarantee</p>
+    <div id="paypal-container-L7XL3UG3WUJ4W"></div>
+    <a href="#modules" class="btn-secondary">See the full curriculum</a>
+    <p class="guarantee"><span>Tier 1 already purchased?</span> Pay the £50 difference — email us for a code.</p>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-n">16</div><div class="stat-l">Total Lessons</div></div>
+  <div class="stat"><div class="stat-n">8</div><div class="stat-l">Body Modules</div></div>
+  <div class="stat"><div class="stat-n">8</div><div class="stat-l">Soul Modules</div></div>
+  <div class="stat"><div class="stat-n">2</div><div class="stat-l">Pillars</div></div>
+</div>
+
+<!-- MODULES -->
+<section id="modules">
+  <div class="section-tag">Tier 2 curriculum</div>
+  <h2>Two Pillars. 16 Lessons.</h2>
+  <p class="section-sub">Tier 2 runs two tracks in parallel — the Body pillar (how what you eat, when you move, and how your nervous system behaves shape the night) and the Soul pillar (the deeper crossings). Both are required. The body is the instrument the soul plays.</p>
+
+  <!-- BODY TRACK -->
+  <div style="background:rgba(26,155,138,.06);border:1px solid rgba(26,155,138,.25);border-radius:10px;padding:14px 20px;margin-bottom:2px;display:flex;align-items:center;gap:12px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)">Body Pillar</div>
+    <div style="font-size:14px;font-weight:700;color:var(--white)">Modules B1–B8: The Body That Carries The Crossing</div>
+  </div>
+  <div class="mods">
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B1</div><div class="mod-body"><div class="mod-title">What You Eat Is What You Cross With</div><div class="mod-desc">The body builds the night out of what you fed it. Which foods soften the threshold and which slam it shut. The pathways the old traditions never named but always observed.</div><div class="mod-tags"><span class="mtag mtag-bio">Food &amp; threshold</span><span class="mtag mtag-bio">Building blocks</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B2</div><div class="mod-body"><div class="mod-title">When You Eat — The Body's Inner Clock</div><div class="mod-desc">Light tells the body when. Food tells the body when. Eat late and the early gates of the night close earlier than they should. The eating window aligned to the hour you want to wake into.</div><div class="mod-tags"><span class="mtag mtag-bio">Inner clock</span><span class="mtag mtag-bio">Timing</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B3</div><div class="mod-body"><div class="mod-title">Sugar, Stillness, And The Quiet Night</div><div class="mod-desc">When the blood runs unsteady, the night runs broken. Brief stirrings you do not remember but that fragment the deep hours. The evening rule that lets the body stay quiet until morning.</div><div class="mod-tags"><span class="mtag mtag-bio">Steady blood</span><span class="mtag mtag-bio">Unbroken sleep</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B4</div><div class="mod-body"><div class="mod-title">The Gut — The Second Mind</div><div class="mod-desc">Most of the body's serotonin is made in the gut — the same substance that becomes melatonin and shapes the deep hours. The interventions that change what the gut sends upward, and what the night sends back.</div><div class="mod-tags"><span class="mtag mtag-bio">Second mind</span><span class="mtag mtag-bio">Inner garden</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B5</div><div class="mod-body"><div class="mod-title">The Body At Rest, The Body On Fire</div><div class="mod-desc">A body running hot underneath does not cross cleanly. Quiet inflammation raises the stress hormone, fragments the night, narrows the door. The way of eating that calms the fire — and why it matters specifically for this work.</div><div class="mod-tags"><span class="mtag mtag-bio">Calming</span><span class="mtag mtag-bio">Quieting</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B6</div><div class="mod-body"><div class="mod-title">Movement And The Deep Hours</div><div class="mod-desc">Move early and the body drops further at night. Move late and it stays lit. The timing — and the kind of movement — that deepens the hours you want to be most awake inside.</div><div class="mod-tags"><span class="mtag mtag-bio">Movement</span><span class="mtag mtag-bio">Timing</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B7</div><div class="mod-body"><div class="mod-title">The Quiet Allies</div><div class="mod-desc">A small number of things the body recognises and uses. What they do, the right amount, the right hour — and the much longer list of things you should leave alone. Informational, never prescriptive.</div><div class="mod-tags"><span class="mtag mtag-bio">Quiet allies</span><span class="mtag mtag-bio">Right hour</span></div></div></div>
+    <div class="mod"><div class="mod-n" style="color:var(--teal)">B8</div><div class="mod-body"><div class="mod-title">Reading The Body — The Night's Verdict</div><div class="mod-desc">The body tells you, in the morning, whether the night will receive you. A small number of signals you can read with or without a device. How to know — before you lie down — whether tonight is a night to try.</div><div class="mod-tags"><span class="mtag mtag-bio">Reading signals</span><span class="mtag mtag-bio">Readiness</span></div></div></div>
+  </div>
+
+  <!-- SOUL TRACK -->
+  <div style="background:rgba(88,101,242,.06);border:1px solid rgba(88,101,242,.25);border-radius:10px;padding:14px 20px;margin-bottom:2px;margin-top:24px;display:flex;align-items:center;gap:12px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)">Soul Pillar</div>
+    <div style="font-size:14px;font-weight:700;color:var(--white)">Modules S1–S8: The Deeper Crossings</div>
+  </div>
+  <div class="mods">
+    <div class="mod"><div class="mod-n">S1</div><div class="mod-body"><div class="mod-title">Other Ways Through The Door</div><div class="mod-desc">The first method is not the only method. Three other ways of stepping across — one through stillness on the edge of waking, one through the senses, one through the smallest of movements. Each suits a different body, a different mind.</div><div class="mod-tags"><span class="mtag mtag-gold">Other doorways</span><span class="mtag mtag-gold">Choosing</span></div></div></div>
+    <div class="mod"><div class="mod-n">S2</div><div class="mod-body"><div class="mod-title">Holding The Place Once You Are There</div><div class="mod-desc">Crossing is one thing. Staying is another. How to feel your way into the place so it does not throw you back. The small signals that warn you it is about to end — and what to do in the seconds you have left.</div><div class="mod-tags"><span class="mtag mtag-gold">Holding</span><span class="mtag mtag-sp">Staying</span></div></div></div>
+    <div class="mod"><div class="mod-n">S3</div><div class="mod-body"><div class="mod-title">Staying Longer — The Long Crossings</div><div class="mod-desc">Why the place ends sooner than you want, and how to remain in it. Calming the rising part of you that wants to wake. Moving through scene without losing yourself. Minutes, then more.</div><div class="mod-tags"><span class="mtag mtag-gold">Length</span><span class="mtag mtag-sp">Depth</span></div></div></div>
+    <div class="mod"><div class="mod-n">S4</div><div class="mod-body"><div class="mod-title">Moving With Intention On The Other Side</div><div class="mod-desc">Expectation is the lever. What you assume will be there, will be. How to move, change what is around you, and travel in the place without breaking the spell.</div><div class="mod-tags"><span class="mtag mtag-gold">Intention</span><span class="mtag mtag-sp">Moving</span></div></div></div>
+    <div class="mod"><div class="mod-n">S5</div><div class="mod-body"><div class="mod-title">The Ones You Meet There</div><div class="mod-desc">The figures you meet on the other side are not random. Whether you read them as parts of yourself or as something else, they answer when asked properly. How to engage them — and what changes once you take them seriously.</div><div class="mod-tags"><span class="mtag mtag-gold">Encounter</span><span class="mtag mtag-sp">Inner figures</span></div></div></div>
+    <div class="mod"><div class="mod-n">S6</div><div class="mod-body"><div class="mod-title">The Workshop On The Other Side</div><div class="mod-desc">The place as a room you can work in. Carrying a question across with you. Coming back with something you could not have made awake. How people across many traditions have used the night to do work the day refuses.</div><div class="mod-tags"><span class="mtag mtag-gold">The work</span><span class="mtag mtag-sp">Bringing back</span></div></div></div>
+    <div class="mod"><div class="mod-n">S7</div><div class="mod-body"><div class="mod-title">When It Does Not Open — Reading What Went Wrong</div><div class="mod-desc">The ordinary failures, named honestly: falling under too fast, losing the thread, waking too soon, the false wake. How to tell which one happened, and the small change that fixes each.</div><div class="mod-tags"><span class="mtag mtag-gold">Reading failure</span><span class="mtag mtag-gold">Small fixes</span></div></div></div>
+    <div class="mod"><div class="mod-n">S8</div><div class="mod-body"><div class="mod-title">Your Own Practice — Built From Your Own Nights</div><div class="mod-desc">Body and Soul converging into one practice — yours, not the manual's. Ordinary nights, attempt nights, integration nights, a monthly look back. Building the rhythm that fits the body you actually have.</div><div class="mod-tags"><span class="mtag mtag-gold">Your rhythm</span><span class="mtag mtag-sp">The long road</span></div></div></div>
+  </div>
+</section>
+
+<!-- BODY SCIENCE CALLOUT -->
+<section id="body" style="border-top:1px solid var(--border)">
+  <div class="section-tag">Why the Body pillar matters</div>
+  <h2>The Body Is The Instrument.</h2>
+  <p class="section-sub">The night does not begin when you close your eyes. It begins with what you ate, when you ate, how you moved, and what your body is doing as you lie down. Most who work on this work only on the mind. Almost none work on the body that carries the mind across.</p>
+  <div class="hw-grid">
+    <div class="hw-card"><div class="hw-badge">The Body Speaks First</div><h3>The Morning Signal</h3><p>The body tells you in the morning whether the night will receive you. A small number of signals you can read — with or without a device. Module B8 shows you which ones, and what to do when they say no.</p></div>
+    <div class="hw-card"><div class="hw-badge">The Quiet Night</div><h3>Steady Blood, Whole Night</h3><p>When the body's inner tide runs unsteady, the night runs broken. Stirrings you do not remember but that scatter the deep hours. Module B3 covers the evening rule that lets the body stay quiet until dawn.</p></div>
+    <div class="hw-card"><div class="hw-badge">When You Eat</div><h3>The Inner Clock</h3><p>Eat late and the early gates of the night close earlier than they should. The eating window aligned to the hour you want to wake into — and the physiology of why the clock obeys the table.</p></div>
+    <div class="hw-card"><div class="hw-badge">The Second Mind</div><h3>What The Gut Sends Upward</h3><p>Most of the body's serotonin is made in the gut — the same substance that becomes the messenger of the night. Module B4 covers the interventions that change what the gut sends, and what the night sends back.</p></div>
+  </div>
+  <p style="font-size:13px;color:var(--gray);margin-top:24px;padding:16px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">⬡ Body pillar principle: <strong style="color:var(--white)">Every signal the body sends shapes the night it builds.</strong> Working on the mind while ignoring the body is working with one hand. Tier 2 frees the other hand.</p>
+</section>
+
+<!-- INCLUDES -->
+<section style="border-top:1px solid var(--border)">
+  <div class="section-tag">Everything included</div>
+  <h2>What You Get With Tier 2</h2>
+  <p class="section-sub">All of Tier 1, plus the deeper curriculum, the body work, and the quiet allies.</p>
+  <div class="inc-grid">
+    <div class="inc-item"><div class="inc-ic">📚</div><div class="inc-body"><h3>All Of Tier 1 (The Soul Pillar)</h3><p>The full first door. The complete seven-lesson guide, the seven-night sequence, the tracking ledger.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">🥗</div><div class="inc-body"><h3>Eight Body Modules</h3><p>Food and the threshold, the inner clock, steady blood, the second mind, calming the body, movement and the deep hours, the quiet allies, reading the morning signal.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">🌙</div><div class="inc-body"><h3>Eight Deeper Soul Modules</h3><p>Other doorways. Holding the place. Staying longer. Moving with intention. The ones you meet. The workshop on the other side. Reading failure. Your own rhythm.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">📊</div><div class="inc-body"><h3>Ninety-Night Ledger</h3><p>Built for both pillars — the body's signals beside the night's record. Your own rhythm, found from your own data.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">💊</div><div class="inc-body"><h3>The Quiet Allies — A Guide</h3><p>A short list of things the body recognises and uses. What they do, the right amount, the right hour, what to leave alone. Informational, not prescriptive.</p></div></div>
+    <div class="inc-item"><div class="inc-ic">⬆️</div><div class="inc-body"><h3>The Path To Tier 3</h3><p>When the body and the technique are no longer the question, the next door is the Mind pillar — what you carry, what carries you. Tier 3 is the next step.</p></div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="border-top:1px solid var(--border)">
+  <div class="section-tag">Those who have gone further</div>
+  <h2>From Those Who Have Walked Through Twice</h2>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">[USER: insert real testimonial — Tier 2 practitioner who can speak to the body pillar work. Do not fabricate.]</p>
+      <div class="test-author"><div class="test-av">—</div><div class="test-info"><div class="test-name">[USER: name or initials]</div><div class="test-role">[USER: role / context]</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">[USER: insert real testimonial — second voice, different angle on Tier 2.]</p>
+      <div class="test-author"><div class="test-av">—</div><div class="test-info"><div class="test-name">[USER: name or initials]</div><div class="test-role">[USER: role / context]</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">[USER: insert real testimonial — third voice.]</p>
+      <div class="test-author"><div class="test-av">—</div><div class="test-info"><div class="test-name">[USER: name or initials]</div><div class="test-role">[USER: role / context]</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="border-top:1px solid var(--border)">
+  <div class="section-tag">Questions</div>
+  <h2>Frequently Asked</h2>
+  <div class="faq" style="margin-top:32px">
+    <div class="faq-item"><div class="faq-q">Do I need to have completed Tier 1 first?</div><div class="faq-a">Recommended, not required. If you have already crossed — by any method, from any teacher — Tier 2 will meet you where you are. If you have never crossed, begin with Tier 1. The work here assumes you already know what the first door feels like.</div></div>
+    <div class="faq-item"><div class="faq-q">Do I have to take the supplements?</div><div class="faq-a">No. The module on quiet allies is informational, never prescriptive. Many do this work entirely without them. It is included so you can make an informed choice, not so you feel obliged.</div></div>
+    <div class="faq-item"><div class="faq-q">I already bought Tier 1. Do I pay the full £100?</div><div class="faq-a">No. Email us with your Tier 1 receipt and we will send a £50 code. You pay the difference.</div></div>
+    <div class="faq-item"><div class="faq-q">How long does it take to work through?</div><div class="faq-a">Each module sits with you over one or two nights of practice. The deeper work develops over weeks. Most spend a month or two moving through it while keeping their nightly rhythm.</div></div>
+    <div class="faq-item"><div class="faq-q">What is the refund policy?</div><div class="faq-a">Thirty days. If you have worked through the material and your practice has not deepened, email us. No questions.</div></div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div class="cta-inner">
+    <div class="section-tag">The second door</div>
+    <h2>Make The Crossing Reliable.<br/>Add The Pillar That Carries You.</h2>
+    <p class="section-sub">A door that opens sometimes is an accident. A door that opens when you go to it is a practice. The Body pillar is the difference. Sixteen lessons across what you eat, how you move, and the deeper crossings — the work that turns the first door from luck into something you can return to.</p>
+    <div class="cta-price-row">
+      <div class="cta-price"><sup>£</sup>100</div>
+      <span class="cta-save">LIFETIME ACCESS · ALL TIERS INCLUDED</span>
+    </div>
+    <div id="paypal-container-L7XL3UG3WUJ4W-cta"></div>
+    <p class="cta-sub">✓ All Tier 1 content included &nbsp;·&nbsp; ✓ 30-day guarantee &nbsp;·&nbsp; ✓ Tier 2 upgrade credit on purchase</p>
+  </div>
+</div>
+
+<footer>
+  <p>WILD — The Threshold &nbsp;·&nbsp; <a href="legal.html">Privacy</a> &nbsp;·&nbsp; <a href="mailto:smith@negotiorum.com">Contact</a></p>
+  <div class="tier-links">
+    <a href="index.html">The Free Door</a>
+    <a href="tier1.html">Tier 1 — £50</a>
+    <a href="tier2.html">Tier 2 — £100</a>
+    <a href="tier3.html">Tier 3 — £200</a>
+    <a href="community.html">Community — from £15/mo</a>
+  </div>
+
+<script>
+  paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W");
+  paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W-cta");
+</script>

@@ -1,0 +1,1877 @@
+---
+permalink: "02 - Landing Pages/integrated_landing.html"
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WILD</title>
+<meta name="description" content="The practice of being awake when you're supposed to be asleep.">
+<meta property="og:title" content="WILD">
+<meta property="og:description" content="The practice of being awake when you're supposed to be asleep.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#000000">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   WILD — Integrated Landing Page
+   Source spec: 02 - Landing Pages/integrated_landing.md
+   Inherits audio engine + design language from micropages
+   Works as standalone entry OR as destination from micropages
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  --bg: #000000;
+  --bg-elevated: #0A0612;
+  --text: #F4F1ED;
+  --text-dim: rgba(244, 241, 237, 0.6);
+  --text-dimmer: rgba(244, 241, 237, 0.4);
+  --text-primed: #FFFEFA;
+  --indigo: #2D1B69;
+  --indigo-bright: #6349B8;
+  --indigo-glow: rgba(45, 27, 105, 0.4);
+  --indigo-resonant: rgba(99, 73, 184, 0.5);
+  --amber: #C9A84C;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --section-pad: 100px;
+  --section-pad-mobile: 64px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-weight: 400;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Film grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' /%3E%3C/svg%3E");
+}
+
+/* ───── START SCREEN (standalone entry only) ───── */
+.start-screen {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg); z-index: 200; cursor: pointer;
+  transition: opacity 1000ms ease-out;
+}
+.start-screen.hidden { opacity: 0; pointer-events: none; }
+.start-prompt {
+  font-size: 18px; font-weight: 300; color: var(--text);
+  opacity: 0.5; letter-spacing: 0.15em;
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+/* ───── SHARED SECTION STYLES ───── */
+section {
+  padding: var(--section-pad) 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  position: relative;
+  z-index: 2;
+}
+
+.section-inner {
+  width: 100%;
+  max-width: 720px;
+  text-align: center;
+}
+
+.section-label {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--indigo-bright);
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 1000ms ease-out, transform 1000ms ease-out;
+}
+
+/* ───── REVEAL ANIMATION (Intersection Observer) ───── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1200ms ease-out, transform 1200ms ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children */
+.reveal.stagger > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 1000ms ease-out, transform 1000ms ease-out;
+}
+.reveal.stagger.visible > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+.reveal.stagger.visible > *:nth-child(2) { transition-delay: 400ms; opacity: 1; transform: translateY(0); }
+.reveal.stagger.visible > *:nth-child(3) { transition-delay: 800ms; opacity: 1; transform: translateY(0); }
+.reveal.stagger.visible > *:nth-child(4) { transition-delay: 1200ms; opacity: 1; transform: translateY(0); }
+.reveal.stagger.visible > *:nth-child(5) { transition-delay: 1600ms; opacity: 1; transform: translateY(0); }
+.reveal.stagger.visible > *:nth-child(6) { transition-delay: 2000ms; opacity: 1; transform: translateY(0); }
+.reveal.stagger.visible > *:nth-child(7) { transition-delay: 2400ms; opacity: 1; transform: translateY(0); }
+.reveal.stagger.visible > *:nth-child(8) { transition-delay: 2800ms; opacity: 1; transform: translateY(0); }
+.reveal.stagger.visible > *:nth-child(9) { transition-delay: 3200ms; opacity: 1; transform: translateY(0); }
+.reveal.stagger.visible > *:nth-child(10) { transition-delay: 3600ms; opacity: 1; transform: translateY(0); }
+
+/* ───── PRIMED WORDS ───── */
+.primed {
+  color: var(--text-primed);
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+}
+.primed::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255, 254, 250, 0.05) 0%, transparent 70%);
+  filter: blur(8px); opacity: 0;
+  transition: opacity 2000ms ease-in-out;
+  pointer-events: none; z-index: -1;
+}
+.reveal.visible .primed::before { opacity: 1; }
+
+/* Warm-glow variant — for inspirational hook moments like "Until now." */
+.primed-warm {
+  color: #FFE9B0;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+  font-style: italic;
+}
+.primed-warm::before {
+  content: '';
+  position: absolute; inset: -0.3em -0.6em;
+  background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.32) 0%, transparent 75%);
+  filter: blur(14px);
+  opacity: 0;
+  transition: opacity 2400ms ease-in-out;
+  pointer-events: none; z-index: -1;
+}
+.reveal.visible .primed-warm::before { opacity: 1; }
+.primed-warm::after {
+  content: '';
+  position: absolute; inset: -0.1em -0.2em;
+  background: radial-gradient(ellipse at center, rgba(255, 233, 176, 0.18) 0%, transparent 60%);
+  filter: blur(4px);
+  opacity: 0;
+  transition: opacity 3200ms ease-in-out 600ms;
+  pointer-events: none; z-index: -1;
+}
+.reveal.visible .primed-warm::after { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 1 — THE THRESHOLD (HERO)
+   ═══════════════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  padding: 32px;
+}
+
+.hero-line {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.005em;
+  margin-bottom: 64px;
+  opacity: 0;
+  transition: opacity 1800ms ease-in-out;
+}
+.hero-line.visible { opacity: 1; }
+
+.scroll-prompt {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-dimmer);
+  letter-spacing: 0.2em;
+  opacity: 0;
+  transition: opacity 1200ms ease-out;
+  animation: pulse-soft 4s ease-in-out infinite;
+}
+.scroll-prompt.visible { opacity: 0.5; }
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.scroll-prompt::after {
+  content: '↓';
+  display: block;
+  margin-top: 8px;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 2 — THE DIAGNOSIS (MANIFESTO)
+   ═══════════════════════════════════════════════════════════════ */
+.diagnosis .section-inner { max-width: 640px; }
+
+.manifesto-line {
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 400;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 1400ms ease-out, transform 1400ms ease-out;
+  transform: translateY(8px);
+}
+.manifesto-line.visible { opacity: 1; transform: translateY(0); }
+
+/* Position modifiers — each line lands somewhere different to break monotony */
+.manifesto-line.lead-left { max-width: 80%; margin-right: auto; margin-left: 0; }
+.manifesto-line.lead-right { max-width: 80%; margin-left: auto; margin-right: 0; text-align: right; }
+.manifesto-line.lead-center { max-width: 90%; margin: 0 auto 28px; text-align: center; }
+.manifesto-line.lead-indent { max-width: 72%; margin-left: 12%; }
+.manifesto-line.lead-indent-right { max-width: 72%; margin-left: auto; margin-right: 8%; text-align: right; }
+.manifesto-line.lead-emphasis {
+  text-align: center;
+  font-size: clamp(22px, 3vw, 28px);
+  font-style: italic;
+  margin: 36px auto 36px;
+  max-width: 100%;
+}
+.manifesto-line.lead-small {
+  font-size: clamp(15px, 1.6vw, 17px);
+  opacity: 0.85;
+  text-align: center;
+  max-width: 80%;
+  margin: 0 auto 28px;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 768px) {
+  .manifesto-line.lead-left,
+  .manifesto-line.lead-right,
+  .manifesto-line.lead-center,
+  .manifesto-line.lead-indent,
+  .manifesto-line.lead-indent-right {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+  .manifesto-line.lead-center, .manifesto-line.lead-emphasis, .manifesto-line.lead-small {
+    text-align: center;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 3 — THE MECHANISM (INTERACTIVE DIAGRAM)
+   ═══════════════════════════════════════════════════════════════ */
+.mechanism { background: linear-gradient(180deg, transparent 0%, rgba(45, 27, 105, 0.05) 50%, transparent 100%); }
+
+.mechanism-lead {
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.6;
+  margin-bottom: 64px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.cycle-diagram {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 32px;
+  position: relative;
+}
+
+.cycle-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.cycle-bar {
+  cursor: pointer;
+  transition: opacity 300ms ease;
+}
+
+.cycle-bar:hover, .cycle-bar.active {
+  opacity: 1;
+}
+
+.cycle-bar rect {
+  transition: fill 400ms ease, filter 400ms ease;
+}
+
+.cycle-bar:hover rect,
+.cycle-bar.active rect {
+  fill: var(--text);
+  filter: drop-shadow(0 0 12px rgba(99, 73, 184, 0.6));
+}
+
+.cycle-bar text {
+  fill: var(--text-dim);
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
+
+.cycle-bar:hover text,
+.cycle-bar.active text {
+  fill: var(--text);
+}
+
+.cycle-panel {
+  background: var(--bg-elevated);
+  border: 1px solid rgba(99, 73, 184, 0.3);
+  border-radius: 4px;
+  padding: 32px;
+  margin-top: 32px;
+  text-align: left;
+  min-height: 140px;
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.cycle-panel-title {
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--indigo-bright);
+  margin-bottom: 12px;
+}
+
+.cycle-panel-content {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.cycle-panel.changing {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.mechanism-close {
+  margin-top: 80px;
+  font-size: clamp(20px, 2.6vw, 26px);
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 4 — THE PRACTICE (THREE CARDS)
+   ═══════════════════════════════════════════════════════════════ */
+.practice-lead {
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.6;
+  margin-bottom: 64px;
+  color: var(--text-dim);
+}
+
+.practice-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.practice-card {
+  background: rgba(15, 10, 31, 0.6);
+  border: 1px solid rgba(99, 73, 184, 0.25);
+  padding: 40px 32px;
+  text-align: left;
+  position: relative;
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.practice-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--indigo-bright);
+  box-shadow: 0 0 32px rgba(99, 73, 184, 0.2);
+}
+
+.practice-card-number {
+  font-size: 56px;
+  font-weight: 300;
+  color: var(--indigo-bright);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 24px;
+  font-family: var(--serif);
+}
+
+.practice-card-title {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+
+.practice-card-body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.practice-close {
+  margin-top: 80px;
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 600px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 5 — THE LINEAGE
+   ═══════════════════════════════════════════════════════════════ */
+.lineage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 48px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.lineage-divider {
+  width: 1px;
+  background: linear-gradient(180deg, transparent 0%, var(--indigo-bright) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 1500ms ease-out 600ms;
+}
+.reveal.visible + .lineage-divider,
+.reveal.visible .lineage-divider { opacity: 0.5; }
+
+.lineage-col {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.lineage-col p { margin-bottom: 16px; }
+
+.lineage-close {
+  text-align: center;
+  margin-top: 64px;
+  font-size: clamp(20px, 2.6vw, 26px);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.lineage-close p { margin-bottom: 4px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 6 — THE BOOK (PRIMARY CTA)
+   ═══════════════════════════════════════════════════════════════ */
+.book-section {
+  background: linear-gradient(180deg, transparent 0%, rgba(45, 27, 105, 0.08) 30%, rgba(45, 27, 105, 0.08) 70%, transparent 100%);
+  padding-top: calc(var(--section-pad) + 40px);
+  padding-bottom: calc(var(--section-pad) + 40px);
+}
+
+.book-title {
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin-bottom: 48px;
+  line-height: 1.2;
+}
+
+.book-body {
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.7;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.book-body.emphasis {
+  margin-top: 32px;
+  margin-bottom: 48px;
+}
+
+/* 3D BOOK VISUALISATION (CSS-only) */
+.book-3d-container {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  margin: 80px auto 48px;
+}
+
+.book-3d {
+  width: 180px;
+  height: 260px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: book-rotate 16s linear infinite;
+}
+
+@keyframes book-rotate {
+  0% { transform: rotateY(-15deg); }
+  25% { transform: rotateY(15deg); }
+  50% { transform: rotateY(-15deg); }
+  75% { transform: rotateY(-180deg); }
+  100% { transform: rotateY(-360deg); }
+}
+
+@keyframes book-rotate-simple {
+  0%, 100% { transform: rotateY(-12deg); }
+  50% { transform: rotateY(12deg); }
+}
+
+.book-3d:hover {
+  animation-play-state: paused;
+}
+
+.book-face {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--indigo);
+  border: 1px solid rgba(99, 73, 184, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  backface-visibility: hidden;
+  box-shadow: 0 20px 60px rgba(99, 73, 184, 0.3);
+}
+
+.book-face.front {
+  transform: translateZ(15px);
+  background: linear-gradient(135deg, var(--indigo) 0%, #1A1140 100%);
+}
+
+.book-face.back {
+  transform: translateZ(-15px) rotateY(180deg);
+  background: linear-gradient(135deg, #1A1140 0%, var(--indigo) 100%);
+}
+
+.book-spine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(90deg, #1A1140 0%, var(--indigo) 50%, #1A1140 100%);
+  transform: rotateY(-90deg) translateZ(15px);
+  transform-origin: left;
+  border-left: 1px solid rgba(99, 73, 184, 0.4);
+  border-right: 1px solid rgba(99, 73, 184, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-spine-text {
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--text);
+  font-weight: 500;
+  writing-mode: vertical-rl;
+}
+
+.book-wordmark {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.book-subwordmark {
+  font-family: var(--serif);
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.book-edge {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(90deg, #F4F1ED 0%, #C8C2BA 50%, #F4F1ED 100%);
+  transform: rotateY(90deg) translateZ(-15px);
+  transform-origin: right;
+}
+
+.book-meta {
+  margin-top: 32px;
+  margin-bottom: 48px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.book-meta-line { margin-bottom: 4px; }
+
+.book-cta {
+  display: inline-block;
+  background: var(--indigo);
+  border: 1px solid rgba(244, 241, 237, 0.6);
+  color: var(--text);
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.15em;
+  padding: 20px 56px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  outline: none;
+  -webkit-appearance: none;
+  text-transform: uppercase;
+}
+
+.book-cta:hover, .book-cta:focus-visible {
+  background: var(--text);
+  color: var(--indigo);
+  border-color: var(--indigo);
+  box-shadow: 0 0 40px rgba(99, 73, 184, 0.4);
+}
+
+.book-cta:active { transform: scale(0.98); }
+
+.book-cta-note {
+  display: block;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--text-dimmer);
+  letter-spacing: 0.1em;
+}
+
+/* ───── MERCH GRID ───── */
+.merch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
+  margin: 64px auto 32px;
+}
+.merch-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 10, 31, 0.55);
+  border: 1px solid rgba(99, 73, 184, 0.25);
+  padding: 20px;
+  text-align: left;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.merch-card:hover, .merch-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--indigo-bright);
+  box-shadow: 0 0 32px rgba(99, 73, 184, 0.25);
+  background: rgba(45, 27, 105, 0.18);
+  outline: none;
+}
+.merch-image {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(45, 27, 105, 0.4) 0%, rgba(99, 73, 184, 0.15) 100%);
+  border: 1px solid rgba(99, 73, 184, 0.2);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.merch-placeholder {
+  font-size: 11px;
+  color: var(--text-dimmer);
+  letter-spacing: 0.1em;
+  text-align: center;
+  padding: 8px;
+}
+.merch-name {
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.merch-tag {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-bottom: 12px;
+}
+.merch-price {
+  font-size: 14px;
+  color: var(--indigo-bright);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.merch-note {
+  font-size: 11px;
+  color: var(--text-dimmer);
+  letter-spacing: 0.1em;
+  text-align: center;
+  margin-top: 16px;
+}
+@media (max-width: 768px) {
+  .merch-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 48px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 7 — THE DEEPER PATH (SOFT COURSE POINTER)
+   ═══════════════════════════════════════════════════════════════ */
+.deeper-path {
+  padding: 64px 32px;
+  min-height: 30vh;
+}
+
+.deeper-path .section-inner {
+  max-width: 560px;
+}
+
+.deeper-title {
+  font-size: clamp(20px, 2.8vw, 28px);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin-bottom: 32px;
+}
+
+.deeper-body {
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+  color: var(--text-dim);
+}
+
+.deeper-link {
+  display: inline-block;
+  margin-top: 32px;
+  color: var(--indigo-bright);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(99, 73, 184, 0.4);
+  padding-bottom: 4px;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  transition: all 300ms ease;
+}
+
+.deeper-link:hover {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+
+.deeper-link::after {
+  content: ' →';
+  transition: transform 300ms ease;
+  display: inline-block;
+}
+.deeper-link:hover::after { transform: translateX(4px); }
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 8 — THE OTHERS (DISCORD CARDS)
+   ═══════════════════════════════════════════════════════════════ */
+.others-title {
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 400;
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+}
+
+.others-lead {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin-bottom: 56px;
+}
+
+.others-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.others-card {
+  background: rgba(15, 10, 31, 0.6);
+  border: 1px solid rgba(99, 73, 184, 0.25);
+  padding: 40px 32px;
+  text-align: center;
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 220px;
+}
+
+.others-card:hover {
+  border-color: var(--indigo-bright);
+  box-shadow: 0 0 32px rgba(99, 73, 184, 0.2);
+  transform: translateY(-2px);
+}
+
+.others-card-name {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+
+.others-card-desc {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-dim);
+  margin-bottom: 32px;
+}
+
+.others-card-enter {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid rgba(244, 241, 237, 0.5);
+  color: var(--text);
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  padding: 14px 36px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 300ms ease;
+  outline: none;
+  -webkit-appearance: none;
+  text-transform: uppercase;
+}
+.others-card-enter:hover, .others-card-enter:focus-visible {
+  background: var(--text);
+  color: var(--indigo);
+  border-color: var(--text);
+}
+
+/* Premium variant — visually distinguished, warmer accent */
+.others-card.premium {
+  border-color: rgba(201, 168, 76, 0.35);
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.04) 0%, rgba(15, 10, 31, 0.6) 60%);
+}
+.others-card.premium:hover {
+  border-color: rgba(201, 168, 76, 0.7);
+  box-shadow: 0 0 32px rgba(201, 168, 76, 0.18);
+}
+.others-card-badge {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+.others-card-badge.free {
+  background: rgba(99, 73, 184, 0.15);
+  color: var(--indigo-bright);
+  border: 1px solid rgba(99, 73, 184, 0.3);
+}
+.others-card-badge.premium-badge {
+  background: rgba(201, 168, 76, 0.10);
+  color: var(--amber);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 9 — THE CLOSING
+   ═══════════════════════════════════════════════════════════════ */
+.closing {
+  padding: 100px 32px;
+  min-height: 60vh;
+}
+
+.closing-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--indigo-bright);
+  margin-bottom: 80px;
+  opacity: 0;
+  transition: opacity 1500ms ease-out;
+}
+.closing-label.visible { opacity: 1; }
+
+.closing-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.closing-line {
+  font-size: clamp(22px, 3.2vw, 32px);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transition: opacity 1800ms ease-out;
+}
+.closing-line.visible { opacity: 1; }
+
+.closing-footer {
+  margin-top: 96px;
+  font-size: 12px;
+  color: var(--text-dimmer);
+  letter-spacing: 0.15em;
+  opacity: 0;
+  transition: opacity 2000ms ease-out;
+}
+.closing-footer.visible { opacity: 1; }
+
+.closing-footer a {
+  color: var(--text-dimmer);
+  text-decoration: none;
+  margin: 0 8px;
+  transition: color 300ms ease;
+}
+.closing-footer a:hover { color: var(--text-dim); }
+
+/* ═══════════════════════════════════════════════════════════════
+   AUDIO TOGGLE + EDGE LIGHT (page-wide)
+   ═══════════════════════════════════════════════════════════════ */
+.audio-toggle {
+  position: fixed; top: 24px; right: 24px;
+  width: 36px; height: 36px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(244, 241, 237, 0.2);
+  border-radius: 50%;
+  color: rgba(244, 241, 237, 0.5);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; z-index: 150;
+  transition: all 300ms ease;
+  outline: none; opacity: 0;
+  -webkit-appearance: none;
+}
+.audio-toggle.visible { opacity: 1; }
+.audio-toggle:hover, .audio-toggle:focus-visible {
+  border-color: rgba(244, 241, 237, 0.6);
+  color: var(--text);
+}
+
+.edge-light-base {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 30vh;
+  background: radial-gradient(
+    ellipse at bottom center,
+    rgba(99, 73, 184, 0.12) 0%,
+    rgba(45, 27, 105, 0.05) 40%,
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 4000ms ease-in-out;
+  pointer-events: none; z-index: 1;
+  filter: blur(20px);
+}
+.edge-light-base.active { opacity: 0.7; }
+
+/* ───── BACKGROUND VIBRANCE — ethereal drifting field ───── */
+.vibrance-bg {
+  position: fixed; inset: -20%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(99, 73, 184, 0.30) 0%, transparent 55%),
+    radial-gradient(circle at 80% 65%, rgba(45, 27, 105, 0.36) 0%, transparent 60%),
+    radial-gradient(circle at 60% 20%, rgba(180, 140, 250, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 30% 85%, rgba(120, 80, 200, 0.22) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(99, 73, 184, 0.12) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+  filter: blur(60px);
+  opacity: 0;
+  transition: opacity 6000ms ease-in-out, filter 2000ms ease-out;
+}
+.vibrance-bg.active {
+  opacity: 1;
+  animation: vibrance-drift 32s ease-in-out infinite;
+}
+.vibrance-bg.peak {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(99, 73, 184, 0.40) 0%, transparent 60%),
+    radial-gradient(circle at 80% 65%, rgba(45, 27, 105, 0.48) 0%, transparent 65%),
+    radial-gradient(circle at 60% 20%, rgba(190, 150, 255, 0.26) 0%, transparent 50%),
+    radial-gradient(circle at 30% 85%, rgba(140, 100, 220, 0.30) 0%, transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(99, 73, 184, 0.18) 0%, transparent 70%);
+}
+@keyframes vibrance-drift {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25%  { transform: translate(6%, -4%) scale(1.08) rotate(2deg); }
+  50%  { transform: translate(-3%, 5%) scale(1.05) rotate(-1deg); }
+  75%  { transform: translate(-5%, -2%) scale(1.10) rotate(1deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY + MOBILE
+   ═══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 200ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .book-3d { animation: none !important; }
+}
+
+@media (max-width: 768px) {
+  :root { --section-pad: var(--section-pad-mobile); }
+
+  .practice-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .practice-card { min-height: auto; padding: 32px 24px; }
+
+  .others-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .lineage-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .lineage-divider {
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--indigo-bright) 50%, transparent 100%);
+    margin: 0 auto;
+  }
+
+  .manifesto-line {
+    font-size: 17px;
+    text-align: left;
+  }
+
+  .closing-lines { gap: 40px; }
+}
+
+@media (max-width: 480px) {
+  .book-cta { padding: 18px 40px; font-size: 16px; }
+  .book-3d { width: 150px; height: 220px; }
+}
+</style>
+  <script src="../assets/analytics.js"></script>
+</head>
+<body>
+
+<!-- ─── START SCREEN — only shown on standalone entry ─── -->
+<div class="start-screen" id="startScreen" role="button" tabindex="0" aria-label="Tap to begin">
+  <p class="start-prompt">Tap to begin.</p>
+</div>
+
+<!-- ─── BACKGROUND VIBRANCE (slow drifting radial gradient) ─── -->
+<div class="vibrance-bg" id="vibranceBg" aria-hidden="true"></div>
+
+<!-- ─── EDGE LIGHT (page-wide ambient glow) ─── -->
+<div class="edge-light-base" id="edgeLight" aria-hidden="true"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 1 — THE THRESHOLD
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="section-inner">
+    <h1 class="hero-line" id="heroLine">You are larger than you have been allowed to know.</h1>
+    <p class="scroll-prompt" id="scrollPrompt">Scroll</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 2 — THE DIAGNOSIS
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="diagnosis">
+  <div class="section-inner">
+    <p class="section-label reveal">The Diagnosis</p>
+    <div class="reveal stagger">
+      <p class="manifesto-line lead-emphasis">Most of what you are is <span class="primed">hidden</span> from you.</p>
+      <p class="manifesto-line lead-left">The version of yourself that runs your nights — the one your conscious mind has never been awake for.</p>
+      <p class="manifesto-line lead-indent-right">The version that runs your defaults during the day, below the level you can see.</p>
+      <p class="manifesto-line lead-center">Both are larger than the part of you that you call "I."</p>
+      <p class="manifesto-line lead-indent">You have been working with a <span class="primed">fraction</span> of what is in you.</p>
+      <p class="manifesto-line lead-right">And you have been told that fraction is <span class="primed">all</span> there is.</p>
+      <p class="manifesto-line lead-small">This is not a metaphor. It is structural.</p>
+      <p class="manifesto-line lead-left">The mind has access to itself that most people are never taught to train.</p>
+      <p class="manifesto-line lead-emphasis">The <span class="primed">potential</span> is already there.</p>
+      <p class="manifesto-line lead-center">The door is locked because no one handed you the <span class="primed">key</span>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 3 — THE MECHANISM (INTERACTIVE DIAGRAM)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="mechanism">
+  <div class="section-inner">
+    <p class="section-label reveal">The Threshold</p>
+    <div class="reveal stagger">
+      <p class="manifesto-line lead-left">Every night you cross a <span class="primed">threshold</span>.</p>
+      <p class="manifesto-line lead-indent">You have crossed it tens of thousands of times.</p>
+      <p class="manifesto-line lead-right">You have not been awake for any of them.</p>
+      <p class="manifesto-line lead-small">The threshold is <span class="primed">real</span>.</p>
+      <p class="manifesto-line lead-emphasis">The practice is to be there.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 4 — THE PRACTICE
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="practice">
+  <div class="section-inner">
+    <p class="section-label reveal">The Practice</p>
+    <p class="practice-lead reveal">Three things have to align.<br>None of them are difficult.<br>All of them are <span class="primed">simple</span> — and almost no one does them.</p>
+
+    <div class="practice-cards reveal stagger">
+      <div class="practice-card">
+        <div class="practice-card-number">One</div>
+        <div class="practice-card-title">Timing</div>
+        <div class="practice-card-body">Be there at the right hour. Almost everyone misses it by hours.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-card-number">Two</div>
+        <div class="practice-card-title">Awareness</div>
+        <div class="practice-card-body">Stay present at the edge. There is a moment most people sleep through without noticing.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-card-number">Three</div>
+        <div class="practice-card-title">Stability</div>
+        <div class="practice-card-body">When the door opens, do not grasp. The grasp closes it. The work is to stay.</div>
+      </div>
+    </div>
+
+    <p class="practice-close reveal">That is all of it.<br>Everything else is what makes that possible.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 5 — THE LINEAGE
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="lineage">
+  <div class="section-inner">
+    <p class="section-label reveal">Across Every Tradition That Went Deep</p>
+    <div class="reveal stagger">
+      <p class="manifesto-line lead-left">For as long as humans have slept, some have learned to be conscious through the night.</p>
+      <p class="manifesto-line lead-indent-right">It was named differently in different places.</p>
+      <p class="manifesto-line lead-emphasis">It was always the same <span class="primed">door</span>.</p>
+      <p class="manifesto-line lead-indent">The knowledge has never been lost.</p>
+      <p class="manifesto-line lead-right">You've just never found it.</p>
+      <p class="manifesto-line lead-emphasis"><span class="primed-warm">Until now.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 6 — THE BOOK (PRIMARY CTA)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="book-section" id="bookSection">
+  <div class="section-inner">
+    <p class="section-label reveal">What You Carry</p>
+    <h2 class="book-title reveal">Mark the threshold.</h2>
+
+    <div class="reveal stagger">
+      <p class="book-body">The work is silent.</p>
+      <p class="book-body">The <span class="primed">mark</span> is not.</p>
+      <p class="book-body emphasis">For those who recognise it,<br>recognition is enough.</p>
+    </div>
+
+    <div class="merch-grid reveal stagger">
+      <a href="#" class="merch-card" data-merch="eye-mask">
+        <div class="merch-image" aria-hidden="true">
+          <div class="merch-placeholder">[USER: eye mask image]</div>
+        </div>
+        <div class="merch-name">The Eye Mask</div>
+        <div class="merch-tag">For the threshold</div>
+        <div class="merch-price">[USER: price]</div>
+      </a>
+
+      <a href="#" class="merch-card" data-merch="tee">
+        <div class="merch-image" aria-hidden="true">
+          <div class="merch-placeholder">[USER: t-shirt image]</div>
+        </div>
+        <div class="merch-name">The Mark</div>
+        <div class="merch-tag">For the days</div>
+        <div class="merch-price">[USER: price]</div>
+      </a>
+
+      <a href="#" class="merch-card" data-merch="jumper">
+        <div class="merch-image" aria-hidden="true">
+          <div class="merch-placeholder">[USER: jumper image]</div>
+        </div>
+        <div class="merch-name">The Hooded</div>
+        <div class="merch-tag">For the nights</div>
+        <div class="merch-price">[USER: price]</div>
+      </a>
+    </div>
+
+    <p class="merch-note reveal">[USER: replace card hrefs with real product URLs. Add or remove items as needed.]</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 7 — THE DEEPER PATH
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="deeper-path">
+  <div class="section-inner">
+    <p class="section-label reveal">If the Book is the Door</p>
+    <div class="reveal stagger">
+      <p class="deeper-body">There is also a course.</p>
+      <p class="deeper-body">It is for the people who finish the book and want to keep going.</p>
+      <p class="deeper-body">It is not for everyone who buys the book.</p>
+      <p class="deeper-body">It is for the people the book makes restless.</p>
+    </div>
+    <a href="tier1.html" class="deeper-link reveal" id="courseLink" data-action="course">The deeper path</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 8 — THE OTHERS (DISCORD)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="others">
+  <div class="section-inner">
+    <p class="section-label reveal">The Others</p>
+    <h3 class="others-title reveal">You do not walk this alone.</h3>
+    <p class="others-lead reveal">One open door. One held room further in.</p>
+
+    <div class="others-cards reveal stagger">
+      <div class="others-card">
+        <div>
+          <div class="others-card-name">The Open Door</div>
+          <p class="others-card-desc">Both languages. All three pillars.<br>For anyone who has crossed once.</p>
+          <span class="others-card-badge free">Free</span>
+        </div>
+        <a href="community.html" class="others-card-enter" data-action="discord-open">Step in</a>
+      </div>
+      <div class="others-card premium">
+        <div>
+          <div class="others-card-name">The Inner Room</div>
+          <p class="others-card-desc">Smaller. Slower. Held.<br>For those who stay.</p>
+          <span class="others-card-badge premium-badge">£10 / month · cancel any time</span>
+        </div>
+        <a href="community.html" class="others-card-enter" data-action="discord-inner">Step inside</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 9 — THE CLOSING
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="closing" id="closingSection">
+  <div class="section-inner">
+    <p class="closing-label" id="closingLabel">The End of This Page</p>
+    <div class="closing-lines">
+      <p class="closing-line" id="closingLine1">The door is here.</p>
+      <p class="closing-line" id="closingLine2">The practice is real.</p>
+      <p class="closing-line" id="closingLine3">The work is the work.</p>
+    </div>
+    <p class="closing-footer" id="closingFooter">
+      WILD Programme · 2026 ·
+      <a href="legal.html">Privacy</a> ·
+      <a href="legal.html">Terms</a>
+    </p>
+  </div>
+</section>
+
+<!-- ─── AUDIO TOGGLE ─── -->
+<button class="audio-toggle" id="audioToggle" type="button" aria-label="Toggle audio" title="Mute / unmute · M">
+  <span id="audioIcon">♪</span>
+</button>
+
+<script>
+'use strict';
+
+/* ─────────────────────────────────────────────────────────────
+   WILD — Integrated Landing controller
+   Audio engine + scroll-triggered reveals + cycle diagram
+   ────────────────────────────────────────────────────────────── */
+
+const state = {
+  audioContext: null,
+  audioEnabled: true,
+  droneNode: null,
+  gainMaster: null,
+  currentStage: 0,
+  fromMicropage: false,
+  startAtPeak: false,
+};
+
+// ─── AUDIO LEVEL TARGETS — Levels 3 → 4 → 5 (bright/calm → angelic) ───
+// Scroll position interpolates between these. Weight shifts up the harmonic
+// series as user descends the page. Bass disappears. Shimmer becomes dominant.
+// Levels 3 → 4 → 5: a single melodic triad becoming progressively clearer + softer.
+// NOT a shimmer-dominant brightness (was harsh). Instead the major triad
+// (root/third/fifth in the mid octave) becomes the clean chord at the bottom.
+// Shimmer reduced to a hint, lowpass kept warmer.
+// Levels 3 → 4 → 5: chord starts subtle, becomes blatantly melodic by Level 5.
+// Lowpass cutoffs use Solfeggio numbers (528 / 741 / 963 — all digit-sum 6 or 9).
+// Level 3 cutoff 528 attenuates the 639 shimmer = subtle. Level 5 cutoff 963 lets
+// the full chord through clearly = melodic climax.
+const LEVEL_TARGETS = {
+  3: { root: 0.03, third: 0.035, fifth: 0.05, octRoot: 0.07, octThird: 0.06, octFifth: 0.05, shimmer: 0.025, binaural: 0.035, lowpass: 528 },
+  4: { root: 0.015, third: 0.025, fifth: 0.04, octRoot: 0.10, octThird: 0.10, octFifth: 0.09, shimmer: 0.05, binaural: 0.05, lowpass: 741 },
+  5: { root: 0.005, third: 0.02, fifth: 0.04, octRoot: 0.14, octThird: 0.14, octFifth: 0.13, shimmer: 0.09, binaural: 0.07, lowpass: 963 }
+};
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+function interpolateAudioFromScroll() {
+  if (!state.droneNode || !state.audioContext) return;
+  const scrollTop = window.scrollY;
+  const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+  if (scrollMax <= 0) return;
+
+  const progress = Math.min(1, Math.max(0, scrollTop / scrollMax));
+
+  // 0.0 - 0.5 progress = Level 3 → Level 4
+  // 0.5 - 1.0 progress = Level 4 → Level 5
+  let target;
+  if (progress < 0.5) {
+    const t = progress / 0.5;
+    const a = LEVEL_TARGETS[3], b = LEVEL_TARGETS[4];
+    target = {
+      root: lerp(a.root, b.root, t), third: lerp(a.third, b.third, t), fifth: lerp(a.fifth, b.fifth, t),
+      octRoot: lerp(a.octRoot, b.octRoot, t), octThird: lerp(a.octThird, b.octThird, t),
+      octFifth: lerp(a.octFifth, b.octFifth, t), shimmer: lerp(a.shimmer, b.shimmer, t),
+      binaural: lerp(a.binaural, b.binaural, t), lowpass: lerp(a.lowpass, b.lowpass, t)
+    };
+  } else {
+    const t = (progress - 0.5) / 0.5;
+    const a = LEVEL_TARGETS[4], b = LEVEL_TARGETS[5];
+    target = {
+      root: lerp(a.root, b.root, t), third: lerp(a.third, b.third, t), fifth: lerp(a.fifth, b.fifth, t),
+      octRoot: lerp(a.octRoot, b.octRoot, t), octThird: lerp(a.octThird, b.octThird, t),
+      octFifth: lerp(a.octFifth, b.octFifth, t), shimmer: lerp(a.shimmer, b.shimmer, t),
+      binaural: lerp(a.binaural, b.binaural, t), lowpass: lerp(a.lowpass, b.lowpass, t)
+    };
+  }
+
+  const d = state.droneNode;
+  const now = state.audioContext.currentTime;
+  const tc = 0.7; // ~3-4s smooth approach — gradual, never abrupt
+  d.gainRoot.gain.setTargetAtTime(target.root, now, tc);
+  d.gainThird.gain.setTargetAtTime(target.third, now, tc);
+  d.gainFifth.gain.setTargetAtTime(target.fifth, now, tc);
+  d.gainOctRoot.gain.setTargetAtTime(target.octRoot, now, tc);
+  d.gainOctThird.gain.setTargetAtTime(target.octThird, now, tc);
+  d.gainOctFifth.gain.setTargetAtTime(target.octFifth, now, tc);
+  d.gainShimmer.gain.setTargetAtTime(target.shimmer, now, tc);
+  d.gainBinL.gain.setTargetAtTime(target.binaural, now, tc);
+  d.gainBinR.gain.setTargetAtTime(target.binaural, now, tc);
+  d.lowpass.frequency.setTargetAtTime(target.lowpass, now, tc);
+
+  // Vibrance scales with audio progression — more ethereal as user descends
+  // brightness 1.0 (Level 3, top) → 1.7 (Level 5, bottom). Smooth via CSS transition.
+  const vb = document.getElementById('vibranceBg');
+  if (vb) {
+    const brightness = 1.0 + progress * 0.7;
+    vb.style.filter = 'blur(60px) brightness(' + brightness.toFixed(3) + ')';
+  }
+}
+
+// rAF-throttled scroll listener
+let scrollRAF = null;
+window.addEventListener('scroll', () => {
+  if (scrollRAF) return;
+  scrollRAF = requestAnimationFrame(() => {
+    interpolateAudioFromScroll();
+    scrollRAF = null;
+  });
+}, { passive: true });
+
+function track(event, properties = {}) {
+  console.log('[track]', event, properties);
+}
+
+// ──────── DETECT ENTRY MODE ────────
+// If user came from a micropage, read flags but STILL show start screen
+// (Audio context needs a user gesture each page — autoplay restriction)
+function checkEntryMode() {
+  try {
+    const fromMicro = sessionStorage.getItem('wild_audio_active') === '1';
+    const harmonyPeak = sessionStorage.getItem('wild_harmony_peak') === '1';
+    if (fromMicro) {
+      state.fromMicropage = true;
+      // Change the prompt text to acknowledge continuation, but keep the start screen
+      // visible — user must tap to unlock audio on this page.
+      const prompt = document.querySelector('.start-prompt');
+      if (prompt) prompt.textContent = 'Continue.';
+    }
+    if (harmonyPeak) {
+      state.startAtPeak = true;
+    }
+    // Clear the harmony peak flag immediately so a refresh doesn't carry it over stale
+    sessionStorage.removeItem('wild_harmony_peak');
+  } catch (e) {}
+}
+
+// ──────── AUDIO ENGINE (same as micropages, with section-aware progression) ────────
+function initAudio() {
+  if (state.audioContext) return;
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    state.audioContext = new AudioContext();
+    state.gainMaster = state.audioContext.createGain();
+    state.gainMaster.gain.value = state.audioEnabled ? 0.55 : 0.0;
+    state.gainMaster.connect(state.audioContext.destination);
+  } catch (e) {
+    console.warn('Web Audio API unavailable; silent mode');
+  }
+}
+
+function playDrone() {
+  if (!state.audioContext) return;
+  const ctx = state.audioContext;
+  const now = ctx.currentTime;
+
+  // ─── LEVEL 3 ENGINE — light, bright, calm major triad in mid range ───
+  // Weight sits in the octave-up range, not the bass. Lowpass at 700Hz (open).
+  // The sound is the resolution of the do→re→mi ascent from the micropage.
+  const oscRoot = ctx.createOscillator();      // 65Hz — bass grounding, low gain
+  const oscThird = ctx.createOscillator();     // 81.25Hz — low third
+  const oscFifth = ctx.createOscillator();     // 97.5Hz — low fifth
+  const oscOctRoot = ctx.createOscillator();   // 130Hz — root octave up (main weight)
+  const oscOctThird = ctx.createOscillator();  // 162.5Hz — major third octave up
+  const oscOctFifth = ctx.createOscillator();  // 195Hz — fifth octave up
+  const oscShimmer = ctx.createOscillator();   // 260Hz — two-octave-up root, shimmer
+  oscRoot.type = 'sine'; oscThird.type = 'sine'; oscFifth.type = 'sine';
+  oscOctRoot.type = 'sine'; oscOctThird.type = 'sine'; oscOctFifth.type = 'sine'; oscShimmer.type = 'sine';
+  // Bass stays in low for grounding. Upper oscillators use Solfeggio numbers
+  // (each digit-sum reduces to 3, 6, or 9 — the "369" numerical pattern).
+  // Stacked roughly in fourths — meditative, sus-like, never harsh.
+  // Design choice for thematic alignment; no therapeutic claim is made.
+  oscRoot.frequency.value = 65;       // bass grounding
+  oscThird.frequency.value = 81.25;
+  oscFifth.frequency.value = 97.5;
+  oscOctRoot.frequency.value = 285;   // Solfeggio
+  oscOctThird.frequency.value = 396;  // Solfeggio (chord anchor)
+  oscOctFifth.frequency.value = 528;  // Solfeggio
+  oscShimmer.frequency.value = 639;   // Solfeggio
+
+  const gainRoot = ctx.createGain();
+  const gainThird = ctx.createGain();
+  const gainFifth = ctx.createGain();
+  const gainOctRoot = ctx.createGain();
+  const gainOctThird = ctx.createGain();
+  const gainOctFifth = ctx.createGain();
+  const gainShimmer = ctx.createGain();
+  gainRoot.gain.value = 0;
+  gainThird.gain.value = 0;
+  gainFifth.gain.value = 0;
+  gainOctRoot.gain.value = 0;
+  gainOctThird.gain.value = 0;
+  gainOctFifth.gain.value = 0;
+  gainShimmer.gain.value = 0;
+
+  // Lowpass at 700Hz — fully open, allows mid + upper harmonics through
+  const lowpass = ctx.createBiquadFilter();
+  lowpass.type = 'lowpass';
+  lowpass.frequency.value = 528;
+  lowpass.Q.value = 0.7;
+
+  const droneGain = ctx.createGain();
+  droneGain.gain.value = 1;
+
+  oscRoot.connect(gainRoot); oscThird.connect(gainThird); oscFifth.connect(gainFifth);
+  oscOctRoot.connect(gainOctRoot); oscOctThird.connect(gainOctThird);
+  oscOctFifth.connect(gainOctFifth); oscShimmer.connect(gainShimmer);
+  gainRoot.connect(lowpass); gainThird.connect(lowpass); gainFifth.connect(lowpass);
+  gainOctRoot.connect(lowpass); gainOctThird.connect(lowpass);
+  gainOctFifth.connect(lowpass); gainShimmer.connect(lowpass);
+  lowpass.connect(droneGain);
+  droneGain.connect(state.gainMaster);
+
+  // Same target levels as micropage Level 3 — weight in mid range, not bass.
+  // Fade-in speed depends on entry mode (faster from micropage).
+  // Initial fade-in to SUBTLE Level 3 — the chord is just a hint at the top of page.
+  // It grows into a blatantly melodic resolution at the bottom (via scroll interpolation).
+  const fadeTime = state.startAtPeak ? 1.5 : 4.0;
+  gainRoot.gain.linearRampToValueAtTime(0.03, now + fadeTime);
+  gainThird.gain.linearRampToValueAtTime(0.035, now + fadeTime);
+  gainFifth.gain.linearRampToValueAtTime(0.05, now + fadeTime);
+  gainOctRoot.gain.linearRampToValueAtTime(0.07, now + fadeTime);
+  gainOctThird.gain.linearRampToValueAtTime(0.06, now + fadeTime);
+  gainOctFifth.gain.linearRampToValueAtTime(0.05, now + fadeTime);
+  gainShimmer.gain.linearRampToValueAtTime(0.025, now + fadeTime);
+
+  oscRoot.start(); oscThird.start(); oscFifth.start();
+  oscOctRoot.start(); oscOctThird.start(); oscOctFifth.start(); oscShimmer.start();
+
+  // Theta binaural — present throughout for those with headphones
+  const oscBinL = ctx.createOscillator();
+  const oscBinR = ctx.createOscillator();
+  oscBinL.type = 'sine'; oscBinR.type = 'sine';
+  oscBinL.frequency.value = 200;
+  oscBinR.frequency.value = 206;
+
+  const gainBinL = ctx.createGain();
+  const gainBinR = ctx.createGain();
+  gainBinL.gain.value = 0; gainBinR.gain.value = 0;
+
+  const panL = ctx.createStereoPanner();
+  const panR = ctx.createStereoPanner();
+  panL.pan.value = -1; panR.pan.value = 1;
+
+  oscBinL.connect(gainBinL);
+  oscBinR.connect(gainBinR);
+  gainBinL.connect(panL);
+  gainBinR.connect(panR);
+  panL.connect(state.gainMaster);
+  panR.connect(state.gainMaster);
+
+  // Binaural at full Level 3 presence — same target, faster fade if from micropage
+  const binauralTarget = 0.035;
+  const binauralTime = state.startAtPeak ? 2.0 : 6.0;
+  gainBinL.gain.linearRampToValueAtTime(binauralTarget, now + binauralTime);
+  gainBinR.gain.linearRampToValueAtTime(binauralTarget, now + binauralTime);
+
+  oscBinL.start(); oscBinR.start();
+
+  state.droneNode = {
+    oscRoot, oscThird, oscFifth,
+    oscOctRoot, oscOctThird, oscOctFifth, oscShimmer,
+    gainRoot, gainThird, gainFifth,
+    gainOctRoot, gainOctThird, gainOctFifth, gainShimmer,
+    oscBinL, oscBinR, gainBinL, gainBinR,
+    droneGain, lowpass,
+  };
+}
+
+// Subtle harmonic shift on entering each major section
+// Most sections share the same harmonic state; section-specific accents happen on transitions
+function shiftHarmonyForSection(sectionId) {
+  // Intentionally a no-op. The integrated landing holds Level 3 sound throughout
+  // — no section-by-section harmonic shifts. Audio remains constant at the full
+  // major triad from page load until the user navigates to the official page
+  // (which transitions to Level 4 / 5).
+  return;
+}
+
+function playChime() {
+  if (!state.audioContext) return;
+  const ctx = state.audioContext;
+  const now = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  osc.type = 'sine'; osc.frequency.value = 440;
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0, now);
+  gain.gain.linearRampToValueAtTime(0.06, now + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+  osc.connect(gain); gain.connect(state.gainMaster);
+  osc.start(now); osc.stop(now + 0.35);
+}
+
+function playCommitTone() {
+  // For Book CTA click — single sustained note that resolves upward
+  if (!state.audioContext) return;
+  const ctx = state.audioContext;
+  const now = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(329.63, now);  // E
+  osc.frequency.linearRampToValueAtTime(392.00, now + 1.2); // G — resolution upward
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0, now);
+  gain.gain.linearRampToValueAtTime(0.12, now + 0.1);
+  gain.gain.linearRampToValueAtTime(0.08, now + 1.0);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+  osc.connect(gain); gain.connect(state.gainMaster);
+  osc.start(now); osc.stop(now + 2.6);
+}
+
+function playCyclePulse() {
+  // For cycle bar hover — subtle short pulse
+  if (!state.audioContext) return;
+  const ctx = state.audioContext;
+  const now = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  osc.type = 'sine'; osc.frequency.value = 523.25; // C5
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0, now);
+  gain.gain.linearRampToValueAtTime(0.04, now + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+  osc.connect(gain); gain.connect(state.gainMaster);
+  osc.start(now); osc.stop(now + 0.25);
+}
+
+function fadeOutDrone(durationMs = 3000) {
+  if (!state.droneNode) return;
+  const ctx = state.audioContext;
+  const now = ctx.currentTime;
+  const d = state.droneNode;
+  d.droneGain.gain.cancelScheduledValues(now);
+  d.droneGain.gain.setValueAtTime(d.droneGain.gain.value, now);
+  d.droneGain.gain.linearRampToValueAtTime(0, now + (durationMs / 1000));
+  d.gainBinL.gain.linearRampToValueAtTime(0, now + (durationMs / 1000));
+  d.gainBinR.gain.linearRampToValueAtTime(0, now + (durationMs / 1000));
+  setTimeout(() => {
+    if (state.droneNode) {
+      try {
+        d.oscRoot.stop(); d.oscFifth.stop();
+        if (d.oscThird) d.oscThird.stop();
+        if (d.oscOctRoot) d.oscOctRoot.stop();
+        if (d.oscOctThird) d.oscOctThird.stop();
+        if (d.oscOctFifth) d.oscOctFifth.stop();
+        if (d.oscShimmer) d.oscShimmer.stop();
+        d.oscBinL.stop(); d.oscBinR.stop();
+      } catch (e) {}
+      state.droneNode = null;
+    }
+  }, durationMs + 100);
+}
+
+// ──────── HAPTIC ────────
+function haptic(ms = 15) {
+  if (navigator.vibrate) navigator.vibrate(ms);
+}
+
+// ──────── EXPERIENCE START ────────
+function startExperience() {
+  document.getElementById('startScreen').classList.add('hidden');
+  initAudio();
+  if (state.audioContext && state.audioContext.state === 'suspended') {
+    state.audioContext.resume();
+  }
+  playDrone();
+
+  // Clear stale flags — once the user is in, the entry-mode info is consumed.
+  // This prevents a stale "wild_audio_active" from showing "Continue" on a fresh visit.
+  try {
+    sessionStorage.removeItem('wild_audio_active');
+    sessionStorage.removeItem('wild_harmony_peak');
+  } catch (e) {}
+
+  // Reveal hero content
+  setTimeout(() => {
+    document.getElementById('heroLine').classList.add('visible');
+  }, 1500);
+
+  setTimeout(() => {
+    document.getElementById('scrollPrompt').classList.add('visible');
+    document.getElementById('audioToggle').classList.add('visible');
+    document.getElementById('edgeLight').classList.add('active');
+    // Activate background vibrance — at peak if user came from Q3 Yes path
+    const vb = document.getElementById('vibranceBg');
+    vb.classList.add('active');
+    if (state.startAtPeak) vb.classList.add('peak');
+  }, state.startAtPeak ? 1500 : 4000);
+
+  track('integrated_landing_loaded', { entry_mode: state.fromMicropage ? 'micropage' : 'standalone' });
+}
+
+// ──────── INTERSECTION OBSERVER FOR REVEALS ────────
+function initScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+
+        // Section-level harmonic shifts
+        const section = entry.target.closest('section');
+        if (section && !section.dataset.shifted) {
+          section.dataset.shifted = '1';
+          const id = section.id || section.className.split(' ')[0];
+          shiftHarmonyForSection(id);
+          track('section_reached', { section: id });
+        }
+      }
+    });
+  }, {
+    threshold: 0.2,
+    rootMargin: '0px 0px -10% 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Closing section special handling — sequential line reveals
+  const closingObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.revealed) {
+        entry.target.dataset.revealed = '1';
+        document.getElementById('closingLabel').classList.add('visible');
+        setTimeout(() => document.getElementById('closingLine1').classList.add('visible'), 800);
+        setTimeout(() => document.getElementById('closingLine2').classList.add('visible'), 2400);
+        setTimeout(() => document.getElementById('closingLine3').classList.add('visible'), 4000);
+        setTimeout(() => document.getElementById('closingFooter').classList.add('visible'), 6500);
+        // Drone CONTINUES at Level 3 — does not fade on closing-section scroll.
+        // It only fades when the user actively navigates away to the official page
+        // (where the Level 3 → 4 → 5 transition will be handled).
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const closingEl = document.getElementById('closingSection');
+  if (closingEl) closingObserver.observe(closingEl);
+}
+
+// ──────── CYCLE DIAGRAM INTERACTIONS ────────
+function initCycleDiagram() {
+  document.querySelectorAll('.cycle-bar').forEach(bar => {
+    const updatePanel = () => {
+      const cycle = bar.dataset.cycle;
+      const data = cycleData[cycle];
+      if (!data) return;
+
+      // Remove active from all bars, add to this one
+      document.querySelectorAll('.cycle-bar').forEach(b => b.classList.remove('active'));
+      bar.classList.add('active');
+
+      // Update panel content with fade transition
+      const panel = document.getElementById('cyclePanel');
+      panel.classList.add('changing');
+      setTimeout(() => {
+        document.getElementById('cyclePanelTitle').textContent = data.title;
+        document.getElementById('cyclePanelContent').textContent = data.content;
+        panel.classList.remove('changing');
+      }, 200);
+
+      playCyclePulse();
+      track('cycle_explored', { cycle: parseInt(cycle) });
+    };
+
+    bar.addEventListener('mouseenter', updatePanel);
+    bar.addEventListener('click', updatePanel);
+    bar.addEventListener('focus', updatePanel);
+    bar.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        updatePanel();
+      }
+    });
+  });
+}
+
+// ──────── CTA HANDLERS ────────
+function initCTAs() {
+  // Merch cards
+  document.querySelectorAll('.merch-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      const item = card.dataset.merch;
+      track('merch_clicked', { item });
+      haptic(15);
+      playCommitTone();
+      // PRODUCTION: window.location.href = real product URL
+      setTimeout(() => {
+        alert('[PROTOTYPE] Product page for "' + item + '" would open.\n\nProduction swap: replace href on merch-card.');
+      }, 800);
+    });
+  });
+
+  // Course link
+  document.getElementById('courseLink').addEventListener('click', (e) => {
+    track('course_link_clicked');
+    playChime();
+    // Allows default navigation to tier1.html
+  });
+
+  // Discord cards — let the native href to community.html navigate; just track + chime
+  document.querySelectorAll('[data-action^="discord-"]').forEach(card => {
+    card.addEventListener('click', () => {
+      const stream = card.dataset.action.replace('discord-', '');
+      track('discord_clicked', { stream });
+      haptic(15);
+      playChime();
+      // Default <a href="community.html"> navigation proceeds.
+    });
+  });
+}
+
+// ──────── AUDIO TOGGLE ────────
+function toggleAudio() {
+  state.audioEnabled = !state.audioEnabled;
+  if (state.gainMaster) {
+    state.gainMaster.gain.linearRampToValueAtTime(
+      state.audioEnabled ? 0.55 : 0.0,
+      state.audioContext.currentTime + 0.3
+    );
+  }
+  document.getElementById('audioIcon').textContent = state.audioEnabled ? '♪' : '♫̸';
+}
+
+// ──────── EVENT LISTENERS ────────
+const startScreen = document.getElementById('startScreen');
+startScreen.addEventListener('click', startExperience, { once: true });
+startScreen.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    startExperience();
+  }
+}, { once: true });
+
+document.getElementById('audioToggle').addEventListener('click', toggleAudio);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'm' || e.key === 'M') toggleAudio();
+});
+
+// Smooth scroll on scroll-prompt click
+document.getElementById('scrollPrompt').addEventListener('click', () => {
+  document.querySelector('.diagnosis').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ──────── INIT ────────
+checkEntryMode();
+initScrollReveal();
+initCycleDiagram();
+initCTAs();
+
+</script>
+<script id="wild-consent-js" data-legal="legal.html" src="../assets/consent.js" defer></script>
+</body>
+</html>
