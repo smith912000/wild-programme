@@ -10,10 +10,14 @@ export const useAccessStore = create((set, get) => ({
   error: null,
 
   initAccess: () => {
+    // Access is now open — everyone gets full (T3) access by default. A cached
+    // tier is still honoured, but with login removed there is no gate: the app
+    // grants entry immediately. (Set this back to the cached-only check if a
+    // paywall is reintroduced.)
     const cached = localStorage.getItem(TIER_KEY)
-    if (cached && ['T1', 'T2', 'T3'].includes(cached)) {
-      set({ tier: cached })
-    }
+    const tier = (cached && ['T1', 'T2', 'T3'].includes(cached)) ? cached : 'T3'
+    localStorage.setItem(TIER_KEY, tier)
+    set({ tier })
   },
 
   setTier: (tier) => {
