@@ -1106,6 +1106,7 @@ section {
 }
 </style>
   <script src="../assets/analytics.js"></script>
+  <script src="../assets/wild-audio.js"></script>
 </head>
 <body>
 
@@ -1368,6 +1369,15 @@ const LEVEL_TARGETS = {
 function lerp(a, b, t) { return a + (b - a) * t; }
 
 function interpolateAudioFromScroll() {
+  // The bed is already fully resolved on this page; the ethereal vibrance still
+  // brightens as the visitor descends (audio stays tranquil throughout).
+  const _sMax = document.documentElement.scrollHeight - window.innerHeight;
+  if (_sMax > 0) {
+    const _p = Math.min(1, Math.max(0, window.scrollY / _sMax));
+    const _vb = document.getElementById('vibranceBg');
+    if (_vb) _vb.style.filter = 'blur(60px) brightness(' + (1.0 + _p * 0.7).toFixed(3) + ')';
+  }
+  return; // legacy Level 3→4→5 audio interpolation retained below but unused
   if (!state.droneNode || !state.audioContext) return;
   const scrollTop = window.scrollY;
   const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
@@ -1472,6 +1482,10 @@ function initAudio() {
 }
 
 function playDrone() {
+  // The landing is the calm destination — start already resolved via the shared
+  // WildAudio engine (110Hz hum, 2Hz delta beat, just-intoned pentatonic pad).
+  if (window.WildAudio) WildAudio.startResolved();
+  return; // legacy inline drone retained but unused
   if (!state.audioContext) return;
   const ctx = state.audioContext;
   const now = ctx.currentTime;
@@ -1838,6 +1852,7 @@ function toggleAudio() {
       state.audioContext.currentTime + 0.3
     );
   }
+  if (window.WildAudio) WildAudio.setMasterVolume(state.audioEnabled ? 0.5 : 0);
   document.getElementById('audioIcon').textContent = state.audioEnabled ? '♪' : '♫̸';
 }
 

@@ -659,6 +659,7 @@ body.struck::after {
 <!-- ─── HEADPHONES HINT ─── -->
 <p class="headphones-hint" id="headphonesHint">Headphones recommended.</p>
 
+<script src="../../assets/wild-audio.js"></script>
 <script>
 'use strict';
 
@@ -699,6 +700,10 @@ function initAudio() {
 }
 
 function playDrone() {
+  // Ambient bed is now the shared WildAudio engine (assets/wild-audio.js):
+  // the Hook — a low warm 110Hz hum, 8Hz alpha/theta beat, ominous ♭2.
+  if (window.WildAudio) WildAudio.start();
+  return; // legacy inline drone below is retained but unused
   if (!state.audioContext) return;
   const ctx = state.audioContext;
   const now = ctx.currentTime;
@@ -861,6 +866,10 @@ function playDrone() {
 // Stage 2 = fifth dominant, dissonance nearly gone (after Strike)
 // Stage 3 = full consonance — beat dissolved (recognition gate)
 function progressHarmony(stage) {
+  if (window.WildAudio) {
+    if (stage === 'destabilize') { WildAudio.stop(1.5); }      // "No" — sound leaves
+    else if (stage === 4) { WildAudio.morphTo(0.7, 3); }       // confirmed path
+  }
   if (!state.droneNode) return;
   const ctx = state.audioContext;
   const now = ctx.currentTime;
@@ -1028,6 +1037,7 @@ function playBellNote() {
 }
 
 function fadeOutDrone(durationMs = 2000) {
+  if (window.WildAudio && WildAudio.isPlaying()) WildAudio.stop(durationMs / 1000);
   if (!state.droneNode) return;
   const ctx = state.audioContext;
   const now = ctx.currentTime;
@@ -1138,6 +1148,10 @@ function transitionToQuestion(qNum) {
   const ctx = state.audioContext;
   const now = ctx ? ctx.currentTime : 0;
 
+  // Advance the harmonic journey one step toward calm per "Yes" (stays alert/
+  // aware on the ad — full delta resolution arrives on the landing page).
+  if (window.WildAudio) WildAudio.morphTo(qNum === 2 ? 0.3 : 0.55, 4.5);
+
   // ─── SCALE PROGRESSION (do→re→mi) ───
   // Level 1 → 2: dissonance falls away, fifth + octave-root open, lowpass opens.
   //   The sound RISES in pitch range and brightens (less muffled, more clarity).
@@ -1237,7 +1251,7 @@ function chooseBranchA() {
   track('all_three_yes', { micropage: 'hidden-third', time_to_recognition: timeToRecognition });
   haptic(20);
   playAscendingChord();
-  // Level 3 already established at Q3 transition — no further harmonic change here
+  if (window.WildAudio) WildAudio.morphTo(0.7, 4); // deepen toward calm on the final yes
   // Lights: edge glow intensifies (faint → bright with breathing animation)
   const edge = document.getElementById('edgeLight');
   edge.classList.remove('faint');
@@ -1356,6 +1370,7 @@ function toggleAudio() {
       state.audioContext.currentTime + 0.3
     );
   }
+  if (window.WildAudio) WildAudio.setMasterVolume(state.audioEnabled ? 0.5 : 0);
   document.getElementById('audioIcon').textContent = state.audioEnabled ? '♪' : '♫̸';
 }
 
