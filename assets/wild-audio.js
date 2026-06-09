@@ -53,7 +53,8 @@ const WildAudio = (function () {
   const CUTOFF_HOOK  = 560;     // Hz — LPF: a little presence/edge, still warm
   const CUTOFF_REST  = 300;     // Hz — LPF closed: muffled, soft, a low hum
 
-  const DRONE_HOOK   = 0.24;    // drone level in Phase 1 (primary)
+  const DRONE_HOOK   = 0.34;    // drone level in Phase 1 (primary) — matched up so the
+                                //   lone hook reads as present as the layered resolution
   const DRONE_REST   = 0.15;    // drone level in Phase 3 (background undertone)
 
   // Ominous ♭2 tension voice (Phrygian dread) — resolves ♭2 → root in the morph.
