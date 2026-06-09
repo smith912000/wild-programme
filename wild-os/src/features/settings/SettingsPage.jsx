@@ -64,12 +64,12 @@ export function SettingsPage() {
     clearTier()
     setShowClear(false)
     toast.success('Local data cleared')
-    navigate('/login')
+    navigate('/')
   }
 
   const handleSignOut = async () => {
     await signOut()
-    navigate('/login')
+    navigate('/')
   }
 
   return (

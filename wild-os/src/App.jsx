@@ -5,9 +5,7 @@ import { useAccessStore } from '@store/accessStore'
 import { Spinner } from '@shared/ui/Spinner'
 import { AuthGuard } from '@shared/guards/AuthGuard'
 
-// Auth pages — not lazy, always small
-import { LoginPage } from '@features/auth/LoginPage'
-import { RegisterPage } from '@features/auth/RegisterPage'
+// Auth removed — only the access-code unlock page remains (tier redemption).
 import { UnlockPage } from '@features/auth/UnlockPage'
 
 // Lazy-load all feature pages
@@ -69,16 +67,12 @@ export default function App() {
     <AppInitialiser>
       <Suspense fallback={<PageFallback />}>
         <Routes>
-          {/* Auth routes — public */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          {/* Login/register removed — send any old links home */}
+          <Route path="/login" element={<Navigate to="/" replace />} />
+          <Route path="/register" element={<Navigate to="/" replace />} />
 
-          {/* Unlock — requires auth but no tier */}
-          <Route path="/unlock" element={
-            <AuthGuard>
-              <UnlockPage />
-            </AuthGuard>
-          } />
+          {/* Unlock — access-code redemption for premium tiers */}
+          <Route path="/unlock" element={<UnlockPage />} />
 
           {/* All app routes — require auth */}
           <Route path="/" element={<AuthGuard><DashboardPage /></AuthGuard>} />
