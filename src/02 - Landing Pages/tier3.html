@@ -3,8 +3,24 @@ layout: base.njk
 permalink: "02 - Landing Pages/tier3.html"
 title: "WILD Tier 3 \u2014 The Third Door"
 description: "The third door. Body, mind, soul \u2014 all three pillars, a private session, priority for the gatherings, and the inner room. For those who have decided this is the work. \u00a3200 one-time."
-ogUrl: "https://smith912000.github.io/wild-programme/tier3.html"
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>WILD Tier 3 — The Third Door</title>
+<meta name="description" content="The third door. Body, mind, soul — all three pillars, a private session, priority for the gatherings, and the inner room. For those who have decided this is the work. £200 one-time."/>
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="WILD Tier 3 — The Third Door" />
+  <meta property="og:description" content="All three pillars. A private session. Priority for the gatherings. The inner room. £200 one-time." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://smith912000.github.io/wild-programme/tier3.html" />
+  <meta property="og:image" content="https://smith912000.github.io/wild-programme/og-image.png" />
+  <meta property="og:site_name" content="WILD Programme" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WILD Tier 3 — The Third Door" />
+  <meta name="twitter:description" content="All three pillars. A private session. Priority for the gatherings. The inner room. £200 one-time." />
+  <meta name="twitter:image" content="https://smith912000.github.io/wild-programme/og-image.png" />
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -154,7 +170,14 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:32px
 .footer-links a:hover{color:var(--white)}
 .footer-copy{font-size:11px;color:var(--border)}
 </style>
-<script src="https://www.paypal.com/sdk/js?client-id=BAAyDDiIvYNChjvqNy0CI4DtZLOxXJ4GgSdFu8ejMtY8nDGQ2f3IgOr3YhbhGEyrS-3i56tsvNt7b4LEaQ&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+  <!-- PayPal Hosted Buttons SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=BAAyDDiIvYNChjvqNy0CI4DtZLOxXJ4GgSdFu8ejMtY8nDGQ2f3IgOr3YhbhGEyrS-3i56tsvNt7b4LEaQ&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your actual Measurement ID -->
+  <!-- Get your ID at analytics.google.com → Admin → Data Streams → Web Stream -->
+  <script src="../assets/analytics.js"></script>
+</head>
+<body>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">⬡ WILD Programme</div>
@@ -464,38 +487,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:32px
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section style="padding-top:0">
-  <div class="section-tag">From those who walked the long way</div>
-  <h2>From Those Who Stayed.</h2>
-  <div class="testi-grid">
-    <div class="testi">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">[USER: insert real testimonial — Tier 3 voice who can speak to the depth of the work or to the private session. Do not fabricate.]</p>
-      <div class="testi-author">
-        <div class="testi-av">—</div>
-        <div><div class="testi-name">[USER: name or initials]</div><div class="testi-role">[USER: role / context]</div></div>
-      </div>
-    </div>
-    <div class="testi">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">[USER: insert real testimonial — second voice, ideally someone who came from another tradition or practice.]</p>
-      <div class="testi-author">
-        <div class="testi-av">—</div>
-        <div><div class="testi-name">[USER: name or initials]</div><div class="testi-role">[USER: role / context]</div></div>
-      </div>
-    </div>
-    <div class="testi">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">[USER: insert real testimonial — third voice, ideally on the inner work / what they met on the other side.]</p>
-      <div class="testi-author">
-        <div class="testi-av">—</div>
-        <div><div class="testi-name">[USER: name or initials]</div><div class="testi-role">[USER: role / context]</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FAQ -->
 <section style="padding-top:0">
   <div class="section-tag">Questions</div>
@@ -556,3 +547,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:32px
   paypal.HostedButtons({ hostedButtonId: "B7Z7X7BTWS9VE" }).render("#paypal-container-B7Z7X7BTWS9VE");
   paypal.HostedButtons({ hostedButtonId: "B7Z7X7BTWS9VE" }).render("#paypal-container-B7Z7X7BTWS9VE-cta");
 </script>
+<script id="wild-consent-js" data-legal="legal.html" src="../assets/consent.js" defer></script>
+</body>
+</html>

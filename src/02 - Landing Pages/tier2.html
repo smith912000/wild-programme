@@ -3,8 +3,24 @@ layout: base.njk
 permalink: "02 - Landing Pages/tier2.html"
 title: "WILD Tier 2 \u2014 The Body Pillar"
 description: "The second door. Body, substance, deeper practice. For those who have already crossed once and want to make it reliable. \u00a3100 one-time."
-ogUrl: "https://smith912000.github.io/wild-programme/tier2.html"
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>WILD Tier 2 — The Body Pillar</title>
+<meta name="description" content="The second door. Body, substance, deeper practice. For those who have already crossed once and want to make it reliable. £100 one-time."/>
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="WILD Tier 2 — The Body Pillar" />
+  <meta property="og:description" content="The second door. Body, substance, deeper practice. £100 one-time." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://smith912000.github.io/wild-programme/tier2.html" />
+  <meta property="og:image" content="https://smith912000.github.io/wild-programme/og-image.png" />
+  <meta property="og:site_name" content="WILD Programme" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WILD Tier 2 — The Body Pillar" />
+  <meta name="twitter:description" content="The second door. Body, substance, deeper practice. £100 one-time." />
+  <meta name="twitter:image" content="https://smith912000.github.io/wild-programme/og-image.png" />
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -106,7 +122,14 @@ footer a{color:var(--accent);text-decoration:none}
 .tier-links a:hover{border-color:var(--accent);color:var(--white)}
 @media(max-width:600px){nav{padding:12px 16px}.nav-links a:not(.nav-cta){display:none}}
 </style>
-<script src="https://www.paypal.com/sdk/js?client-id=BAAyDDiIvYNChjvqNy0CI4DtZLOxXJ4GgSdFu8ejMtY8nDGQ2f3IgOr3YhbhGEyrS-3i56tsvNt7b4LEaQ&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+  <!-- PayPal Hosted Buttons SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=BAAyDDiIvYNChjvqNy0CI4DtZLOxXJ4GgSdFu8ejMtY8nDGQ2f3IgOr3YhbhGEyrS-3i56tsvNt7b4LEaQ&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your actual Measurement ID -->
+  <!-- Get your ID at analytics.google.com → Admin → Data Streams → Web Stream -->
+  <script src="../assets/analytics.js"></script>
+</head>
+<body>
+
 <nav>
   <span class="nav-logo">WILD — Tier 2</span>
   <div class="nav-links">
@@ -207,29 +230,6 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section style="border-top:1px solid var(--border)">
-  <div class="section-tag">Those who have gone further</div>
-  <h2>From Those Who Have Walked Through Twice</h2>
-  <div class="test-grid">
-    <div class="test-card">
-      <div class="test-stars">★★★★★</div>
-      <p class="test-text">[USER: insert real testimonial — Tier 2 practitioner who can speak to the body pillar work. Do not fabricate.]</p>
-      <div class="test-author"><div class="test-av">—</div><div class="test-info"><div class="test-name">[USER: name or initials]</div><div class="test-role">[USER: role / context]</div></div></div>
-    </div>
-    <div class="test-card">
-      <div class="test-stars">★★★★★</div>
-      <p class="test-text">[USER: insert real testimonial — second voice, different angle on Tier 2.]</p>
-      <div class="test-author"><div class="test-av">—</div><div class="test-info"><div class="test-name">[USER: name or initials]</div><div class="test-role">[USER: role / context]</div></div></div>
-    </div>
-    <div class="test-card">
-      <div class="test-stars">★★★★★</div>
-      <p class="test-text">[USER: insert real testimonial — third voice.]</p>
-      <div class="test-author"><div class="test-av">—</div><div class="test-info"><div class="test-name">[USER: name or initials]</div><div class="test-role">[USER: role / context]</div></div></div>
-    </div>
-  </div>
-</section>
-
 <!-- FAQ -->
 <section id="faq" style="border-top:1px solid var(--border)">
   <div class="section-tag">Questions</div>
@@ -264,10 +264,13 @@ footer a{color:var(--accent);text-decoration:none}
     <a href="tier1.html">Tier 1 — £50</a>
     <a href="tier2.html">Tier 2 — £100</a>
     <a href="tier3.html">Tier 3 — £200</a>
-    <a href="community.html">Community — from £15/mo</a>
+    <a href="community.html">Community — £10/mo</a>
   </div>
 
 <script>
   paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W");
   paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W-cta");
 </script>
+<script id="wild-consent-js" data-legal="legal.html" src="../assets/consent.js" defer></script>
+</body>
+</html>
