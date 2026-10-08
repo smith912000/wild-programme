@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Card } from '@shared/ui/Card'
 import { InfoTooltip } from '@shared/ui/InfoTooltip'
 import { calculateWbtbWindows } from '@utils/sleepCalc'
+import { getSleepPrefs } from '@store/onboardingStore'
 
 const CYCLE_OPTIONS = [
   { value: 80, label: '80 min (short cycle)' },
@@ -39,14 +39,13 @@ function getWbtbExplanation(cycle, alertLevel) {
 }
 
 export function SleepCalcContent() {
-  const [bedtime, setBedtime] = useState('23:00')
+  const [bedtime, setBedtime] = useState(() => getSleepPrefs().bedtime || '23:00')
   const [cycleDuration, setCycleDuration] = useState(90)
 
   const windows = calculateWbtbWindows(bedtime, cycleDuration)
 
   return (
     <PageWrapper>
-        <TierGate feature="sleep_calc">
           <p className="text-text-muted text-sm mb-6">
             Calculate your optimal WBTB (Wake-Back-To-Bed) windows based on sleep cycle timing.
           </p>
@@ -126,7 +125,6 @@ export function SleepCalcContent() {
               <span className="text-accent-amber font-medium">Early</span> — Cycle 7 may be too late in sleep architecture.
             </p>
           </div>
-        </TierGate>
       </PageWrapper>
   )
 }

@@ -1,7 +1,5 @@
 export const ROUTES = {
-  LOGIN: '/login',
-  REGISTER: '/register',
-  UNLOCK: '/unlock',
+  AUTH_CALLBACK: '/auth/callback',
   DASHBOARD: '/',
   BREATHE: '/breathe',
   BREATHE_SESSION: '/breathe/session/:patternId',

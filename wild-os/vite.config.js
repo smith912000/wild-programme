@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
+  define: { __BUILD_ID__: JSON.stringify(new Date().toISOString().slice(0, 16).replace('T', ' ')) },
   base: '/wild-os/',
   plugins: [
     tailwindcss(),
@@ -18,7 +19,7 @@ export default defineConfig({
       manifest: {
         name: 'WILD OS',
         short_name: 'WILD OS',
-        description: 'Cognitive performance & lucid dreaming practice tool',
+        description: 'The WILD practice companion. Included with membership.',
         theme_color: '#0d0f14',
         background_color: '#0d0f14',
         display: 'standalone',
@@ -52,7 +53,6 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes('node_modules/tone')) return 'vendor-tone'
           if (id.includes('node_modules/recharts') || id.includes('node_modules/d3')) return 'vendor-recharts'
-          if (id.includes('node_modules/@supabase')) return 'vendor-supabase'
           if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) return 'vendor-react'
         },
       },

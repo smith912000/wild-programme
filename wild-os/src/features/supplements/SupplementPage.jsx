@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Plus, ChevronDown, ChevronUp } from 'lucide-react'
 import { InfoTooltip } from '@shared/ui/InfoTooltip'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Button } from '@shared/ui/Button'
@@ -99,7 +98,6 @@ export function SupplementContent() {
 
   return (
     <PageWrapper>
-      <TierGate feature="supplements">
           <div className="flex items-center justify-between mb-5">
             <p className="text-text-muted text-sm">
               Track your supplement protocol for tonight's WILD attempt.
@@ -176,7 +174,6 @@ export function SupplementContent() {
               <Button variant="gold" fullWidth onClick={handleAdd}>Add to Tonight</Button>
             </div>
           </Modal>
-        </TierGate>
       </PageWrapper>
   )
 }

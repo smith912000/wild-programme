@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Eye, Bell } from 'lucide-react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Card } from '@shared/ui/Card'
@@ -109,7 +108,6 @@ export function RealityCheckContent() {
 
   return (
     <PageWrapper>
-        <TierGate feature="reality_check">
           <p className="text-text-muted text-sm mb-6">
             Train your waking awareness to recognise the dream state. Perform 10+ checks per day.
           </p>
@@ -223,7 +221,6 @@ export function RealityCheckContent() {
               </div>
             </>
           )}
-        </TierGate>
       </PageWrapper>
   )
 }

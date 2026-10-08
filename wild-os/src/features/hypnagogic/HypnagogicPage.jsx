@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Card } from '@shared/ui/Card'
@@ -137,7 +136,6 @@ export function HypnagogicContent() {
 
   return (
     <PageWrapper>
-        <TierGate feature="hypnagogic">
           <p className="text-text-muted text-sm mb-6">
             Guided sessions to navigate the hypnagogic threshold — the gateway between waking and dreaming.
           </p>
@@ -188,7 +186,6 @@ export function HypnagogicContent() {
               Lie down comfortably. Use headphones for binaural tones. Keep perfectly still as imagery emerges — do not react, just observe.
             </p>
           </div>
-        </TierGate>
       </PageWrapper>
   )
 }

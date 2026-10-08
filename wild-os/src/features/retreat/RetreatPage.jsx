@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { CheckCircle2, Circle, ChevronDown, ChevronUp } from 'lucide-react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Button } from '@shared/ui/Button'
@@ -173,7 +172,6 @@ export function RetreatContent() {
 
   return (
     <PageWrapper>
-        <TierGate feature="retreat_mode">
           {status === 'idle' && (
             <div className="flex flex-col gap-5">
               <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
@@ -386,7 +384,6 @@ export function RetreatContent() {
               </Button>
             </div>
           )}
-        </TierGate>
       </PageWrapper>
   )
 }

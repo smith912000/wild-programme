@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { CheckCircle2, Circle } from 'lucide-react'
 import { InfoTooltip } from '@shared/ui/InfoTooltip'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { ProgressRing } from '@shared/ui/ProgressRing'
@@ -46,7 +45,6 @@ export function SleepEnvContent() {
 
   return (
     <PageWrapper>
-        <TierGate feature="sleep_env">
           <div className="flex items-center justify-center mb-6">
             <ProgressRing size={100} progress={pct} color={getScoreColor()} strokeWidth={6}>
               <div className="text-center">
@@ -94,7 +92,6 @@ export function SleepEnvContent() {
               </div>
             </div>
           )}
-        </TierGate>
       </PageWrapper>
   )
 }

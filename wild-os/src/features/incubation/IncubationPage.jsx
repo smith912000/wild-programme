@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Plus, CheckCircle2, XCircle, ChevronDown, ChevronUp } from 'lucide-react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Button } from '@shared/ui/Button'
@@ -107,7 +106,6 @@ export function IncubationContent() {
 
   return (
     <PageWrapper>
-        <TierGate feature="dream_incubation">
           <p className="text-text-muted text-sm mb-6">
             Set a focused dream intention and track whether it manifests. Consistency compounds over days.
           </p>
@@ -343,7 +341,6 @@ export function IncubationContent() {
               </Button>
             </div>
           </Modal>
-        </TierGate>
       </PageWrapper>
   )
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Plus, Layers, Play, Trash2 } from 'lucide-react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Button } from '@shared/ui/Button'
@@ -93,7 +92,6 @@ export function ProtocolsContent() {
           <Plus className="w-4 h-4" /> New Protocol
         </Button>
       </div>
-        <TierGate feature="protocols">
           <p className="text-text-muted text-sm mb-6">
             Build custom multi-step dream induction protocols combining breathing, meditation, rest, and custom steps.
           </p>
@@ -142,7 +140,6 @@ export function ProtocolsContent() {
               })}
             </div>
           )}
-        </TierGate>
       </PageWrapper>
   )
 }

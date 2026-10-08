@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Save, BarChart2 } from 'lucide-react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Button } from '@shared/ui/Button'
@@ -84,7 +83,6 @@ export function IntegrationContent() {
 
   return (
     <PageWrapper>
-        <TierGate feature="integration">
           <p className="text-text-muted text-sm mb-6">
             Reflect on your practice. What did you experience? What insight are you carrying forward?
           </p>
@@ -196,7 +194,6 @@ export function IntegrationContent() {
               </div>
             </>
           )}
-        </TierGate>
       </PageWrapper>
   )
 }

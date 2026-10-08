@@ -1,16 +1,32 @@
-# React + Vite
+# WILD OS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The practice companion for WILD members: breathwork, meditation, dream journal, seven night tracker, sleep calculator and the protocol library. React, Vite and a PWA. Journal and logs stay on the device (IndexedDB and localStorage).
 
-Currently, two official plugins are available:
+## Access
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Whop is the account system. The app is open only to members with an active Whop membership.
 
-## React Compiler
+1. `Sign in with Whop` sends the visitor to Whop's OAuth page (PKCE, `state` checked on return; scopes openid, profile, email).
+2. Whop returns to `/auth/callback`; the app posts `{ code, redirect_uri, code_verifier }` to the n8n webhook `POST /wild/auth/callback`.
+3. n8n exchanges the code, checks the membership and answers `{ ok, token, member, name, expiresAt }`. The token is an HS256 JWT valid 7 days; n8n re-checks Whop once it is over 24 hours old. n8n is the source of truth.
+4. On every launch the app posts `{ token }` to `POST /wild/auth/verify` (same response shape) and stores the answer. A 401 signs the visitor out.
+5. Offline, a cached member answer holds until its `expiresAt`. After that the app asks to reconnect.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Screens: guest (sign in or join), lapsed (renew), three screen first run (once per device), then the app.
 
-## Expanding the ESLint configuration
+Spec: `wild/review/whop-accounts-build-spec.md` in the Wizardry project files.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Configuration
+
+Copy `.env.example` to `.env`. Nothing secret belongs in this repo; the Whop client secret and the signing secret live in n8n only.
+
+## Develop
+
+```
+npm install
+npm run dev
+```
+
+`VITE_WHOP_AUTH_MOCK=member` (or `expired`) in `.env.local` fakes the n8n endpoints in dev so the gates can be tried before the workflow is live. It is ignored in production builds.
+
+`npm run build` writes `dist/`; the built output is deployed to the `smith912000/wild-os` repo (GitHub Pages, base path `/wild-os/`).

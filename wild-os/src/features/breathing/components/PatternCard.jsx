@@ -19,7 +19,7 @@ export function PatternCard({ pattern, locked = false }) {
       className={`p-4 text-left w-full ${locked ? 'opacity-50 cursor-not-allowed' : 'hover:border-border-subtle active:scale-[0.98]'} transition-all`}
     >
       <div className="flex items-start justify-between mb-3">
-        <Badge variant="tier" tier={pattern.tier} size="sm">{pattern.tier}</Badge>
+        <Badge size="sm">{pattern.tier === 'T1' ? 'Foundation' : 'Advanced'}</Badge>
         <span className="text-text-faint text-xs">{formatMinutes(totalMinutes)}</span>
       </div>
       <p className="text-text-primary font-medium text-sm mb-1">{pattern.name}</p>

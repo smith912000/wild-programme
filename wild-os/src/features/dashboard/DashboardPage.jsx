@@ -1,16 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Activity, Moon, MoreHorizontal, BookOpen, Clock } from 'lucide-react'
-import { useAuthStore } from '@store/authStore'
-import { useAccessStore } from '@store/accessStore'
+import { Activity, Moon, MoreHorizontal, BookOpen } from 'lucide-react'
+import { useMemberStore } from '@store/memberStore'
 import { useTracker } from '@hooks/useTracker'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Card } from '@shared/ui/Card'
-import { Badge } from '@shared/ui/Badge'
-import { Button } from '@shared/ui/Button'
 import { ProgressRing } from '@shared/ui/ProgressRing'
-import { TIERS } from '@config/tiers'
 import { getGreeting } from '@utils/sleepCalc'
 import { format } from 'date-fns'
 
@@ -45,17 +41,14 @@ const CATEGORIES = [
   },
 ]
 
-const WHOP_URL = import.meta.env.VITE_WHOP_UPGRADE_URL || 'https://whop.com/wild-programme/'
-
 export function DashboardPage() {
-  const { user } = useAuthStore()
-  const { tier } = useAccessStore()
+  const memberName = useMemberStore((s) => s.name)
+  const memberEmail = useMemberStore((s) => s.email)
   const { completedNights, streak } = useTracker()
   const navigate = useNavigate()
 
   const greeting = getGreeting()
-  const name = user?.email?.split('@')[0] || 'Dreamer'
-  const tierInfo = TIERS[tier]
+  const name = memberName?.split(' ')[0] || memberEmail?.split('@')[0] || 'Dreamer'
   const today = format(new Date(), 'EEEE, MMM d')
 
   return (
@@ -70,11 +63,6 @@ export function DashboardPage() {
                 {greeting}, {name}
               </h1>
             </div>
-            {tierInfo && (
-              <Badge variant="tier" tier={tier} size="md">
-                {tierInfo.label}
-              </Badge>
-            )}
           </div>
         </div>
 
@@ -119,21 +107,6 @@ export function DashboardPage() {
           ))}
         </div>
 
-        {/* Upgrade nudge if T1 */}
-        {tier === 'T1' && (
-          <div className="mt-6 rounded-2xl p-5 border border-accent-gold/25 card-depth relative overflow-hidden"
-            style={{ background: 'linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.03) 100%)' }}
-          >
-            <div className="absolute inset-0 rounded-2xl pointer-events-none"
-              style={{ boxShadow: '0 0 32px rgba(201,168,76,0.08) inset' }} />
-            <p className="font-display font-semibold text-text-primary mb-1">Advanced & Master Tiers</p>
-            <p className="text-text-muted text-sm mb-4">Binaural tones, attempt logging, analytics, and more — launching soon.</p>
-            <div className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-bg-surface border border-border text-text-faint text-sm">
-              <Clock className="w-4 h-4" />
-              Coming Soon
-            </div>
-          </div>
-        )}
       </PageWrapper>
     </AppShell>
   )
