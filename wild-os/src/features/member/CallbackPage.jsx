@@ -32,6 +32,7 @@ export function CallbackPage() {
         <>
           <p role="alert" className="text-text-muted text-sm">{error}</p>
           <Button variant="gold" size="lg" fullWidth onClick={() => navigate('/', { replace: true })}>Back</Button>
+          <p className="text-text-faint text-[10px]">Build {__BUILD_ID__}</p>
         </>
       ) : (
         <>

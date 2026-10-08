@@ -28,6 +28,7 @@ export function GuestScreen() {
       <div className="flex flex-col gap-1">
         <a href={WHOP_ANNUAL_URL} className="text-text-muted text-xs underline">Prefer the annual plan</a>
         <p className="text-text-faint text-xs">Sign in with the same email you used on Whop.</p>
+        <p className="text-text-faint text-[10px] mt-2">Build {__BUILD_ID__}</p>
       </div>
     </GateLayout>
   )
