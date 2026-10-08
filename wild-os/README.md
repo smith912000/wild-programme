@@ -6,11 +6,11 @@ The practice companion for WILD members: breathwork, meditation, dream journal, 
 
 Whop is the account system. The app is open only to members with an active Whop membership.
 
-1. `Sign in with Whop` sends the visitor to Whop's OAuth page (PKCE, `state` checked on return).
-2. Whop returns to `/auth/callback`; the app posts the code to the n8n webhook `POST /wild/auth/callback`.
-3. n8n exchanges the code, checks the membership and answers `{ token, name }`. The token is `base64url(payload).signature`, payload `{ uid, email, valid_until, iat }`.
-4. On every launch the app posts the token to `POST /wild/auth/verify` and stores the fresh token it gets back. A 401 or 403 signs the visitor out.
-5. Offline, a member token under 7 days old still opens the app. Older than that, the app asks to reconnect.
+1. `Sign in with Whop` sends the visitor to Whop's OAuth page (PKCE, `state` checked on return; scopes openid, profile, email).
+2. Whop returns to `/auth/callback`; the app posts `{ code, redirect_uri, code_verifier }` to the n8n webhook `POST /wild/auth/callback`.
+3. n8n exchanges the code, checks the membership and answers `{ ok, token, member, name, expiresAt }`. The token is an HS256 JWT valid 7 days; n8n re-checks Whop once it is over 24 hours old. n8n is the source of truth.
+4. On every launch the app posts `{ token }` to `POST /wild/auth/verify` (same response shape) and stores the answer. A 401 signs the visitor out.
+5. Offline, a cached member answer holds until its `expiresAt`. After that the app asks to reconnect.
 
 Screens: guest (sign in or join), lapsed (renew), three screen first run (once per device), then the app.
 

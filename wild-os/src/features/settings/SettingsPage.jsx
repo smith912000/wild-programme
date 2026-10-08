@@ -36,7 +36,7 @@ function Row({ icon: Icon, label, value, action, danger }) {
 }
 
 export function SettingsPage() {
-  const { email, name, status, validUntil, signOut } = useMemberStore()
+  const { email, name, status, signOut } = useMemberStore()
   const navigate = useNavigate()
   const [showClear, setShowClear] = useState(false)
 
@@ -75,7 +75,7 @@ export function SettingsPage() {
           <Row
             icon={Shield}
             label='Membership'
-            value={validUntil && status === 'member' ? 'Active until ' + new Date(validUntil).toLocaleDateString() : 'Not active'}
+            value={status === 'member' ? 'Active' : 'Not active'}
             action={<Badge variant='status' status={status === 'member' ? 'green' : 'amber'}>{status === 'member' ? 'Active' : 'Lapsed'}</Badge>}
           />
           <Row

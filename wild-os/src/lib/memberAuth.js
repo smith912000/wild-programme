@@ -4,38 +4,40 @@ import {
   VERIFY_ENDPOINT,
 } from '@config/whop'
 
-/* Client for the two n8n endpoints (contract: wild/review/whop-accounts-build-spec.md, A).
-   Token = base64url(JSON payload) + '.' + HMAC signature. The client only reads the
-   payload for display and offline decisions; n8n is the one that verifies the signature.
-   Payload: { uid, email, valid_until (ISO or null), iat (seconds) }.
-   Responses: 200 { token, name } | 401/403 { error } | network failure throws NetworkError. */
+/* Client for the n8n workflow "WILD - Whop auth".
+   POST /wild/auth/callback { code, redirect_uri, code_verifier }
+   POST /wild/auth/verify   { token }
+   Both answer 200 { ok, token, member, name, expiresAt }. The token is an HS256 JWT valid
+   7 days; n8n re-checks Whop once it is over 24 hours old. Failures answer 401.
+   n8n is the source of truth: the client trusts `member` and `expiresAt` and never
+   verifies the JWT itself. Network failures throw NetworkError. */
 
 export class NetworkError extends Error {}
 export class AuthRejected extends Error {}
 
-export function decodeToken(token) {
+// Best effort read of the JWT payload, for the email claim only.
+export function jwtClaims(token) {
   try {
-    const part = token.split('.')[0].replace(/-/g, '+').replace(/_/g, '/')
-    const json = decodeURIComponent(escape(atob(part + '='.repeat((4 - (part.length % 4)) % 4))))
-    return JSON.parse(json)
+    const part = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
+    return JSON.parse(decodeURIComponent(escape(atob(part + '='.repeat((4 - (part.length % 4)) % 4)))))
   } catch {
-    return null
+    return {}
   }
 }
 
-function mockToken(kind) {
-  const now = Math.floor(Date.now() / 1000)
-  const payload = {
-    uid: 'user_mock',
-    email: 'member@example.com',
-    valid_until: kind === 'expired' ? new Date(Date.now() - 86400000).toISOString() : new Date(Date.now() + 30 * 86400000).toISOString(),
-    iat: now,
+function mockResponse(kind) {
+  const claims = btoa(JSON.stringify({ email: 'member@example.com' })).replace(/=+$/, '')
+  return {
+    ok: true,
+    token: `mock.${claims}.mock`,
+    member: kind !== 'expired',
+    name: 'Mock Member',
+    expiresAt: new Date(Date.now() + 7 * 86400000).toISOString(),
   }
-  return btoa(JSON.stringify(payload)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '') + '.mock'
 }
 
 async function post(url, body) {
-  if (AUTH_MOCK) return { token: mockToken(AUTH_MOCK), name: 'Mock Member' }
+  if (AUTH_MOCK) return mockResponse(AUTH_MOCK)
   let res
   try {
     res = await fetch(url, {
@@ -50,6 +52,7 @@ async function post(url, body) {
   if (!res.ok) throw new NetworkError(`status ${res.status}`)
   const data = await res.json().catch(() => null)
   if (!data?.token) throw new NetworkError('bad response')
+  if (data.ok === false) throw new AuthRejected('rejected')
   return data
 }
 

@@ -4,15 +4,13 @@ import {
   WHOP_AUTHORIZE_URL,
   WHOP_SCOPE,
   REDIRECT_URI,
-  OFFLINE_GRACE_MS,
   isAuthConfigured,
   AUTH_MOCK,
 } from '@config/whop'
-import { decodeToken, exchangeCode, verifyToken, AuthRejected } from '@lib/memberAuth'
+import { jwtClaims, exchangeCode, verifyToken, AuthRejected } from '@lib/memberAuth'
 
 // Not prefixed wos_, so "Export data" and "Clear local data" never touch the token.
-const TOKEN_KEY = 'wild_member_token'
-const NAME_KEY = 'wild_member_name'
+const SESSION_KEY = 'wild_member_session'
 const PKCE_KEY = 'wild_oauth_pkce'
 
 const read = (k) => { try { return localStorage.getItem(k) } catch { return null } }
@@ -27,26 +25,33 @@ async function challengeFor(verifier) {
   return b64url(new Uint8Array(digest))
 }
 
-// stale: member token too old to trust offline.
-// member: paid up. expired: signed in, no active membership. guest: no token.
-function statusFor(payload) {
-  if (!payload) return 'guest'
-  const until = payload.valid_until ? Date.parse(payload.valid_until) : 0
-  return until > Date.now() ? 'member' : 'expired'
+// stale: member answer too old to trust offline.
+// member: paid up. expired: signed in, no active membership. guest: no session.
+// The saved record is what n8n last said: { token, member, name, email, expiresAt }.
+function load() {
+  try { return JSON.parse(read(SESSION_KEY) || 'null') } catch { return null }
 }
 
-function apply(set, token, name) {
-  const payload = decodeToken(token)
-  write(TOKEN_KEY, token)
-  if (name) write(NAME_KEY, name)
-  set({
-    token,
-    name: name || read(NAME_KEY) || null,
-    email: payload?.email || null,
-    validUntil: payload?.valid_until || null,
-    status: statusFor(payload),
-    error: null,
-  })
+function apply(set, res) {
+  const record = {
+    token: res.token,
+    member: !!res.member,
+    name: res.name || null,
+    email: jwtClaims(res.token).email || null,
+    expiresAt: res.expiresAt || null,
+  }
+  write(SESSION_KEY, JSON.stringify(record))
+  set({ ...view(record), error: null })
+}
+
+function view(r) {
+  return {
+    token: r.token,
+    name: r.name,
+    email: r.email,
+    expiresAt: r.expiresAt,
+    status: r.member ? 'member' : 'expired',
+  }
 }
 
 export const useMemberStore = create((set, get) => ({
@@ -54,41 +59,28 @@ export const useMemberStore = create((set, get) => ({
   token: null,
   name: null,
   email: null,
-  validUntil: null,
+  expiresAt: null,
   error: null,
   loading: false,
 
-  // Runs on every launch. Cached member tokens open the app straight away; verify
-  // then refreshes in the background. Offline, a token under 7 days old still passes.
+  // Runs on every launch. A cached member opens the app straight away; verify then
+  // refreshes in the background. Offline, the cached answer holds until its expiresAt.
   refresh: async () => {
-    const token = read(TOKEN_KEY)
-    const payload = token ? decodeToken(token) : null
-    if (!payload) {
-      write(TOKEN_KEY, null)
+    const saved = load()
+    if (!saved?.token) {
       set({ status: 'guest', token: null })
       return
     }
-    const ageMs = Date.now() - (payload.iat || 0) * 1000
-    const cachedStatus = statusFor(payload)
-    set({
-      token,
-      name: read(NAME_KEY),
-      email: payload.email || null,
-      validUntil: payload.valid_until || null,
-      status: cachedStatus,
-    })
+    set(view(saved))
     try {
-      const res = await verifyToken(token)
-      apply(set, res.token, res.name)
+      apply(set, await verifyToken(saved.token))
     } catch (e) {
       if (e instanceof AuthRejected) {
         get().signOut()
         return
       }
-      // Network failure: keep the cached answer while the token is young enough.
-      const wasMember = payload.valid_until && Date.parse(payload.valid_until) > (payload.iat || 0) * 1000
-      if (wasMember) set({ status: ageMs < OFFLINE_GRACE_MS ? 'member' : 'stale' })
-      else set({ status: cachedStatus })
+      const fresh = saved.expiresAt && Date.parse(saved.expiresAt) > Date.now()
+      if (saved.member && !fresh) set({ status: 'stale' })
     }
   },
 
@@ -98,7 +90,7 @@ export const useMemberStore = create((set, get) => ({
       return
     }
     if (AUTH_MOCK) {
-      apply(set, (await exchangeCode('mock', REDIRECT_URI, 'mock')).token, 'Mock Member')
+      apply(set, await exchangeCode('mock', REDIRECT_URI, 'mock'))
       return
     }
     const verifier = randomString(48)
@@ -128,7 +120,7 @@ export const useMemberStore = create((set, get) => ({
     }
     try {
       const res = await exchangeCode(code, REDIRECT_URI, saved.verifier)
-      apply(set, res.token, res.name)
+      apply(set, res)
       set({ loading: false })
       return true
     } catch (e) {
@@ -143,9 +135,8 @@ export const useMemberStore = create((set, get) => ({
   },
 
   signOut: () => {
-    write(TOKEN_KEY, null)
-    write(NAME_KEY, null)
-    set({ status: 'guest', token: null, name: null, email: null, validUntil: null })
+    write(SESSION_KEY, null)
+    set({ status: 'guest', token: null, name: null, email: null, expiresAt: null })
   },
 
   clearError: () => set({ error: null }),
