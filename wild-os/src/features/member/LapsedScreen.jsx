@@ -1,6 +1,6 @@
 import React from 'react'
 import { useMemberStore } from '@store/memberStore'
-import { WHOP_JOIN_URL } from '@config/whop'
+import { WHOP_MONTHLY_URL } from '@config/whop'
 import { Button } from '@shared/ui/Button'
 import { GateLayout } from './GateLayout'
 
@@ -31,7 +31,7 @@ export function LapsedScreen({ stale = false }) {
         {stale ? (
           <Button variant="gold" size="lg" fullWidth onClick={refresh}>Try again</Button>
         ) : (
-          <a href={WHOP_JOIN_URL} className="block">
+          <a href={WHOP_MONTHLY_URL} className="block">
             <Button variant="gold" size="lg" fullWidth>Renew membership</Button>
           </a>
         )}

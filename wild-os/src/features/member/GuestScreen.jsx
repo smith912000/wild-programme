@@ -1,6 +1,6 @@
 import React from 'react'
 import { useMemberStore } from '@store/memberStore'
-import { WHOP_JOIN_URL } from '@config/whop'
+import { WHOP_MONTHLY_URL, WHOP_ANNUAL_URL } from '@config/whop'
 import { Button } from '@shared/ui/Button'
 import { GateLayout } from './GateLayout'
 
@@ -20,12 +20,15 @@ export function GuestScreen() {
       </div>
       <div className="w-full flex flex-col gap-3">
         <Button variant="gold" size="lg" fullWidth onClick={signIn}>Sign in with Whop</Button>
-        <a href={WHOP_JOIN_URL} className="block">
+        <a href={WHOP_MONTHLY_URL} className="block">
           <Button variant="secondary" size="lg" fullWidth>Join WILD</Button>
         </a>
         {error && <p role="alert" className="text-accent-red text-sm">{error}</p>}
       </div>
-      <p className="text-text-faint text-xs">Sign in with the same email you used on Whop.</p>
+      <div className="flex flex-col gap-1">
+        <a href={WHOP_ANNUAL_URL} className="text-text-muted text-xs underline">Prefer the annual plan</a>
+        <p className="text-text-faint text-xs">Sign in with the same email you used on Whop.</p>
+      </div>
     </GateLayout>
   )
 }

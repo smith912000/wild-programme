@@ -7,7 +7,7 @@ import { Button } from '@shared/ui/Button'
 import { Modal } from '@shared/ui/Modal'
 import { Badge } from '@shared/ui/Badge'
 import { useMemberStore } from '@store/memberStore'
-import { WHOP_JOIN_URL } from '@config/whop'
+import { WHOP_MONTHLY_URL } from '@config/whop'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
@@ -79,9 +79,9 @@ export function SettingsPage() {
             action={<Badge variant='status' status={status === 'member' ? 'green' : 'amber'}>{status === 'member' ? 'Active' : 'Lapsed'}</Badge>}
           />
           <Row
-            label='Manage membership'
+            label='Plans'
             value='Billing and plan changes are on Whop'
-            action={<a href={WHOP_JOIN_URL}><Button variant='ghost' size='sm'>Open Whop</Button></a>}
+            action={<a href={WHOP_MONTHLY_URL}><Button variant='ghost' size='sm'>Open Whop</Button></a>}
           />
         </Section>
 
