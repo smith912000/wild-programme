@@ -3,12 +3,9 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
-import { TierGate } from '@shared/guards/TierGate'
 import { PatternCard } from './components/PatternCard'
 import { InfoTooltip } from '@shared/ui/InfoTooltip'
-import { useAccessStore } from '@store/accessStore'
 import { BREATHING_PATTERNS } from '@config/breathing'
-import { tierCanAccess } from '@config/tiers'
 
 const PATTERN_TOOLTIPS = {
   '4-7-8': 'Dr. Weil\'s technique — inhale 4s, hold 7s, exhale 8s. Activates the parasympathetic nervous system, ideal before sleep.',
@@ -22,7 +19,6 @@ const PATTERN_TOOLTIPS = {
 }
 
 export function BreathingContent() {
-  const { tier } = useAccessStore()
   const navigate = useNavigate()
   const [showCustom, setShowCustom] = useState(false)
   const [customInhale, setCustomInhale] = useState('')
@@ -142,7 +138,6 @@ export function BreathingContent() {
         </div>
 
         <p className="section-label mb-3">Advanced</p>
-        <TierGate feature="breathing_advanced">
           <div className="grid grid-cols-1 gap-3">
             {t2Patterns.map(pattern => (
               <div key={pattern.id} className="relative">
@@ -153,7 +148,6 @@ export function BreathingContent() {
               </div>
             ))}
           </div>
-        </TierGate>
 
       </PageWrapper>
   )

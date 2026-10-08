@@ -1,12 +1,8 @@
-import React, { lazy, Suspense, useEffect } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { useAuthStore } from '@store/authStore'
-import { useAccessStore } from '@store/accessStore'
 import { Spinner } from '@shared/ui/Spinner'
-import { AuthGuard } from '@shared/guards/AuthGuard'
-
-// Auth removed — only the access-code unlock page remains (tier redemption).
-import { UnlockPage } from '@features/auth/UnlockPage'
+import { MemberGate } from '@features/member/MemberGate'
+import { CallbackPage } from '@features/member/CallbackPage'
 
 // Lazy-load all feature pages
 const DashboardPage = lazy(() => import('@features/dashboard/DashboardPage').then(m => ({ default: m.DashboardPage })))
@@ -50,70 +46,55 @@ function PageFallback() {
   )
 }
 
-function AppInitialiser({ children }) {
-  const { initAuth } = useAuthStore()
-  const { initAccess } = useAccessStore()
-
-  useEffect(() => {
-    initAuth()
-    initAccess()
-  }, [initAuth, initAccess])
-
-  return children
-}
-
 export default function App() {
   return (
-    <AppInitialiser>
-      <Suspense fallback={<PageFallback />}>
-        <Routes>
-          {/* Login/register removed — send any old links home */}
-          <Route path="/login" element={<Navigate to="/" replace />} />
-          <Route path="/register" element={<Navigate to="/" replace />} />
+        <Suspense fallback={<PageFallback />}>
+          <Routes>
+            {/* Whop OAuth return. Sits outside the gate: the visitor is a guest until it finishes. */}
+            <Route path="/auth/callback" element={<CallbackPage />} />
+            <Route path="/login" element={<Navigate to="/" replace />} />
+            <Route path="/register" element={<Navigate to="/" replace />} />
 
-          {/* Unlock — access-code redemption for premium tiers */}
-          <Route path="/unlock" element={<UnlockPage />} />
+            {/* Everything else needs an active Whop membership */}
+            <Route element={<MemberGate />}>
+              <Route path="/" element={<DashboardPage />} />
+              <Route path="/practice" element={<PracticePage />} />
+              <Route path="/sleep"    element={<SleepHubPage />} />
+              <Route path="/log"      element={<LogHubPage />} />
+              <Route path="/explore"  element={<ExplorePage />} />
+              <Route path="/breathe" element={<BreathingPage />} />
+              <Route path="/breathe/session/:patternId" element={<BreathingSessionPage />} />
+              <Route path="/meditate" element={<MeditationPage />} />
+              <Route path="/journal" element={<JournalPage />} />
+              <Route path="/journal/new" element={<JournalEntryPage />} />
+              <Route path="/journal/:id" element={<JournalViewPage />} />
+              <Route path="/journal/:id/edit" element={<JournalEntryPage />} />
+              <Route path="/tracker" element={<TrackerPage />} />
+              <Route path="/symbols" element={<SymbolLibraryPage />} />
+              <Route path="/sleep-calc" element={<SleepCalcPage />} />
+              <Route path="/binaural" element={<BinauralPage />} />
+              <Route path="/attempts" element={<AttemptLogPage />} />
+              <Route path="/attempts/new" element={<AttemptEntryPage />} />
+              <Route path="/supplements" element={<SupplementPage />} />
+              <Route path="/reality-check" element={<RealityCheckPage />} />
+              <Route path="/hypnagogic" element={<HypnagogicPage />} />
+              <Route path="/sleep-env" element={<SleepEnvPage />} />
+              <Route path="/protocols" element={<ProtocolsPage />} />
+              <Route path="/protocols/new" element={<ProtocolEditorPage />} />
+              <Route path="/protocols/:id/edit" element={<ProtocolEditorPage />} />
+              <Route path="/protocols/:id/run" element={<ProtocolRunPage />} />
+              <Route path="/rituals" element={<RitualsPage />} />
+              <Route path="/shadow" element={<ShadowWorkPage />} />
+              <Route path="/analytics" element={<AnalyticsPage />} />
+              <Route path="/incubation" element={<IncubationPage />} />
+              <Route path="/integration" element={<IntegrationPage />} />
+              <Route path="/retreat" element={<RetreatPage />} />
+              <Route path="/timeline" element={<TimelinePage />} />
+              <Route path="/settings" element={<SettingsPage />} />
 
-          {/* All app routes — require auth */}
-          <Route path="/" element={<AuthGuard><DashboardPage /></AuthGuard>} />
-          <Route path="/practice" element={<AuthGuard><PracticePage /></AuthGuard>} />
-          <Route path="/sleep"    element={<AuthGuard><SleepHubPage /></AuthGuard>} />
-          <Route path="/log"      element={<AuthGuard><LogHubPage /></AuthGuard>} />
-          <Route path="/explore"  element={<AuthGuard><ExplorePage /></AuthGuard>} />
-          <Route path="/breathe" element={<AuthGuard><BreathingPage /></AuthGuard>} />
-          <Route path="/breathe/session/:patternId" element={<AuthGuard><BreathingSessionPage /></AuthGuard>} />
-          <Route path="/meditate" element={<AuthGuard><MeditationPage /></AuthGuard>} />
-          <Route path="/journal" element={<AuthGuard><JournalPage /></AuthGuard>} />
-          <Route path="/journal/new" element={<AuthGuard><JournalEntryPage /></AuthGuard>} />
-          <Route path="/journal/:id" element={<AuthGuard><JournalViewPage /></AuthGuard>} />
-          <Route path="/journal/:id/edit" element={<AuthGuard><JournalEntryPage /></AuthGuard>} />
-          <Route path="/tracker" element={<AuthGuard><TrackerPage /></AuthGuard>} />
-          <Route path="/symbols" element={<AuthGuard><SymbolLibraryPage /></AuthGuard>} />
-          <Route path="/sleep-calc" element={<AuthGuard><SleepCalcPage /></AuthGuard>} />
-          <Route path="/binaural" element={<AuthGuard><BinauralPage /></AuthGuard>} />
-          <Route path="/attempts" element={<AuthGuard><AttemptLogPage /></AuthGuard>} />
-          <Route path="/attempts/new" element={<AuthGuard><AttemptEntryPage /></AuthGuard>} />
-          <Route path="/supplements" element={<AuthGuard><SupplementPage /></AuthGuard>} />
-          <Route path="/reality-check" element={<AuthGuard><RealityCheckPage /></AuthGuard>} />
-          <Route path="/hypnagogic" element={<AuthGuard><HypnagogicPage /></AuthGuard>} />
-          <Route path="/sleep-env" element={<AuthGuard><SleepEnvPage /></AuthGuard>} />
-          <Route path="/protocols" element={<AuthGuard><ProtocolsPage /></AuthGuard>} />
-          <Route path="/protocols/new" element={<AuthGuard><ProtocolEditorPage /></AuthGuard>} />
-          <Route path="/protocols/:id/edit" element={<AuthGuard><ProtocolEditorPage /></AuthGuard>} />
-          <Route path="/protocols/:id/run" element={<AuthGuard><ProtocolRunPage /></AuthGuard>} />
-          <Route path="/rituals" element={<AuthGuard><RitualsPage /></AuthGuard>} />
-          <Route path="/shadow" element={<AuthGuard><ShadowWorkPage /></AuthGuard>} />
-          <Route path="/analytics" element={<AuthGuard><AnalyticsPage /></AuthGuard>} />
-          <Route path="/incubation" element={<AuthGuard><IncubationPage /></AuthGuard>} />
-          <Route path="/integration" element={<AuthGuard><IntegrationPage /></AuthGuard>} />
-          <Route path="/retreat" element={<AuthGuard><RetreatPage /></AuthGuard>} />
-          <Route path="/timeline" element={<AuthGuard><TimelinePage /></AuthGuard>} />
-          <Route path="/settings" element={<AuthGuard><SettingsPage /></AuthGuard>} />
-
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
-    </AppInitialiser>
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+          </Routes>
+        </Suspense>
   )
 }

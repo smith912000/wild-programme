@@ -126,7 +126,3 @@ export function getPatternById(id) {
   return BREATHING_PATTERNS.find(p => p.id === id) || null
 }
 
-export function getPatternsByTier(tier) {
-  const tierOrder = { T1: 1, T2: 2, T3: 3 }
-  return BREATHING_PATTERNS.filter(p => tierOrder[p.tier] <= tierOrder[tier])
-}

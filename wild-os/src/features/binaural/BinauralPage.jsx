@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Headphones, Zap } from 'lucide-react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Card } from '@shared/ui/Card'
@@ -99,7 +98,6 @@ export function BinauralContent() {
 
   return (
     <PageWrapper>
-      <TierGate feature="binaural">
         {headphoneNotice}
 
         {/* Mode tabs */}
@@ -271,7 +269,6 @@ export function BinauralContent() {
             )}
           </>
         )}
-      </TierGate>
     </PageWrapper>
   )
 }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Card } from '@shared/ui/Card'
@@ -52,7 +51,6 @@ export function AnalyticsContent() {
 
   return (
     <PageWrapper>
-        <TierGate feature="analytics">
           {loading || !data ? (
             <div className="flex justify-center py-16">
               <Spinner size="lg" />
@@ -203,7 +201,6 @@ export function AnalyticsContent() {
               )}
             </div>
           )}
-        </TierGate>
       </PageWrapper>
   )
 }

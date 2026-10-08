@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Star, X } from 'lucide-react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useJournal } from '@hooks/useJournal'
-import { useAccessStore } from '@store/accessStore'
-import { tierCanAccess } from '@config/tiers'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Input } from '@shared/ui/Input'
@@ -19,8 +17,6 @@ export function JournalEntryPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { createEntry, updateEntry, getEntry } = useJournal()
-  const { tier } = useAccessStore()
-  const hasT2 = tierCanAccess(tier, 'breathing_advanced')
   const isEdit = !!id
 
   const [title, setTitle] = useState(`Dream — ${format(new Date(), 'MMM d, yyyy')}`)
@@ -138,80 +134,78 @@ export function JournalEntryPage() {
             </div>
           </div>
 
-          {/* T2+ Fields */}
-          {hasT2 && (
-            <>
-              <LuciditySlider value={lucidityScore} onChange={setLucidityScore} />
+          {/* Lucidity and REM fields */}
+          <>
+            <LuciditySlider value={lucidityScore} onChange={setLucidityScore} />
 
-              <div className="flex flex-col gap-2">
-                <label className="text-text-muted text-sm font-display font-medium">REM Quality</label>
-                <div className="flex gap-1.5">
-                  {[1,2,3,4,5].map(star => (
-                    <button
-                      key={star}
-                      type="button"
-                      onClick={() => setRemQuality(star)}
-                      className="transition-all duration-100 active:scale-90"
+            <div className="flex flex-col gap-2">
+              <label className="text-text-muted text-sm font-display font-medium">REM Quality</label>
+              <div className="flex gap-1.5">
+                {[1,2,3,4,5].map(star => (
+                  <button
+                    key={star}
+                    type="button"
+                    onClick={() => setRemQuality(star)}
+                    className="transition-all duration-100 active:scale-90"
+                  >
+                    <Star
+                      className="w-6 h-6 transition-colors"
+                      fill={star <= remQuality ? '#3b82f6' : 'transparent'}
+                      stroke={star <= remQuality ? '#3b82f6' : '#4e5368'}
+                      strokeWidth={1.5}
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-text-muted text-sm font-medium">Emotions</label>
+              <div className="flex flex-wrap gap-2">
+                {EMOTION_TAGS.map(tag => (
+                  <button
+                    key={tag}
+                    type="button"
+                    onClick={() => toggleEmotion(tag)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors border ${
+                      emotionTags.includes(tag)
+                        ? 'bg-accent-teal/20 border-accent-teal/50 text-accent-teal'
+                        : 'bg-bg-surface border-border text-text-muted hover:border-border-subtle'
+                    }`}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-text-muted text-sm font-medium">Recurring Symbols</label>
+              <input
+                type="text"
+                value={symbolInput}
+                onChange={e => setSymbolInput(e.target.value)}
+                onKeyDown={addSymbol}
+                placeholder="Type symbol name + Enter"
+                className="w-full bg-bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder-text-faint focus:outline-none focus:border-accent-blue/60 text-sm transition-colors"
+              />
+              {recurringSymbols.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {recurringSymbols.map(sym => (
+                    <span
+                      key={sym}
+                      className="flex items-center gap-1 px-2.5 py-1 bg-bg-surface border border-border rounded-lg text-xs text-text-muted"
                     >
-                      <Star
-                        className="w-6 h-6 transition-colors"
-                        fill={star <= remQuality ? '#3b82f6' : 'transparent'}
-                        stroke={star <= remQuality ? '#3b82f6' : '#4e5368'}
-                        strokeWidth={1.5}
-                      />
-                    </button>
+                      {sym}
+                      <button onClick={() => removeSymbol(sym)} className="text-text-faint hover:text-accent-red ml-0.5 transition-colors">
+                        <X size={10} strokeWidth={2.5} />
+                      </button>
+                    </span>
                   ))}
                 </div>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-text-muted text-sm font-medium">Emotions</label>
-                <div className="flex flex-wrap gap-2">
-                  {EMOTION_TAGS.map(tag => (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() => toggleEmotion(tag)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors border ${
-                        emotionTags.includes(tag)
-                          ? 'bg-accent-teal/20 border-accent-teal/50 text-accent-teal'
-                          : 'bg-bg-surface border-border text-text-muted hover:border-border-subtle'
-                      }`}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-text-muted text-sm font-medium">Recurring Symbols</label>
-                <input
-                  type="text"
-                  value={symbolInput}
-                  onChange={e => setSymbolInput(e.target.value)}
-                  onKeyDown={addSymbol}
-                  placeholder="Type symbol name + Enter"
-                  className="w-full bg-bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder-text-faint focus:outline-none focus:border-accent-blue/60 text-sm transition-colors"
-                />
-                {recurringSymbols.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {recurringSymbols.map(sym => (
-                      <span
-                        key={sym}
-                        className="flex items-center gap-1 px-2.5 py-1 bg-bg-surface border border-border rounded-lg text-xs text-text-muted"
-                      >
-                        {sym}
-                        <button onClick={() => removeSymbol(sym)} className="text-text-faint hover:text-accent-red ml-0.5 transition-colors">
-                          <X size={10} strokeWidth={2.5} />
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </>
-          )}
+              )}
+            </div>
+          </>
 
           <Button variant="gold" size="lg" fullWidth onClick={handleSave} loading={saving} className="mt-2">
             {isEdit ? 'Save Changes' : 'Save Dream'}

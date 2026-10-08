@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Plus, Trash2, GripVertical, Save } from 'lucide-react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Button } from '@shared/ui/Button'
@@ -105,7 +104,6 @@ export function ProtocolEditorPage() {
   return (
     <AppShell title={isEditing ? 'Edit Protocol' : 'New Protocol'} backTo="/protocols">
       <PageWrapper>
-        <TierGate feature="protocols">
           <div className="flex flex-col gap-5">
             <Input
               label="Protocol Name"
@@ -199,7 +197,6 @@ export function ProtocolEditorPage() {
               {isEditing ? 'Save Changes' : 'Create Protocol'}
             </Button>
           </div>
-        </TierGate>
       </PageWrapper>
     </AppShell>
   )

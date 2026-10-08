@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
-import { User, Key, Bell, Trash2, Download, Shield, Clock } from 'lucide-react'
+import { User, Shield, Trash2, Download } from 'lucide-react'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Card } from '@shared/ui/Card'
 import { Button } from '@shared/ui/Button'
 import { Modal } from '@shared/ui/Modal'
-import { Input } from '@shared/ui/Input'
 import { Badge } from '@shared/ui/Badge'
-import { useAuthStore } from '@store/authStore'
-import { useAccessStore } from '@store/accessStore'
-import { TIER_LABELS } from '@config/tiers'
+import { useMemberStore } from '@store/memberStore'
+import { WHOP_JOIN_URL } from '@config/whop'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
@@ -38,12 +36,9 @@ function Row({ icon: Icon, label, value, action, danger }) {
 }
 
 export function SettingsPage() {
-  const { user, signOut } = useAuthStore()
-  const { tier, clearTier } = useAccessStore()
+  const { email, name, status, validUntil, signOut } = useMemberStore()
   const navigate = useNavigate()
   const [showClear, setShowClear] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
-  const [newPassword, setNewPassword] = useState('')
 
   const handleExport = () => {
     const data = {}
@@ -61,7 +56,6 @@ export function SettingsPage() {
 
   const handleClearData = () => {
     Object.keys(localStorage).filter(k => k.startsWith('wos_')).forEach(k => localStorage.removeItem(k))
-    clearTier()
     setShowClear(false)
     toast.success('Local data cleared')
     navigate('/')
@@ -77,26 +71,17 @@ export function SettingsPage() {
       <PageWrapper>
 
         <Section title='Account'>
-          <Row icon={User} label='Email' value={user?.email || 'Demo mode'} />
-          <Row icon={Key} label='Change password' action={<Button variant='ghost' size='sm' onClick={() => setShowPassword(true)}>Change</Button>} />
-        </Section>
-
-        <Section title='Subscription'>
+          <Row icon={User} label={name || 'Whop account'} value={email || 'Signed in with Whop'} />
           <Row
             icon={Shield}
-            label='Current tier'
-            value={tier ? TIER_LABELS[tier] + ' access active' : 'No access — enter a code'}
-            action={<Badge tier={tier || 0}>{tier ? TIER_LABELS[tier] : 'None'}</Badge>}
+            label='Membership'
+            value={validUntil && status === 'member' ? 'Active until ' + new Date(validUntil).toLocaleDateString() : 'Not active'}
+            action={<Badge variant='status' status={status === 'member' ? 'green' : 'amber'}>{status === 'member' ? 'Active' : 'Lapsed'}</Badge>}
           />
           <Row
-            label='Enter access code'
-            value='Restore access with an existing code'
-            action={<Button variant='ghost' size='sm' onClick={() => navigate('/unlock')}>Enter code</Button>}
-          />
-          <Row
-            label='Get a plan'
-            value='Purchases opening soon'
-            action={<div className='flex items-center gap-1 text-text-faint text-xs'><Clock className='w-3.5 h-3.5' />Coming Soon</div>}
+            label='Manage membership'
+            value='Billing and plan changes are on Whop'
+            action={<a href={WHOP_JOIN_URL}><Button variant='ghost' size='sm'>Open Whop</Button></a>}
           />
         </Section>
 
@@ -120,14 +105,6 @@ export function SettingsPage() {
           <div className='flex gap-3'>
             <Button variant='ghost' className='flex-1' onClick={() => setShowClear(false)}>Cancel</Button>
             <Button variant='danger' className='flex-1' onClick={handleClearData}>Clear everything</Button>
-          </div>
-        </Modal>
-
-        <Modal open={showPassword} onClose={() => setShowPassword(false)} title='Change password'>
-          <Input type='password' label='New password' value={newPassword} onChange={e => setNewPassword(e.target.value)} />
-          <div className='flex gap-3 mt-4'>
-            <Button variant='ghost' className='flex-1' onClick={() => setShowPassword(false)}>Cancel</Button>
-            <Button variant='primary' className='flex-1' onClick={() => { setShowPassword(false); toast.success('Password updated') }}>Update</Button>
           </div>
         </Modal>
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Plus, Target } from 'lucide-react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { AttemptCard } from './components/AttemptCard'
@@ -16,7 +15,6 @@ export function AttemptLogContent() {
 
   return (
     <PageWrapper>
-        <TierGate feature="attempt_log">
           {/* Stats */}
           <div className="grid grid-cols-3 gap-3 mb-6">
             <div className="bg-bg-card border border-border rounded-2xl p-3 text-center">
@@ -53,7 +51,6 @@ export function AttemptLogContent() {
               ))}
             </div>
           )}
-        </TierGate>
       </PageWrapper>
   )
 }

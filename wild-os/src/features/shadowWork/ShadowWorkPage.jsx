@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { RefreshCw, ChevronDown, ChevronUp, Save } from 'lucide-react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Button } from '@shared/ui/Button'
@@ -59,7 +58,6 @@ export function ShadowWorkContent() {
 
   return (
     <PageWrapper>
-      <TierGate feature="shadow_work">
         <p className="text-text-muted text-sm mb-6">
           Explore the unconscious material surfacing in your dreams. Write without editing yourself.
         </p>
@@ -145,7 +143,6 @@ export function ShadowWorkContent() {
             </div>
           </>
         )}
-      </TierGate>
     </PageWrapper>
   )
 }

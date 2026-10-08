@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Plus, Play, Trash2, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react'
-import { TierGate } from '@shared/guards/TierGate'
 import { AppShell } from '@shared/layout/AppShell'
 import { PageWrapper } from '@shared/layout/PageWrapper'
 import { Button } from '@shared/ui/Button'
@@ -195,7 +194,6 @@ export function RitualsContent() {
 
   return (
     <PageWrapper>
-        <TierGate feature="rituals">
           <p className="text-text-muted text-sm mb-6">
             Build and run timed ritual sequences for each stage of your WILD practice.
           </p>
@@ -300,7 +298,6 @@ export function RitualsContent() {
               ))}
             </div>
           </Modal>
-        </TierGate>
       </PageWrapper>
   )
 }
