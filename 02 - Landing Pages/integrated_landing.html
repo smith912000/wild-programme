@@ -497,272 +497,6 @@ section {
 .lineage-close p { margin-bottom: 4px; }
 
 /* ═══════════════════════════════════════════════════════════════
-   SECTION 6 — THE BOOK (PRIMARY CTA)
-   ═══════════════════════════════════════════════════════════════ */
-.book-section {
-  background: linear-gradient(180deg, transparent 0%, rgba(45, 27, 105, 0.08) 30%, rgba(45, 27, 105, 0.08) 70%, transparent 100%);
-  padding-top: calc(var(--section-pad) + 40px);
-  padding-bottom: calc(var(--section-pad) + 40px);
-}
-
-.book-title {
-  font-size: clamp(36px, 6vw, 56px);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  margin-bottom: 48px;
-  line-height: 1.2;
-}
-
-.book-body {
-  font-size: clamp(18px, 2.2vw, 22px);
-  line-height: 1.7;
-  margin-bottom: 8px;
-  color: var(--text);
-}
-
-.book-body.emphasis {
-  margin-top: 32px;
-  margin-bottom: 48px;
-}
-
-/* 3D BOOK VISUALISATION (CSS-only) */
-.book-3d-container {
-  perspective: 1200px;
-  display: flex;
-  justify-content: center;
-  margin: 80px auto 48px;
-}
-
-.book-3d {
-  width: 180px;
-  height: 260px;
-  position: relative;
-  transform-style: preserve-3d;
-  animation: book-rotate 16s linear infinite;
-}
-
-@keyframes book-rotate {
-  0% { transform: rotateY(-15deg); }
-  25% { transform: rotateY(15deg); }
-  50% { transform: rotateY(-15deg); }
-  75% { transform: rotateY(-180deg); }
-  100% { transform: rotateY(-360deg); }
-}
-
-@keyframes book-rotate-simple {
-  0%, 100% { transform: rotateY(-12deg); }
-  50% { transform: rotateY(12deg); }
-}
-
-.book-3d:hover {
-  animation-play-state: paused;
-}
-
-.book-face {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--indigo);
-  border: 1px solid rgba(99, 73, 184, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  backface-visibility: hidden;
-  box-shadow: 0 20px 60px rgba(99, 73, 184, 0.3);
-}
-
-.book-face.front {
-  transform: translateZ(15px);
-  background: linear-gradient(135deg, var(--indigo) 0%, #1A1140 100%);
-}
-
-.book-face.back {
-  transform: translateZ(-15px) rotateY(180deg);
-  background: linear-gradient(135deg, #1A1140 0%, var(--indigo) 100%);
-}
-
-.book-spine {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 30px;
-  height: 100%;
-  background: linear-gradient(90deg, #1A1140 0%, var(--indigo) 50%, #1A1140 100%);
-  transform: rotateY(-90deg) translateZ(15px);
-  transform-origin: left;
-  border-left: 1px solid rgba(99, 73, 184, 0.4);
-  border-right: 1px solid rgba(99, 73, 184, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.book-spine-text {
-  font-size: 11px;
-  letter-spacing: 0.4em;
-  color: var(--text);
-  font-weight: 500;
-  writing-mode: vertical-rl;
-}
-
-.book-wordmark {
-  font-family: var(--serif);
-  font-size: 36px;
-  font-weight: 500;
-  letter-spacing: 0.25em;
-  color: var(--text);
-  margin-bottom: 12px;
-}
-
-.book-subwordmark {
-  font-family: var(--serif);
-  font-size: 9px;
-  font-weight: 300;
-  letter-spacing: 0.3em;
-  color: var(--text-dim);
-  text-transform: uppercase;
-}
-
-.book-edge {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  width: 30px;
-  height: 100%;
-  background: linear-gradient(90deg, #F4F1ED 0%, #C8C2BA 50%, #F4F1ED 100%);
-  transform: rotateY(90deg) translateZ(-15px);
-  transform-origin: right;
-}
-
-.book-meta {
-  margin-top: 32px;
-  margin-bottom: 48px;
-  text-align: center;
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  color: var(--text-dim);
-  text-transform: uppercase;
-}
-
-.book-meta-line { margin-bottom: 4px; }
-
-.book-cta {
-  display: inline-block;
-  background: var(--indigo);
-  border: 1px solid rgba(244, 241, 237, 0.6);
-  color: var(--text);
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: 18px;
-  letter-spacing: 0.15em;
-  padding: 20px 56px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  outline: none;
-  -webkit-appearance: none;
-  text-transform: uppercase;
-}
-
-.book-cta:hover, .book-cta:focus-visible {
-  background: var(--text);
-  color: var(--indigo);
-  border-color: var(--indigo);
-  box-shadow: 0 0 40px rgba(99, 73, 184, 0.4);
-}
-
-.book-cta:active { transform: scale(0.98); }
-
-.book-cta-note {
-  display: block;
-  margin-top: 16px;
-  font-size: 12px;
-  color: var(--text-dimmer);
-  letter-spacing: 0.1em;
-}
-
-/* ───── MERCH GRID ───── */
-.merch-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  width: 100%;
-  max-width: 900px;
-  margin: 64px auto 32px;
-}
-.merch-card {
-  display: flex;
-  flex-direction: column;
-  background: rgba(15, 10, 31, 0.55);
-  border: 1px solid rgba(99, 73, 184, 0.25);
-  padding: 20px;
-  text-align: left;
-  text-decoration: none;
-  color: var(--text);
-  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-}
-.merch-card:hover, .merch-card:focus-visible {
-  transform: translateY(-3px);
-  border-color: var(--indigo-bright);
-  box-shadow: 0 0 32px rgba(99, 73, 184, 0.25);
-  background: rgba(45, 27, 105, 0.18);
-  outline: none;
-}
-.merch-image {
-  aspect-ratio: 1 / 1;
-  width: 100%;
-  background: linear-gradient(135deg, rgba(45, 27, 105, 0.4) 0%, rgba(99, 73, 184, 0.15) 100%);
-  border: 1px solid rgba(99, 73, 184, 0.2);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.merch-placeholder {
-  font-size: 11px;
-  color: var(--text-dimmer);
-  letter-spacing: 0.1em;
-  text-align: center;
-  padding: 8px;
-}
-.merch-name {
-  font-size: 19px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  margin-bottom: 4px;
-}
-.merch-tag {
-  font-size: 13px;
-  color: var(--text-dim);
-  font-style: italic;
-  margin-bottom: 12px;
-}
-.merch-price {
-  font-size: 14px;
-  color: var(--indigo-bright);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.merch-note {
-  font-size: 11px;
-  color: var(--text-dimmer);
-  letter-spacing: 0.1em;
-  text-align: center;
-  margin-top: 16px;
-}
-@media (max-width: 768px) {
-  .merch-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 48px;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
    SECTION 7 — THE DEEPER PATH (SOFT COURSE POINTER)
    ═══════════════════════════════════════════════════════════════ */
 .deeper-path {
@@ -1062,7 +796,6 @@ section {
     transition-duration: 200ms !important;
   }
   html { scroll-behavior: auto; }
-  .book-3d { animation: none !important; }
 }
 
 @media (max-width: 768px) {
@@ -1101,8 +834,6 @@ section {
 }
 
 @media (max-width: 480px) {
-  .book-cta { padding: 18px 40px; font-size: 16px; }
-  .book-3d { width: 150px; height: 220px; }
 }
 </style>
   <script src="../assets/analytics.js"></script>
@@ -1216,63 +947,16 @@ section {
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     SECTION 6 — THE BOOK (PRIMARY CTA)
-     ═══════════════════════════════════════════════════════════════ -->
-<section class="book-section" id="bookSection">
-  <div class="section-inner">
-    <p class="section-label reveal">What You Carry</p>
-    <h2 class="book-title reveal">Mark the threshold.</h2>
-
-    <div class="reveal stagger">
-      <p class="book-body">The work is silent.</p>
-      <p class="book-body">The <span class="primed">mark</span> is not.</p>
-      <p class="book-body emphasis">For those who recognise it,<br>recognition is enough.</p>
-    </div>
-
-    <div class="merch-grid reveal stagger">
-      <a href="#" class="merch-card" data-merch="eye-mask">
-        <div class="merch-image" aria-hidden="true">
-          <div class="merch-placeholder">[USER: eye mask image]</div>
-        </div>
-        <div class="merch-name">The Eye Mask</div>
-        <div class="merch-tag">For the threshold</div>
-        <div class="merch-price">[USER: price]</div>
-      </a>
-
-      <a href="#" class="merch-card" data-merch="tee">
-        <div class="merch-image" aria-hidden="true">
-          <div class="merch-placeholder">[USER: t-shirt image]</div>
-        </div>
-        <div class="merch-name">The Mark</div>
-        <div class="merch-tag">For the days</div>
-        <div class="merch-price">[USER: price]</div>
-      </a>
-
-      <a href="#" class="merch-card" data-merch="jumper">
-        <div class="merch-image" aria-hidden="true">
-          <div class="merch-placeholder">[USER: jumper image]</div>
-        </div>
-        <div class="merch-name">The Hooded</div>
-        <div class="merch-tag">For the nights</div>
-        <div class="merch-price">[USER: price]</div>
-      </a>
-    </div>
-
-    <p class="merch-note reveal">[USER: replace card hrefs with real product URLs. Add or remove items as needed.]</p>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════════
      SECTION 7 — THE DEEPER PATH
      ═══════════════════════════════════════════════════════════════ -->
 <section class="deeper-path">
   <div class="section-inner">
-    <p class="section-label reveal">If the Book is the Door</p>
+    <p class="section-label reveal">If This Page is the Door</p>
     <div class="reveal stagger">
       <p class="deeper-body">There is also a course.</p>
-      <p class="deeper-body">It is for the people who finish the book and want to keep going.</p>
-      <p class="deeper-body">It is not for everyone who buys the book.</p>
-      <p class="deeper-body">It is for the people the book makes restless.</p>
+      <p class="deeper-body">It is for the people who reach the end of this page and want to keep going.</p>
+      <p class="deeper-body">It is not for everyone who reads it.</p>
+      <p class="deeper-body">It is for the people this page makes restless.</p>
     </div>
     <a href="tier1.html" class="deeper-link reveal" id="courseLink" data-action="course">The deeper path</a>
   </div>
@@ -1628,7 +1312,7 @@ function playChime() {
 }
 
 function playCommitTone() {
-  // For Book CTA click — single sustained note that resolves upward
+  // Commit tone — single sustained note that resolves upward
   if (!state.audioContext) return;
   const ctx = state.audioContext;
   const now = ctx.currentTime;
@@ -1809,21 +1493,6 @@ function initCycleDiagram() {
 
 // ──────── CTA HANDLERS ────────
 function initCTAs() {
-  // Merch cards
-  document.querySelectorAll('.merch-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      e.preventDefault();
-      const item = card.dataset.merch;
-      track('merch_clicked', { item });
-      haptic(15);
-      playCommitTone();
-      // PRODUCTION: window.location.href = real product URL
-      setTimeout(() => {
-        alert('[PROTOTYPE] Product page for "' + item + '" would open.\n\nProduction swap: replace href on merch-card.');
-      }, 800);
-    });
-  });
-
   // Course link
   document.getElementById('courseLink').addEventListener('click', (e) => {
     track('course_link_clicked');
