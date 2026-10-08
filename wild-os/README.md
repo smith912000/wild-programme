@@ -6,7 +6,7 @@ The practice companion for WILD members: breathwork, meditation, dream journal, 
 
 Whop is the account system. The app is open only to members with an active Whop membership.
 
-1. `Sign in with Whop` sends the visitor to Whop's OAuth page (PKCE, `state` checked on return; scopes openid, profile, email).
+1. `Sign in with Whop` sends the visitor to Whop's OAuth page (PKCE, `state` checked on return; scopes profile, email; the openid scope is left out because Whop then demands a nonce that its own login step drops).
 2. Whop returns to `/auth/callback`; the app posts `{ code, redirect_uri, code_verifier }` to the n8n webhook `POST /wild/auth/callback`.
 3. n8n exchanges the code, checks the membership and answers `{ ok, token, member, name, expiresAt }`. The token is an HS256 JWT valid 7 days; n8n re-checks Whop once it is over 24 hours old. n8n is the source of truth.
 4. On every launch the app posts `{ token }` to `POST /wild/auth/verify` (same response shape) and stores the answer. A 401 signs the visitor out.
