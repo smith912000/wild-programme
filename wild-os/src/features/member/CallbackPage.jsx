@@ -22,7 +22,8 @@ export function CallbackPage() {
       return
     }
     handleCallback(params.get('code'), params.get('state')).then((ok) => {
-      if (ok) navigate('/', { replace: true })
+      // Full reload into the app: starts from a clean shell with the saved session.
+      if (ok) window.location.replace(import.meta.env.BASE_URL)
     })
   }, [params, handleCallback, navigate])
 
