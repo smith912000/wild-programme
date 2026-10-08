@@ -17,7 +17,8 @@ export function CallbackPage() {
     ran.current = true
     const whopError = params.get('error')
     if (whopError) {
-      useMemberStore.setState({ error: 'Sign-in was cancelled.' })
+      const why = params.get('error_description')
+      useMemberStore.setState({ error: why ? `Whop said: ${why}.` : 'Sign-in was cancelled.' })
       return
     }
     handleCallback(params.get('code'), params.get('state')).then((ok) => {

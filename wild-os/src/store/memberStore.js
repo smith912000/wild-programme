@@ -95,6 +95,7 @@ export const useMemberStore = create((set, get) => ({
     }
     const verifier = randomString(48)
     const state = randomString(16)
+    const nonce = randomString(16) // Whop requires one with the openid scope
     sessionStorage.setItem(PKCE_KEY, JSON.stringify({ verifier, state }))
     const params = new URLSearchParams({
       client_id: WHOP_CLIENT_ID,
@@ -102,6 +103,7 @@ export const useMemberStore = create((set, get) => ({
       response_type: 'code',
       scope: WHOP_SCOPE,
       state,
+      nonce,
       code_challenge: await challengeFor(verifier),
       code_challenge_method: 'S256',
     })
