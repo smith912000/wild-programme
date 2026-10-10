@@ -1272,12 +1272,12 @@ section {
   <div class="section-inner">
     <p class="section-label reveal">If the Book is the Door</p>
     <div class="reveal stagger">
-      <p class="deeper-body">There is also a course.</p>
+      <p class="deeper-body">There is also a membership.</p>
       <p class="deeper-body">It is for the people who finish the book and want to keep going.</p>
       <p class="deeper-body">It is not for everyone who buys the book.</p>
       <p class="deeper-body">It is for the people the book makes restless.</p>
     </div>
-    <a href="tier1.html" class="deeper-link reveal" id="courseLink" data-action="course">The deeper path</a>
+    <a href="../index.html#membership" class="deeper-link reveal" id="courseLink" data-action="course">The membership</a>
   </div>
 </section>
 
@@ -1831,7 +1831,7 @@ function initCTAs() {
   document.getElementById('courseLink').addEventListener('click', (e) => {
     track('course_link_clicked');
     playChime();
-    // Allows default navigation to tier1.html
+    // Allows default navigation to the membership on the hub
   });
 
   // Discord cards — let the native href to community.html navigate; just track + chime
