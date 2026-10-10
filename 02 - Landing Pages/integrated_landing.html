@@ -953,12 +953,12 @@ section {
   <div class="section-inner">
     <p class="section-label reveal">If This Page is the Door</p>
     <div class="reveal stagger">
-      <p class="deeper-body">There is also a course.</p>
+      <p class="deeper-body">There is also a course. It comes with membership.</p>
       <p class="deeper-body">It is for the people who reach the end of this page and want to keep going.</p>
       <p class="deeper-body">It is not for everyone who reads it.</p>
       <p class="deeper-body">It is for the people this page makes restless.</p>
     </div>
-    <a href="tier1.html" class="deeper-link reveal" id="courseLink" data-action="course">The deeper path</a>
+    <a href="community.html#inside" class="deeper-link reveal" id="courseLink" data-action="course">The deeper path</a>
   </div>
 </section>
 
@@ -969,22 +969,22 @@ section {
   <div class="section-inner">
     <p class="section-label reveal">The Others</p>
     <h3 class="others-title reveal">You do not walk this alone.</h3>
-    <p class="others-lead reveal">One open door. One held room further in.</p>
+    <p class="others-lead reveal">One Discord. One open door, one held room further in.</p>
 
     <div class="others-cards reveal stagger">
       <div class="others-card">
         <div>
           <div class="others-card-name">The Open Door</div>
-          <p class="others-card-desc">Both languages. All three pillars.<br>For anyone who has crossed once.</p>
+          <p class="others-card-desc">The practice hub, the silent sit, the free challenges.<br>For anyone who has crossed once.</p>
           <span class="others-card-badge free">Free</span>
         </div>
-        <a href="community.html" class="others-card-enter" data-action="discord-open">Step in</a>
+        <a href="https://discord.gg/jRzKq6Hb6N" target="_blank" rel="noopener" class="others-card-enter" data-action="discord-open">Step in</a>
       </div>
       <div class="others-card premium">
         <div>
           <div class="others-card-name">The Inner Room</div>
-          <p class="others-card-desc">Smaller. Slower. Held.<br>For those who stay.</p>
-          <span class="others-card-badge premium-badge">£10 / month · cancel any time</span>
+          <p class="others-card-desc">The weekly live call, both tracks, the course and WILD OS.<br>Smaller. Slower. Held. For those who stay.</p>
+          <span class="others-card-badge premium-badge">£13 / month or £100 / year · cancel any time</span>
         </div>
         <a href="community.html" class="others-card-enter" data-action="discord-inner">Step inside</a>
       </div>
@@ -1497,17 +1497,17 @@ function initCTAs() {
   document.getElementById('courseLink').addEventListener('click', (e) => {
     track('course_link_clicked');
     playChime();
-    // Allows default navigation to tier1.html
+    // Allows default navigation to community.html#inside
   });
 
-  // Discord cards — let the native href to community.html navigate; just track + chime
+  // Discord cards — let the native href navigate (Discord invite or community.html); just track + chime
   document.querySelectorAll('[data-action^="discord-"]').forEach(card => {
     card.addEventListener('click', () => {
       const stream = card.dataset.action.replace('discord-', '');
       track('discord_clicked', { stream });
       haptic(15);
       playChime();
-      // Default <a href="community.html"> navigation proceeds.
+      // Default <a href> navigation proceeds.
     });
   });
 }
