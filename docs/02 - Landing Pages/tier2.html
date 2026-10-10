@@ -118,7 +118,7 @@ footer a{color:var(--accent);text-decoration:none}
 @media(max-width:600px){nav{padding:12px 16px}.nav-links a:not(.nav-cta){display:none}}
 </style>
   <!-- PayPal Hosted Buttons SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=BAAyDDiIvYNChjvqNy0CI4DtZLOxXJ4GgSdFu8ejMtY8nDGQ2f3IgOr3YhbhGEyrS-3i56tsvNt7b4LEaQ&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+  <!-- buy buttons hidden 2026-10-10 (course retired): <script src="https://www.paypal.com/sdk/js?client-id=BAAyDDiIvYNChjvqNy0CI4DtZLOxXJ4GgSdFu8ejMtY8nDGQ2f3IgOr3YhbhGEyrS-3i56tsvNt7b4LEaQ&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script> -->
   <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your actual Measurement ID -->
   <!-- Get your ID at analytics.google.com → Admin → Data Streams → Web Stream -->
   <script src="../assets/analytics.js"></script>
@@ -144,7 +144,7 @@ footer a{color:var(--accent);text-decoration:none}
     <p class="price-label">One-time payment · Lifetime access</p>
     <div class="price-main"><sup>£</sup>100</div>
     <p class="price-note">✓ Includes everything in Tier 1 &nbsp;·&nbsp; ✓ 30-day guarantee</p>
-    <div id="paypal-container-L7XL3UG3WUJ4W"></div>
+    <p class="price-note" style="margin:12px 0"><strong>Enrolment is closed.</strong> WILD is moving into the WILD OS app. <a href="../index.html">Back to the hub</a></p>
     <a href="#modules" class="btn-secondary">See the full curriculum</a>
     <p class="guarantee"><span>Tier 1 already purchased?</span> Pay the £50 difference — email us for a code.</p>
   </div>
@@ -247,7 +247,7 @@ footer a{color:var(--accent);text-decoration:none}
       <div class="cta-price"><sup>£</sup>100</div>
       <span class="cta-save">LIFETIME ACCESS · ALL TIERS INCLUDED</span>
     </div>
-    <div id="paypal-container-L7XL3UG3WUJ4W-cta"></div>
+    <p class="price-note" style="margin:12px 0"><strong>Enrolment is closed.</strong> WILD is moving into the WILD OS app. <a href="../index.html">Back to the hub</a></p>
     <p class="cta-sub">✓ All Tier 1 content included &nbsp;·&nbsp; ✓ 30-day guarantee &nbsp;·&nbsp; ✓ Tier 2 upgrade credit on purchase</p>
   </div>
 </div>
@@ -262,10 +262,8 @@ footer a{color:var(--accent);text-decoration:none}
     <a href="community.html">Community — £10/mo</a>
   </div>
 
-<script>
-  paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W");
-  paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W-cta");
-</script>
+<!-- buy buttons hidden 2026-10-10: paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W");
+  paypal.HostedButtons({ hostedButtonId: "L7XL3UG3WUJ4W" }).render("#paypal-container-L7XL3UG3WUJ4W-cta"); -->
 <script id="wild-consent-js" data-legal="legal.html" src="../assets/consent.js" defer></script>
 </body>
 </html>

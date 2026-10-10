@@ -171,7 +171,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:32px
 .footer-copy{font-size:11px;color:var(--border)}
 </style>
   <!-- PayPal Hosted Buttons SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=BAAyDDiIvYNChjvqNy0CI4DtZLOxXJ4GgSdFu8ejMtY8nDGQ2f3IgOr3YhbhGEyrS-3i56tsvNt7b4LEaQ&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+  <!-- buy buttons hidden 2026-10-10 (course retired): <script src="https://www.paypal.com/sdk/js?client-id=BAAyDDiIvYNChjvqNy0CI4DtZLOxXJ4GgSdFu8ejMtY8nDGQ2f3IgOr3YhbhGEyrS-3i56tsvNt7b4LEaQ&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script> -->
   <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your actual Measurement ID -->
   <!-- Get your ID at analytics.google.com → Admin → Data Streams → Web Stream -->
   <script src="../assets/analytics.js"></script>
@@ -205,7 +205,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:32px
     <div class="price-label">Complete Master Programme — One-Time</div>
     <div class="price-main"><sup>£</sup>200</div>
     <div class="price-note">✓ Lifetime access — all future updates included</div>
-    <div id="paypal-container-B7Z7X7BTWS9VE"></div>
+    <p class="price-note" style="margin:12px 0"><strong>Enrolment is closed.</strong> WILD is moving into the WILD OS app. <a href="../index.html">Back to the hub</a></p>
     <a href="community.html" class="btn-secondary">Explore community membership →</a>
     <div class="guarantee"><span>30-day money-back guarantee</span> — no questions asked</div>
     <div class="upgrade-note">
@@ -525,7 +525,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:32px
   <h2>Everything. Once. For Life.</h2>
   <p>All three pillars, a private session, priority for the gatherings, three months in the inner room, and everything that comes after — for life. The choice that ends the question of how far you can go, because the answer is all the way.</p>
   <div class="cta-actions">
-    <div id="paypal-container-B7Z7X7BTWS9VE-cta"></div>
+    <p class="price-note" style="margin:12px 0"><strong>Enrolment is closed.</strong> WILD is moving into the WILD OS app. <a href="../index.html">Back to the hub</a></p>
     <a href="community.html" class="btn-secondary" style="width:100%;max-width:340px">Look at the inner room →</a>
     <div style="font-size:12px;color:var(--gray);margin-top:6px">Thirty-day refund · For life · Delivered straight away</div>
   </div>
@@ -543,10 +543,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:32px
   <div class="footer-copy">© WILD Programme · For those who have decided this is the work · Thirty-day refund on every tier</div>
 
 
-<script>
-  paypal.HostedButtons({ hostedButtonId: "B7Z7X7BTWS9VE" }).render("#paypal-container-B7Z7X7BTWS9VE");
-  paypal.HostedButtons({ hostedButtonId: "B7Z7X7BTWS9VE" }).render("#paypal-container-B7Z7X7BTWS9VE-cta");
-</script>
+<!-- buy buttons hidden 2026-10-10: paypal.HostedButtons({ hostedButtonId: "B7Z7X7BTWS9VE" }).render("#paypal-container-B7Z7X7BTWS9VE");
+  paypal.HostedButtons({ hostedButtonId: "B7Z7X7BTWS9VE" }).render("#paypal-container-B7Z7X7BTWS9VE-cta"); -->
 <script id="wild-consent-js" data-legal="legal.html" src="../assets/consent.js" defer></script>
 </body>
 </html>
