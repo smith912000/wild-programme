@@ -7,6 +7,11 @@ import { Spinner } from '@shared/ui/Spinner'
 import { Mark } from '@shared/ui/Mark'
 import { intake } from '@lib/intake'
 
+// The last reading is kept in a wos_ key, so it shows at once and travels with the account (accountSync).
+const READING_KEY = 'wos_path_reading'
+const cached = () => { try { return localStorage.getItem(READING_KEY) || '' } catch { return '' } }
+const cache = (r) => { try { localStorage.setItem(READING_KEY, r) } catch { /* ignore */ } }
+
 // "Your path": a short guided intake. Answers go to The Wild Project (n8n, keyed by Whop user id),
 // which answers with three opening directives. The same text is later sent as a Discord DM.
 const QUESTIONS = [
@@ -74,10 +79,10 @@ const LAST = QUESTIONS.length
 
 export function PathPage() {
   const token = useMemberStore((s) => s.token)
-  const [phase, setPhase] = useState('loading') // loading | ask | sending | reading | error
+  const [phase, setPhase] = useState(cached() ? 'reading' : 'loading') // loading | ask | sending | reading | error
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState({})
-  const [reading, setReading] = useState('')
+  const [reading, setReading] = useState(cached)
 
   useEffect(() => {
     let live = true
@@ -85,9 +90,9 @@ export function PathPage() {
       .then((d) => {
         if (!live) return
         if (d.answers) setAnswers(d.answers)
-        if (d.reading) { setReading(d.reading); setPhase('reading') } else setPhase('ask')
+        if (d.reading) { setReading(d.reading); cache(d.reading); setPhase('reading') } else setPhase('ask')
       })
-      .catch(() => live && setPhase('ask'))
+      .catch(() => live && setPhase((p) => (p === 'loading' ? 'ask' : p)))
     return () => { live = false }
   }, [token])
 
@@ -101,6 +106,7 @@ export function PathPage() {
     try {
       const d = await intake(token, answers)
       setReading(d.reading)
+      cache(d.reading)
       setPhase('reading')
     } catch {
       setPhase('error')
