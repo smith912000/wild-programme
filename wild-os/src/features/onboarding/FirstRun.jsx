@@ -51,7 +51,7 @@ export function FirstRun({ onDone }) {
               </h1>
               <p className="text-text-muted text-sm mt-3 leading-relaxed">
                 This is where the practice happens. Breathe and meditate before sleep, log your nights, keep a dream
-                journal and watch the pattern build. Everything you write stays on this device.
+                journal and watch the pattern build. What you write is kept with your account, on any device you sign in on.
               </p>
             </div>
             <Button variant="gold" size="lg" fullWidth onClick={() => setStep(1)}>Continue</Button>

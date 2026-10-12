@@ -8,6 +8,7 @@ import {
   AUTH_MOCK,
 } from '@config/whop'
 import { jwtClaims, exchangeCode, verifyToken, AuthRejected } from '@lib/memberAuth'
+import { syncAccount, isDeviceJoined, leaveAccount } from '@lib/accountSync'
 
 // Not prefixed wos_, so "Export data" and "Clear local data" never touch the token.
 const SESSION_KEY = 'wild_member_session'
@@ -44,6 +45,20 @@ function apply(set, res) {
   set({ ...view(record), error: null })
 }
 
+// Brings this account's data onto the device. The first time an account is used on a device
+// the app waits for it (so the intro and journal arrive before anything shows); after that
+// it syncs in the background. Offline, the device copy is used as it is.
+async function loadAccountData(set, token) {
+  if (isDeviceJoined(token)) {
+    set({ dataReady: true })
+    syncAccount(token).catch(() => {})
+    return
+  }
+  set({ dataReady: false })
+  await syncAccount(token).catch(() => {})
+  set({ dataReady: true })
+}
+
 function view(r) {
   return {
     token: r.token,
@@ -62,6 +77,7 @@ export const useMemberStore = create((set, get) => ({
   expiresAt: null,
   error: null,
   loading: false,
+  dataReady: false, // this account's data is on the device
 
   // Runs on every launch. A cached member opens the app straight away; verify then
   // refreshes in the background. Offline, the cached answer holds until its expiresAt.
@@ -72,6 +88,7 @@ export const useMemberStore = create((set, get) => ({
       return
     }
     set(view(saved))
+    if (saved.member) loadAccountData(set, saved.token)
     try {
       apply(set, await verifyToken(saved.token))
     } catch (e) {
@@ -123,6 +140,7 @@ export const useMemberStore = create((set, get) => ({
     try {
       const res = await exchangeCode(code, REDIRECT_URI, saved.verifier)
       apply(set, res)
+      await loadAccountData(set, res.token)
       set({ loading: false })
       return true
     } catch (e) {
@@ -136,9 +154,12 @@ export const useMemberStore = create((set, get) => ({
     }
   },
 
-  signOut: () => {
+  // Saves this account's data, then clears the device for whoever signs in next.
+  signOut: async () => {
+    const token = get().token
     write(SESSION_KEY, null)
-    set({ status: 'guest', token: null, name: null, email: null, expiresAt: null })
+    set({ status: 'guest', token: null, name: null, email: null, expiresAt: null, dataReady: false })
+    await leaveAccount(token)
   },
 
   clearError: () => set({ error: null }),
