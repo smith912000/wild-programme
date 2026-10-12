@@ -46,7 +46,7 @@ export function FirstRun({ onDone }) {
         {step === 0 && (
           <>
             <div>
-              <h1 className="font-display font-bold text-2xl text-text-primary">
+              <h1 className="font-display text-3xl text-text-primary">
                 {name ? `Welcome, ${name.split(' ')[0]}` : 'Welcome to WILD OS'}
               </h1>
               <p className="text-text-muted text-sm mt-3 leading-relaxed">
@@ -61,7 +61,7 @@ export function FirstRun({ onDone }) {
         {step === 1 && (
           <>
             <div>
-              <h1 className="font-display font-bold text-2xl text-text-primary">Your usual sleep</h1>
+              <h1 className="font-display text-3xl text-text-primary">Your usual sleep</h1>
               <p className="text-text-muted text-sm mt-3 leading-relaxed">
                 The sleep calculator uses these to work out your best wake back to bed windows. You can change them later.
               </p>
@@ -77,7 +77,7 @@ export function FirstRun({ onDone }) {
         {step === 2 && (
           <>
             <div>
-              <h1 className="font-display font-bold text-2xl text-text-primary">Write the first line</h1>
+              <h1 className="font-display text-3xl text-text-primary">Write the first line</h1>
               <p className="text-text-muted text-sm mt-3 leading-relaxed">
                 A fragment of last night's dream, or a sentence about why you are here. One line is enough.
               </p>

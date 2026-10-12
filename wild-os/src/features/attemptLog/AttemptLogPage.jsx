@@ -18,15 +18,15 @@ export function AttemptLogContent() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-3 mb-6">
             <div className="bg-bg-card border border-border rounded-2xl p-3 text-center">
-              <p className="text-2xl font-display font-bold text-accent-blue">{attempts.length}</p>
+              <p className="text-2xl font-display text-accent-blue">{attempts.length}</p>
               <p className="text-text-faint text-xs mt-0.5">Attempts</p>
             </div>
             <div className="bg-bg-card border border-border rounded-2xl p-3 text-center">
-              <p className="text-2xl font-display font-bold text-accent-green">{successRate}%</p>
+              <p className="text-2xl font-display text-accent-green">{successRate}%</p>
               <p className="text-text-faint text-xs mt-0.5">Success</p>
             </div>
             <div className="bg-bg-card border border-border rounded-2xl p-3 text-center">
-              <p className="text-2xl font-display font-bold text-accent-gold">
+              <p className="text-2xl font-display text-accent-gold">
                 {attempts.filter(a => a.outcome === 'Full').length}
               </p>
               <p className="text-text-faint text-xs mt-0.5">Full WILD</p>

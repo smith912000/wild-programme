@@ -8,10 +8,10 @@ const PHASE_SCALES = {
 }
 
 const PHASE_COLORS = {
-  INHALE: '#3b82f6',
-  HOLD: '#c9a84c',
-  EXHALE: '#a855f7',
-  HOLD_OUT: '#525770',
+  INHALE: '#8A6FE0',
+  HOLD: '#C9A84C',
+  EXHALE: '#B9A9F0',
+  HOLD_OUT: '#6E6A80',
 }
 
 export function BreathingCircle({ phase, phaseProgress, size = 200 }) {

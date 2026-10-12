@@ -42,7 +42,7 @@ export function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-border pb-safe"
-      style={{ background: 'rgba(13,15,20,0.92)', backdropFilter: 'blur(16px)' }}
+      style={{ background: 'rgba(5,3,9,0.86)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
     >
       <div className="flex items-center justify-around h-16 max-w-lg mx-auto">
         {NAV_ITEMS.map(({ path, label, Icon, match }) => {
@@ -52,6 +52,8 @@ export function BottomNav() {
               key={path}
               onClick={() => navigate(path)}
               className="flex flex-col items-center justify-center gap-0.5 flex-1 h-full py-2 relative group"
+              aria-current={active ? 'page' : undefined}
+              aria-label={label}
             >
               <Icon
                 className={`w-5 h-5 transition-all duration-200 ${
@@ -59,7 +61,7 @@ export function BottomNav() {
                 }`}
                 strokeWidth={active ? 2.5 : 1.75}
               />
-              <span className={`text-[11px] font-display font-medium transition-colors duration-200 ${
+              <span className={`text-[11px] font-body font-medium tracking-wide transition-colors duration-200 ${
                 active ? 'text-accent-gold' : 'text-text-faint group-hover:text-text-muted'
               }`}>
                 {label}

@@ -49,7 +49,7 @@ export function MeditationContent() {
       <div className="min-h-screen bg-bg-deep flex flex-col items-center justify-between py-12 px-6">
         <TimerDisplay remaining={timer.remaining} total={durationMinutes * 60} />
         <div className="flex flex-col items-center gap-6">
-          <ProgressRing size={280} progress={timer.progress} color="#c9a84c" strokeWidth={2}>
+          <ProgressRing size={280} progress={timer.progress} color="#C9A84C" strokeWidth={2}>
             <div className="flex flex-col items-center">
               <MandalaAnimation size={200} />
             </div>
@@ -100,7 +100,7 @@ export function MeditationContent() {
 
         {/* Preview ring */}
         <div className="flex justify-center mb-8">
-          <ProgressRing size={160} progress={0} color="#c9a84c" strokeWidth={3}>
+          <ProgressRing size={160} progress={0} color="#C9A84C" strokeWidth={3}>
             <div className="text-center">
               <p className="font-mono text-2xl text-accent-gold">{durationMinutes}m</p>
               {intervalMinutes > 0 && (

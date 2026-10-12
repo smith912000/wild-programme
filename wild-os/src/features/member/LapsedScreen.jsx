@@ -13,14 +13,14 @@ export function LapsedScreen({ stale = false }) {
     <GateLayout>
       {stale ? (
         <div>
-          <h1 className="font-display font-bold text-2xl text-text-primary">Connect to continue</h1>
+          <h1 className="font-display text-3xl text-text-primary">Connect to continue</h1>
           <p className="text-text-muted text-sm mt-3 leading-relaxed">
             WILD OS needs to confirm your membership. Go online and try again.
           </p>
         </div>
       ) : (
         <div>
-          <h1 className="font-display font-bold text-2xl text-text-primary">Your membership has lapsed</h1>
+          <h1 className="font-display text-3xl text-text-primary">Your membership has lapsed</h1>
           <p className="text-text-muted text-sm mt-3 leading-relaxed">
             {email ? `We could not find an active WILD membership for ${email}.` : 'We could not find an active WILD membership.'}{' '}
             Your journal and logs stay on this device and will be here when you return.

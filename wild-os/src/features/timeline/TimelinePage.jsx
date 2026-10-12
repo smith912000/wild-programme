@@ -9,13 +9,13 @@ import { format, parseISO } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
 
 const TYPE_CONFIG = {
-  dream:   { icon: Moon,  color: '#c9a84c', label: 'Dream'   },
-  attempt: { icon: Flame, color: '#a855f7', label: 'Attempt' },
+  dream:   { icon: Moon,  color: '#C9A84C', label: 'Dream'   },
+  attempt: { icon: Flame, color: '#B9A9F0', label: 'Attempt' },
 }
 
 function LucidityDot({ score }) {
   const hue = Math.round((score / 10) * 120)
-  return <span className='inline-block w-2.5 h-2.5 rounded-full ml-2' style={{ background: score > 0 ? 'hsl(' + hue + ',80%,55%)' : '#525770' }} />
+  return <span className='inline-block w-2.5 h-2.5 rounded-full ml-2' style={{ background: score > 0 ? 'hsl(' + hue + ',80%,55%)' : '#6E6A80' }} />
 }
 
 export function TimelineContent() {

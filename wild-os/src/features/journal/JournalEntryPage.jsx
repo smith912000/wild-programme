@@ -125,8 +125,8 @@ export function JournalEntryPage() {
                 >
                   <Star
                     className="w-6 h-6 transition-colors"
-                    fill={star <= clarity ? '#c9a84c' : 'transparent'}
-                    stroke={star <= clarity ? '#c9a84c' : '#4e5368'}
+                    fill={star <= clarity ? '#C9A84C' : 'transparent'}
+                    stroke={star <= clarity ? '#C9A84C' : '#6E6A80'}
                     strokeWidth={1.5}
                   />
                 </button>
@@ -150,8 +150,8 @@ export function JournalEntryPage() {
                   >
                     <Star
                       className="w-6 h-6 transition-colors"
-                      fill={star <= remQuality ? '#3b82f6' : 'transparent'}
-                      stroke={star <= remQuality ? '#3b82f6' : '#4e5368'}
+                      fill={star <= remQuality ? '#8A6FE0' : 'transparent'}
+                      stroke={star <= remQuality ? '#8A6FE0' : '#6E6A80'}
                       strokeWidth={1.5}
                     />
                   </button>

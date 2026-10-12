@@ -111,7 +111,7 @@ export function BreathingFigure({ phase = 'rest', phaseDuration = 4 }) {
 
   const dur  = Math.max(phaseDuration, 1.8)
   const ease = `${dur}s cubic-bezier(0.45,0,0.2,1)`
-  const gold = 'var(--color-accent-gold, #c9a84c)'
+  const gold = 'var(--color-accent-gold, #C9A84C)'
 
   return (
     <svg

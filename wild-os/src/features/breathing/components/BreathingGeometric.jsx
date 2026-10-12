@@ -115,11 +115,11 @@ function polyStr(n, cx, cy, r, startDeg = 0) {
 export function BreathingGeometric({ phase = 'rest', phaseDuration = 4 }) {
 
   // ── Colour palette ─────────────────────────────────────────────
-  const green  = '#00E87A'   // circles / rings / FOL spheres
-  const blue   = '#4499FF'   // triangle A / tetra A
-  const red    = '#FF3355'   // triangle B / tetra B
-  const amber  = '#FFB700'   // hexagon + 3 spokes / cube
-  const purple = '#8B5CF6'   // inner hexagon / inner octahedron (violet)
+  const green  = '#86B894'   // circles / rings / FOL spheres
+  const blue   = '#8A6FE0'   // triangle A / tetra A
+  const red    = '#E07A85'   // triangle B / tetra B
+  const amber  = '#E9C766'   // hexagon + 3 spokes / cube
+  const purple = '#8A6FE0'   // inner hexagon / inner octahedron (violet)
   const white  = '#FFFFFF'
 
   // ── Stages ───────────────────────────────────────────────────

@@ -14,7 +14,7 @@ export function NightCard({ night, onUpdate, onToggleItem }) {
         className="w-full p-4 flex items-center justify-between"
       >
         <div className="flex items-center gap-3">
-          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-display font-bold border ${
+          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-display border ${
             isComplete
               ? 'bg-accent-green/20 border-accent-green/40 text-accent-green'
               : 'bg-bg-surface border-border text-text-muted'

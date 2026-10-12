@@ -16,7 +16,7 @@ export function WaveformCanvas({ isRunning, frequency = 200, beatFreq = 6, width
 
       if (!isRunning) {
         // Static wave
-        ctx.strokeStyle = '#252836'
+        ctx.strokeStyle = '#19112B'
         ctx.lineWidth = 1.5
         ctx.beginPath()
         ctx.moveTo(0, height / 2)
