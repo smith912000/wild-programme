@@ -42,14 +42,13 @@
   a { color:inherit; }
 
   /* ambient */
-  .aurora { position:fixed; inset:0; z-index:-2; overflow:hidden; pointer-events:none; }
-  .aurora i { position:absolute; border-radius:50%; filter:blur(120px); mix-blend-mode:screen; display:block; }
-  .aurora .a1 { width:70vmax; height:70vmax; top:-26%; left:-20%; background:radial-gradient(circle, rgba(99,73,184,.28), transparent 62%); animation:aur1 38s ease-in-out infinite alternate; }
-  .aurora .a2 { width:60vmax; height:60vmax; bottom:-26%; right:-18%; background:radial-gradient(circle, rgba(138,111,224,.16), transparent 62%); animation:aur2 50s ease-in-out infinite alternate; }
-  .aurora .a3 { width:48vmax; height:48vmax; top:30%; left:40%; background:radial-gradient(circle, rgba(201,168,76,.09), transparent 60%); animation:aur3 60s ease-in-out infinite alternate; }
-  @keyframes aur1 { to { transform:translate(12vw,9vh) scale(1.15); } }
-  @keyframes aur2 { to { transform:translate(-10vw,-7vh) scale(.92); } }
-  @keyframes aur3 { to { transform:translate(-9vw,11vh) scale(1.1); } }
+  /* Three still washes painted once by the compositor: no blur filter, no animation, nothing repaints. */
+  .aurora { position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(ellipse 60% 50% at 8% 0%, rgba(99,73,184,.30), transparent 65%),
+      radial-gradient(ellipse 50% 45% at 100% 100%, rgba(138,111,224,.16), transparent 65%),
+      radial-gradient(ellipse 35% 30% at 62% 45%, rgba(201,168,76,.07), transparent 65%); }
+  .aurora i { display:none; }
   body::before { content:''; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.035;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
@@ -213,7 +212,7 @@
   }
   @media (min-width:821px) and (max-width:960px) { .grid6 { grid-template-columns:repeat(2,1fr); } }
   @media (prefers-reduced-motion:reduce) {
-    .aurora i, .mark .ring, .mark .ring2, .mark .aperture { animation:none; }
+    .mark .ring, .mark .ring2, .mark .aperture { animation:none; }
     html { scroll-behavior:auto; }
   }
 </style>
