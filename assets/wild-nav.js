@@ -1,9 +1,9 @@
 /* WILD shared navigation. One list of apps for the hub menu and the bar on
    every companion app. Add a future app by adding one line to APPS.
    Usage on an app:  <script src="https://smith912000.github.io/wild-programme/assets/wild-nav.js" data-app="codex" defer></script>
-   Usage on the hub: <script src="assets/wild-nav.js" data-mode="hub" defer></script> and an element with id="wild-apps-menu". */
+   Usage on the members' hub (hub/index.html): <script src="../assets/wild-nav.js" data-mode="hub" defer></script> and an element with id="wild-apps-menu". */
 (function () {
-  var HUB = 'https://smith912000.github.io/wild-programme/';
+  var HUB = 'https://smith912000.github.io/wild-programme/hub/';
   var APPS = [
     { id: 'os',      name: 'WILD OS',         role: 'Practice',  url: 'https://smith912000.github.io/wild-os/' },
     { id: 'codex',   name: 'Codex Pharmakon', role: 'Codex',     url: 'https://smith912000.github.io/codex-pharmakon/' },
