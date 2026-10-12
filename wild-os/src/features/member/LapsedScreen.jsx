@@ -23,7 +23,7 @@ export function LapsedScreen({ stale = false }) {
           <h1 className="font-display text-3xl text-text-primary">Your membership has lapsed</h1>
           <p className="text-text-muted text-sm mt-3 leading-relaxed">
             {email ? `We could not find an active WILD membership for ${email}.` : 'We could not find an active WILD membership.'}{' '}
-            Your journal and logs stay on this device and will be here when you return.
+            Your journal and logs are kept with your account and will be here when you return.
           </p>
         </div>
       )}

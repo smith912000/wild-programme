@@ -5,6 +5,18 @@ const DB_VERSION = 1
 
 let dbPromise = null
 
+export const STORES = ['journal_entries', 'tracker_nights', 'breathing_sessions', 'attempt_logs', 'supplement_logs', 'custom_protocols', 'ritual_blocks', 'shadow_responses', 'incubation_entries']
+
+// Deleted record ids, so account sync does not bring them back from another device.
+export const DELETED_KEY = 'wild_data_deleted'
+function forget(store, id) {
+  try {
+    const d = JSON.parse(localStorage.getItem(DELETED_KEY) || '{}')
+    d[`${store}/${id}`] = new Date().toISOString()
+    localStorage.setItem(DELETED_KEY, JSON.stringify(d))
+  } catch { /* ignore */ }
+}
+
 export function getDb() {
   if (!dbPromise) {
     dbPromise = openDB(DB_NAME, DB_VERSION, {
@@ -66,6 +78,7 @@ export async function saveJournalEntry(entry) {
 export async function deleteJournalEntry(id) {
   const db = await getDb()
   await db.delete('journal_entries', id)
+  forget('journal_entries', id)
 }
 
 // Tracker Nights
@@ -113,6 +126,7 @@ export async function saveAttemptLog(log) {
 export async function deleteAttemptLog(id) {
   const db = await getDb()
   await db.delete('attempt_logs', id)
+  forget('attempt_logs', id)
 }
 
 // Supplement Logs
@@ -133,6 +147,7 @@ export async function saveSupplementLog(log) {
 export async function deleteSupplementLog(id) {
   const db = await getDb()
   await db.delete('supplement_logs', id)
+  forget('supplement_logs', id)
 }
 
 // Custom Protocols
@@ -152,6 +167,7 @@ export async function saveProtocol(protocol) {
 export async function deleteProtocol(id) {
   const db = await getDb()
   await db.delete('custom_protocols', id)
+  forget('custom_protocols', id)
 }
 
 // Ritual Blocks
@@ -167,6 +183,7 @@ export async function saveRitualBlock(block) {
 export async function deleteRitualBlock(id) {
   const db = await getDb()
   await db.delete('ritual_blocks', id)
+  forget('ritual_blocks', id)
 }
 
 // Shadow Responses
@@ -201,18 +218,28 @@ export async function saveIncubationEntry(entry) {
 export async function exportAllData() {
   const db = await getDb()
   const data = {}
-  const stores = ['journal_entries', 'tracker_nights', 'breathing_sessions', 'attempt_logs', 'supplement_logs', 'custom_protocols', 'ritual_blocks', 'shadow_responses', 'incubation_entries']
-  for (const store of stores) {
+  for (const store of STORES) {
     data[store] = await db.getAll(store)
   }
   return data
 }
 
+// Replace every store's contents in one transaction (account sync).
+export async function replaceAllData(data) {
+  const db = await getDb()
+  const tx = db.transaction(STORES, 'readwrite')
+  for (const store of STORES) {
+    const os = tx.objectStore(store)
+    await os.clear()
+    for (const rec of data[store] || []) await os.put(rec)
+  }
+  await tx.done
+}
+
 // Clear all data
 export async function clearAllData() {
   const db = await getDb()
-  const stores = ['journal_entries', 'tracker_nights', 'breathing_sessions', 'attempt_logs', 'supplement_logs', 'custom_protocols', 'ritual_blocks', 'shadow_responses', 'incubation_entries']
-  for (const store of stores) {
+  for (const store of STORES) {
     await db.clear(store)
   }
 }
