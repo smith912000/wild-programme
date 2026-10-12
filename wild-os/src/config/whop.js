@@ -9,7 +9,7 @@ export const WHOP_AUTHORIZE_URL = env.VITE_WHOP_AUTHORIZE_URL || 'https://api.wh
 // Scope names to be confirmed against Whop's current docs (identity + memberships).
 export const WHOP_SCOPE = env.VITE_WHOP_SCOPE || 'openid profile email'
 // Checkout links (plan ids from the Whop dashboard).
-export const WHOP_MONTHLY_URL = env.VITE_WHOP_MONTHLY_URL || 'https://whop.com/checkout/plan_rC0YO0w8EAM9G/'
+export const WHOP_MONTHLY_URL = env.VITE_WHOP_MONTHLY_URL || 'https://whop.com/checkout/plan_rKY1Z5JoKORHj/'
 export const WHOP_ANNUAL_URL = env.VITE_WHOP_ANNUAL_URL || 'https://whop.com/checkout/plan_h7BCmUwJo2VLX/'
 
 export const REDIRECT_URI = env.VITE_AUTH_REDIRECT_URI || 'https://smith912000.github.io/wild-os/auth/callback'
