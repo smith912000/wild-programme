@@ -1,44 +1,56 @@
 @import "tailwindcss";
+@import "../../assets/wild.css";
 
+/* WILD OS theme. Values come from assets/wild.css (the WILD design system, see ../DESIGN.md).
+   The names below are the ones the feature pages already use; only the values moved. */
 @theme {
   /* === Colour tokens === */
-  --color-bg-deep:         #0c0e13;
-  --color-bg-card:         #13161e;
-  --color-bg-surface:      #181b26;
-  --color-border:          #1e2130;
-  --color-border-subtle:   #252a3a;
-  --color-text-primary:    #eceef4;
-  --color-text-muted:      #8a90a2;
-  --color-text-faint:      #4e5368;
-  --color-accent-gold:     #c9a84c;
-  --color-accent-gold-dim: #9a7a35;
-  --color-accent-blue:     #3b82f6;
-  --color-accent-teal:     #0ea5e9;
-  --color-accent-purple:   #a855f7;
-  --color-accent-green:    #22c55e;
-  --color-accent-amber:    #f59e0b;
-  --color-accent-red:      #ef4444;
+  --color-bg-deep:         var(--wild-bg);
+  --color-bg-card:         var(--wild-bg-elev);
+  --color-bg-surface:      var(--wild-surface);
+  --color-border:          var(--wild-border);
+  --color-border-subtle:   var(--wild-border-lit);
+  --color-text-primary:    var(--wild-text);
+  --color-text-muted:      var(--wild-dim);
+  --color-text-faint:      var(--wild-faint);
+  --color-accent-gold:     var(--wild-gold);
+  --color-accent-gold-dim: #9A7A35;
+  --color-accent-blue:     var(--wild-indigo-2);   /* practice */
+  --color-accent-teal:     #A9B8F0;                /* cool lilac, the second indigo */
+  --color-accent-purple:   var(--wild-indigo-3);   /* sleep */
+  --color-accent-green:    var(--wild-ok);
+  --color-accent-amber:    var(--wild-warn);
+  --color-accent-red:      var(--wild-danger);
+  --color-accent-indigo:   var(--wild-indigo);
 
-  /* === Primary spec aliases (T3 pages) === */
-  --color-bg:              #0c0e13;
-  --color-surface:         #181b26;
-  --color-surface-2:       #1e2130;
-  --color-border-color:    #1e2130;
-  --color-text:            #eceef4;
-  --color-text-color-muted: #8a90a2;
-  --color-accent:          #6c63ff;
-  --color-accent-glow:     rgba(108, 99, 255, 0.35);
-  --color-tier1:           #4ade80;
-  --color-tier2:           #818cf8;
-  --color-tier3:           #c9a84c;
-  --color-danger:          #ef4444;
-  --color-warning:         #f59e0b;
-  --color-success:         #22c55e;
+  /* === Primary spec aliases (older pages) === */
+  --color-bg:              var(--wild-bg);
+  --color-surface:         var(--wild-surface);
+  --color-surface-2:       var(--wild-surface-2);
+  --color-border-color:    var(--wild-border);
+  --color-text:            var(--wild-text);
+  --color-text-color-muted: var(--wild-dim);
+  --color-accent:          var(--wild-indigo-2);
+  --color-accent-glow:     rgba(138, 111, 224, 0.35);
+  --color-tier1:           var(--wild-ok);
+  --color-tier2:           var(--wild-indigo-2);
+  --color-tier3:           var(--wild-gold);
+  --color-danger:          var(--wild-danger);
+  --color-warning:         var(--wild-warn);
+  --color-success:         var(--wild-ok);
 
   /* === Typography === */
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
-  --font-mono:    'JetBrains Mono', monospace;
+  --font-display: var(--wild-serif);
+  --font-body:    var(--wild-sans);
+  --font-mono:    var(--wild-mono);
+  /* Cormorant has a small x-height, so display sizes run one step larger than Tailwind's defaults */
+  --text-xl: 1.5rem;    --text-xl--line-height: 1.15;
+  --text-2xl: 1.875rem; --text-2xl--line-height: 1.1;
+  --text-3xl: 2.5rem;   --text-3xl--line-height: 1.05;
+  --text-4xl: 3.25rem;  --text-4xl--line-height: 1;
+
+  --radius-xl: var(--wild-r-md);
+  --radius-2xl: var(--wild-r-lg);
 }
 
 /* ============================================================
@@ -61,12 +73,12 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes glow-gold {
-  0%, 100% { box-shadow: 0 0 10px rgba(201, 168, 76, 0.25); }
-  50%       { box-shadow: 0 0 24px rgba(201, 168, 76, 0.55); }
+  0%, 100% { box-shadow: 0 0 10px rgba(201, 168, 76, 0.2); }
+  50%       { box-shadow: 0 0 24px rgba(201, 168, 76, 0.45); }
 }
 @keyframes glow-accent {
-  0%, 100% { box-shadow: 0 0 8px rgba(108, 99, 255, 0.3); }
-  50%       { box-shadow: 0 0 20px rgba(108, 99, 255, 0.6); }
+  0%, 100% { box-shadow: 0 0 8px rgba(138, 111, 224, 0.3); }
+  50%       { box-shadow: 0 0 20px rgba(138, 111, 224, 0.6); }
 }
 @keyframes spin {
   to { transform: rotate(360deg); }
@@ -94,9 +106,9 @@
 * { box-sizing: border-box; }
 
 body {
-  background-color: var(--color-bg-deep);
-  color: var(--color-text-primary);
-  font-family: 'DM Sans', system-ui, sans-serif;
+  background-color: var(--wild-bg);
+  color: var(--wild-text);
+  font-family: var(--wild-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
@@ -104,7 +116,7 @@ body {
 }
 
 body.theme-soul {
-  background-color: #0f0c14;
+  background-color: var(--wild-bg);
 }
 
 #root {
@@ -112,25 +124,26 @@ body.theme-soul {
   display: flex;
   flex-direction: column;
   background:
-    radial-gradient(ellipse 140% 55% at 50% 0%, #181d30 0%, transparent 65%),
-    #0c0e13;
+    radial-gradient(ellipse 120% 50% at 20% -10%, rgba(99,73,184,.28) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 40% at 90% 110%, rgba(138,111,224,.12) 0%, transparent 60%),
+    var(--wild-bg);
 }
 
 /* ============================================================
    TYPOGRAPHY UTILITIES
    ============================================================ */
-.font-display { font-family: 'Space Grotesk', system-ui, sans-serif; }
-.font-body    { font-family: 'DM Sans', system-ui, sans-serif; }
-.font-mono    { font-family: 'JetBrains Mono', monospace; }
+.font-display { font-family: var(--wild-serif); font-weight: 600; letter-spacing: .01em; }
+.font-body    { font-family: var(--wild-sans); }
+.font-mono    { font-family: var(--wild-mono); font-variant-numeric: tabular-nums; }
 
 /* Section label — single canonical style */
 .section-label {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: var(--wild-sans);
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: var(--wild-track-label);
   text-transform: uppercase;
-  color: var(--color-text-faint);
+  color: var(--wild-gold);
 }
 
 /* ============================================================
@@ -190,7 +203,7 @@ body.theme-soul {
    ============================================================ */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(244,241,237,.15); border-radius: 2px; }
 
 /* ============================================================
    TEXT SELECTION
@@ -204,7 +217,7 @@ body.theme-soul {
    FOCUS RING
    ============================================================ */
 :focus-visible {
-  outline: 2px solid rgba(201, 168, 76, 0.6);
+  outline: 2px solid var(--wild-indigo-2);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -220,7 +233,7 @@ input[type="range"] {
   cursor: pointer;
 }
 input[type="range"]::-webkit-slider-runnable-track {
-  background: var(--color-border-subtle);
+  background: rgba(244,241,237,.15);
   height: 4px;
   border-radius: 2px;
 }
@@ -249,4 +262,20 @@ input[type="range"]:focus { outline: none; }
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ============================================================
+   THE MARK (vesica with aperture), shared with the hub
+   ============================================================ */
+@keyframes wild-breathe { 0%,100%{opacity:.85;transform:scale(1)} 50%{opacity:1;transform:scale(1.025)} }
+@keyframes wild-glow { 0%,100%{opacity:.7} 50%{opacity:1;filter:drop-shadow(0 0 6px rgba(233,199,102,.8))} }
+.wild-mark circle { transform-origin: 50px 60px; }
+.wild-mark .ring  { animation: wild-breathe 7s ease-in-out infinite; }
+.wild-mark .ring2 { animation: wild-breathe 7s ease-in-out infinite reverse; }
+.wild-mark .aperture { animation: wild-glow 5s ease-in-out infinite; }
+.wild-wordmark { font-family: var(--wild-serif); font-weight: 600; letter-spacing: var(--wild-track-word);
+  background: linear-gradient(180deg,#FFFEFA 0%,#E9DEC8 55%,var(--wild-gold) 130%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+@media (prefers-reduced-motion: reduce) {
+  .wild-mark .ring, .wild-mark .ring2, .wild-mark .aperture, .animate-fade-in, .animate-slide-up { animation: none; }
 }

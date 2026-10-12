@@ -9,13 +9,13 @@ import { getProtocol } from '@lib/db'
 import { useAudio } from '@hooks/useAudio'
 
 const STEP_TYPE_COLORS = {
-  breathing: '#3b82f6',
-  meditation: '#a855f7',
-  binaural: '#0ea5e9',
-  rest: '#525770',
-  journal: '#c9a84c',
-  intention: '#22c55e',
-  custom: '#f59e0b',
+  breathing: '#8A6FE0',
+  meditation: '#B9A9F0',
+  binaural: '#A9B8F0',
+  rest: '#6E6A80',
+  journal: '#C9A84C',
+  intention: '#86B894',
+  custom: '#E0A458',
 }
 
 export function ProtocolRunPage() {

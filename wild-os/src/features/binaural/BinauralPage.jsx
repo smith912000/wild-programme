@@ -10,24 +10,24 @@ import { WaveformCanvas } from './components/WaveformCanvas'
 import { useAudio } from '@hooks/useAudio'
 
 const BANDS = [
-  { id: 'delta', label: 'Delta', hz: '0.5–4 Hz', desc: 'Deep dreamless sleep', color: '#a855f7', beatFreq: 2,
+  { id: 'delta', label: 'Delta', hz: '0.5–4 Hz', desc: 'Deep dreamless sleep', color: '#B9A9F0', beatFreq: 2,
     tooltip: 'Delta waves (0.5–4 Hz) dominate in deep, dreamless sleep. Entraining to delta can deepen sleep stages and promote physical restoration.' },
-  { id: 'theta', label: 'Theta', hz: '4–8 Hz', desc: 'REM / hypnagogic state', color: '#3b82f6', beatFreq: 6,
+  { id: 'theta', label: 'Theta', hz: '4–8 Hz', desc: 'REM / hypnagogic state', color: '#8A6FE0', beatFreq: 6,
     tooltip: 'Theta waves (4–8 Hz) appear during REM sleep, the hypnagogic state, and deep meditation. Optimal for WILD entry and vivid dreaming.' },
-  { id: 'alpha', label: 'Alpha', hz: '8–12 Hz', desc: 'Relaxed awareness', color: '#22c55e', beatFreq: 10,
+  { id: 'alpha', label: 'Alpha', hz: '8–12 Hz', desc: 'Relaxed awareness', color: '#86B894', beatFreq: 10,
     tooltip: 'Alpha waves (8–12 Hz) appear in relaxed, eyes-closed waking. Good for relaxation before sleep or light meditation.' },
-  { id: 'beta', label: 'Beta', hz: '14–30 Hz', desc: 'Active cognition, alertness, focus', color: '#f59e0b', beatFreq: 18,
+  { id: 'beta', label: 'Beta', hz: '14–30 Hz', desc: 'Active cognition, alertness, focus', color: '#E0A458', beatFreq: 18,
     tooltip: 'Beta waves (14–30 Hz) are present during active thinking, focus, and alertness. Use pre-session to sharpen awareness before a WILD attempt.' },
-  { id: 'gamma', label: 'Gamma', hz: '30–100 Hz', desc: 'Peak awareness, insight, advanced states', color: '#ef4444', beatFreq: 40,
+  { id: 'gamma', label: 'Gamma', hz: '30–100 Hz', desc: 'Peak awareness, insight, advanced states', color: '#E07A85', beatFreq: 40,
     tooltip: 'Gamma waves (30–100 Hz) are associated with peak cognitive performance, insight, and advanced meditative states. 40 Hz gamma is studied in consciousness research.' },
 ]
 
 const ZHAARIC_LAYERS = [
-  { label: 'Induction',     detail: '110 / 114 Hz',    beat: '4 Hz',    desc: 'Theta–delta boundary — lowest frequency that preserves consciousness', color: '#a855f7' },
-  { label: 'Stabilization', detail: '220 / 227.83 Hz', beat: '7.83 Hz', desc: 'Schumann coherence anchor — prevents cognitive collapse', color: '#3b82f6' },
-  { label: 'Awareness',     detail: '880 / 894 Hz',    beat: '14 Hz',   desc: 'Low-beta thread — minimum viable conscious signal', color: '#22c55e' },
-  { label: 'Gamma Trigger', detail: '500 / 540 Hz',    beat: '40 Hz',   desc: 'Exit-event burst every 45s — simulates separation ignition', color: '#ef4444' },
-  { label: 'AM Modulation', detail: '0.15 Hz LFO',     beat: '—',       desc: 'Breath-rate volume oscillation — recreates vibrational pre-exit signature', color: '#f59e0b' },
+  { label: 'Induction',     detail: '110 / 114 Hz',    beat: '4 Hz',    desc: 'Theta–delta boundary — lowest frequency that preserves consciousness', color: '#B9A9F0' },
+  { label: 'Stabilization', detail: '220 / 227.83 Hz', beat: '7.83 Hz', desc: 'Schumann coherence anchor — prevents cognitive collapse', color: '#8A6FE0' },
+  { label: 'Awareness',     detail: '880 / 894 Hz',    beat: '14 Hz',   desc: 'Low-beta thread — minimum viable conscious signal', color: '#86B894' },
+  { label: 'Gamma Trigger', detail: '500 / 540 Hz',    beat: '40 Hz',   desc: 'Exit-event burst every 45s — simulates separation ignition', color: '#E07A85' },
+  { label: 'AM Modulation', detail: '0.15 Hz LFO',     beat: '—',       desc: 'Breath-rate volume oscillation — recreates vibrational pre-exit signature', color: '#E0A458' },
 ]
 
 const MODE_TABS = [
@@ -134,7 +134,7 @@ export function BinauralContent() {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: selectedBand === band.id ? band.color : '#525770' }} />
+                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: selectedBand === band.id ? band.color : '#6E6A80' }} />
                       <div>
                         <p className="text-text-primary font-medium text-sm flex items-center">
                           {band.label}
@@ -214,7 +214,7 @@ export function BinauralContent() {
                       {/* Status dot */}
                       <div
                         className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${isActive ? 'animate-pulse' : ''}`}
-                        style={{ backgroundColor: isActive ? layer.color : '#525770' }}
+                        style={{ backgroundColor: isActive ? layer.color : '#6E6A80' }}
                       />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2">
@@ -236,7 +236,7 @@ export function BinauralContent() {
                           <div className="flex items-center gap-1.5 mt-1.5">
                             <Zap
                               className="w-3 h-3"
-                              style={{ color: gammaFlash ? '#ef4444' : '#525770' }}
+                              style={{ color: gammaFlash ? '#E07A85' : '#6E6A80' }}
                             />
                             <span className="text-text-faint text-xs">
                               {gammaBursts === 0 ? 'First burst at 10s' : `${gammaBursts} burst${gammaBursts > 1 ? 's' : ''} fired · next in ~${45 - ((Date.now() / 1000) % 45 | 0)}s`}

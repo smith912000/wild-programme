@@ -10,13 +10,13 @@ import toast from 'react-hot-toast'
 const STORAGE_KEY = 'wos_integrations'
 
 const CATEGORIES = [
-  { id: 'dream', label: 'Dream Content', color: '#3b82f6' },
-  { id: 'emotional', label: 'Emotional Processing', color: '#a855f7' },
-  { id: 'insight', label: 'Insight', color: '#c9a84c' },
-  { id: 'symbol', label: 'Symbol / Archetype', color: '#0ea5e9' },
-  { id: 'somatic', label: 'Somatic (Body)', color: '#22c55e' },
-  { id: 'spiritual', label: 'Spiritual', color: '#f59e0b' },
-  { id: 'action', label: 'Practical Action', color: '#ef4444' },
+  { id: 'dream', label: 'Dream Content', color: '#8A6FE0' },
+  { id: 'emotional', label: 'Emotional Processing', color: '#B9A9F0' },
+  { id: 'insight', label: 'Insight', color: '#C9A84C' },
+  { id: 'symbol', label: 'Symbol / Archetype', color: '#A9B8F0' },
+  { id: 'somatic', label: 'Somatic (Body)', color: '#86B894' },
+  { id: 'spiritual', label: 'Spiritual', color: '#E0A458' },
+  { id: 'action', label: 'Practical Action', color: '#E07A85' },
 ]
 
 function loadEntries() {

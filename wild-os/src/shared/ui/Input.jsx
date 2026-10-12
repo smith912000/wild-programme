@@ -16,7 +16,7 @@ export function Input({
   const isPassword = type === 'password'
   const actualType = isPassword ? (showPw ? 'text' : 'password') : type
 
-  const baseInput = `w-full bg-bg-surface border ${error ? 'border-accent-red' : 'border-border'} rounded-xl px-4 py-3 text-text-primary placeholder-text-faint focus:outline-none focus:border-accent-blue/60 transition-colors text-sm`
+  const baseInput = `w-full bg-bg-surface border ${error ? 'border-accent-red' : 'border-border'} rounded-xl px-4 py-3 text-text-primary placeholder-text-faint focus:outline-none focus:border-accent-blue transition-colors text-sm`
 
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>

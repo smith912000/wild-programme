@@ -4,7 +4,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { GripVertical, Trash2, Wind, Moon, Clock, AlignLeft } from 'lucide-react'
 
 const STEP_ICONS = { breathe: Wind, meditate: Moon, rest: Clock, custom: AlignLeft }
-const STEP_COLORS = { breathe: '#3b82f6', meditate: '#a855f7', rest: '#22c55e', custom: '#c9a84c' }
+const STEP_COLORS = { breathe: '#8A6FE0', meditate: '#B9A9F0', rest: '#86B894', custom: '#C9A84C' }
 
 export function ProtocolStep({ step, onDelete, dragHandle }) {
   const {
@@ -18,7 +18,7 @@ export function ProtocolStep({ step, onDelete, dragHandle }) {
   }
 
   const Icon = STEP_ICONS[step.type] || AlignLeft
-  const color = STEP_COLORS[step.type] || '#c9a84c'
+  const color = STEP_COLORS[step.type] || '#C9A84C'
 
   return (
     <div

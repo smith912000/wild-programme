@@ -14,15 +14,15 @@ export function TrackerContent() {
         {/* Header stats */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           <div className="bg-bg-card border border-border rounded-2xl p-3 text-center">
-            <p className="text-2xl font-display font-bold text-accent-gold">{streak}</p>
+            <p className="text-2xl font-display text-accent-gold">{streak}</p>
             <p className="text-text-faint text-xs mt-0.5">Streak</p>
           </div>
           <div className="bg-bg-card border border-border rounded-2xl p-3 text-center">
-            <p className="text-2xl font-display font-bold text-accent-green">{completedNights}</p>
+            <p className="text-2xl font-display text-accent-green">{completedNights}</p>
             <p className="text-text-faint text-xs mt-0.5">Complete</p>
           </div>
           <div className="bg-bg-card border border-border rounded-2xl p-3 flex items-center justify-center">
-            <ProgressRing size={52} progress={completedNights / 7} color="#22c55e" strokeWidth={4}>
+            <ProgressRing size={52} progress={completedNights / 7} color="#86B894" strokeWidth={4}>
               <span className="text-xs font-mono text-accent-green">{completedNights}/7</span>
             </ProgressRing>
           </div>

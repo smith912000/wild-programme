@@ -15,7 +15,7 @@ const SESSIONS = [
     freq: 'Theta (6 Hz)',
     band: 'theta',
     desc: 'Light theta induction for beginners',
-    color: '#3b82f6',
+    color: '#8A6FE0',
     tooltip: 'Gentle 6 Hz theta induction to guide you to the hypnagogic threshold. Ideal for new practitioners.',
   },
   {
@@ -25,7 +25,7 @@ const SESSIONS = [
     freq: 'Theta (4 Hz)',
     band: 'theta',
     desc: 'Progressive depth with tonal shifts',
-    color: '#a855f7',
+    color: '#B9A9F0',
     tooltip: 'Deeper 4 Hz theta for experienced practitioners — slower oscillations support longer hypnagogic imagery sequences.',
   },
   {
@@ -35,7 +35,7 @@ const SESSIONS = [
     freq: 'Delta (2 Hz)',
     band: 'delta',
     desc: 'Optimal pre-entry state preparation',
-    color: '#c9a84c',
+    color: '#C9A84C',
     tooltip: 'Full 90-minute session at 2 Hz delta — matches the depth of stage 3 NREM. Use for serious WILD attempts following WBTB.',
   },
   {
@@ -45,7 +45,7 @@ const SESSIONS = [
     freq: 'Gamma (40 Hz)',
     band: 'gamma',
     desc: 'Gamma cortical spike for lucid entry',
-    color: '#0ea5e9',
+    color: '#A9B8F0',
     tooltip: 'Gamma entrainment is used to spike cortical awareness before sleep onset — accelerating the transition to a conscious dream state. Best used 20–30 minutes after WBTB.',
     note: 'Gamma entrainment is used to spike cortical awareness before sleep onset — accelerating the transition to a conscious dream state. Best used 20–30 minutes after WBTB.',
   },
@@ -150,7 +150,7 @@ export function HypnagogicContent() {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: selected === s.id ? s.color : '#525770' }} />
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: selected === s.id ? s.color : '#6E6A80' }} />
                     <div>
                       <p className="text-text-primary font-medium text-sm flex items-center">
                         {s.label}

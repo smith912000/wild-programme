@@ -13,31 +13,31 @@ import { format } from 'date-fns'
 const CATEGORIES = [
   {
     label: 'Practice',
-    sub: 'Breathe · Meditate · Binaural · Hypnagogic',
+    sub: 'Breathe · Meditate · Tones · The edge',
     icon: Activity,
     path: '/practice',
-    color: '#3b82f6',
+    color: '#8A6FE0',
   },
   {
     label: 'Sleep',
-    sub: '7-Night · Sleep Calc · Supplements · Environment',
+    sub: 'Seven nights · Wake windows · Environment',
     icon: Moon,
     path: '/sleep',
-    color: '#a855f7',
+    color: '#B9A9F0',
   },
   {
     label: 'Log',
     sub: 'Journal · Attempts · Analytics',
     icon: BookOpen,
     path: '/log',
-    color: '#c9a84c',
+    color: '#C9A84C',
   },
   {
     label: 'Explore',
-    sub: 'Symbols · Protocols · Rituals · Shadow Work',
+    sub: 'Symbols · Protocols · Rituals · Shadow work',
     icon: MoreHorizontal,
     path: '/explore',
-    color: '#22c55e',
+    color: '#B9A9F0',
   },
 ]
 
@@ -58,8 +58,8 @@ export function DashboardPage() {
         <div className="mb-6">
           <div className="flex items-start justify-between mb-1">
             <div>
-              <p className="text-text-faint text-sm">{today}</p>
-              <h1 className="font-display font-bold text-2xl text-text-primary mt-0.5">
+              <p className="section-label">{today}</p>
+              <h1 className="font-display text-3xl text-text-primary mt-1">
                 {greeting}, {name}
               </h1>
             </div>
@@ -69,22 +69,22 @@ export function DashboardPage() {
         {/* Streak / Progress Row */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           <Card className="p-4 text-center">
-            <p className="text-3xl font-display font-bold text-accent-gold leading-none">{streak}</p>
-            <p className="text-text-faint text-[11px] mt-1.5 font-display uppercase tracking-widest">Streak</p>
+            <p className="text-3xl font-display text-accent-gold leading-none">{streak}</p>
+            <p className="text-text-muted text-[11px] mt-1.5 font-body uppercase tracking-widest">Streak</p>
           </Card>
           <Card className="p-4 text-center">
-            <p className="text-3xl font-display font-bold text-accent-blue leading-none">{completedNights}</p>
-            <p className="text-text-faint text-[11px] mt-1.5 font-display uppercase tracking-widest">Nights</p>
+            <p className="text-3xl font-display text-accent-blue leading-none">{completedNights}</p>
+            <p className="text-text-muted text-[11px] mt-1.5 font-body uppercase tracking-widest">Nights</p>
           </Card>
           <Card className="p-4 flex items-center justify-center">
-            <ProgressRing size={56} progress={completedNights / 7} color="#c9a84c" strokeWidth={4}>
+            <ProgressRing size={56} progress={completedNights / 7} color="#C9A84C" strokeWidth={4}>
               <span className="text-xs font-mono text-accent-gold">{completedNights}/7</span>
             </ProgressRing>
           </Card>
         </div>
 
         {/* Category Grid */}
-        <p className="section-label mb-3">Categories</p>
+        <p className="section-label mb-3">Tonight</p>
         <div className="grid grid-cols-2 gap-3">
           {CATEGORIES.map(({ label, sub, icon: Icon, path, color }) => (
             <Card
@@ -101,8 +101,8 @@ export function DashboardPage() {
               >
                 <Icon className="w-5 h-5" style={{ color }} />
               </div>
-              <p className="font-display font-semibold text-text-primary text-sm leading-tight mb-1">{label}</p>
-              <p className="text-text-faint text-[11px] leading-snug">{sub}</p>
+              <p className="font-display text-xl text-text-primary leading-tight mb-1">{label}</p>
+              <p className="text-text-muted text-[12px] leading-snug">{sub}</p>
             </Card>
           ))}
         </div>

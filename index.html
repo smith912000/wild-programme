@@ -21,17 +21,19 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/wild.css">
 
 <style>
+  /* Local names map onto the WILD design tokens in assets/wild.css (see DESIGN.md) */
   :root {
-    --bg:#050309; --bg-elev:#0A0612; --surface:#120C1F; --surface-2:#160F26;
-    --border:rgba(244,241,237,.08); --border-lit:rgba(99,73,184,.45);
-    --text:#F4F1ED; --dim:rgba(244,241,237,.62); --dimmer:rgba(244,241,237,.4);
-    --indigo:#6349B8; --indigo-2:#8A6FE0; --amber:#C9A84C; --amber-lit:#E9C766;
-    --serif:'Cormorant Garamond', Georgia, serif;
-    --sans:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
-    --ease-out:cubic-bezier(.16,1,.3,1);
+    --bg:var(--wild-bg); --bg-elev:var(--wild-bg-elev); --surface:var(--wild-surface); --surface-2:var(--wild-surface-2);
+    --border:var(--wild-border); --border-lit:var(--wild-border-lit);
+    --text:var(--wild-text); --dim:var(--wild-dim); --dimmer:var(--wild-faint);
+    --indigo:var(--wild-indigo); --indigo-2:var(--wild-indigo-2); --indigo-3:var(--wild-indigo-3); --amber:var(--wild-gold); --amber-lit:var(--wild-gold-2);
+    --serif:var(--wild-serif);
+    --sans:var(--wild-sans);
+    --ease-out:var(--wild-ease);
   }
   *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; }
@@ -40,14 +42,13 @@
   a { color:inherit; }
 
   /* ambient */
-  .aurora { position:fixed; inset:0; z-index:-2; overflow:hidden; pointer-events:none; }
-  .aurora i { position:absolute; border-radius:50%; filter:blur(120px); mix-blend-mode:screen; display:block; }
-  .aurora .a1 { width:70vmax; height:70vmax; top:-26%; left:-20%; background:radial-gradient(circle, rgba(99,73,184,.28), transparent 62%); animation:aur1 38s ease-in-out infinite alternate; }
-  .aurora .a2 { width:60vmax; height:60vmax; bottom:-26%; right:-18%; background:radial-gradient(circle, rgba(138,111,224,.16), transparent 62%); animation:aur2 50s ease-in-out infinite alternate; }
-  .aurora .a3 { width:48vmax; height:48vmax; top:30%; left:40%; background:radial-gradient(circle, rgba(201,168,76,.09), transparent 60%); animation:aur3 60s ease-in-out infinite alternate; }
-  @keyframes aur1 { to { transform:translate(12vw,9vh) scale(1.15); } }
-  @keyframes aur2 { to { transform:translate(-10vw,-7vh) scale(.92); } }
-  @keyframes aur3 { to { transform:translate(-9vw,11vh) scale(1.1); } }
+  /* Three still washes painted once by the compositor: no blur filter, no animation, nothing repaints. */
+  .aurora { position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(ellipse 60% 50% at 8% 0%, rgba(99,73,184,.30), transparent 65%),
+      radial-gradient(ellipse 50% 45% at 100% 100%, rgba(138,111,224,.16), transparent 65%),
+      radial-gradient(ellipse 35% 30% at 62% 45%, rgba(201,168,76,.07), transparent 65%); }
+  .aurora i { display:none; }
   body::before { content:''; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.035;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
@@ -61,18 +62,18 @@
   .nav-links { display:flex; align-items:center; gap:22px; font-size:.82rem; }
   .nav-links a { text-decoration:none; color:var(--dim); transition:color .3s; }
   .nav-links a:hover { color:var(--text); }
-  .nav-links .btn-sm { color:#0b0714; background:var(--amber); padding:8px 16px; border-radius:999px; font-weight:700; }
-  .nav-links .btn-sm:hover { color:#0b0714; background:var(--amber-lit); }
+  .nav-links .btn-sm { color:var(--wild-on-gold); background:var(--amber); padding:9px 16px; border-radius:999px; font-weight:700; }
+  .nav-links .btn-sm:hover { color:var(--wild-on-gold); background:var(--amber-lit); }
   .apps-wrap { position:relative; }
-  .apps-btn { background:none; border:1px solid var(--border); color:var(--dim); font:inherit; padding:7px 14px; border-radius:999px; cursor:pointer; transition:color .3s, border-color .3s; }
-  .apps-btn:hover, .apps-btn[aria-expanded="true"] { color:var(--text); border-color:var(--border-lit); }
+  .apps-btn { background:none; border:1px solid var(--border-lit); color:var(--text); font:inherit; padding:8px 14px; border-radius:999px; cursor:pointer; transition:color .3s, border-color .3s, background .3s; }
+  .apps-btn:hover, .apps-btn[aria-expanded="true"] { color:var(--text); border-color:var(--indigo-2); background:rgba(99,73,184,.16); }
   .apps-panel { position:absolute; right:0; top:calc(100% + 10px); width:min(300px, calc(100vw - 32px)); padding:8px; background:var(--surface); border:1px solid var(--border-lit); border-radius:14px; box-shadow:0 18px 50px rgba(0,0,0,.5); }
 
   /* buttons */
-  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:15px 26px; border-radius:999px;
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:14px 26px; min-height:48px; border-radius:999px;
          font-weight:700; font-size:.95rem; text-decoration:none; transition:transform .3s var(--ease-out), background .3s, border-color .3s; }
   .btn:hover { transform:translateY(-2px); }
-  .btn-gold { background:var(--amber); color:#0b0714; box-shadow:0 10px 34px -10px rgba(201,168,76,.55); }
+  .btn-gold { background:var(--amber); color:var(--wild-on-gold); box-shadow:var(--wild-glow-gold); }
   .btn-gold:hover { background:var(--amber-lit); }
   .btn-ghost { border:1px solid var(--border-lit); color:var(--text); background:rgba(99,73,184,.08); }
   .btn-ghost:hover { border-color:var(--indigo-2); background:rgba(99,73,184,.16); }
@@ -99,7 +100,7 @@
   section { padding:72px 20px; }
   .wrap { max-width:960px; margin:0 auto; }
   .narrow { max-width:640px; margin:0 auto; }
-  .eyebrow { font-size:.68rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--amber); margin-bottom:12px; }
+  .eyebrow { font-size:.72rem; font-weight:700; letter-spacing:var(--wild-track-label); text-transform:uppercase; color:var(--amber); margin-bottom:12px; }
   h2 { font-family:var(--serif); font-weight:600; font-size:clamp(2rem,5.2vw,2.9rem); line-height:1.1; }
   h2 em { color:var(--amber); font-weight:500; }
   .sub { color:var(--dim); margin-top:14px; max-width:600px; }
@@ -125,11 +126,11 @@
   .door-mark { width:34px; height:34px; }
   .door-mark svg { width:100%; height:100%; stroke:var(--c); }
   .door-label { font-family:var(--serif); font-size:1.4rem; font-weight:600; line-height:1.15; }
-  .door-for { font-size:.74rem; color:var(--c); filter:brightness(1.3); letter-spacing:.03em; }
+  .door-for { font-size:.78rem; color:var(--cl, var(--indigo-3)); letter-spacing:.03em; }
   .door-desc { font-size:.86rem; color:var(--dim); }
   .door-arrow { margin-top:auto; color:var(--dimmer); font-size:.82rem; }
   .door:hover .door-arrow { color:var(--c); }
-  .door.fire { --c:var(--amber); } .door.air { --c:var(--indigo-2); } .door.water { --c:var(--indigo); }
+  .door.fire { --c:var(--amber); --cl:var(--amber-lit); } .door.air { --c:var(--indigo-2); --cl:var(--indigo-3); } .door.water { --c:var(--indigo); --cl:var(--indigo-3); }
 
   /* inside */
   .grid6 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:36px; }
@@ -211,7 +212,7 @@
   }
   @media (min-width:821px) and (max-width:960px) { .grid6 { grid-template-columns:repeat(2,1fr); } }
   @media (prefers-reduced-motion:reduce) {
-    .aurora i, .mark .ring, .mark .ring2, .mark .aperture { animation:none; }
+    .mark .ring, .mark .ring2, .mark .aperture { animation:none; }
     html { scroll-behavior:auto; }
   }
 </style>
@@ -351,7 +352,7 @@
       <div class="feat"><span class="tag">Spirit track</span><h4>Symbol and tradition</h4><p>Symbolism teaching, guided practice, the Friday sharing circle, and the contemplative traditions: dream yoga, Jung, Hermetic and Gnostic thought, yoga nidra, Taoism and Zen, Sufi poetry.</p></div>
       <div class="feat"><span class="tag">Every month</span><h4>Challenges and pods</h4><p>Shared challenges such as thirty nights of journalling, with small pods that keep each other going.</p></div>
       <div class="feat"><span class="tag">Every course</span><h4>The full path</h4><p>The Seven Nights, the Body Pillar and the Third Door, used alongside the calls and challenges. Nothing is sold separately.</p></div>
-      <div class="feat"><span class="tag">The apps</span><h4>Tools for the practice</h4><p>WILD OS for tones, breathing and recording what comes back, plus the companion references.</p>
+      <div class="feat"><span class="tag">The apps</span><h4>WILD OS, included</h4><p>The practice app: tones and breathing before sleep, wake windows in the night, a journal for what comes back. Sign in with your Whop account. Codex Pharmakon and SGE are the companion references.</p>
         <div class="apps">
           <a href="https://smith912000.github.io/wild-os/" target="_blank" rel="noopener" onclick="gtag('event','click',{event_category:'landing',event_label:'app_wild_os'})">WILD OS</a>
           <a href="https://smith912000.github.io/codex-pharmakon/" target="_blank" rel="noopener" onclick="gtag('event','click',{event_category:'landing',event_label:'app_codex'})">Codex Pharmakon</a>
@@ -389,6 +390,7 @@
           <li>Monthly challenges and accountability pods</li>
           <li>Every WILD course</li>
           <li>WILD OS, signed in with your Whop account</li>
+          <li>A path through the room: Initiate, Wayfarer, Adept, Lifer</li>
         </ul>
         <a class="btn btn-gold" href="#join" onclick="gtag('event','click',{event_category:'landing',event_label:'compare_join'})">Become a member</a>
       </div>
@@ -408,7 +410,7 @@
       <div class="plan main">
         <div class="plan-name">Monthly</div>
         <div class="plan-price"><sup>£</sup>13<span> / month</span></div>
-        <p class="plan-note"><b>Founding price.</b> The first 100 members keep £13 a month for as long as they stay subscribed.</p>
+        <p class="plan-note"><b>£13 held.</b> The first 100 members keep £13 a month for as long as they stay subscribed.</p>
         <a class="btn btn-gold" href="https://whop.com/checkout/plan_rC0YO0w8EAM9G/" target="_blank" rel="noopener" onclick="gtag('event','click',{event_category:'landing',event_label:'join_monthly'})">Join monthly</a>
       </div>
       <div class="plan">
@@ -455,7 +457,8 @@
       <details><summary>Do I need any experience?</summary><p>No. Most people start with the free Seven Nights or the Open Door. The courses begin at the beginning, and the weekly call is open to every level.</p></details>
       <details><summary>Are the courses extra?</summary><p>No. Every WILD course is included in membership. The subscription is the only thing we sell.</p></details>
       <details><summary>What happens after I join?</summary><p>You pay through Whop. Your Whop account gives you the members' side of the WILD Discord, and you use the same account to sign in to WILD OS.</p></details>
-      <details><summary>What is the founding price?</summary><p>The first 100 members pay £13 a month and keep that price for as long as they stay subscribed. Founding members also get the Founding Member role in the Discord.</p></details>
+      <details><summary>Does the price change?</summary><p>The first 100 members pay £13 a month and keep that price for as long as they stay subscribed. The price for people joining after that may rise. Nobody already inside pays more.</p></details>
+      <details><summary>Is there a path inside the room?</summary><p>Yes. Members move up through Initiate, Wayfarer, Adept and Lifer as they practise and take part, and the room opens up as they go. Founding Member is a separate role for the people who help build WILD, not a tier you can buy.</p></details>
       <details><summary>Can I cancel?</summary><p>Yes, any time, online, from your Whop account under your memberships. No calls or emails needed. You keep access until the end of the period you have paid for.</p></details>
       <details><summary>Is there a refund?</summary><p>If you cancel within 30 days of your first payment, email <a href="mailto:smith@negotiorum.com">smith@negotiorum.com</a> for a full refund of that payment. After that, cancelling stops future charges.</p></details>
       <details><summary>Is this therapy or medical advice?</summary><p>No. WILD is a contemplative and educational practice. If you have a sleep disorder or a mental health condition, speak to a professional before changing how you sleep.</p></details>

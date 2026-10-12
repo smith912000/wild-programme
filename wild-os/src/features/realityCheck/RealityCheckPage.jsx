@@ -138,7 +138,7 @@ export function RealityCheckContent() {
           {/* Do check button */}
           {activeCheck ? (
             <div className="bg-bg-card border border-accent-blue/30 rounded-2xl p-6 text-center mb-6 animate-fade-in">
-              <p className="text-accent-blue font-display font-bold text-5xl mb-4">{checkCountdown}</p>
+              <p className="text-accent-blue font-display text-5xl mb-4">{checkCountdown}</p>
               <p className="text-text-primary text-sm leading-relaxed">{tech?.instruction}</p>
             </div>
           ) : (

@@ -16,18 +16,18 @@ const RANGE_OPTIONS = [
 ]
 
 const PIE_COLORS = {
-  Full: '#4ade80',
-  Partial: '#818cf8',
-  Sleep: '#f59e0b',
-  Fail: '#f87171',
+  Full: '#86B894',
+  Partial: '#8A6FE0',
+  Sleep: '#E0A458',
+  Fail: '#E07A85',
 }
 
 const CustomTooltipStyle = {
-  backgroundColor: '#1e2230',
-  border: '1px solid #2a2f3d',
+  backgroundColor: '#120C1F',
+  border: '1px solid #231838',
   borderRadius: '8px',
   padding: '8px 12px',
-  color: '#e8eaf0',
+  color: '#F4F1ED',
   fontSize: '12px',
 }
 
@@ -35,7 +35,7 @@ function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null
   return (
     <div style={CustomTooltipStyle}>
-      <p style={{ color: '#7a8099', marginBottom: 4 }}>{label}</p>
+      <p style={{ color: '#A6A2B0', marginBottom: 4 }}>{label}</p>
       {payload.map(entry => (
         <p key={entry.dataKey} style={{ color: entry.color }}>
           {entry.name}: {entry.value}
@@ -131,9 +131,9 @@ export function AnalyticsContent() {
                   <p className="text-sm font-semibold mb-4" style={{ color: 'var(--color-text)' }}>Lucidity Over Time</p>
                   <ResponsiveContainer width="100%" height={160}>
                     <LineChart data={data.lucidityData} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#2a2f3d" />
-                      <XAxis dataKey="date" tick={{ fill: '#7a8099', fontSize: 10 }} interval="preserveStartEnd" />
-                      <YAxis domain={[0, 10]} tick={{ fill: '#7a8099', fontSize: 10 }} />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#231838" />
+                      <XAxis dataKey="date" tick={{ fill: '#A6A2B0', fontSize: 10 }} interval="preserveStartEnd" />
+                      <YAxis domain={[0, 10]} tick={{ fill: '#A6A2B0', fontSize: 10 }} />
                       <Tooltip content={<CustomTooltip />} />
                       <Line
                         type="monotone"
@@ -165,7 +165,7 @@ export function AnalyticsContent() {
                           dataKey="value"
                         >
                           {data.attemptChart.filter(d => d.value > 0).map(entry => (
-                            <Cell key={entry.name} fill={PIE_COLORS[entry.name] || '#525770'} />
+                            <Cell key={entry.name} fill={PIE_COLORS[entry.name] || '#6E6A80'} />
                           ))}
                         </Pie>
                         <Tooltip content={<CustomTooltip />} />
@@ -175,7 +175,7 @@ export function AnalyticsContent() {
                       {data.attemptChart.map(entry => (
                         <div key={entry.name} className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full" style={{ background: PIE_COLORS[entry.name] || '#525770' }} />
+                            <div className="w-2 h-2 rounded-full" style={{ background: PIE_COLORS[entry.name] || '#6E6A80' }} />
                             <span className="text-xs" style={{ color: 'var(--color-text-muted)' }}>{entry.name}</span>
                           </div>
                           <span className="text-xs font-mono font-medium" style={{ color: 'var(--color-text)' }}>{entry.value}</span>

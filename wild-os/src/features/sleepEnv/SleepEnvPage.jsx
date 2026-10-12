@@ -38,9 +38,9 @@ export function SleepEnvContent() {
   const unchecked = ENV_FACTORS.filter(f => !checked.has(f.id))
 
   const getScoreColor = () => {
-    if (pct >= 0.8) return '#22c55e'
-    if (pct >= 0.5) return '#f59e0b'
-    return '#ef4444'
+    if (pct >= 0.8) return '#86B894'
+    if (pct >= 0.5) return '#E0A458'
+    return '#E07A85'
   }
 
   return (
@@ -48,7 +48,7 @@ export function SleepEnvContent() {
           <div className="flex items-center justify-center mb-6">
             <ProgressRing size={100} progress={pct} color={getScoreColor()} strokeWidth={6}>
               <div className="text-center">
-                <p className="font-display font-bold text-xl" style={{ color: getScoreColor() }}>{score}/{total}</p>
+                <p className="font-display text-xl" style={{ color: getScoreColor() }}>{score}/{total}</p>
                 <p className="text-text-faint text-xs">Score</p>
               </div>
             </ProgressRing>

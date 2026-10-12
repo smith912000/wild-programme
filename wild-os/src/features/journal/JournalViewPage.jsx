@@ -48,7 +48,7 @@ export function JournalViewPage() {
         <div className="flex flex-col gap-5">
           <div>
             <p className="text-text-faint text-sm mb-1">{formatDate(entry.createdAt)}</p>
-            <h1 className="font-display font-bold text-2xl text-text-primary">{entry.title || 'Untitled Dream'}</h1>
+            <h1 className="font-display text-2xl text-text-primary">{entry.title || 'Untitled Dream'}</h1>
           </div>
 
           {/* Stats row */}

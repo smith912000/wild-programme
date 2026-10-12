@@ -12,10 +12,10 @@ import { formatDuration } from '@utils/formatters'
 
 function buildCustomPattern({ inhale, hold, exhale, holdOut, cycles }) {
   const phases = [
-    { name: 'INHALE',    duration: inhale,   color: '#3b82f6' },
-    ...(hold    > 0 ? [{ name: 'HOLD',     duration: hold,    color: '#c9a84c' }] : []),
-    { name: 'EXHALE',    duration: exhale,   color: '#a855f7' },
-    ...(holdOut > 0 ? [{ name: 'HOLD_OUT', duration: holdOut, color: '#6366f1' }] : []),
+    { name: 'INHALE',    duration: inhale,   color: '#8A6FE0' },
+    ...(hold    > 0 ? [{ name: 'HOLD',     duration: hold,    color: '#C9A84C' }] : []),
+    { name: 'EXHALE',    duration: exhale,   color: '#B9A9F0' },
+    ...(holdOut > 0 ? [{ name: 'HOLD_OUT', duration: holdOut, color: '#6349B8' }] : []),
   ]
   const total = phases.reduce((s, p) => s + p.duration, 0)
   return {
@@ -127,15 +127,15 @@ export function BreathingSessionPage() {
               <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <h2 className="font-display font-bold text-2xl text-text-primary mb-2">Session Complete</h2>
+          <h2 className="font-display text-2xl text-text-primary mb-2">Session Complete</h2>
           <p className="text-text-muted mb-8">{pattern.name}</p>
           <div className="grid grid-cols-2 gap-4 mb-8">
             <div className="bg-bg-card border border-border rounded-2xl p-4">
-              <p className="text-2xl font-display font-bold text-accent-blue">{sessionData?.cyclesCompleted || session.cycleCount}</p>
+              <p className="text-2xl font-display text-accent-blue">{sessionData?.cyclesCompleted || session.cycleCount}</p>
               <p className="text-text-faint text-xs mt-1">Cycles</p>
             </div>
             <div className="bg-bg-card border border-border rounded-2xl p-4">
-              <p className="text-2xl font-display font-bold text-accent-gold">{formatDuration(sessionData?.durationSeconds || Math.round(session.elapsed))}</p>
+              <p className="text-2xl font-display text-accent-gold">{formatDuration(sessionData?.durationSeconds || Math.round(session.elapsed))}</p>
               <p className="text-text-faint text-xs mt-1">Duration</p>
             </div>
           </div>
@@ -181,14 +181,14 @@ export function BreathingSessionPage() {
         <div className="flex flex-col items-center gap-4">
           {session.isRetention ? (
             <div className="flex flex-col items-center gap-3">
-              <p className="text-accent-teal font-display font-bold text-5xl">
+              <p className="text-accent-teal font-display text-5xl">
                 {Math.round(session.retentionElapsed)}s
               </p>
               <p className="text-text-muted text-xs tracking-widest uppercase">Retention</p>
             </div>
           ) : session.isRecovery ? (
             <div className="flex flex-col items-center gap-3">
-              <p className="text-accent-green font-display font-bold text-2xl tracking-widest uppercase">Recovery</p>
+              <p className="text-accent-green font-display text-2xl tracking-widest uppercase">Recovery</p>
               <p className="text-text-faint text-xs">Deep breath in — hold 15s</p>
             </div>
           ) : (
@@ -223,7 +223,7 @@ export function BreathingSessionPage() {
               {animState === 'intro' && countdown !== null ? (
                 <p
                   key={countdown}
-                  className="font-display font-bold text-accent-gold animate-fade-in"
+                  className="font-display text-accent-gold animate-fade-in"
                   style={{ fontSize: '4rem', lineHeight: 1, opacity: 1 }}
                 >
                   {countdown}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function ProgressRing({ size = 80, progress = 0, color = '#c9a84c', strokeWidth = 6, children }) {
+export function ProgressRing({ size = 80, progress = 0, color = '#C9A84C', strokeWidth = 6, children }) {
   const radius = (size - strokeWidth) / 2
   const circumference = 2 * Math.PI * radius
   const offset = circumference * (1 - Math.min(1, Math.max(0, progress)))
@@ -13,7 +13,7 @@ export function ProgressRing({ size = 80, progress = 0, color = '#c9a84c', strok
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#252836"
+          stroke="#19112B"
           strokeWidth={strokeWidth}
         />
         <circle
