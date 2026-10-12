@@ -31,7 +31,7 @@ export function GuestScreen() {
         </p>
         <p className="text-text-muted text-sm mt-3 leading-relaxed max-w-xs">
           Breathwork, tones and timing for the edge of sleep, a journal for what comes back, and the seven night
-          tracker. Everything you write stays on this phone.
+          tracker. What you write is kept with your account.
         </p>
 
         <ul className="w-full mt-7 flex flex-col gap-2 text-left">
