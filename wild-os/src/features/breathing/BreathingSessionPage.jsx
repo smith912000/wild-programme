@@ -70,8 +70,16 @@ export function BreathingSessionPage() {
     }
   }, [session.isComplete, showSummary, patternId, pattern, session.elapsed, session.cycleCount])
 
-  const handleStart = async () => {
-    if (!audio.ready) await audio.init()
+  // Fetch the audio library while the visitor reads the screen, so pressing
+  // Start never waits on a 340 kB download.
+  useEffect(() => {
+    const id = setTimeout(() => { import('tone').catch(() => {}) }, 300)
+    return () => clearTimeout(id)
+  }, [])
+
+  const handleStart = () => {
+    // Audio starts alongside the intro; the animation never waits for it.
+    if (!audio.ready) audio.init()
     setAnimState('intro')
     // 3-2-1 countdown fires in the final 3s of the intro window
     const offset = Math.max(0, TRANSITION_MS - 3000)
@@ -211,8 +219,8 @@ export function BreathingSessionPage() {
         {/* Bottom: controls */}
         <div className="flex flex-col items-center gap-4 w-full max-w-xs">
           {animState === 'idle' ? (
-            <Button variant="gold" size="lg" fullWidth onClick={handleStart} loading={audio.loading}>
-              {audio.loading ? 'Loading Audio…' : 'Start Session'}
+            <Button variant="gold" size="lg" fullWidth onClick={handleStart}>
+              Start Session
             </Button>
           ) : animState === 'active' ? (
             <Button variant="ghost" size="md" onClick={handleEnd}>
