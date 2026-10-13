@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Activity, Moon, MoreHorizontal, BookOpen } from 'lucide-react'
+import { Activity, Moon, MoreHorizontal, BookOpen, Compass } from 'lucide-react'
 import { useMemberStore } from '@store/memberStore'
 import { useTracker } from '@hooks/useTracker'
 import { AppShell } from '@shared/layout/AppShell'
@@ -82,6 +82,21 @@ export function DashboardPage() {
             </ProgressRing>
           </Card>
         </div>
+
+        {/* Your path: intake that shapes The Wild Project's directives */}
+        <Card
+          as="button"
+          onClick={() => navigate('/path')}
+          className="w-full p-5 mb-6 text-left flex items-center gap-4"
+        >
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#C9A84C22' }}>
+            <Compass className="w-5 h-5" style={{ color: '#C9A84C' }} />
+          </div>
+          <div>
+            <p className="font-display text-xl text-text-primary leading-tight">Your path</p>
+            <p className="text-text-muted text-[12px] leading-snug mt-0.5">Eight questions. Three directives from The Wild Project, shaped to you.</p>
+          </div>
+        </Card>
 
         {/* Category Grid */}
         <p className="section-label mb-3">Tonight</p>

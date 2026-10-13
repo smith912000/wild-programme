@@ -1,6 +1,7 @@
 export const ROUTES = {
   AUTH_CALLBACK: '/auth/callback',
   DASHBOARD: '/',
+  PATH: '/path',
   BREATHE: '/breathe',
   BREATHE_SESSION: '/breathe/session/:patternId',
   MEDITATE: '/meditate',

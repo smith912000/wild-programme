@@ -36,6 +36,7 @@ const SettingsPage = lazy(() => import('@features/settings/SettingsPage').then(m
 const PracticePage = lazy(() => import('@features/practice/PracticePage').then(m => ({ default: m.PracticePage })))
 const SleepHubPage = lazy(() => import('@features/sleep/SleepHubPage').then(m => ({ default: m.SleepHubPage })))
 const LogHubPage   = lazy(() => import('@features/log/LogHubPage').then(m => ({ default: m.LogHubPage })))
+const PathPage     = lazy(() => import('@features/path/PathPage').then(m => ({ default: m.PathPage })))
 const ExplorePage  = lazy(() => import('@features/explore/ExplorePage').then(m => ({ default: m.ExplorePage })))
 
 function PageFallback() {
@@ -62,6 +63,7 @@ export default function App() {
               <Route path="/sleep"    element={<SleepHubPage />} />
               <Route path="/log"      element={<LogHubPage />} />
               <Route path="/explore"  element={<ExplorePage />} />
+              <Route path="/path"     element={<PathPage />} />
               <Route path="/breathe" element={<BreathingPage />} />
               <Route path="/breathe/session/:patternId" element={<BreathingSessionPage />} />
               <Route path="/meditate" element={<MeditationPage />} />
