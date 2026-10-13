@@ -115,7 +115,7 @@
     <div class="field wide">
       <span class="field-label"><small>Domain</small>The Elemental Physics</span>
       <div class="suits" role="radiogroup" aria-label="Suit">
-        <label class="suit-opt"><input type="radio" name="suit" value="swords" checked><span aria-label="Swords, Air" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 l3 5 v22 h-6 v-22 z"/><path d="M14 32 h20"/><path d="M24 32 v9"/><circle cx="24" cy="43" r="2"/></svg></span></label>
+        <label class="suit-opt"><input type="radio" name="suit" value="swords"><span aria-label="Swords, Air" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 l3 5 v22 h-6 v-22 z"/><path d="M14 32 h20"/><path d="M24 32 v9"/><circle cx="24" cy="43" r="2"/></svg></span></label>
         <label class="suit-opt"><input type="radio" name="suit" value="cups"><span aria-label="Cups, Water" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 9 h24 c0 11 -5 18 -12 18 c-7 0 -12 -7 -12 -18 z"/><path d="M24 27 v10"/><path d="M15 41 h18"/><path d="M17 37 h14"/><path d="M15 14 h18"/></svg></span></label>
         <label class="suit-opt"><input type="radio" name="suit" value="pentacles"><span aria-label="Pentacles, Earth" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><path d="M24 9 L32.8 36.1 L9.7 19.4 H38.3 L15.2 36.1 Z"/></svg></span></label>
         <label class="suit-opt"><input type="radio" name="suit" value="wands"><span aria-label="Wands, Fire" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 42 L35 6"/><path d="M15 39 l-3 -2"/><path d="M29 16 c4 -3 8 -2 9 1 c-4 2 -7 1 -9 -1 z"/><path d="M23 26 c-4 -3 -8 -2 -9 1 c4 2 7 1 9 -1 z"/><path d="M33 9 c2 -3 5 -3 6 -2"/></svg></span></label>
@@ -123,17 +123,17 @@
     </div>
     <div class="field">
       <label for="c1"><small>Container 1 · The Monad</small>The Seed Essence</label>
-      <input id="c1" inputmode="numeric" autocomplete="off" maxlength="1" value="7" aria-describedby="h1">
+      <input id="c1" inputmode="numeric" autocomplete="off" maxlength="1" aria-describedby="h1">
       <span class="hint" id="h1">One digit, 0 to 9</span>
     </div>
     <div class="field">
       <label for="c2"><small>Container 2 · The Dyad</small>The Internal Bridge</label>
-      <input id="c2" inputmode="numeric" autocomplete="off" maxlength="2" value="17" aria-describedby="h2">
+      <input id="c2" inputmode="numeric" autocomplete="off" maxlength="2" aria-describedby="h2">
       <span class="hint" id="h2">Two digits, 10 to 99</span>
     </div>
     <div class="field wide">
       <label for="c3"><small>Container 3 · The Triad</small>The Macro Environment</label>
-      <input id="c3" inputmode="numeric" autocomplete="off" maxlength="3" value="340" aria-describedby="h3">
+      <input id="c3" inputmode="numeric" autocomplete="off" maxlength="3" aria-describedby="h3">
       <span class="hint" id="h3">Three digits, 100 to 999</span>
     </div>
     <div class="actions">
@@ -361,7 +361,8 @@
 
   $('form').addEventListener('submit', function (ev) {
     ev.preventDefault();
-    var suit = document.querySelector('input[name=suit]:checked').value, c1 = read('c1', 0, 9, 1), c2 = read('c2', 10, 99, 2), c3 = read('c3', 100, 999, 3);
+    var picked = document.querySelector('input[name=suit]:checked'), suit = picked && picked.value, c1 = read('c1', 0, 9, 1), c2 = read('c2', 10, 99, 2), c3 = read('c3', 100, 999, 3);
+    if (!suit) { $('err').textContent = 'Choose a suit.'; return; }
     if (c1 === null || c2 === null || c3 === null) { $('err').textContent = 'Each container needs its exact number of digits.'; return; }
     $('err').textContent = '';
     var payload = parse(suit, c1, c2, c3);
