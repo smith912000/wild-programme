@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WILD · Inner Room intro (T2)</title>
+<style>
+@font-face{font-family:'Cormorant Garamond';font-weight:500;src:url(fonts/cormorant-garamond-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-weight:600;src:url(fonts/cormorant-garamond-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-weight:500;font-style:italic;src:url(fonts/cormorant-garamond-latin-500-italic.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-weight:400;src:url(fonts/dm-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-weight:500;src:url(fonts/dm-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-weight:700;src:url(fonts/dm-sans-latin-700-normal.woff2) format('woff2')}
+html,body{margin:0;background:#050309;overflow:hidden}
+svg{display:block}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
+.sans{font-family:'DM Sans',Helvetica,sans-serif}
+</style>
+</head>
+<body>
+<svg id="stage" xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+/* ---------- CONFIG: every timing, colour and size lives here ---------- */
+var C = {
+  dur: 15,
+  col: { bg:'#050309', surf:'#120C1F', ind:'#6349B8', ind2:'#8A6FE0', ind3:'#B9A9F0', gold:'#C9A84C', gold2:'#E9C766', text:'#F4F1ED', dim:'rgba(244,241,237,.68)', faint:'rgba(244,241,237,.5)' },
+  // the beat sheet (seconds)
+  t: { point:.12, strike:.35, rings:.7, word:2.1, wordOut:4.3, orbit:4.45, nodes:[5.5,7.0,8.5,10.0], door:11.5, end:13.0 },
+  spring: { ui:{k:170,d:26}, type:{k:170,d:26.1}, heavy:{k:60,d:15.5}, snap:{k:320,d:34} },
+  seed: 20261013
+};
+var W = +(new URLSearchParams(location.search).get('w') || 1920), H = +(new URLSearchParams(location.search).get('h') || 1080);
+var PORTRAIT = H > W;
+// layout per format; the landscape end frame mirrors the hub: words left, constellation right
+var L = PORTRAIT
+  ? { cx:540, cy:1180, R:300, node:44, capX:96, capY:360, mark:{x:540,y:820,s:3.1}, word:{x:96,y:1560,size:230}, end:{x:96,y:300} }
+  : { cx:1300, cy:550, R:330, node:52, capX:140, capY:430, mark:{x:960,y:540,s:3.4}, word:{x:170,y:640,size:250}, end:{x:170,y:400} };
+
+var APPS = [
+  { id:'sge',    name:'SGE',             role:'Stars',    line:'The sky you were born under.',            pos:[0,-1],  glyph:'star' },
+  { id:'codex',  name:'Codex Pharmakon', role:'Codex',    line:'The old medicine of the earth.',          pos:[0,1],   glyph:'leaf' },
+  { id:'os',     name:'WILD OS',         role:'Practice', line:'Breath and tone before sleep.',           pos:[-1,0],  glyph:'moon' },
+  { id:'parser', name:'Symbolic Parser', role:'Tarot',    line:'A suit and three numbers, read as one.',  pos:[1,0],   glyph:'card' }
+];
+var DOOR = { name:'Discord', role:'The Open Door', line:'Sundays at 4pm UK. The live call.' };
+
+/* ---------- motion primitives: pure functions of time ---------- */
+function spring(t, p) { // closed-form damped spring from 0 to 1, starts at t=0
+  if (t <= 0) return 0;
+  var w0 = Math.sqrt(p.k), z = p.d / (2 * w0);
+  if (z >= 1) { return 1 - Math.exp(-w0 * t) * (1 + w0 * t); }
+  var wd = w0 * Math.sqrt(1 - z * z);
+  return 1 - Math.exp(-z * w0 * t) * (Math.cos(wd * t) + (z * w0 / wd) * Math.sin(wd * t));
+}
+function track(t, base, changes, p) { // stacked springs: [[time, target], ...]
+  var v = base, prev = base;
+  for (var i = 0; i < changes.length; i++) { v += (changes[i][1] - prev) * spring(t - changes[i][0], p); prev = changes[i][1]; }
+  return v;
+}
+function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+function mulberry(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+/* ---------- build the scene once ---------- */
+var NS = 'http://www.w3.org/2000/svg';
+var svg = document.getElementById('stage');
+svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; }
+function set(e, attrs) { for (var k in attrs) e.setAttribute(k, attrs[k]); }
+
+var defs = el('defs', {});
+var rg = el('radialGradient', { id:'wash', cx:'50%', cy:'50%', r:'50%' }, defs);
+el('stop', { offset:'0', 'stop-color':C.col.ind, 'stop-opacity':.32 }, rg); el('stop', { offset:'1', 'stop-color':C.col.ind, 'stop-opacity':0 }, rg);
+var rg2 = el('radialGradient', { id:'gwash', cx:'50%', cy:'50%', r:'50%' }, defs);
+el('stop', { offset:'0', 'stop-color':C.col.gold2, 'stop-opacity':.55 }, rg2); el('stop', { offset:'1', 'stop-color':C.col.gold2, 'stop-opacity':0 }, rg2);
+
+el('rect', { width:W, height:H, fill:C.col.bg });
+var wash = el('ellipse', { fill:'url(#wash)' });
+
+// seeded star field
+var rnd = mulberry(C.seed), STARS = [];
+var starG = el('g', {});
+for (var i = 0; i < 150; i++) {
+  var s = { x:rnd() * W, y:rnd() * H, quiet:0, r:.6 + rnd() * 1.5, ph:rnd() * 6.283, sp:.4 + rnd() * 1.1, depth:.3 + rnd() * .7 };
+  s.e = el('circle', { r:s.r, fill:C.col.text }, starG); STARS.push(s);
+}
+
+var cam = el('g', {});
+var world = el('g', {}, cam); // constellation layer
+var axes = el('g', { stroke:C.col.ind, 'stroke-width':1.2, 'stroke-opacity':.55, fill:'none' }, world);
+var axV = el('line', {}, axes), axH = el('line', {}, axes);
+var orbit = el('circle', { fill:'none', stroke:C.col.ind2, 'stroke-width':1.6, 'stroke-opacity':.7 }, world);
+var orbit2 = el('circle', { fill:'none', stroke:C.col.ind, 'stroke-width':1, 'stroke-opacity':.4, 'stroke-dasharray':'2 10' }, world);
+
+// glyphs (drawn on a 40-unit box, centred at 0,0)
+function starPath() { var p = []; for (var i = 0; i < 16; i++) { var a = i * Math.PI / 8 - Math.PI / 2, r = i % 2 ? 6 : 16; p.push((r * Math.cos(a)).toFixed(2) + ',' + (r * Math.sin(a)).toFixed(2)); } return 'M' + p.join('L') + 'Z'; }
+var GLYPH = {
+  star: starPath(),
+  leaf: 'M0,-15 C10,-8 10,5 0,12 C-10,5 -10,-8 0,-15 Z M0,-8 L0,18 M0,18 L-6,23 M0,18 L6,23',
+  moon: 'M5,-14 A15,15 0 1 0 5,14 A11.5,11.5 0 1 1 5,-14 Z',
+  card: 'M-10,-15 H10 A2,2 0 0 1 12,-13 V13 A2,2 0 0 1 10,15 H-10 A2,2 0 0 1 -12,13 V-13 A2,2 0 0 1 -10,-15 Z M-6,0 Q0,-7 6,0 Q0,7 -6,0 Z'
+};
+var NODES = APPS.map(function (a) {
+  var g = el('g', {}, world);
+  var ray = el('line', { stroke:C.col.ind2, 'stroke-width':1.6, 'stroke-linecap':'round' }, world);
+  world.insertBefore(ray, axes.nextSibling);
+  var pulse = el('circle', { r:5, fill:C.col.ind3 }, world);
+  var halo = el('circle', { fill:'none', stroke:C.col.ind2, 'stroke-width':1.2 }, g);
+  var disc = el('circle', { r:L.node, fill:C.col.surf, stroke:C.col.ind2, 'stroke-width':1.6 }, g);
+  var gl = el('path', { transform:'scale(1.35)', d:GLYPH[a.glyph], pathLength:100, 'stroke-dasharray':'100 100', fill:'none', stroke:C.col.ind3, 'stroke-width':1.6, 'stroke-linejoin':'round', 'stroke-linecap':'round' }, g);
+  var lab = el('text', { class:'sans', 'font-size':PORTRAIT ? 32 : 30, 'font-weight':500, fill:C.col.text, 'text-anchor':'middle' }, g); lab.textContent = a.name;
+  var rol = el('text', { class:'sans', 'font-size':PORTRAIT ? 20 : 19, 'font-weight':700, fill:C.col.ind3, 'text-anchor':'middle', 'letter-spacing':'.2em' }, g); rol.textContent = a.role.toUpperCase();
+  return { a:a, g:g, pulse:pulse, ray:ray, halo:halo, disc:disc, gl:gl, lab:lab, rol:rol };
+});
+// unlit future slots on the diagonals
+STARS.forEach(function (s) { s.quiet = PORTRAIT ? (s.y < 860 && s.y > 220) : (s.x < 860); }); // keep the text zone clean
+var GHOSTS = [[-1,-1],[1,-1],[-1,1],[1,1]].map(function (d) { return { d:d, e:el('circle', { r:7, fill:'none', stroke:C.col.ind2, 'stroke-width':1.4, 'stroke-dasharray':'3 4' }, world) }; });
+
+// the mark: vesica + aperture
+var mark = el('g', {});
+var mwash = el('circle', { r:90, fill:'url(#gwash)' }, mark);
+var ringA = el('circle', { r:34, cx:0, cy:-16, fill:'none', stroke:C.col.ind2, 'stroke-width':2.4, transform:'rotate(90 0 -16)' }, mark);
+var ringB = el('circle', { r:34, cx:0, cy:16, fill:'none', stroke:C.col.ind2, 'stroke-width':2.4, transform:'rotate(-90 0 16)' }, mark);
+var slit = el('line', { stroke:C.col.gold2, 'stroke-width':3.2, 'stroke-linecap':'round' }, mark);
+var dot = el('circle', { fill:C.col.gold2 }, mark);
+var RING_LEN = 2 * Math.PI * 34;
+
+// text blocks: each has a clip so lines rise out of an edge instead of fading
+var clipN = 0;
+function line(cls, size, weight, fill, x, y, txt, extra) {
+  var id = 'c' + (clipN++);
+  var cp = el('clipPath', { id:id }, defs);
+  var r = el('rect', { x:x - 20, y:y - size * 1.05, width:W, height:size * 1.4 }, cp);
+  var g = el('g', { 'clip-path':'url(#' + id + ')' });
+  var t = el('text', Object.assign({ class:cls, 'font-size':size, 'font-weight':weight, fill:fill, x:x, y:y }, extra || {}), g);
+  t.textContent = txt;
+  return { t:t, size:size, y:y };
+}
+function showLine(o, tin, tout, p) { // rise in from below the clip, leave upward
+  var inn = spring(tin, p), out = tout == null ? 0 : spring(tout, C.spring.snap);
+  var dy = (1 - inn) * o.size * 1.2 - out * o.size * 1.3;
+  o.t.setAttribute('transform', 'translate(0 ' + dy.toFixed(2) + ')');
+}
+
+var capSz = PORTRAIT ? { eb:26, ti:104, ln:44 } : { eb:24, ti:92, ln:40 };
+var CAPS = APPS.map(function (a) { return a; }).concat([DOOR]).map(function (a) {
+  return {
+    eb: line('sans', capSz.eb, 700, C.col.gold, L.capX, L.capY, a.role.toUpperCase(), { 'letter-spacing':'.22em' }),
+    ti: line('serif', capSz.ti, 600, C.col.text, L.capX, L.capY + capSz.ti * 1.15, a.name),
+    ln: line('serif', capSz.ln, 500, C.col.dim, L.capX, L.capY + capSz.ti * 1.15 + capSz.ln * 1.6, a.line, { 'font-style':'italic' })
+  };
+});
+var wordEb = line('sans', PORTRAIT ? 28 : 24, 700, C.col.gold, L.word.x + 6, L.word.y - L.word.size * .86, 'THE INNER ROOM', { 'letter-spacing':'.24em' });
+var WORD = 'WILD'.split('').map(function (ch, i) { return line('serif', L.word.size, 600, C.col.text, L.word.x + i * L.word.size * .62 + (ch === 'I' ? L.word.size * .1 : 0) - (i > 1 ? L.word.size * .17 : 0), L.word.y, ch, { 'letter-spacing':'.02em' }); });
+var endEb = line('sans', PORTRAIT ? 26 : 20, 700, C.col.gold, L.end.x, L.end.y, 'THE INNER ROOM', { 'letter-spacing':'.22em' });
+var endTi = line('serif', PORTRAIT ? 120 : 104, 500, C.col.text, L.end.x, L.end.y + (PORTRAIT ? 130 : 112), 'Welcome in.');
+var endLn = line('sans', PORTRAIT ? 34 : 28, 400, C.col.dim, L.end.x, L.end.y + (PORTRAIT ? 205 : 176), 'Everything your membership opens.');
+var endLn2 = line('sans', PORTRAIT ? 34 : 28, 400, C.col.dim, L.end.x, L.end.y + (PORTRAIT ? 255 : 218), 'Choose a door.');
+
+cam.appendChild(mark);
+var wave = el('circle', { fill:'none', stroke:C.col.ind2, 'stroke-width':2 }, world);
+var wave2 = el('circle', { fill:'none', stroke:C.col.ind2, 'stroke-width':1.4 }, world);
+
+/* ---------- the film: paint frame t ---------- */
+window.seek = function (t) {
+  var T = C.t, P = C.spring;
+  // camera: mark travels from intro spot to constellation centre; world scale settles
+  var mx = track(t, L.mark.x, [[T.word - .1, PORTRAIT ? L.mark.x : L.mark.x + 380], [T.wordOut, L.cx]], P.heavy);
+  var my = track(t, L.mark.y, [[T.word - .1, PORTRAIT ? 560 : L.mark.y], [T.wordOut, L.cy]], P.heavy);
+  var ms = track(t, L.mark.s * 1.6, [[T.rings - .2, L.mark.s], [T.wordOut, 1.35], [T.door, 1.6], [T.end, 1.35]], P.heavy);
+  var drift = Math.sin(t * .45) * 4;
+
+  set(wash, { cx:mx, cy:my, rx:(PORTRAIT ? 900 : 1100) * (.6 + .4 * spring(t - T.rings, P.heavy)), ry:(PORTRAIT ? 1000 : 700) * (.6 + .4 * spring(t - T.rings, P.heavy)) });
+
+  STARS.forEach(function (s) {
+    var a = clamp((t - .3) / 2.5, 0, 1); // stars ride in with the world, then twinkle on a seeded phase
+    var tw = .35 + .65 * Math.pow(.5 + .5 * Math.sin(t * s.sp * 2 + s.ph), 2);
+    s.e.setAttribute('cx', (s.x - (mx - W / 2) * .04 * s.depth).toFixed(1));
+    s.e.setAttribute('cy', (s.y - t * 3 * s.depth).toFixed(1));
+    s.e.setAttribute('opacity', (a * tw * .55 * s.depth * (s.quiet ? .15 : 1)).toFixed(3));
+  });
+
+  // the mark
+  var pt = spring(t - T.point, P.snap);
+  var strike = spring(t - T.strike, P.ui);
+  var door = spring(t - T.door, P.ui) - spring(t - T.end, P.heavy) * .6;
+  var slitLen = 9 * strike + 6 * door;
+  set(mark, { transform:'translate(' + mx.toFixed(2) + ' ' + (my + drift * .3).toFixed(2) + ') scale(' + ms.toFixed(4) + ')' });
+  set(dot, { r:(5 * pt * (1 - strike)).toFixed(2), cy:0 });
+  set(slit, { x1:0, x2:0, y1:-slitLen, y2:slitLen, opacity:strike > .01 ? 1 : 0 });
+  var rA = spring(t - T.rings, P.heavy), rB = spring(t - T.rings - .12, P.heavy);
+  set(ringA, { 'stroke-dasharray':RING_LEN, 'stroke-dashoffset':(RING_LEN * (1 - rA)).toFixed(2) });
+  set(ringB, { 'stroke-dasharray':RING_LEN, 'stroke-dashoffset':(RING_LEN * (1 - rB)).toFixed(2) });
+  var breathe = 1 + .03 * Math.sin((t - T.rings) * 2 * Math.PI / 7) * rA;
+  ringA.setAttribute('r', (34 * breathe).toFixed(2)); ringB.setAttribute('r', (34 * breathe).toFixed(2));
+  set(mwash, { r:(40 + 40 * strike).toFixed(1), opacity:(.45 * strike * (1 - .5 * spring(t - T.wordOut, P.heavy))).toFixed(3) });
+
+  // the intro word
+  WORD.forEach(function (o, i) { showLine(o, t - T.word - i * .07, t - T.wordOut - i * .04, P.type); });
+  showLine(wordEb, t - T.word - .35, t - T.wordOut, P.type);
+
+  // axes and orbit draw from the centre
+  var ax = spring(t - T.orbit, P.heavy), R = L.R;
+  set(axV, { x1:L.cx, x2:L.cx, y1:L.cy - R * 1.22 * ax, y2:L.cy + R * 1.22 * ax });
+  set(axH, { y1:L.cy, y2:L.cy, x1:L.cx - R * 1.22 * ax, x2:L.cx + R * 1.22 * ax });
+  var oc = 2 * Math.PI * R, ob = spring(t - T.orbit - .2, P.heavy);
+  set(orbit, { cx:L.cx, cy:L.cy, r:R, 'stroke-dasharray':oc, 'stroke-dashoffset':(oc * (1 - ob)).toFixed(1), transform:'rotate(-90 ' + L.cx + ' ' + L.cy + ')' });
+  set(orbit2, { cx:L.cx, cy:L.cy, r:R * .62, opacity:spring(t - T.orbit - .5, P.heavy), transform:'rotate(' + (t * 4).toFixed(2) + ' ' + L.cx + ' ' + L.cy + ')' });
+
+  // camera leans toward each arriving app, settles back for the door
+  var leanX = track(t, 0, T.nodes.map(function (tt, i) { return [tt, APPS[i].pos[0] * 30]; }).concat([[T.door, 0]]), P.heavy);
+  var leanY = track(t, 0, T.nodes.map(function (tt, i) { return [tt, APPS[i].pos[1] * 22]; }).concat([[T.door, 0]]), P.heavy);
+  var zoom = track(t, 1, [[T.nodes[0], 1.03], [T.door, 1.06], [T.end, 1]], P.heavy);
+  set(cam, { transform:'translate(' + (L.cx - leanX).toFixed(2) + ' ' + (L.cy - leanY).toFixed(2) + ') scale(' + zoom.toFixed(4) + ') translate(' + (-L.cx) + ' ' + (-L.cy) + ')' });
+  // the open door: two waves leave the aperture
+  [wave, wave2].forEach(function (w, i) {
+    var u = clamp((t - T.door - .1 - i * .35) / 1.6, 0, 1), e = 1 - Math.pow(1 - u, 3);
+    set(w, { cx:L.cx, cy:L.cy, r:(50 + R * 1.1 * e).toFixed(1), 'stroke-opacity':(u > 0 && u < 1 ? .7 * (1 - u) : 0).toFixed(3) });
+  });
+
+  // the four apps arrive at their quarters, each with a ray of light from the centre
+  NODES.forEach(function (n, i) {
+    var t0 = T.nodes[i], s = spring(t - t0, P.ui), r = spring(t - t0 + .15, P.snap);
+    var active = spring(t - t0, P.ui) - spring(t - (T.nodes[i + 1] || T.door), P.ui);
+    var nx = L.cx + n.a.pos[0] * R, ny = L.cy + n.a.pos[1] * R;
+    // arrive from further out along the axis
+    var ox = nx + n.a.pos[0] * 120 * (1 - s), oy = ny + n.a.pos[1] * 120 * (1 - s);
+    set(n.g, { transform:'translate(' + ox.toFixed(2) + ' ' + oy.toFixed(2) + ') scale(' + (.2 + .8 * s + .08 * active).toFixed(4) + ')', opacity:clamp(s * 4, 0, 1) });
+    var reach = clamp(r, 0, 1);
+    set(n.ray, { x1:L.cx, y1:L.cy, x2:L.cx + (nx - L.cx) * reach, y2:L.cy + (ny - L.cy) * reach, 'stroke-opacity':(.15 + .7 * Math.max(0, active)).toFixed(3) });
+    set(n.halo, { r:(L.node + 10 + 18 * Math.max(0, active)).toFixed(2), 'stroke-opacity':(.6 * Math.max(0, active)).toFixed(3) });
+    var below = n.a.pos[1] === -1 ? -(L.node + 22) : L.node + 40;
+    if (n.a.pos[1] === -1) { set(n.lab, { y:-(L.node + 46) }); set(n.rol, { y:-(L.node + 18) }); }
+    else { set(n.lab, { y:L.node + 40 }); set(n.rol, { y:L.node + 66 }); }
+    n.gl.setAttribute('stroke-dashoffset', (100 * (1 - clamp(spring(t - t0 - .1, P.heavy), 0, 1))).toFixed(2));
+    var u = clamp((t - t0 + .15) / .5, 0, 1), pe = 1 - Math.pow(1 - u, 2);
+    set(n.pulse, { cx:L.cx + (nx - L.cx) * pe, cy:L.cy + (ny - L.cy) * pe, opacity:(u > 0 && u < 1 ? 1 : 0) });
+    var lt = clamp((t - t0 - .25) * 3, 0, 1);
+    n.lab.setAttribute('opacity', lt); n.rol.setAttribute('opacity', lt);
+    n.lab.setAttribute('transform', 'translate(0 ' + ((1 - spring(t - t0 - .25, P.type)) * 14 * (n.a.pos[1] === -1 ? -1 : 1)).toFixed(2) + ')');
+  });
+
+  // captions: one block on screen at a time, each rising in from its own clip
+  var times = T.nodes.concat([T.door]), ends = T.nodes.slice(1).concat([T.door, T.end]);
+  CAPS.forEach(function (c, i) {
+    var a = times[i] + .1, b = ends[i] - .05;
+    showLine(c.eb, t - a, t - b, P.type);
+    showLine(c.ti, t - a - .06, t - b - .03, P.type);
+    showLine(c.ln, t - a - .14, t - b - .06, P.type);
+  });
+
+  // ghost slots for apps still to come
+  GHOSTS.forEach(function (g, i) {
+    var s = spring(t - T.end - .4 - i * .12, P.ui), k = R * .78;
+    set(g.e, { cx:L.cx + g.d[0] * k, cy:L.cy + g.d[1] * k, r:(10 * s).toFixed(2), opacity:(.85 * s).toFixed(3) });
+  });
+
+  // the end card: same words the hub opens with
+  showLine(endEb, t - T.end - .2, null, P.type);
+  showLine(endTi, t - T.end - .28, null, P.type);
+  showLine(endLn, t - T.end - .5, null, P.type);
+  showLine(endLn2, t - T.end - .6, null, P.type);
+};
+window.layout = function () { // measure the word once fonts are in, so letters sit at their true advance
+  var x = L.word.x;
+  WORD.forEach(function (o) { o.t.setAttribute('x', x); x += o.t.getComputedTextLength() + L.word.size * .04; });
+};
+window.FILM = { dur:C.dur, w:W, h:H };
+document.fonts.ready.then(function () { window.layout(); window.seek(0); window.READY = true; });
+window.seek(0);
+</script>
+</body>
+</html>
