@@ -54,7 +54,15 @@
   .suit-opt:hover span { border-color:var(--wild-border-lit); color:var(--wild-text); }
   .suit-opt input:checked + span { border-color:var(--wild-indigo-2); color:var(--wild-text); background:rgba(99,73,184,.22); box-shadow:0 0 24px -8px rgba(138,111,224,.7); }
   .suit-opt input:focus-visible + span { outline:2px solid var(--wild-indigo-2); outline-offset:3px; }
-  .hint { font-size:var(--wild-fs-xs); color:var(--wild-faint); }
+  .drift { display:block; min-height:1.25em; transition:opacity 1.4s var(--wild-ease), filter 1.4s var(--wild-ease), letter-spacing 1.4s var(--wild-ease); }
+  .drift.out { opacity:0; filter:blur(6px); letter-spacing:.06em; }
+  .box { position:relative; }
+  .pop { position:absolute; left:12px; top:calc(100% + 8px); z-index:5; padding:6px 12px; border-radius:var(--wild-r-sm); background:var(--wild-surface-2);
+    border:1px solid var(--wild-danger); color:var(--wild-text); font-size:var(--wild-fs-sm); white-space:nowrap; box-shadow:var(--wild-shadow-float);
+    opacity:0; transform:translateY(-4px); pointer-events:none; transition:opacity var(--wild-t), transform var(--wild-t); }
+  .pop::before { content:''; position:absolute; left:16px; top:-6px; width:10px; height:10px; background:var(--wild-surface-2);
+    border-left:1px solid var(--wild-danger); border-top:1px solid var(--wild-danger); transform:rotate(45deg); }
+  .pop.on { opacity:1; transform:none; }
   .actions { grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
   .err { color:var(--wild-danger); font-size:var(--wild-fs-sm); }
 
@@ -87,6 +95,7 @@
   @media (prefers-reduced-motion: reduce) {
     .ambient video, .aperture { display:none; }
     .console.on { animation:none; }
+    .drift { transition:none; }
     .map .in { animation:none; opacity:1; } .map .draw { animation:none; stroke-dashoffset:0; }
   }
 </style>
@@ -122,19 +131,16 @@
       </div>
     </div>
     <div class="field">
-      <label for="c1"><small>Container 1 · The Monad</small>The Seed Essence</label>
-      <input id="c1" inputmode="numeric" autocomplete="off" maxlength="1" aria-describedby="h1">
-      <span class="hint" id="h1">One digit, 0 to 9</span>
+      <label for="c1"><small>1</small><span class="drift" data-set="1">&nbsp;</span></label>
+      <div class="box"><input id="c1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="1" aria-label="Box 1, one digit"><span class="pop" id="p1" role="alert"></span></div>
     </div>
     <div class="field">
-      <label for="c2"><small>Container 2 · The Dyad</small>The Internal Bridge</label>
-      <input id="c2" inputmode="numeric" autocomplete="off" maxlength="2" aria-describedby="h2">
-      <span class="hint" id="h2">Two digits, 10 to 99</span>
+      <label for="c2"><small>2</small><span class="drift" data-set="2">&nbsp;</span></label>
+      <div class="box"><input id="c2" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="2" aria-label="Box 2, two digits"><span class="pop" id="p2" role="alert"></span></div>
     </div>
     <div class="field wide">
-      <label for="c3"><small>Container 3 · The Triad</small>The Macro Environment</label>
-      <input id="c3" inputmode="numeric" autocomplete="off" maxlength="3" aria-describedby="h3">
-      <span class="hint" id="h3">Three digits, 100 to 999</span>
+      <label for="c3"><small>3</small><span class="drift" data-set="3">&nbsp;</span></label>
+      <div class="box"><input id="c3" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="3" aria-label="Box 3, three digits"><span class="pop" id="p3" role="alert"></span></div>
     </div>
     <div class="actions">
       <button class="wild-btn wild-btn-gold" type="submit">Extract Structural Matrix</button>
@@ -342,11 +348,42 @@
   var $ = function (id) { return document.getElementById(id); };
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function read(id, lo, hi, len) {
-    var el = $(id), v = el.value.trim(), ok = new RegExp('^\\d{' + len + '}$').test(v) && +v >= lo && +v <= hi;
+  var WORDS = ['', 'Must be 1 digit', 'Must be 2 digits', 'Must be 3 digits'];
+  function pop(i, msg) {
+    var el = $('p' + i); el.textContent = msg; el.classList.add('on');
+    clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove('on'); }, 3200);
+  }
+  function read(i, len) {
+    var el = $('c' + i), v = el.value.trim(), ok = new RegExp('^\\d{' + len + '}$').test(v) && (len === 1 || v[0] !== '0');
     el.setAttribute('aria-invalid', ok ? 'false' : 'true');
+    if (!ok) pop(i, v.length === len ? 'Cannot start with 0' : WORDS[len]);
     return ok ? +v : null;
   }
+  [1, 2, 3].forEach(function (i) {
+    $('c' + i).addEventListener('input', function () {
+      var clean = this.value.replace(/\D/g, '').slice(0, i);
+      if (clean !== this.value) this.value = clean;
+      this.removeAttribute('aria-invalid'); $('p' + i).classList.remove('on');
+    });
+  });
+
+  /* the box titles drift through phrases of their energy */
+  var DRIFT = {
+    1: ['The seed essence', 'The first breath', 'The point before form', 'What wakes first', 'The single flame', 'The origin, unspoken'],
+    2: ['The internal bridge', 'Where two forces meet', 'The friction between', 'The crossing', 'The hidden exchange', 'Two currents, one channel'],
+    3: ['The macro environment', 'The field that holds it all', 'The wider sky', 'What the world returns', 'The outer weather', 'The vast pattern']
+  };
+  document.querySelectorAll('.drift').forEach(function (el, n) {
+    var set = DRIFT[el.getAttribute('data-set')], k = 0;
+    el.textContent = set[0];
+    if (reduced) return;
+    setTimeout(function () {
+      setInterval(function () {
+        el.classList.add('out');
+        setTimeout(function () { k = (k + 1) % set.length; el.textContent = set[k]; el.classList.remove('out'); }, 1400);
+      }, 5600);
+    }, n * 1800);
+  });
 
   function aperture() {
     return new Promise(function (done) {
@@ -361,9 +398,9 @@
 
   $('form').addEventListener('submit', function (ev) {
     ev.preventDefault();
-    var picked = document.querySelector('input[name=suit]:checked'), suit = picked && picked.value, c1 = read('c1', 0, 9, 1), c2 = read('c2', 10, 99, 2), c3 = read('c3', 100, 999, 3);
+    var picked = document.querySelector('input[name=suit]:checked'), suit = picked && picked.value, c1 = read(1, 1), c2 = read(2, 2), c3 = read(3, 3);
     if (!suit) { $('err').textContent = 'Choose a suit.'; return; }
-    if (c1 === null || c2 === null || c3 === null) { $('err').textContent = 'Each container needs its exact number of digits.'; return; }
+    if (c1 === null || c2 === null || c3 === null) { $('err').textContent = ''; return; }
     $('err').textContent = '';
     var payload = parse(suit, c1, c2, c3);
     payload.correlations.polarity = polarity(payload);
