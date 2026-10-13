@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>WILD · The Symbolic Parser</title>
+<meta name="description" content="A suit and three numbers, read as one closed symbolic system.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Crect width='100' height='120' fill='%23050309'/%3E%3Cg fill='none' stroke='%236349B8' stroke-width='6'%3E%3Ccircle cx='50' cy='44' r='34'/%3E%3Ccircle cx='50' cy='76' r='34'/%3E%3C/g%3E%3Cline x1='50' y1='51' x2='50' y2='69' stroke='%23E9C766' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/wild.css">
+<script src="../../assets/member-gate.js" data-name="The Symbolic Parser"></script>
+<style>
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--wild-bg); color:var(--wild-text); font-family:var(--wild-sans); line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; }
+
+  /* Motion layer 1: the ambient mp4 loop (rendered by render-motion.py, 96 kB; WebM fallback for browsers without H.264). */
+  .ambient { position:fixed; inset:0; z-index:-2; overflow:hidden; background:var(--wild-bg) url(parser-ambient.jpg) center/cover no-repeat; }
+  .ambient video { width:100%; height:100%; object-fit:cover; opacity:.7; }
+  .ambient::after { content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(5,3,9,.35), rgba(5,3,9,.78) 55%, rgba(5,3,9,.92)); }
+
+  /* Motion layer 2: the aperture mp4, screen-blended over the page on extraction. */
+  .aperture { position:fixed; inset:0; z-index:40; display:flex; align-items:center; justify-content:center; pointer-events:none;
+    mix-blend-mode:screen; opacity:0; transition:opacity var(--wild-t-slow) var(--wild-ease); }
+  .aperture.on { opacity:1; }
+  .aperture video { width:min(90vw, 90vh, 720px); aspect-ratio:1; }
+
+  main { max-width:760px; margin:0 auto; padding:var(--wild-s7) 20px var(--wild-s8); }
+  .eyebrow { font-size:var(--wild-fs-xs); font-weight:700; letter-spacing:var(--wild-track-label); text-transform:uppercase; color:var(--wild-gold); }
+  h1 { font-family:var(--wild-serif); font-weight:500; font-size:clamp(2.2rem, 6vw, 3.2rem); line-height:1.1; margin:10px 0 12px; }
+  .lede { color:var(--wild-dim); max-width:560px; }
+
+  form { margin-top:var(--wild-s6); padding:var(--wild-s5); display:grid; gap:var(--wild-s4); grid-template-columns:repeat(2, 1fr);
+    background:linear-gradient(180deg, rgba(18,12,31,.86), rgba(10,6,18,.9)); border:1px solid var(--wild-border); border-radius:var(--wild-r-lg);
+    box-shadow:var(--wild-shadow-card); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+  .field { display:flex; flex-direction:column; gap:6px; }
+  .field.wide { grid-column:1 / -1; }
+  label, .field-label { font-family:var(--wild-serif); font-weight:600; font-size:1.2rem; line-height:1.2; }
+  label small, .field-label small { display:block; font-family:var(--wild-sans); font-weight:700; font-size:var(--wild-fs-xs); letter-spacing:.14em; text-transform:uppercase; color:var(--wild-indigo-3); margin-bottom:2px; }
+  input { width:100%; min-height:48px; padding:10px 14px; border-radius:var(--wild-r-md); border:1px solid var(--wild-border);
+    background:var(--wild-surface); color:var(--wild-text); font-family:var(--wild-mono); font-size:1.05rem; }
+  input:focus { outline:none; border-color:var(--wild-indigo-2); box-shadow:0 0 0 3px rgba(99,73,184,.25); }
+  input[aria-invalid="true"] { border-color:var(--wild-danger); }
+  .suits { display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; }
+  .suit-opt { display:block; cursor:pointer; }
+  .suit-opt input { position:absolute; opacity:0; pointer-events:none; }
+  .suit-opt span { display:flex; align-items:center; justify-content:center; aspect-ratio:1 / 1; max-height:96px; width:100%; border-radius:var(--wild-r-md);
+    border:1px solid var(--wild-border); background:var(--wild-surface); color:var(--wild-indigo-3);
+    transition:border-color var(--wild-t), color var(--wild-t), background var(--wild-t), box-shadow var(--wild-t); }
+  .suit-opt svg { width:62%; height:62%; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .suit-opt:hover span { border-color:var(--wild-border-lit); color:var(--wild-text); }
+  .suit-opt input:checked + span { border-color:var(--wild-indigo-2); color:var(--wild-text); background:rgba(99,73,184,.22); box-shadow:0 0 24px -8px rgba(138,111,224,.7); }
+  .suit-opt input:focus-visible + span { outline:2px solid var(--wild-indigo-2); outline-offset:3px; }
+  .hint { font-size:var(--wild-fs-xs); color:var(--wild-faint); }
+  .actions { grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
+  .err { color:var(--wild-danger); font-size:var(--wild-fs-sm); }
+
+  .console { margin-top:var(--wild-s6); display:none; }
+  .console.on { display:block; animation:rise var(--wild-t-slow) var(--wild-ease); }
+  .map { width:100%; height:auto; display:block; border:1px solid var(--wild-border-lit); border-radius:var(--wild-r-lg); background:rgba(5,3,9,.88); margin-top:12px; }
+  .map .lad { stroke:rgba(244,241,237,.06); }
+  .map .num { font-family:var(--wild-mono); font-size:11px; fill:rgba(244,241,237,.5); }
+  .map .num.off { fill:rgba(244,241,237,.18); }
+  .map .head { font-family:var(--wild-serif); font-size:22px; fill:var(--wild-indigo-3); text-anchor:middle; }
+  .map .raw { font-family:var(--wild-mono); font-size:12px; fill:rgba(244,241,237,.5); text-anchor:middle; }
+  .map .g { fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .map .in { opacity:0; animation:fadein .7s var(--wild-ease) forwards; }
+  .map .draw { stroke-dasharray:1200; stroke-dashoffset:1200; animation:draw 1.6s var(--wild-ease) forwards; }
+  .key { display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:12px; font-size:var(--wild-fs-xs); color:var(--wild-faint); }
+  .key span { display:inline-flex; align-items:center; gap:6px; }
+  .key svg { width:18px; height:18px; }
+  .key .g { fill:none; stroke:currentColor; stroke-width:1.6; }
+  details { margin-top:14px; border:1px solid var(--wild-border); border-radius:var(--wild-r-md); background:rgba(10,6,18,.85); }
+  summary { cursor:pointer; padding:12px 16px; font-size:var(--wild-fs-sm); color:var(--wild-dim); }
+  details pre { font-family:var(--wild-mono); font-size:.78rem; line-height:1.55; color:var(--wild-indigo-3); padding:0 16px 16px; overflow-x:auto; }
+  .note { margin-top:var(--wild-s5); color:var(--wild-faint); font-size:var(--wild-fs-sm); }
+  footer { text-align:center; padding:24px 20px 40px; color:var(--wild-faint); font-size:var(--wild-fs-xs); }
+
+  @keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+  @keyframes fadein { to { opacity:1; } }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  @media (max-width:560px) { form { grid-template-columns:1fr; } }
+  @media (prefers-reduced-motion: reduce) {
+    .ambient video, .aperture { display:none; }
+    .console.on { animation:none; }
+    .map .in { animation:none; opacity:1; } .map .draw { animation:none; stroke-dashoffset:0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true">
+  <video id="ambient" poster="parser-ambient.jpg" autoplay muted loop playsinline preload="auto">
+    <source src="parser-ambient.mp4" type="video/mp4">
+    <source src="parser-ambient.webm" type="video/webm">
+  </video>
+</div>
+<div class="aperture" id="aperture" aria-hidden="true">
+  <video id="aperture-video" muted playsinline preload="auto">
+    <source src="parser-aperture.mp4" type="video/mp4">
+    <source src="parser-aperture.webm" type="video/webm">
+  </video>
+</div>
+
+<main>
+  <p class="eyebrow">The Symbolic Parser</p>
+  <h1>A reading as a closed system.</h1>
+  <p class="lede">Choose a suit and place three numbers into their containers. The parser reduces each one, finds what repeats, traces the movement between them and names the tension they hold. It does not predict. It reads structure.</p>
+
+  <form id="form" novalidate>
+    <div class="field wide">
+      <span class="field-label"><small>Domain</small>The Elemental Physics</span>
+      <div class="suits" role="radiogroup" aria-label="Suit">
+        <label class="suit-opt"><input type="radio" name="suit" value="swords" checked><span aria-label="Swords, Air" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 l3 5 v22 h-6 v-22 z"/><path d="M14 32 h20"/><path d="M24 32 v9"/><circle cx="24" cy="43" r="2"/></svg></span></label>
+        <label class="suit-opt"><input type="radio" name="suit" value="cups"><span aria-label="Cups, Water" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 9 h24 c0 11 -5 18 -12 18 c-7 0 -12 -7 -12 -18 z"/><path d="M24 27 v10"/><path d="M15 41 h18"/><path d="M17 37 h14"/><path d="M15 14 h18"/></svg></span></label>
+        <label class="suit-opt"><input type="radio" name="suit" value="pentacles"><span aria-label="Pentacles, Earth" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><path d="M24 9 L32.8 36.1 L9.7 19.4 H38.3 L15.2 36.1 Z"/></svg></span></label>
+        <label class="suit-opt"><input type="radio" name="suit" value="wands"><span aria-label="Wands, Fire" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 42 L35 6"/><path d="M15 39 l-3 -2"/><path d="M29 16 c4 -3 8 -2 9 1 c-4 2 -7 1 -9 -1 z"/><path d="M23 26 c-4 -3 -8 -2 -9 1 c4 2 7 1 9 -1 z"/><path d="M33 9 c2 -3 5 -3 6 -2"/></svg></span></label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="c1"><small>Container 1 · The Monad</small>The Seed Essence</label>
+      <input id="c1" inputmode="numeric" autocomplete="off" maxlength="1" value="7" aria-describedby="h1">
+      <span class="hint" id="h1">One digit, 0 to 9</span>
+    </div>
+    <div class="field">
+      <label for="c2"><small>Container 2 · The Dyad</small>The Internal Bridge</label>
+      <input id="c2" inputmode="numeric" autocomplete="off" maxlength="2" value="17" aria-describedby="h2">
+      <span class="hint" id="h2">Two digits, 10 to 99</span>
+    </div>
+    <div class="field wide">
+      <label for="c3"><small>Container 3 · The Triad</small>The Macro Environment</label>
+      <input id="c3" inputmode="numeric" autocomplete="off" maxlength="3" value="340" aria-describedby="h3">
+      <span class="hint" id="h3">Three digits, 100 to 999</span>
+    </div>
+    <div class="actions">
+      <button class="wild-btn wild-btn-gold" type="submit">Extract Structural Matrix</button>
+      <span class="err" id="err" role="alert"></span>
+    </div>
+  </form>
+
+  <section class="console" id="console" aria-live="polite">
+    <p class="eyebrow">The matrix</p>
+    <svg class="map" id="map" viewBox="0 0 720 520" role="img" aria-label="Symbolic map of the reading"></svg>
+    <div class="key" id="key"></div>
+    <details>
+      <summary>The matrix payload (JSON)</summary>
+      <pre id="json"></pre>
+    </details>
+    <p class="note">Height is the number. Gold marks the echo. Dashed lines are reactions. The lower line holds the polarity. The same inputs always draw the same map.</p>
+  </section>
+</main>
+
+<footer>The Wild Project</footer>
+
+<script src="../../assets/wild-nav.js" data-app="parser"></script>
+<script>
+(function () {
+  /* Layer 1: Elemental Physics */
+  var SUITS = {
+    wands:     { name: 'Wands', element: 'Fire', laws: 'Kinetic / Will', field: 'kinetic', vocab: 'volition, agency, kinetic energy, creative thrust, identity, willpower' },
+    cups:      { name: 'Cups', element: 'Water', laws: 'Fluid / Emotion', field: 'emotional', vocab: 'receptivity, relational dynamics, emotional depth, intuition, the subconscious, fluid adaptation' },
+    swords:    { name: 'Swords', element: 'Air', laws: 'Cognitive / Air', field: 'mental', vocab: 'cognition, discrimination, language, conflict, structural truth, the cutting away of falsehood, ideology' },
+    pentacles: { name: 'Pentacles', element: 'Earth', laws: 'Somatic / Matter', field: 'material', vocab: 'somatic reality, physical structure, resource accumulation, systemic stability, the material record, gravity' }
+  };
+  var KEY = ['the void', 'individual will', 'polarity', 'synthesis', 'order', 'disruption', 'harmony', 'introspection', 'restriction', 'culmination'];
+  function digits(n) { return String(n).split('').map(Number); }
+  function reduce(n) { var chain = [n]; while (n > 9) { n = digits(n).reduce(function (a, b) { return a + b; }, 0); chain.push(n); } return { root: n, chain: chain }; }
+
+  /* Backend parsing utility: the JSON payload the method specifies, plus the correlations. */
+  function parse(suit, c1, c2, c3) {
+    var r2 = reduce(c2), r3 = reduce(c3);
+    var s = SUITS[suit];
+    var payload = {
+      elemental_domain: { suit: s.name, element: s.element, physics: s.laws, vocabulary: s.vocab },
+      container_1: c1,
+      container_2: { raw: c2, digits: digits(c2), root: r2.root },
+      container_3: { raw: c3, digits: digits(c3), root: r3.root }
+    };
+
+    var tokens = [{ v: c1, at: 'the seed (C1)' }];
+    digits(c2).forEach(function (d, i) { tokens.push({ v: d, at: 'a digit of the bridge (C2)' }); });
+    tokens.push({ v: r2.root, at: 'the root of the bridge (C2)' });
+    digits(c3).forEach(function (d) { tokens.push({ v: d, at: 'a digit of the macro-environment (C3)' }); });
+    tokens.push({ v: r3.root, at: 'the root of the macro-environment (C3)' });
+
+    var count = {}, where = {};
+    tokens.forEach(function (t) { count[t.v] = (count[t.v] || 0) + 1; (where[t.v] = where[t.v] || []).push(t.at); });
+    var echoes = Object.keys(count).map(Number).filter(function (v) { return count[v] > 1; })
+      .sort(function (a, b) { return count[b] - count[a] || b - a; })
+      .map(function (v) { return { number: v, count: count[v], appears_as: where[v] }; });
+    var nonZero = echoes.filter(function (e) { return e.number !== 0; });
+    var pool = nonZero.length ? nonZero : echoes;
+    var top = pool.length ? pool[0].count : 0;
+    var centre = pool.filter(function (e) { return e.count === top; }).map(function (e) { return e.number; });
+
+    var roots = [c1, r2.root, r3.root];
+    var d1 = Math.sign(roots[1] - roots[0]), d2 = Math.sign(roots[2] - roots[1]);
+    var shape = d1 > 0 && d2 > 0 ? 'ascension' : d1 < 0 && d2 < 0 ? 'descension'
+      : d1 > 0 && d2 < 0 ? 'swell and regression' : d1 < 0 && d2 > 0 ? 'dip and recovery'
+      : d1 === 0 && d2 === 0 ? 'stasis' : (d1 + d2) > 0 ? 'ascension with a plateau' : 'descension with a plateau';
+
+    var present = {}; tokens.forEach(function (t) { present[t.v] = true; });
+    var voids = [1, 2, 3, 4, 5, 6, 7, 8, 9].filter(function (v) { return !present[v]; });
+
+    function reaction(raw, r) {
+      var ds = digits(raw), sum = ds.join(' + ') + ' = ' + r.chain.slice(1).join(' → ');
+      return { digits: ds, equation: sum, produces: r.root, self_return: ds.indexOf(r.root) > -1, holds_void: ds.indexOf(0) > -1 };
+    }
+
+    payload.correlations = {
+      echoes: echoes,
+      gravitational_centre: centre,
+      trajectory: { roots: roots, shape: shape, returns_to_seed: roots[2] === roots[0] },
+      reactions: { container_2: reaction(c2, r2), container_3: reaction(c3, r3) },
+      void: voids
+    };
+    return payload;
+  }
+
+  /* The symbolic map. Every number is a Pythagorean figure: 0 the open circle, 1 the point in the circle,
+     2 the vesica, 3 the triangle, 4 the square, then the star polygons {5/2} to {9/4}. Height is value. */
+  var STAR = { 3: 1, 4: 1, 5: 2, 6: 2, 7: 3, 8: 3, 9: 4 };
+  function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+  function glyph(n, cx, cy, r, cls) {
+    var g = '<g class="g ' + (cls || '') + '">';
+    if (n === 0) return g + '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" stroke-dasharray="3 4"/></g>';
+    if (n === 1) return g + '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (r * .16) + '" fill="currentColor"/></g>';
+    if (n === 2) return g + '<circle cx="' + cx + '" cy="' + (cy - r * .32) + '" r="' + (r * .68) + '"/><circle cx="' + cx + '" cy="' + (cy + r * .32) + '" r="' + (r * .68) + '"/></g>';
+    var k = STAR[n], m = gcd(n, k), d = '', rot = n === 4 ? Math.PI / 4 : 0;
+    for (var j = 0; j < m; j++) {
+      for (var i = 0; i <= n / m; i++) {
+        var t = -Math.PI / 2 + rot + ((i * k + j) % n) * 2 * Math.PI / n;
+        d += (i ? 'L' : 'M') + (cx + r * Math.cos(t)).toFixed(1) + ' ' + (cy + r * Math.sin(t)).toFixed(1);
+      }
+    }
+    return g + '<path d="' + d + 'Z"/></g>';
+  }
+
+  var IND = '#8A6FE0', IND3 = '#B9A9F0', GOLD = '#E9C766', DIM = 'rgba(244,241,237,.28)';
+  var Y = function (v) { return 404 - v * 32; };
+  var COL = [150, 360, 570];
+
+  function polarity(p) {
+    var c = p.correlations, roots = c.trajectory.roots;
+    var a = c.gravitational_centre.length ? c.gravitational_centre[0] : roots[0];
+    var cand = roots.filter(function (r) { return r !== a; });
+    if (!cand.length) cand = p.container_2.digits.concat(p.container_3.digits).filter(function (d) { return d !== a && d !== 0; });
+    var b = cand.length ? cand.sort(function (x, y) { return Math.abs(y - a) - Math.abs(x - a) || y - x; })[0] : (c.void[0] || 0);
+    return [a, b];
+  }
+
+  function draw(suit, p) {
+    var c = p.correlations, centre = c.gravitational_centre, roots = c.trajectory.roots;
+    var seq = 0, delay = function () { return ' style="animation-delay:' + (0.15 * seq++).toFixed(2) + 's"'; };
+    var colour = function (v) { return centre.indexOf(v) > -1 ? GOLD : null; };
+    var icon = document.querySelector('input[name=suit]:checked + span svg').innerHTML;
+    var out = [];
+
+    /* the suit, faint, holding the whole field */
+    out.push('<g transform="translate(240 150) scale(5)" style="color:' + IND + ';opacity:.07" fill="none" stroke="currentColor" stroke-width="1.2">' + icon + '</g>');
+
+    /* the ladder: present numbers lit, the void dimmed */
+    var present = {};
+    [p.container_1].concat(p.container_2.digits, [p.container_2.root], p.container_3.digits, [p.container_3.root]).forEach(function (v) { present[v] = true; });
+    for (var v = 0; v <= 9; v++) {
+      out.push('<line class="lad" x1="44" x2="690" y1="' + Y(v) + '" y2="' + Y(v) + '"/>');
+      out.push('<text class="num' + (present[v] ? '' : ' off') + '" x="20" y="' + (Y(v) + 4) + '">' + v + '</text>');
+      if (!present[v]) out.push('<g style="color:' + DIM + '">' + glyph(v, 58, Y(v), 7) + '</g>');
+    }
+
+    /* the three containers */
+    var raws = [p.container_1, p.container_2.raw, p.container_3.raw];
+    ['I', 'II', 'III'].forEach(function (h, i) {
+      out.push('<text class="head" x="' + COL[i] + '" y="34">' + h + '</text><text class="raw" x="' + COL[i] + '" y="52">' + raws[i] + '</text>');
+    });
+
+    /* satellites: the digits inside the bridge and the field, at their own height, reacting into the root */
+    var nodes = [{ v: roots[0], x: COL[0], y: Y(roots[0]), root: true }];
+    [[p.container_2, 1, [-62, 62]], [p.container_3, 2, [-66, 0, 66]]].forEach(function (s) {
+      var box = s[0], i = s[1], offs = s[2], rx = COL[i], ry = Y(box.root);
+      box.digits.forEach(function (d, j) {
+        var x = rx + offs[j], y = Y(d);
+        out.push('<line x1="' + x + '" y1="' + y + '" x2="' + rx + '" y2="' + ry + '" stroke="' + IND3 + '" stroke-opacity=".35" stroke-dasharray="3 5" class="in"' + delay() + '/>');
+        nodes.push({ v: d, x: x, y: y });
+      });
+      nodes.push({ v: box.root, x: rx, y: ry, root: true });
+    });
+
+    /* echoes: threads between every appearance of a repeating number */
+    c.echoes.forEach(function (e) {
+      var pts = nodes.filter(function (n) { return n.v === e.number; }).sort(function (a, b) { return a.x - b.x; });
+      var gold = centre.indexOf(e.number) > -1;
+      for (var k = 1; k < pts.length; k++) {
+        out.push('<line x1="' + pts[k - 1].x + '" y1="' + pts[k - 1].y + '" x2="' + pts[k].x + '" y2="' + pts[k].y + '" stroke="' + (gold ? GOLD : IND3) +
+          '" stroke-opacity="' + (gold ? .7 : .35) + '" stroke-width="' + (gold ? 1.6 : 1) + '" stroke-dasharray="1 6" stroke-linecap="round" class="in"' + delay() + '/>');
+      }
+    });
+
+    /* the trajectory through the three roots */
+    var path = 'M' + COL[0] + ' ' + Y(roots[0]) + ' L' + COL[1] + ' ' + Y(roots[1]) + ' L' + COL[2] + ' ' + Y(roots[2]);
+    out.push('<path d="' + path + '" fill="none" stroke="' + IND + '" stroke-width="2.4" stroke-linejoin="round" class="draw" marker-mid="url(#arrow)" marker-end="url(#arrow)"/>');
+
+    /* the figures themselves, roots large, digits small */
+    nodes.forEach(function (n) {
+      var col = colour(n.v) || (n.root ? '#F4F1ED' : IND3);
+      if (n.root) out.push('<circle cx="' + n.x + '" cy="' + n.y + '" r="34" fill="#0A0612" stroke="' + (colour(n.v) ? 'rgba(233,199,102,.45)' : 'rgba(138,111,224,.45)') + '" class="in"' + delay() + '/>');
+      out.push('<g style="color:' + col + '" class="in"' + delay() + '>' + glyph(n.v, n.x, n.y, n.root ? 22 : 11) + '</g>');
+    });
+
+    /* the polarity: two figures on one axis, as far apart as their numbers */
+    var pol = polarity(p), ax = function (v) { return 150 + v * 46.7; }, py = 488;
+    out.push('<line x1="150" x2="570" y1="' + py + '" y2="' + py + '" stroke="rgba(244,241,237,.12)"/>');
+    for (var t = 0; t <= 9; t++) out.push('<line x1="' + ax(t) + '" x2="' + ax(t) + '" y1="' + (py - 3) + '" y2="' + (py + 3) + '" stroke="rgba(244,241,237,.18)"/>');
+    out.push('<line x1="' + ax(pol[0]) + '" x2="' + ax(pol[1]) + '" y1="' + py + '" y2="' + py + '" stroke="' + IND + '" stroke-width="2.4" marker-start="url(#arrow2)" marker-end="url(#arrow)" class="in"' + delay() + '/>');
+    pol.forEach(function (v, i) {
+      out.push('<circle cx="' + ax(v) + '" cy="' + py + '" r="20" fill="#0A0612" class="in"' + delay() + '/>');
+      out.push('<g style="color:' + (i === 0 && centre.length ? GOLD : '#F4F1ED') + '" class="in"' + delay() + '>' + glyph(v, ax(v), py, 13) + '</g>');
+    });
+    out.push('<text class="num" x="20" y="' + (py + 4) + '">⟷</text>');
+
+    var defs = '<defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L9 5 L0 9" fill="none" stroke="' + IND + '" stroke-width="1.6"/></marker>' +
+      '<marker id="arrow2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L9 5 L0 9" fill="none" stroke="' + IND + '" stroke-width="1.6"/></marker></defs>';
+    $('map').innerHTML = defs + out.join('');
+
+    /* key: only the figures that appear, one word each */
+    var shown = Object.keys(present).map(Number).sort();
+    $('key').innerHTML = shown.map(function (v) {
+      return '<span><svg viewBox="0 0 24 24" style="color:' + (colour(v) || IND3) + '">' + glyph(v, 12, 12, 9) + '</svg>' + v + ' ' + KEY[v].replace('the ', '') + '</span>';
+    }).join('');
+  }
+
+  /* UI */
+  var $ = function (id) { return document.getElementById(id); };
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function read(id, lo, hi, len) {
+    var el = $(id), v = el.value.trim(), ok = new RegExp('^\\d{' + len + '}$').test(v) && +v >= lo && +v <= hi;
+    el.setAttribute('aria-invalid', ok ? 'false' : 'true');
+    return ok ? +v : null;
+  }
+
+  function aperture() {
+    return new Promise(function (done) {
+      var wrap = $('aperture'), v = $('aperture-video');
+      if (reduced || !v.play) return done();
+      var finished = false, finish = function () { if (finished) return; finished = true; wrap.classList.remove('on'); done(); };
+      wrap.classList.add('on'); v.currentTime = 0;
+      var pr = v.play(); if (pr && pr.catch) pr.catch(finish);
+      setTimeout(finish, 1700);
+    });
+  }
+
+  $('form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var suit = document.querySelector('input[name=suit]:checked').value, c1 = read('c1', 0, 9, 1), c2 = read('c2', 10, 99, 2), c3 = read('c3', 100, 999, 3);
+    if (c1 === null || c2 === null || c3 === null) { $('err').textContent = 'Each container needs its exact number of digits.'; return; }
+    $('err').textContent = '';
+    var payload = parse(suit, c1, c2, c3);
+    payload.correlations.polarity = polarity(payload);
+    aperture().then(function () {
+      $('console').classList.remove('on'); void $('console').offsetWidth;
+      draw(suit, payload);
+      $('json').textContent = JSON.stringify(payload, null, 2);
+      $('console').classList.add('on');
+      $('console').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
+  window.WILD_PARSER = { parse: parse };
+})();
+</script>
+</body>
+</html>
