@@ -38,13 +38,22 @@
     box-shadow:var(--wild-shadow-card); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
   .field { display:flex; flex-direction:column; gap:6px; }
   .field.wide { grid-column:1 / -1; }
-  label { font-family:var(--wild-serif); font-weight:600; font-size:1.2rem; line-height:1.2; }
-  label small { display:block; font-family:var(--wild-sans); font-weight:700; font-size:var(--wild-fs-xs); letter-spacing:.14em; text-transform:uppercase; color:var(--wild-indigo-3); margin-bottom:2px; }
-  input, select { width:100%; min-height:48px; padding:10px 14px; border-radius:var(--wild-r-md); border:1px solid var(--wild-border);
+  label, .field-label { font-family:var(--wild-serif); font-weight:600; font-size:1.2rem; line-height:1.2; }
+  label small, .field-label small { display:block; font-family:var(--wild-sans); font-weight:700; font-size:var(--wild-fs-xs); letter-spacing:.14em; text-transform:uppercase; color:var(--wild-indigo-3); margin-bottom:2px; }
+  input { width:100%; min-height:48px; padding:10px 14px; border-radius:var(--wild-r-md); border:1px solid var(--wild-border);
     background:var(--wild-surface); color:var(--wild-text); font-family:var(--wild-mono); font-size:1.05rem; }
-  select { font-family:var(--wild-sans); }
-  input:focus, select:focus { outline:none; border-color:var(--wild-indigo-2); box-shadow:0 0 0 3px rgba(99,73,184,.25); }
+  input:focus { outline:none; border-color:var(--wild-indigo-2); box-shadow:0 0 0 3px rgba(99,73,184,.25); }
   input[aria-invalid="true"] { border-color:var(--wild-danger); }
+  .suits { display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; }
+  .suit-opt { display:block; cursor:pointer; }
+  .suit-opt input { position:absolute; opacity:0; pointer-events:none; }
+  .suit-opt span { display:flex; align-items:center; justify-content:center; aspect-ratio:1 / 1; max-height:96px; width:100%; border-radius:var(--wild-r-md);
+    border:1px solid var(--wild-border); background:var(--wild-surface); color:var(--wild-indigo-3);
+    transition:border-color var(--wild-t), color var(--wild-t), background var(--wild-t), box-shadow var(--wild-t); }
+  .suit-opt svg { width:62%; height:62%; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .suit-opt:hover span { border-color:var(--wild-border-lit); color:var(--wild-text); }
+  .suit-opt input:checked + span { border-color:var(--wild-indigo-2); color:var(--wild-text); background:rgba(99,73,184,.22); box-shadow:0 0 24px -8px rgba(138,111,224,.7); }
+  .suit-opt input:focus-visible + span { outline:2px solid var(--wild-indigo-2); outline-offset:3px; }
   .hint { font-size:var(--wild-fs-xs); color:var(--wild-faint); }
   .actions { grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
   .err { color:var(--wild-danger); font-size:var(--wild-fs-sm); }
@@ -98,13 +107,13 @@
 
   <form id="form" novalidate>
     <div class="field wide">
-      <label for="suit"><small>Domain</small>The Elemental Physics</label>
-      <select id="suit" required>
-        <option value="wands">Wands · Fire · volition and kinetic will</option>
-        <option value="cups">Cups · Water · receptivity and feeling</option>
-        <option value="swords" selected>Swords · Air · cognition and truth</option>
-        <option value="pentacles">Pentacles · Earth · matter and structure</option>
-      </select>
+      <span class="field-label"><small>Domain</small>The Elemental Physics</span>
+      <div class="suits" role="radiogroup" aria-label="Suit">
+        <label class="suit-opt"><input type="radio" name="suit" value="wands"><span aria-label="Wands, Fire" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 42 L35 6"/><path d="M15 39 l-3 -2"/><path d="M29 16 c4 -3 8 -2 9 1 c-4 2 -7 1 -9 -1 z"/><path d="M23 26 c-4 -3 -8 -2 -9 1 c4 2 7 1 9 -1 z"/><path d="M33 9 c2 -3 5 -3 6 -2"/></svg></span></label>
+        <label class="suit-opt"><input type="radio" name="suit" value="cups"><span aria-label="Cups, Water" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 9 h24 c0 11 -5 18 -12 18 c-7 0 -12 -7 -12 -18 z"/><path d="M24 27 v10"/><path d="M15 41 h18"/><path d="M17 37 h14"/><path d="M15 14 h18"/></svg></span></label>
+        <label class="suit-opt"><input type="radio" name="suit" value="swords" checked><span aria-label="Swords, Air" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 l3 5 v22 h-6 v-22 z"/><path d="M14 32 h20"/><path d="M24 32 v9"/><circle cx="24" cy="43" r="2"/></svg></span></label>
+        <label class="suit-opt"><input type="radio" name="suit" value="pentacles"><span aria-label="Pentacles, Earth" role="img"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><path d="M24 9 L32.8 36.1 L9.7 19.4 H38.3 L15.2 36.1 Z"/></svg></span></label>
+      </div>
     </div>
     <div class="field">
       <label for="c1"><small>Container 1 · The Monad</small>The Seed Essence</label>
@@ -337,7 +346,7 @@
 
   $('form').addEventListener('submit', function (ev) {
     ev.preventDefault();
-    var suit = $('suit').value, c1 = read('c1', 0, 9, 1), c2 = read('c2', 10, 99, 2), c3 = read('c3', 100, 999, 3);
+    var suit = document.querySelector('input[name=suit]:checked').value, c1 = read('c1', 0, 9, 1), c2 = read('c2', 10, 99, 2), c3 = read('c3', 100, 999, 3);
     if (c1 === null || c2 === null || c3 === null) { $('err').textContent = 'Each container needs its exact number of digits.'; return; }
     $('err').textContent = '';
     var payload = parse(suit, c1, c2, c3), local = synthesise(suit, payload);
