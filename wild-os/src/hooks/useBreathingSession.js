@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useAudio } from './useAudio'
+import { playPhaseCue } from '@lib/audio/engine'
 
 export function useBreathingSession(pattern) {
   const [phaseIndex, setPhaseIndex] = useState(0)
@@ -18,7 +18,6 @@ export function useBreathingSession(pattern) {
   const rafRef = useRef(null)
   const lastTimeRef = useRef(null)
   const phaseStartRef = useRef(0)
-  const audio = useAudio()
 
   const phases = pattern?.phases || []
   const currentPhase = phases[phaseIndex] || phases[0]
@@ -71,17 +70,16 @@ export function useBreathingSession(pattern) {
           })
         }
         setPhaseIndex(nextPhaseIndex)
-        if (audio.ready) {
-          const nextPhase = phases[nextPhaseIndex]
-          if (nextPhase) audio.playPhaseCue(nextPhase.name.toLowerCase().replace('_out', 'Out').replace('hold', 'hold'))
-        }
+        // The engine ignores cues until audio has finished starting
+        const nextPhase = phases[nextPhaseIndex]
+        if (nextPhase) playPhaseCue(nextPhase.name.toLowerCase().replace('_out', 'Out').replace('hold', 'hold'))
         return 0
       }
       return next
     })
 
     rafRef.current = requestAnimationFrame(tick)
-  }, [pattern, phaseIndex, currentPhase, phases, audio])
+  }, [pattern, phaseIndex, currentPhase, phases])
 
   // Retention timer for Wim Hof
   useEffect(() => {
@@ -145,8 +143,8 @@ export function useBreathingSession(pattern) {
     setIsRetention(false)
     setIsRecovery(false)
     lastTimeRef.current = null
-    if (audio.ready) audio.playPhaseCue('inhale')
-  }, [pattern, audio])
+    playPhaseCue('inhale')
+  }, [pattern])
 
   const stop = useCallback(() => {
     setIsRunning(false)
