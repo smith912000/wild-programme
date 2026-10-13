@@ -29,20 +29,20 @@
   .who button:hover, .quiet:hover { background:rgba(99,73,184,.16); }
 
   main { max-width:1120px; margin:0 auto; padding:var(--wild-s7) 20px var(--wild-s8); }
-  .stage { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.15fr); grid-template-areas:'text sky' 'detail sky'; column-gap:var(--wild-s6); align-items:center; }
-  .intro-text { grid-area:text; align-self:end; } .sky { grid-area:sky; } .detail { grid-area:detail; align-self:start; }
+  .stage { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.15fr); column-gap:var(--wild-s6); align-items:center; }
   .eyebrow { font-size:var(--wild-fs-xs); font-weight:700; letter-spacing:var(--wild-track-label); text-transform:uppercase; color:var(--wild-gold); }
   h1 { font-family:var(--wild-serif); font-weight:500; font-size:clamp(2.4rem, 6vw, 3.6rem); line-height:1.05; margin:10px 0 12px; }
   .lede { color:var(--wild-dim); max-width:440px; }
 
-  /* the detail panel: words rise out of a clip, never fade in */
-  .detail { margin-top:var(--wild-s6); min-height:190px; }
-  .detail .clip { overflow:hidden; }
-  .detail .clip > * { display:block; transform:translateY(0); transition:transform .55s var(--spring); }
-  .detail.swap .clip > * { transform:translateY(110%); transition:none; }
-  .detail h2 { font-family:var(--wild-serif); font-weight:600; font-size:2.2rem; line-height:1.15; margin-top:4px; }
-  .detail p { font-family:var(--wild-serif); font-style:italic; font-size:1.3rem; color:var(--wild-dim); line-height:1.35; max-width:420px; }
-  .detail .row { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:var(--wild-s4); }
+  /* the pop-up: a short note beside the app under the pointer */
+  .tip { position:absolute; z-index:5; left:0; top:0; width:230px; padding:12px 14px; border-radius:var(--wild-r-md); pointer-events:none;
+         background:rgba(18,12,31,.94); border:1px solid var(--wild-border-lit); box-shadow:var(--wild-shadow-float); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+         opacity:0; transform:translateY(6px) scale(.96); transform-origin:var(--ox, 50%) var(--oy, 0); transition:opacity .2s, transform .45s var(--spring); }
+  .tip.show { opacity:1; transform:none; }
+  .tip b { display:block; font-family:var(--wild-serif); font-weight:600; font-size:1.25rem; line-height:1.15; margin:2px 0 4px; }
+  .tip p { font-size:var(--wild-fs-sm); color:var(--wild-dim); line-height:1.45; }
+  .tip small { display:none; margin-top:8px; font-size:var(--wild-fs-xs); color:var(--wild-indigo-3); }
+  .tip.touch small { display:block; }
   .btn { display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-weight:600; font-size:var(--wild-fs-sm); color:var(--wild-on-gold); background:var(--wild-gold);
          padding:12px 20px; border-radius:var(--wild-r-pill); box-shadow:var(--wild-glow-gold); transition:background var(--wild-t-fast), transform .4s var(--spring); }
   .btn:hover { background:var(--wild-gold-2); transform:translateY(-1px); }
@@ -90,13 +90,23 @@
   .node.door .disc { width:96px; height:96px; left:-48px; top:-48px; background:transparent; border:0; }
   .node.door .disc::after { display:none; }
   .node.door svg { width:72px; height:86px; }
-  .door .rings circle { fill:none; stroke:var(--wild-indigo-2); stroke-width:2.4; animation:breathe 7s ease-in-out infinite; transform-origin:50px 60px; }
-  .door .slit { stroke:var(--wild-gold-2); stroke-width:3.4; stroke-linecap:round; transition:transform .5s var(--spring); transform-origin:50px 60px; }
-  .node.door.on .slit, .node.door:focus-visible .slit { transform:scaleY(1.6); }
+  /* the mark morphs into the founders' door: the rings close into one lens, an arch draws in, the slit falls to the threshold */
+  .door svg * { transform-box:view-box; }
+  .door .rings { transform-origin:50px 60px; animation:breathe 7s ease-in-out infinite; }
+  .door .rings circle { fill:none; stroke:var(--wild-indigo-2); stroke-width:2.4; transform-origin:50px 60px; transition:transform .55s var(--spring), opacity .35s; }
+  .door .lens, .door .arch { fill:none; stroke:var(--wild-indigo-3); stroke-width:2.6; stroke-linecap:round; stroke-dasharray:100; stroke-dashoffset:100; transition:stroke-dashoffset .6s var(--spring-soft); }
+  .door .arch { transition-delay:.08s; }
+  .door .slit { stroke:var(--wild-gold-2); stroke-width:3.4; stroke-linecap:round; transform-origin:50px 60px; transition:transform .6s var(--spring); }
+  .door .knob { fill:var(--wild-gold-2); transform-origin:56px 78px; transform:scale(0); transition:transform .4s var(--spring) .18s; }
+  .node.door.on .rings circle, .node.door:focus-visible .rings circle { transform:scaleX(.55); opacity:0; }
+  .node.door.on .lens, .node.door.on .arch, .node.door:focus-visible .lens, .node.door:focus-visible .arch { stroke-dashoffset:0; }
+  .node.door.on .slit, .node.door:focus-visible .slit { transform:translateY(33px) rotate(90deg) scaleY(1.75); }
+  .node.door.on .knob, .node.door:focus-visible .knob { transform:scale(1); }
   .door .halo { position:absolute; left:-70px; top:-70px; width:140px; height:140px; border-radius:50%; pointer-events:none;
                 background:radial-gradient(circle, rgba(233,199,102,.28), transparent 65%); animation:glow 5s ease-in-out infinite; }
   .node.door .label { top:52px; }
   @keyframes breathe { 50% { transform:scale(1.035); } }
+  .node.door.on .rings, .node.door:focus-visible .rings { animation:none; }
   @keyframes glow { 50% { opacity:.55; } }
 
   /* the aperture wipe when an app opens */
@@ -125,9 +135,8 @@
   @supports not (transition-timing-function:linear(0, 1)) { :root { --spring:cubic-bezier(.34,1.36,.64,1); --spring-soft:cubic-bezier(.2,.8,.2,1); } }
 
   @media (max-width:860px) {
-    .stage { grid-template-columns:1fr; grid-template-areas:'text' 'sky' 'detail'; row-gap:var(--wild-s5); }
+    .stage { grid-template-columns:1fr; row-gap:var(--wild-s5); }
     .sky { max-width:420px; width:calc(100% - 24px); margin:40px auto 24px; }
-    .detail { min-height:0; margin-top:0; }
   }
   @media (max-width:560px) { .who .name { display:none; } main { padding-top:var(--wild-s6); } .node .disc { left:-28px; top:-28px; width:56px; height:56px; } .node svg { width:28px; height:28px; } .node .label { top:36px; } .node.north .label { bottom:36px; } .node.door .disc { width:72px; height:72px; left:-36px; top:-36px; } .node.door svg { width:52px; height:62px; } .node.door .label { top:38px; } .door .halo { left:-52px; top:-52px; width:104px; height:104px; } }
   @media (prefers-reduced-motion:reduce) {
@@ -170,14 +179,9 @@
           <circle class="wave" cx="50" cy="50" r="38" id="wave"/>
         </svg>
       </div>
+      <div class="tip" id="tip" role="status"><span class="eyebrow" id="t-role"></span><b id="t-name"></b><p id="t-line"></p><small>Tap again to open</small></div>
     </nav>
 
-    <div class="detail" id="detail" aria-live="polite">
-      <div class="clip"><span class="eyebrow" id="d-role">The Open Door</span></div>
-      <div class="clip"><h2 id="d-name">Choose a door</h2></div>
-      <div class="clip"><p id="d-line">Hover or tap an app to see what it holds.</p></div>
-      <div class="row"><a class="btn" id="d-go" href="#" aria-disabled="true">Open</a></div>
-    </div>
   </section>
 
   <section class="call" aria-label="Weekly live call">
@@ -223,7 +227,7 @@
     parser: '<path d="M-10,-15 H10 A2,2 0 0 1 12,-13 V13 A2,2 0 0 1 10,15 H-10 A2,2 0 0 1 -12,13 V-13 A2,2 0 0 1 -10,-15 Z M-6,0 Q0,-7 6,0 Q0,7 -6,0 Z"/>',
     other: '<path d="M0,-12 A12,12 0 1 1 0,12 A12,12 0 1 1 0,-12 Z M0,-4 L0,4"/>'
   };
-  var MARK = '<svg viewBox="0 0 100 120" aria-hidden="true"><g class="rings"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><line class="slit" x1="50" y1="51" x2="50" y2="69"/></svg>';
+  var MARK = '<svg viewBox="0 0 100 120" aria-hidden="true"><g class="rings"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><path class="lens" pathLength="100" d="M50 5A65 65 0 0 1 50 115A65 65 0 0 1 50 5Z"/><path class="arch" pathLength="100" d="M38 93V62A12 12 0 0 1 62 62V93"/><line class="slit" x1="50" y1="51" x2="50" y2="69"/><circle class="knob" cx="56" cy="78" r="3.5"/></svg>';
 
   var plane = document.getElementById('plane'), lines = document.getElementById('lines');
   var apps = window.WILD_APPS || [], d = 0, nodes = [];
@@ -264,20 +268,29 @@
     });
   }
 
-  // selection: a ray of light to the app, and the panel words rise into place
-  var detail = document.getElementById('detail'), go = document.getElementById('d-go'), current = null;
-  function select(n) {
-    if (!n || !n.a || current === n) return;
+  // selection: a ray of light to the app and a short pop-up beside it
+  var tip = document.getElementById('tip'), map = document.getElementById('sky-map'), current = null;
+  function select(n, touch) {
+    if (!n || !n.a) return;
     current = n;
     nodes.forEach(function (m) { m.el.classList.toggle('on', m === n); if (m.ray) m.ray.classList.toggle('on', m === n); });
-    detail.classList.add('swap');
-    document.getElementById('d-role').textContent = n.a.role;
-    document.getElementById('d-name').textContent = n.a.name;
-    document.getElementById('d-line').textContent = LINE[n.a.id] || '';
-    if (n.a.url) { go.href = n.a.url; go.removeAttribute('aria-disabled'); go.textContent = 'Open ' + n.a.name + ' →'; go.target = n.a.external ? '_blank' : ''; go.rel = n.a.external ? 'noopener' : ''; }
-    else { go.setAttribute('aria-disabled', 'true'); go.textContent = 'Coming soon'; go.removeAttribute('href'); }
-    void detail.offsetWidth; detail.classList.remove('swap');
+    document.getElementById('t-role').textContent = n.a.role;
+    document.getElementById('t-name').textContent = n.a.name;
+    document.getElementById('t-line').textContent = LINE[n.a.id] || '';
+    tip.classList.toggle('touch', !!touch && !!n.a.url);
+    // sit below the app (above it for the bottom one), kept inside the circle's box
+    var W = map.clientWidth, H = map.clientHeight, x = parseFloat(n.el.style.getPropertyValue('--x')) / 100 * W, y = parseFloat(n.el.style.getPropertyValue('--y')) / 100 * H;
+    var tw = tip.offsetWidth, th = tip.offsetHeight, small = W < 400, below = n.kind !== 'south',
+        gap = n.kind === 'north' || n.kind === 'south' ? (small ? 36 : 44) : n.kind === 'door' ? (small ? 74 : 84) : (small ? 70 : 80); // clear of the app's own label
+    var left = Math.max(-8, Math.min(W - tw + 8, x - tw / 2)), top = below ? y + gap : y - gap - th;
+    tip.style.left = left + 'px'; tip.style.top = top + 'px';
+    tip.style.setProperty('--ox', (x - left) + 'px'); tip.style.setProperty('--oy', below ? '0' : '100%');
+    tip.classList.remove('show'); void tip.offsetWidth; tip.classList.add('show');
     if (n.kind === 'door' && !reduce) { var w = document.getElementById('wave'); w.classList.remove('go'); void w.getBBox(); w.classList.add('go'); }
+  }
+  function clear() {
+    current = null; tip.classList.remove('show');
+    nodes.forEach(function (m) { m.el.classList.remove('on'); if (m.ray) m.ray.classList.remove('on'); });
   }
   // opening an app: an aperture wipe from where you touched it
   function open(href, x, y) {
@@ -292,24 +305,21 @@
   nodes.forEach(function (n) {
     if (!n.a) return;
     n.el.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') select(n); });
-    n.el.addEventListener('focus', function () { select(n); });
+    n.el.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse' && current === n) clear(); });
+    n.el.addEventListener('focus', function () { if (!n.pt) select(n); });
+    n.el.addEventListener('blur', function () { if (current === n) clear(); });
     n.el.addEventListener('pointerdown', function (e) { n.was = current === n; n.pt = e.pointerType; });
     n.el.addEventListener('click', function (e) {
       // on touch, the first tap shows the app and the second opens it
       var touch = n.pt && n.pt !== 'mouse', was = n.was; n.pt = null;
-      if (touch && !was) { e.preventDefault(); select(n); return; }
-      select(n);
+      if (touch && !was) { e.preventDefault(); select(n, true); return; }
       if (!n.a.url || n.a.external || e.metaKey || e.ctrlKey) return;
       e.preventDefault(); var r = n.el.getBoundingClientRect(); open(n.a.url, r.left, r.top);
     });
   });
-  go.addEventListener('click', function (e) {
-    if (!current || !current.a.url || current.a.external || e.metaKey || e.ctrlKey) return;
-    e.preventDefault(); var r = current.el.getBoundingClientRect(); open(current.a.url, r.left, r.top);
-  });
 
   // the constellation leans a little toward the pointer, on a spring
-  var map = document.getElementById('sky-map'), tx = 0, ty = 0, vx = 0, vy = 0, gx = 0, gy = 0, raf = 0;
+  var tx = 0, ty = 0, vx = 0, vy = 0, gx = 0, gy = 0, raf = 0;
   function step() {
     var k = 120, c = 22, dt = 1 / 60;
     vx += ((gx - tx) * k - vx * c) * dt; vy += ((gy - ty) * k - vy * c) * dt; tx += vx * dt; ty += vy * dt;
