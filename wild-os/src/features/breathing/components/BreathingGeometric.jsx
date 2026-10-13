@@ -109,6 +109,18 @@ const SPIN_RATE  = 0.018 * 60
 const ORBIT_RATE = 0.007 * 60
 const MIN_FRAME_MS = 15                  // cap drawing at ~60 fps
 
+// Breath-linked growth: the 3-D figure fills from GROW_MIN of its size at
+// empty lungs to full size at full lungs. At full size the stella projects
+// exactly onto the hexagram inscribed in the R2 ring, as before.
+const GROW_MIN = 0.78
+const easeBreath = p => 0.5 - 0.5 * Math.cos(Math.PI * Math.min(1, Math.max(0, p)))
+
+// Depth shading: every edge goes into one of three paths by the depth of
+// its midpoint, so edges nearer the eye draw brighter and heavier than the
+// ones behind. Thresholds in world units (vertices sit at |z| ≤ √3).
+const DEPTH_NEAR = 0.45, DEPTH_FAR = -0.45
+const depthBucket = z => z > DEPTH_NEAR ? 0 : z < DEPTH_FAR ? 2 : 1
+
 const RING_N = 24
 const RING_COS = Float64Array.from({ length: RING_N }, (_, i) => Math.cos(i / RING_N * 2 * Math.PI))
 const RING_SIN = Float64Array.from({ length: RING_N }, (_, i) => Math.sin(i / RING_N * 2 * Math.PI))
@@ -146,15 +158,17 @@ function createRenderer(nodes) {
   const m  = new Float64Array(9)
   const px = new Float64Array(9), py = new Float64Array(9), pz = new Float64Array(9) // FOL centres (rotated)
   const sx = new Float64Array(9), sy = new Float64Array(9)                            // FOL centres (projected)
-  const ox = new Float64Array(6), oy = new Float64Array(6)                            // octahedron (projected)
+  const ox = new Float64Array(6), oy = new Float64Array(6), oz = new Float64Array(6)  // octahedron (projected, depth)
 
+  let scale = WIRE_SCALE
   const project = (rx, ry, rz) => {
-    const f = CAM_D / (CAM_D + rz * 0.30) * WIRE_SCALE
+    const f = CAM_D / (CAM_D + rz * 0.30) * scale
     return [CX + rx * f, CY - ry * f]
   }
 
-  return function draw(delta, orbitT) {
+  return function draw(delta, orbitT, grow) {
     rotMatrix(m, BASE_ANGLE_Y + delta, BASE_TILT_X + delta * 0.15)
+    scale = WIRE_SCALE * (GROW_MIN + (1 - GROW_MIN) * grow)
 
     // Sphere centres = centre + the 8 stella / cube vertices
     for (let i = 0; i < 9; i++) {
@@ -163,32 +177,36 @@ function createRenderer(nodes) {
       const ry = m[3] * x + m[4] * y + m[5] * z
       const rz = m[6] * x + m[7] * y + m[8] * z
       px[i] = rx; py[i] = ry; pz[i] = rz
-      const f = CAM_D / (CAM_D + rz * 0.30) * WIRE_SCALE
+      const f = CAM_D / (CAM_D + rz * 0.30) * scale
       sx[i] = CX + rx * f; sy[i] = CY - ry * f
     }
-    // Stella vertex k is FOL centre k+1
-    const seg = (edges, off, from, to) => {
-      let d = ''
+    // Stella vertex k is FOL centre k+1. Each edge set becomes three paths
+    // (near, mid, far) so depth can be shaded without a node per edge.
+    const seg = (paths, edges, off, from, to) => {
+      const d = ['', '', '']
       for (let e = from; e < to; e++) {
         const a = edges[e][0] + off, b = edges[e][1] + off
-        d += `M${n1(sx[a])} ${n1(sy[a])}L${n1(sx[b])} ${n1(sy[b])}`
+        d[depthBucket((pz[a] + pz[b]) * 0.5)] += `M${n1(sx[a])} ${n1(sy[a])}L${n1(sx[b])} ${n1(sy[b])}`
       }
-      return d
+      for (let i = 0; i < 3; i++) paths[i].setAttribute('d', d[i])
     }
-    nodes.stellaA.setAttribute('d', seg(STELLA_E, 1, 0, 6))
-    nodes.stellaB.setAttribute('d', seg(STELLA_E, 1, 6, 12))
-    nodes.cube.setAttribute('d', seg(COMP_CUBE_E, 1, 0, COMP_CUBE_E.length))
-    nodes.folEdges.setAttribute('d', seg(FOL_CENTERS_E, 0, 0, FOL_CENTERS_E.length))
+    seg(nodes.stellaA, STELLA_E, 1, 0, 6)
+    seg(nodes.stellaB, STELLA_E, 1, 6, 12)
+    seg(nodes.cube, COMP_CUBE_E, 1, 0, COMP_CUBE_E.length)
+    seg(nodes.folEdges, FOL_CENTERS_E, 0, 0, FOL_CENTERS_E.length)
 
     // Inner octahedron: unit axis vertices, so rotated vertex = ±column of m
     for (let i = 0; i < 6; i++) {
       const axis = i >> 1, sgn = i & 1 ? -1 : 1
-      const [x, y] = project(sgn * m[axis], sgn * m[3 + axis], sgn * m[6 + axis])
+      oz[i] = sgn * m[6 + axis]
+      const [x, y] = project(sgn * m[axis], sgn * m[3 + axis], oz[i])
       ox[i] = x; oy[i] = y
     }
-    let od = ''
-    for (const [a, b] of INNER_OCT_E) od += `M${n1(ox[a])} ${n1(oy[a])}L${n1(ox[b])} ${n1(oy[b])}`
-    nodes.oct.setAttribute('d', od)
+    const od = ['', '', '']
+    for (const [a, b] of INNER_OCT_E) {
+      od[depthBucket((oz[a] + oz[b]) * 0.5)] += `M${n1(ox[a])} ${n1(oy[a])}L${n1(ox[b])} ${n1(oy[b])}`
+    }
+    for (let i = 0; i < 3; i++) nodes.oct[i].setAttribute('d', od[i])
 
     // Sphere rings: centre + r·(cos·u + sin·v), with u, v rotated unit axes
     let k = 0
@@ -200,10 +218,13 @@ function createRenderer(nodes) {
         for (let i = 0; i < RING_N; i++) {
           const c = RING_COS[i], sn = RING_SIN[i]
           const rz = pz[s] + c * uz + sn * vz
-          const f = CAM_D / (CAM_D + rz * 0.30) * WIRE_SCALE
+          const f = CAM_D / (CAM_D + rz * 0.30) * scale
           d += (i ? 'L' : 'M') + n1(CX + (px[s] + c * ux + sn * vx) * f) + ' ' + n1(CY - (py[s] + c * uy + sn * vy) * f)
         }
-        nodes.rings[k++].setAttribute('d', d + 'Z')
+        // Spheres further back fade, so the cluster reads as a volume
+        const ring = nodes.rings[k++]
+        ring.setAttribute('d', d + 'Z')
+        ring.setAttribute('stroke-opacity', Math.round(Math.max(0.18, 0.72 - pz[s] * 0.22) * 100) / 100)
       }
     }
 
@@ -234,6 +255,9 @@ const amber  = '#E9C766'   // hexagon + 3 spokes / cube
 const purple = '#8A6FE0'   // inner hexagon / inner octahedron (violet)
 const white  = '#FFFFFF'
 
+// Near, mid, far: stroke width and opacity multipliers, in bucket order
+const DEPTH = [{ k: 'near', w: 1.25, o: 1.0 }, { k: 'mid', w: 1.0, o: 0.72 }, { k: 'far', w: 0.8, o: 0.42 }]
+
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
@@ -258,6 +282,12 @@ export const BreathingGeometric = memo(function BreathingGeometric({ phase = 're
   const cAmber  = isStar ? amber  : white
   const cPurple = isStar ? purple : white
 
+  // ── Breath state ──────────────────────────────────────────────
+  const breath =
+    (phase === 'inhale-stomach' || phase === 'inhale-chest') ? 'filling'  :
+    phase === 'hold'                                         ? 'full'     :
+    (phase === 'exhale-stomach' || phase === 'exhale-chest') ? 'emptying' : 'empty'
+
   // ── Opacities  [rest, star, active-3D, hold-out] ──────────────
   const ringOp     = [0.30, 0.70, 0.20, 0.35][stage]
   const triAOp     = [0.60, 1.00, 0.00, 0.00][stage]
@@ -269,6 +299,19 @@ export const BreathingGeometric = memo(function BreathingGeometric({ phase = 're
   const wireOp     = [0.00, 0.00, 0.88, 0.88][stage]
   const folOp3D    = [0.00, 0.00, 0.68, 0.68][stage]
   const auraScl    = [1.00, 1.45, 1.90, 1.65][stage]
+  // The rings and the 2-D forms swell with the breath on the same curve as
+  // the 3-D figure (ease-in-out sine), as a CSS transform transition timed
+  // to the phase, which the compositor animates with no script per frame.
+  // The intro's inhale keeps the star at the empty size, so the real first
+  // inhale is the one that fills it.
+  const breathScl  = breath === 'full' || (breath === 'filling' && stage >= 2) ? 1.0 : GROW_MIN
+  const breathEase = breath === 'filling' || breath === 'emptying'
+    ? `${Math.max(phaseDuration, 0.5)}s cubic-bezier(0.37, 0, 0.63, 1)` : FADE
+  const breathXf   = {
+    transformOrigin: `${CX}px ${CY}px`,
+    transform: `scale(${breathScl})`,
+    transition: `transform ${breathEase}`,
+  }
 
   // Triangle B spins 180° into place
   const triBSpinDeg = isStar ? 180 : 0
@@ -281,8 +324,23 @@ export const BreathingGeometric = memo(function BreathingGeometric({ phase = 're
   // Mutable animation state (never triggers a render). The loop writes to
   // the SVG nodes tagged data-geo, found once after mount.
   const svgRef  = useRef(null)
-  const animRef = useRef({ delta: 0, orbitT: 0, mode: 'stopped', modeStart: 0, startDelta: 0, phaseDur: 4, draw: null })
+  const animRef = useRef({ delta: 0, orbitT: 0, mode: 'stopped', modeStart: 0, startDelta: 0,
+                           phaseDur: 4, breath: 'empty', breathStart: 0, breathFrom: 0, grow: 0, draw: null })
   useEffect(() => { animRef.current.phaseDur = phaseDuration }, [phaseDuration])
+
+  // ── Breath-linked growth ──────────────────────────────────────
+  // inhale fills over the phase, hold stays full, exhale empties over the
+  // phase, hold-out stays empty. Measured from the moment the phase
+  // changed, so the figure's size is the lungs' fullness.
+  useEffect(() => {
+    const anim = animRef.current
+    anim.breath = breath
+    anim.breathStart = performance.now()
+    anim.breathFrom = anim.grow
+    if (breath === 'full') anim.grow = 1
+    if (breath === 'empty' || stage < 2) anim.grow = 0   // the intro star stays at the empty size
+    anim.draw?.(anim.delta, anim.orbitT, anim.grow)
+  }, [phase, breath, stage])
 
   // Rotation mode changes
   useEffect(() => {
@@ -293,7 +351,7 @@ export const BreathingGeometric = memo(function BreathingGeometric({ phase = 're
       anim.modeStart  = performance.now()
       anim.startDelta = Math.max(anim.delta, 0.001)
     }
-    anim.draw?.(anim.delta, anim.orbitT)
+    anim.draw?.(anim.delta, anim.orbitT, anim.grow)
   }, [rotMode])
 
   // Animation loop — runs only while the 3-D layer is visible (plus the
@@ -304,15 +362,18 @@ export const BreathingGeometric = memo(function BreathingGeometric({ phase = 're
   useEffect(() => {
     const anim = animRef.current
     if (!anim.draw) {
-      const q = sel => svgRef.current.querySelector(`[data-geo="${sel}"]`)
       anim.draw = createRenderer({
-        stellaA: q('stella-a'), stellaB: q('stella-b'), cube: q('cube'), oct: q('oct'), folEdges: q('fol-edges'),
+        stellaA: [...svgRef.current.querySelectorAll('[data-geo="stella-a"]')],
+        stellaB: [...svgRef.current.querySelectorAll('[data-geo="stella-b"]')],
+        cube:    [...svgRef.current.querySelectorAll('[data-geo="cube"]')],
+        oct:     [...svgRef.current.querySelectorAll('[data-geo="oct"]')],
+        folEdges: [...svgRef.current.querySelectorAll('[data-geo="fol-edges"]')],
         rings: [...svgRef.current.querySelectorAll('[data-geo="ring"]')],
         dots:  [...svgRef.current.querySelectorAll('[data-geo="dot"]')],
       })
     }
     if (stage === 0) anim.orbitT = 0
-    anim.draw(anim.delta, anim.orbitT)
+    anim.draw(anim.delta, anim.orbitT, anim.grow)
     if (prefersReducedMotion()) return
 
     let raf = 0, last = 0, stopAt = show3D ? Infinity : performance.now() + 450
@@ -331,7 +392,12 @@ export const BreathingGeometric = memo(function BreathingGeometric({ phase = 're
         anim.delta = anim.startDelta * p * p
         if (p === 0) anim.mode = 'stopped'
       }
-      anim.draw(anim.delta, anim.orbitT)
+      if (anim.breath === 'filling' || anim.breath === 'emptying') {
+        const p = (now - anim.breathStart) / (anim.phaseDur * 1000)
+        const target = anim.breath === 'filling' ? 1 : 0
+        anim.grow = anim.breathFrom + (target - anim.breathFrom) * easeBreath(p)
+      }
+      anim.draw(anim.delta, anim.orbitT, anim.grow)
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
@@ -382,6 +448,7 @@ export const BreathingGeometric = memo(function BreathingGeometric({ phase = 're
         </g>
 
         {/* ── Outer rings (green, always visible) ────────────────── */}
+        <g style={breathXf}>
         {[R1, R2, R3].map((r, i) => (
           <circle key={i} cx={CX} cy={CY} r={r}
             stroke={cCircle}
@@ -391,7 +458,10 @@ export const BreathingGeometric = memo(function BreathingGeometric({ phase = 're
             style={{ transition: `stroke ${FADE}, stroke-opacity ${FADE}` }}
           />
         ))}
+        </g>
 
+        {/* 2-D forms share the breath transform so they meet the 3-D figure at the same size */}
+        <g style={breathXf}>
         {/* ══════════════════════════════════════════════════════════
             ① 2-D FLOWER OF LIFE  [GREEN CIRCLES]
         ══════════════════════════════════════════════════════════ */}
@@ -469,13 +539,17 @@ export const BreathingGeometric = memo(function BreathingGeometric({ phase = 're
           </g>
         )}
 
+        </g>
+
         {/* ══════════════════════════════════════════════════════════
             ⑦ 3-D SPHERE CLUSTER — FOL  [GREEN]
             Paths are written by the animation loop, not by React.
         ══════════════════════════════════════════════════════════ */}
         <g style={{ transition: `opacity ${FADE_XF}`, opacity: folOp3D }}>
-          <path data-geo="fol-edges"
-            stroke={green} strokeWidth="0.5" strokeOpacity="0.20" strokeLinecap="round" />
+          {DEPTH.map(d => (
+            <path key={d.k} data-geo="fol-edges"
+              stroke={green} strokeWidth={0.5 * d.w} strokeOpacity={0.20 * d.o} strokeLinecap="round" />
+          ))}
           {Array.from({ length: 27 }, (_, i) => (
             <path key={i} data-geo="ring"
               stroke={green} strokeWidth="0.8" strokeOpacity="0.65" strokeLinejoin="round" />
@@ -495,20 +569,28 @@ export const BreathingGeometric = memo(function BreathingGeometric({ phase = 're
             One glow pass for the whole group instead of one per edge.
         ══════════════════════════════════════════════════════════ */}
         <g filter="url(#geo-glow)" style={{ transition: `opacity ${FADE_XF}`, opacity: wireOp }}>
-          <path data-geo="stella-a"
-            stroke={blue} strokeWidth="1.2" strokeOpacity="0.88" strokeLinecap="round" />
-          <path data-geo="stella-b"
-            stroke={red} strokeWidth="1.2" strokeOpacity="0.88" strokeLinecap="round" />
-          <path data-geo="cube"
-            stroke={amber} strokeWidth="1.1" strokeOpacity="0.80" strokeLinecap="round" />
+          {DEPTH.map(d => (
+            <path key={d.k} data-geo="stella-a"
+              stroke={blue} strokeWidth={1.2 * d.w} strokeOpacity={0.88 * d.o} strokeLinecap="round" />
+          ))}
+          {DEPTH.map(d => (
+            <path key={d.k} data-geo="stella-b"
+              stroke={red} strokeWidth={1.2 * d.w} strokeOpacity={0.88 * d.o} strokeLinecap="round" />
+          ))}
+          {DEPTH.map(d => (
+            <path key={d.k} data-geo="cube"
+              stroke={amber} strokeWidth={1.1 * d.w} strokeOpacity={0.80 * d.o} strokeLinecap="round" />
+          ))}
         </g>
 
         {/* ══════════════════════════════════════════════════════════
             ⑩ 3-D INNER OCTAHEDRON — intersection  [PURPLE]
         ══════════════════════════════════════════════════════════ */}
         <g filter="url(#geo-glow)" style={{ transition: `opacity ${FADE_XF}`, opacity: wireOp * 0.80 }}>
-          <path data-geo="oct"
-            stroke={purple} strokeWidth="1.0" strokeOpacity="0.75" strokeLinecap="round" />
+          {DEPTH.map(d => (
+            <path key={d.k} data-geo="oct"
+              stroke={purple} strokeWidth={1.0 * d.w} strokeOpacity={0.75 * d.o} strokeLinecap="round" />
+          ))}
         </g>
 
         {/* Centre dot — part of 2D forms, disappears with them at stage 2 */}
