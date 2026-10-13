@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>WILD · The Symbolic Parser</title>
+<meta name="description" content="A suit and three numbers, read as one closed symbolic system.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Crect width='100' height='120' fill='%23050309'/%3E%3Cg fill='none' stroke='%236349B8' stroke-width='6'%3E%3Ccircle cx='50' cy='44' r='34'/%3E%3Ccircle cx='50' cy='76' r='34'/%3E%3C/g%3E%3Cline x1='50' y1='51' x2='50' y2='69' stroke='%23E9C766' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/wild.css">
+<script src="../../assets/member-gate.js" data-name="The Symbolic Parser"></script>
+<style>
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--wild-bg); color:var(--wild-text); font-family:var(--wild-sans); line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; }
+
+  /* Motion layer 1: the ambient mp4 loop (rendered by render-motion.py, 96 kB; WebM fallback for browsers without H.264). */
+  .ambient { position:fixed; inset:0; z-index:-2; overflow:hidden; background:var(--wild-bg) url(parser-ambient.jpg) center/cover no-repeat; }
+  .ambient video { width:100%; height:100%; object-fit:cover; opacity:.7; }
+  .ambient::after { content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(5,3,9,.35), rgba(5,3,9,.78) 55%, rgba(5,3,9,.92)); }
+
+  /* Motion layer 2: the aperture mp4, screen-blended over the page on extraction. */
+  .aperture { position:fixed; inset:0; z-index:40; display:flex; align-items:center; justify-content:center; pointer-events:none;
+    mix-blend-mode:screen; opacity:0; transition:opacity var(--wild-t-slow) var(--wild-ease); }
+  .aperture.on { opacity:1; }
+  .aperture video { width:min(90vw, 90vh, 720px); aspect-ratio:1; }
+
+  main { max-width:760px; margin:0 auto; padding:var(--wild-s7) 20px var(--wild-s8); }
+  .eyebrow { font-size:var(--wild-fs-xs); font-weight:700; letter-spacing:var(--wild-track-label); text-transform:uppercase; color:var(--wild-gold); }
+  h1 { font-family:var(--wild-serif); font-weight:500; font-size:clamp(2.2rem, 6vw, 3.2rem); line-height:1.1; margin:10px 0 12px; }
+  .lede { color:var(--wild-dim); max-width:560px; }
+
+  form { margin-top:var(--wild-s6); padding:var(--wild-s5); display:grid; gap:var(--wild-s4); grid-template-columns:repeat(2, 1fr);
+    background:linear-gradient(180deg, rgba(18,12,31,.86), rgba(10,6,18,.9)); border:1px solid var(--wild-border); border-radius:var(--wild-r-lg);
+    box-shadow:var(--wild-shadow-card); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+  .field { display:flex; flex-direction:column; gap:6px; }
+  .field.wide { grid-column:1 / -1; }
+  label { font-family:var(--wild-serif); font-weight:600; font-size:1.2rem; line-height:1.2; }
+  label small { display:block; font-family:var(--wild-sans); font-weight:700; font-size:var(--wild-fs-xs); letter-spacing:.14em; text-transform:uppercase; color:var(--wild-indigo-3); margin-bottom:2px; }
+  input, select { width:100%; min-height:48px; padding:10px 14px; border-radius:var(--wild-r-md); border:1px solid var(--wild-border);
+    background:var(--wild-surface); color:var(--wild-text); font-family:var(--wild-mono); font-size:1.05rem; }
+  select { font-family:var(--wild-sans); }
+  input:focus, select:focus { outline:none; border-color:var(--wild-indigo-2); box-shadow:0 0 0 3px rgba(99,73,184,.25); }
+  input[aria-invalid="true"] { border-color:var(--wild-danger); }
+  .hint { font-size:var(--wild-fs-xs); color:var(--wild-faint); }
+  .actions { grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
+  .err { color:var(--wild-danger); font-size:var(--wild-fs-sm); }
+
+  .console { margin-top:var(--wild-s6); display:none; }
+  .console.on { display:block; animation:rise var(--wild-t-slow) var(--wild-ease); }
+  .chips { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin:12px 0 18px; }
+  .chip { padding:14px; border:1px solid var(--wild-border); border-radius:var(--wild-r-md); background:rgba(18,12,31,.8); }
+  .chip .k { font-size:var(--wild-fs-xs); letter-spacing:.14em; text-transform:uppercase; color:var(--wild-indigo-3); }
+  .chip .v { font-family:var(--wild-mono); font-size:var(--wild-fs-sm); color:var(--wild-dim); margin-top:4px; }
+  .chip .r { font-family:var(--wild-serif); font-size:2rem; line-height:1; margin-top:6px; }
+  .chip .r.echo { color:var(--wild-gold-2); }
+  pre.out { white-space:pre-wrap; word-wrap:break-word; font-family:var(--wild-mono); font-size:.9rem; line-height:1.75; color:var(--wild-text);
+    padding:var(--wild-s5); background:rgba(5,3,9,.88); border:1px solid var(--wild-border-lit); border-radius:var(--wild-r-lg); min-height:8em; }
+  pre.out .cursor { display:inline-block; width:.55em; height:1.1em; vertical-align:-.15em; background:var(--wild-indigo-2); animation:blink 1s steps(2) infinite; }
+  details { margin-top:14px; border:1px solid var(--wild-border); border-radius:var(--wild-r-md); background:rgba(10,6,18,.85); }
+  summary { cursor:pointer; padding:12px 16px; font-size:var(--wild-fs-sm); color:var(--wild-dim); }
+  details pre { font-family:var(--wild-mono); font-size:.78rem; line-height:1.55; color:var(--wild-indigo-3); padding:0 16px 16px; overflow-x:auto; }
+  .note { margin-top:var(--wild-s5); color:var(--wild-faint); font-size:var(--wild-fs-sm); }
+  footer { text-align:center; padding:24px 20px 40px; color:var(--wild-faint); font-size:var(--wild-fs-xs); }
+
+  @keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+  @keyframes blink { to { opacity:0; } }
+  @media (max-width:560px) { form { grid-template-columns:1fr; } .chips { grid-template-columns:1fr; } }
+  @media (prefers-reduced-motion: reduce) {
+    .ambient video, .aperture { display:none; }
+    .console.on { animation:none; }
+    pre.out .cursor { animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true">
+  <video id="ambient" poster="parser-ambient.jpg" autoplay muted loop playsinline preload="auto">
+    <source src="parser-ambient.mp4" type="video/mp4">
+    <source src="parser-ambient.webm" type="video/webm">
+  </video>
+</div>
+<div class="aperture" id="aperture" aria-hidden="true">
+  <video id="aperture-video" muted playsinline preload="auto">
+    <source src="parser-aperture.mp4" type="video/mp4">
+    <source src="parser-aperture.webm" type="video/webm">
+  </video>
+</div>
+
+<main>
+  <p class="eyebrow">The Symbolic Parser</p>
+  <h1>A reading as a closed system.</h1>
+  <p class="lede">Choose a suit and place three numbers into their containers. The parser reduces each one, finds what repeats, traces the movement between them and names the tension they hold. It does not predict. It reads structure.</p>
+
+  <form id="form" novalidate>
+    <div class="field wide">
+      <label for="suit"><small>Domain</small>The Elemental Physics</label>
+      <select id="suit" required>
+        <option value="wands">Wands · Fire · volition and kinetic will</option>
+        <option value="cups">Cups · Water · receptivity and feeling</option>
+        <option value="swords" selected>Swords · Air · cognition and truth</option>
+        <option value="pentacles">Pentacles · Earth · matter and structure</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="c1"><small>Container 1 · The Monad</small>The Seed Essence</label>
+      <input id="c1" inputmode="numeric" autocomplete="off" maxlength="1" value="7" aria-describedby="h1">
+      <span class="hint" id="h1">One digit, 0 to 9</span>
+    </div>
+    <div class="field">
+      <label for="c2"><small>Container 2 · The Dyad</small>The Internal Bridge</label>
+      <input id="c2" inputmode="numeric" autocomplete="off" maxlength="2" value="17" aria-describedby="h2">
+      <span class="hint" id="h2">Two digits, 10 to 99</span>
+    </div>
+    <div class="field wide">
+      <label for="c3"><small>Container 3 · The Triad</small>The Macro Environment</label>
+      <input id="c3" inputmode="numeric" autocomplete="off" maxlength="3" value="340" aria-describedby="h3">
+      <span class="hint" id="h3">Three digits, 100 to 999</span>
+    </div>
+    <div class="actions">
+      <button class="wild-btn wild-btn-gold" type="submit">Extract Structural Matrix</button>
+      <span class="err" id="err" role="alert"></span>
+    </div>
+  </form>
+
+  <section class="console" id="console" aria-live="polite">
+    <p class="eyebrow">Output console</p>
+    <div class="chips" id="chips"></div>
+    <pre class="out" id="out"></pre>
+    <details>
+      <summary>The matrix payload (JSON)</summary>
+      <pre id="json"></pre>
+    </details>
+    <p class="note">Every sentence above is derived from the numbers by fixed rules. The same inputs always return the same reading.</p>
+  </section>
+</main>
+
+<footer>The Wild Project</footer>
+
+<script src="../../assets/wild-nav.js" data-app="parser"></script>
+<script>
+(function () {
+  /* Optional language engine. Leave empty to run fully in the page.
+     Set to an n8n webhook that accepts { system, payload } and returns { text } to hand the
+     synthesis to an LLM using SYSTEM_PROMPT below. The local synthesis stays as the fallback. */
+  var ENGINE_URL = '';
+
+  var SYSTEM_PROMPT = "You are a deterministic symbolic parser. Your sole function is to translate mathematical correlations and elemental data into precise, energetic vocabulary. You do not offer personal readings, human advice, or predictions. You are analyzing a closed symbolic ecosystem.\n\nYou have been provided with an Elemental Domain (Suit) and data placed into three archetypal containers:\n*   **Container 1 (The Monad):** The pure, unadulterated seed essence.\n*   **Container 2 (The Dyad):** Internal friction, relationship, and the chemical reaction between digits.\n*   **Container 3 (The Triad):** Synthesis, the macro-environment, and external manifestation.\n\n**The Correlative Algorithm (Execute Silently):**\n1. **Elemental Immersion:** Filter all numerical concepts strictly through the physics of the Suit (e.g., '4' in Swords is intellectual dogma; '4' in Pentacles is material architecture).\n2. **Identify Echoes:** Locate any digits that repeat across the raw inputs, the internal digits, or the root reductions. Repeating numbers dictate the gravitational center of the matrix.\n3. **Trace the Trajectory:** Compare the root reductions of C1, C2, and C3. \n    *   If numbers ascend (e.g., 2 -> 5 -> 8), you MUST use vocabulary of progression: evolution, building momentum, compounding complexity, outward expansion, escalation.\n    *   If numbers descend (e.g., 9 -> 6 -> 3), you MUST use vocabulary of regression: dismantling, involution, shedding layers, simplification, returning to source.\n4. **Analyze the Chemical Reactions:** Look at the individual digits inside C2 and C3. How does the friction between these specific numbers inherently produce their root reduction? (e.g., 'The collision of individual will (1) and deep introspection (7) forces the calcification of structure (8)').\n\n**Output Generation:**\nSynthesize your algorithmic findings into exactly two dense, highly articulate paragraphs. Do not use conversational filler, greetings, or labeled headers.\n\n**Paragraph 1: The Structural Matrix**\nDetail the energetic movement from the seed (C1), through the friction of the bridge (C2), and into the synthesis of the macro-environment (C3). Explicitly state the mathematical correlations you found (the echoes, the ascending/descending trajectories, and the internal chemical reactions of the digits). Use strictly the vocabulary of the elemental domain to describe this movement.\n\n**Paragraph 2: The Dominant Polarity**\nIdentify and state the ultimate structural tension contained in the system. Frame it as a profound conceptual tug-of-war created by the numbers. (e.g., 'The dominant polarity exists between the outward, explosive expansion of the 3 and the intense, inescapable gravitational collapse of the repeating 9s.')\n\n**Data Payload:** \n";
+
+  /* Layer 1: Elemental Physics */
+  var SUITS = {
+    wands:     { name: 'Wands', element: 'Fire', laws: 'Kinetic / Will', field: 'kinetic', vocab: 'volition, agency, kinetic energy, creative thrust, identity, willpower' },
+    cups:      { name: 'Cups', element: 'Water', laws: 'Fluid / Emotion', field: 'emotional', vocab: 'receptivity, relational dynamics, emotional depth, intuition, the subconscious, fluid adaptation' },
+    swords:    { name: 'Swords', element: 'Air', laws: 'Cognitive / Air', field: 'mental', vocab: 'cognition, discrimination, language, conflict, structural truth, the cutting away of falsehood, ideology' },
+    pentacles: { name: 'Pentacles', element: 'Earth', laws: 'Somatic / Matter', field: 'material', vocab: 'somatic reality, physical structure, resource accumulation, systemic stability, the material record, gravity' }
+  };
+  var KEY = ['the void', 'individual will', 'polarity', 'synthesis', 'order', 'disruption', 'harmony', 'introspection', 'restriction', 'culmination'];
+  /* Each number filtered through each suit's physics */
+  var PHRASE = {
+    wands: ['unlit fuel, pure kinetic potential', 'the first spark of raw volition', 'will divided between two lines of thrust',
+      'creative fire expanding outward', 'agency held inside a stable hearth', 'the friction of competing wills', 'drive recognised and returned',
+      'will defending its own ground', 'kinetic force channelled at speed', 'willpower burned close to exhaustion'],
+    cups: ['the still basin of unfelt feeling', 'the first welling of receptivity', 'the mirrored bond of two currents',
+      'feeling overflowing into shared expression', 'emotion pooled and stagnant', 'the spill of disrupted feeling', 'reciprocal tenderness and memory',
+      'the subconscious dreaming in many images', 'feeling withdrawing from what can no longer hold it', 'emotional fullness reaching its brim'],
+    swords: ['the void of unformed thought', 'the singular cutting will of the intellect', 'cognition suspended between two positions',
+      'dynamic, synthesising thought', 'strict logic and intellectual dogma', 'argument fracturing into conflict', 'reason finding a balanced passage',
+      'cognitive strategy and the search for hidden truth', 'rigid mental structure and self-imposed restriction', 'the mind exhausted by its own conclusions'],
+    pentacles: ['unformed matter, the empty field', 'the seed of material form', 'resources circulating between two needs',
+      'craft building outward into structure', 'material architecture held fast', 'scarcity and the cracking of foundations', 'resources moving in fair exchange',
+      'slow cultivation awaiting its yield', 'disciplined labour and fixed systems', 'material sufficiency at its culmination']
+  };
+
+  function digits(n) { return String(n).split('').map(Number); }
+  function reduce(n) { var chain = [n]; while (n > 9) { n = digits(n).reduce(function (a, b) { return a + b; }, 0); chain.push(n); } return { root: n, chain: chain }; }
+
+  /* Backend parsing utility: the JSON payload the method specifies, plus the correlations. */
+  function parse(suit, c1, c2, c3) {
+    var r2 = reduce(c2), r3 = reduce(c3);
+    var s = SUITS[suit];
+    var payload = {
+      elemental_domain: { suit: s.name, element: s.element, physics: s.laws, vocabulary: s.vocab },
+      container_1: c1,
+      container_2: { raw: c2, digits: digits(c2), root: r2.root },
+      container_3: { raw: c3, digits: digits(c3), root: r3.root }
+    };
+
+    var tokens = [{ v: c1, at: 'the seed (C1)' }];
+    digits(c2).forEach(function (d, i) { tokens.push({ v: d, at: 'a digit of the bridge (C2)' }); });
+    tokens.push({ v: r2.root, at: 'the root of the bridge (C2)' });
+    digits(c3).forEach(function (d) { tokens.push({ v: d, at: 'a digit of the macro-environment (C3)' }); });
+    tokens.push({ v: r3.root, at: 'the root of the macro-environment (C3)' });
+
+    var count = {}, where = {};
+    tokens.forEach(function (t) { count[t.v] = (count[t.v] || 0) + 1; (where[t.v] = where[t.v] || []).push(t.at); });
+    var echoes = Object.keys(count).map(Number).filter(function (v) { return count[v] > 1; })
+      .sort(function (a, b) { return count[b] - count[a] || b - a; })
+      .map(function (v) { return { number: v, count: count[v], appears_as: where[v] }; });
+    var nonZero = echoes.filter(function (e) { return e.number !== 0; });
+    var pool = nonZero.length ? nonZero : echoes;
+    var top = pool.length ? pool[0].count : 0;
+    var centre = pool.filter(function (e) { return e.count === top; }).map(function (e) { return e.number; });
+
+    var roots = [c1, r2.root, r3.root];
+    var d1 = Math.sign(roots[1] - roots[0]), d2 = Math.sign(roots[2] - roots[1]);
+    var shape = d1 > 0 && d2 > 0 ? 'ascension' : d1 < 0 && d2 < 0 ? 'descension'
+      : d1 > 0 && d2 < 0 ? 'swell and regression' : d1 < 0 && d2 > 0 ? 'dip and recovery'
+      : d1 === 0 && d2 === 0 ? 'stasis' : (d1 + d2) > 0 ? 'ascension with a plateau' : 'descension with a plateau';
+
+    var present = {}; tokens.forEach(function (t) { present[t.v] = true; });
+    var voids = [1, 2, 3, 4, 5, 6, 7, 8, 9].filter(function (v) { return !present[v]; });
+
+    function reaction(raw, r) {
+      var ds = digits(raw), sum = ds.join(' + ') + ' = ' + r.chain.slice(1).join(' → ');
+      return { digits: ds, equation: sum, produces: r.root, self_return: ds.indexOf(r.root) > -1, holds_void: ds.indexOf(0) > -1 };
+    }
+
+    payload.correlations = {
+      echoes: echoes,
+      gravitational_centre: centre,
+      trajectory: { roots: roots, shape: shape, returns_to_seed: roots[2] === roots[0] },
+      reactions: { container_2: reaction(c2, r2), container_3: reaction(c3, r3) },
+      void: voids
+    };
+    return payload;
+  }
+
+  /* Rule-based synthesis: the two paragraphs the system prompt asks for. */
+  function synthesise(suit, p) {
+    var P = PHRASE[suit], S = SUITS[suit], c = p.correlations;
+    var c1 = p.container_1, A = p.container_2, B = p.container_3, roots = c.trajectory.roots;
+    var ph = function (n) { return P[n] + ' (' + n + ')'; };
+    var list = function (a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; };
+    var out = [];
+
+    if (c.gravitational_centre.length) {
+      var g = c.gravitational_centre[0], e = c.echoes.filter(function (x) { return x.number === g; })[0];
+      var uniq = e.appears_as.filter(function (x, i, a) { return a.indexOf(x) === i; });
+      out.push('The structural matrix of this reading is anchored by the recurring echo of the ' + g + ', which appears ' + e.count + ' times, as ' + list(uniq) +
+        ', making ' + P[g] + ' the gravitational centre of the ' + S.field + ' field' +
+        (c.gravitational_centre.length > 1 ? ', held in equal weight with the ' + list(c.gravitational_centre.slice(1).map(String)) : '') + '.');
+    } else {
+      out.push('The structural matrix of this reading holds no repeating number, so no single force claims its centre and the ' + S.field + ' field is carried by movement alone.');
+    }
+    out.push('The sequence begins with ' + ph(c1) + ' as the seed essence.');
+
+    var v2 = A.root > c1 ? 'escalates the energy into' : A.root < c1 ? 'strips the energy back to' : 'returns the energy to';
+    var ra = c.reactions.container_2;
+    out.push('At the internal bridge, ' + ph(ra.digits[0]) + (ra.digits[0] === ra.digits[1] ? ' meets its own double' : ' meets ' + ph(ra.digits[1])) + ', a chemical reaction of ' + ra.equation +
+      ' that ' + v2 + ' ' + P[A.root] + ' (' + A.root + ')' +
+      (ra.self_return ? ', so the friction resolves back into one of its own ingredients' : '') + '.');
+
+    var rb = c.reactions.container_3;
+    var times = ['', '', ' twice', ' three times'], seen = {};
+    rb.digits.forEach(function (d) { seen[d] = (seen[d] || 0) + 1; });
+    var parts = rb.digits.filter(function (d, i, a) { return a.indexOf(d) === i; }).map(function (d) {
+      return (d === 0 ? 'the open void' : P[d]) + ' (' + d + times[seen[d]] + ')';
+    });
+    out.push('The macro-environment of ' + B.raw + ' synthesises ' + list(parts) + ', reducing through ' + rb.equation + ' to ' + P[B.root] + ' (' + B.root + ')' +
+      (rb.holds_void ? ', the 0 adding nothing to the sum while opening the field around it' : '') + '.');
+
+    var t = roots.join(' → '), el = S.element.toLowerCase(), sh = c.trajectory.shape;
+    var mv = {
+      'ascension': 'a progression of building momentum and compounding complexity, an outward escalation of ' + el + ' energy at every scale',
+      'descension': 'a regression of dismantling and involution, the ' + el + ' energy shedding layers and simplifying back toward its source',
+      'swell and regression': 'the energy swells into the ' + roots[1] + ' and then regresses, shedding what it built' +
+        (c.trajectory.returns_to_seed ? ' and returning the system to its original state of ' + KEY[roots[0]] : ' and settling into ' + KEY[roots[2]]),
+      'dip and recovery': 'the energy is first stripped back to the ' + roots[1] + ', a simplification, then rebuilds with renewed momentum toward the ' + roots[2],
+      'stasis': 'the roots do not move, a closed loop holding ' + KEY[roots[0]] + ' in place at every scale',
+      'ascension with a plateau': 'a progression that pauses and holds before escalating, momentum gathered rather than spent',
+      'descension with a plateau': 'a regression that holds a level before shedding further, the return to source taken in stages'
+    }[sh];
+    out.push('Traced as roots, the movement runs ' + t + ': ' + mv + '.');
+    if (c.void.length) out.push('Absent from the matrix entirely: ' + list(c.void.map(function (v) { return KEY[v] + ' (' + v + ')'; })) + ', a blind spot the structure does not contain.');
+    var para1 = out.join(' ');
+
+    /* Polarity: the centre against the root that stands furthest from it. */
+    var pa = c.gravitational_centre.length ? c.gravitational_centre[0] : roots[0];
+    var cand = roots.filter(function (r) { return r !== pa; });
+    if (!cand.length) cand = [].concat(A.digits, B.digits).filter(function (d) { return d !== pa && d !== 0; });
+    var pb = cand.length ? cand.sort(function (x, y) { return Math.abs(y - pa) - Math.abs(x - pa) || y - x; })[0] : (c.void[0] || 0);
+    var aLabel = c.gravitational_centre.length ? 'the repeating ' + pa + 's' : 'the seed ' + pa;
+    var bAbsent = !cand.length;
+    var para2 = 'The dominant polarity lies between ' + P[pb] + ' (' + (bAbsent ? 'the missing ' : 'the ') + pb + ') and ' + P[pa] + ' (' + aLabel + '). ' +
+      'The system is a tug-of-war between ' + KEY[pb] + ' and ' + KEY[pa] + ': every movement toward the ' + pb + ' is answered by the gravity of the ' + pa +
+      ', and the ' + S.field + ' field never settles fully into either' +
+      (c.trajectory.returns_to_seed && pb !== pa ? ', because the macro-environment returns the system to where it began' : '') + '.';
+    return para1 + '\n\n' + para2;
+  }
+
+  /* UI */
+  var $ = function (id) { return document.getElementById(id); };
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var typing = null;
+
+  function read(id, lo, hi, len) {
+    var el = $(id), v = el.value.trim(), ok = new RegExp('^\\d{' + len + '}$').test(v) && +v >= lo && +v <= hi;
+    el.setAttribute('aria-invalid', ok ? 'false' : 'true');
+    return ok ? +v : null;
+  }
+
+  function type(text) {
+    var out = $('out'); clearInterval(typing);
+    if (reduced) { out.textContent = text; return; }
+    var i = 0; out.textContent = '';
+    var cur = document.createElement('span'); cur.className = 'cursor';
+    typing = setInterval(function () {
+      i = Math.min(text.length, i + 4);
+      out.textContent = text.slice(0, i); out.appendChild(cur);
+      if (i >= text.length) { clearInterval(typing); setTimeout(function () { cur.remove(); }, 1200); }
+    }, 16);
+  }
+
+  function engine(payload, local) {
+    if (!ENGINE_URL) return Promise.resolve(local);
+    return fetch(ENGINE_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ system: SYSTEM_PROMPT + JSON.stringify(payload, null, 2), payload: payload }) })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { return j && j.text ? j.text : local; })
+      .catch(function () { return local; });
+  }
+
+  function aperture() {
+    return new Promise(function (done) {
+      var wrap = $('aperture'), v = $('aperture-video');
+      if (reduced || !v.play) return done();
+      var finished = false, finish = function () { if (finished) return; finished = true; wrap.classList.remove('on'); done(); };
+      wrap.classList.add('on'); v.currentTime = 0;
+      var p = v.play(); if (p && p.catch) p.catch(finish);
+      setTimeout(finish, 1700);
+    });
+  }
+
+  $('form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var suit = $('suit').value, c1 = read('c1', 0, 9, 1), c2 = read('c2', 10, 99, 2), c3 = read('c3', 100, 999, 3);
+    if (c1 === null || c2 === null || c3 === null) { $('err').textContent = 'Each container needs its exact number of digits.'; return; }
+    $('err').textContent = '';
+    var payload = parse(suit, c1, c2, c3), local = synthesise(suit, payload);
+    var centre = payload.correlations.gravitational_centre;
+    var chip = function (k, raw, root) {
+      return '<div class="chip"><div class="k">' + k + '</div><div class="v">' + raw + '</div><div class="r' + (centre.indexOf(root) > -1 ? ' echo' : '') + '">' + root + '</div></div>';
+    };
+    Promise.all([engine(payload, local), aperture()]).then(function (res) {
+      $('chips').innerHTML = chip('C1 · Seed', c1, c1) + chip('C2 · Bridge', payload.correlations.reactions.container_2.equation, payload.container_2.root) +
+        chip('C3 · Macro', payload.correlations.reactions.container_3.equation, payload.container_3.root);
+      $('json').textContent = JSON.stringify(payload, null, 2);
+      $('console').classList.add('on');
+      type(res[0]);
+      $('console').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
+  window.WILD_PARSER = { parse: parse, synthesise: synthesise };
+})();
+</script>
+</body>
+</html>

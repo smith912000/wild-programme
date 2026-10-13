@@ -8,6 +8,7 @@
     { id: 'os',      name: 'WILD OS',         role: 'Practice',  url: 'https://smith912000.github.io/wild-os/' },
     { id: 'codex',   name: 'Codex Pharmakon', role: 'Codex',     url: 'https://smith912000.github.io/codex-pharmakon/' },
     { id: 'sge',     name: 'SGE',             role: 'Stars',     url: 'https://smith912000.github.io/SGE/' },
+    { id: 'parser',  name: 'Symbolic Parser', role: 'Tarot',     url: HUB + 'parser/' },
     { id: 'discord', name: 'Discord',         role: 'The Open Door', url: 'https://discord.gg/jRzKq6Hb6N', external: true },
     { id: 'soon',    name: 'More soon',       role: 'Coming soon', url: null }
   ];
