@@ -1,0 +1,17 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>WILD mark 3D film</title>
+<style>html,body{margin:0;background:#050309;overflow:hidden}canvas{display:block;width:100vw;height:100vh}</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/" } }</script>
+</head><body><canvas id="c"></canvas>
+<script type="module">
+// A 6 second loop of the 3D mark. Render contract: window.seek(t) paints frame t, nothing else moves.
+// Render: node render.mjs <w> <h> <out.mp4> (render.mjs serves three.js from node_modules).
+import { createMark } from '../../assets/wild-3d.js';
+const cv = document.getElementById('c');
+const m = createMark(cv, { film: true, dpr: 1, loop: 6, distance: innerWidth < innerHeight ? 12 : 9.5 });
+m.resize(innerWidth, innerHeight);
+// loop: 6 makes every motion a whole number of cycles, so the last frame meets the first
+window.seek = t => m.render(t);
+window.FILM = { dur: 6 };
+window.seek(0); window.READY = true;
+</script></body></html>
