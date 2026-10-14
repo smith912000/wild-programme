@@ -45,8 +45,8 @@
   input:focus { outline:none; border-color:var(--wild-indigo-2); box-shadow:0 0 0 3px rgba(99,73,184,.25); }
   input[aria-invalid="true"] { border-color:var(--wild-danger); }
   .suits { display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; }
-  .suit-opt { display:block; cursor:pointer; }
-  .suit-opt input { position:absolute; opacity:0; pointer-events:none; }
+  .suit-opt { position:relative; display:block; cursor:pointer; }
+  .suit-opt input { position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; pointer-events:none; }
   .suit-opt span { display:flex; align-items:center; justify-content:center; aspect-ratio:1 / 1; max-height:96px; width:100%; border-radius:var(--wild-r-md);
     border:1px solid var(--wild-border); background:var(--wild-surface); color:var(--wild-indigo-3);
     transition:border-color var(--wild-t), color var(--wild-t), background var(--wild-t), box-shadow var(--wild-t); }
