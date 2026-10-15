@@ -1,0 +1,8 @@
+1
+00:00:00,100 --> 00:00:03,093
+You spend a third of your life asleep.
+
+2
+00:00:03,043 --> 00:00:05,842
+And you remember almost none of it.
+
