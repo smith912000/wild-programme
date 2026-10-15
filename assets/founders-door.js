@@ -9,6 +9,7 @@
      <script src=".../founders-door.js" data-corner></script>
                                              a faint row in the bottom corner, for
                                              pages with no footer */
+(function(){if(window.__wildCompanyFooter||document.querySelector('script[src*="company-footer.js"]'))return;var s=document.createElement('script');s.src='https://smith912000.github.io/wild-programme/assets/company-footer.js';s.defer=true;(document.head||document.documentElement).appendChild(s);})(); /* company details on every page (Companies Act / E-Commerce Regs) */
 (function(){if(window.__wildCheckoutTerms||document.querySelector('script[src*="checkout-terms.js"]'))return;var s=document.createElement('script');s.src='https://smith912000.github.io/wild-programme/assets/checkout-terms.js';s.defer=true;(document.head||document.documentElement).appendChild(s);})(); /* renewal terms + 18+ tick before any Whop checkout */
 (function () {
   var KEY = 'wild_member_session';
