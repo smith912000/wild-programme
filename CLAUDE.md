@@ -9,3 +9,12 @@ These rules come from Master Principles rule 23 (web launch legal checks, 15 Oct
 5. **Every email** (Kit) carries the trading name, a postal address and an unsubscribe link. Only email people who opted in.
 6. **User uploads** stay on Discord or Whop. If our own site ever hosts uploads, register a DMCA agent at copyright.gov first.
 7. When any of the above changes, update the legal page ("02 - Landing Pages/legal.html" in wild-programme) in the same PR.
+
+# SEO and GEO rules (every public page)
+
+Full checklist: Drive `Claude Control\SEO-GEO-RULES.md` (added 15 Oct 2026). In short:
+
+1. Use the words people search for. WILD is a lucid dreaming method, so public pages say "lucid dreaming" in the title, description and opening lines. Keyword map: `keyword-map-YYYY-MM-DD.md` in the WILD folder.
+2. Every public page has a unique title (under ~60 characters), a meta description, a canonical link and an answer-first opening sentence.
+3. JSON-LD must match visible text. When the home page FAQ changes, update the FAQPage block in `index.html` in the same PR.
+4. `sitemap.xml` lists only pages meant to be indexed. Members' pages (hub, course portal, quiz, tier pages) stay `noindex` and out of the sitemap.
