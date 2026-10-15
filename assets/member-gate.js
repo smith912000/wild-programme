@@ -90,14 +90,17 @@
       .then(function (r) {
         var j = r.body || {};
         if (j.ok && j.token) {
-          save({ token: j.token, member: !!j.member, name: j.name || s.name || null, email: claims(j.token).email || s.email || null, expiresAt: j.expiresAt || null });
+          save({ token: j.token, member: !!j.member, name: j.name || s.name || null, email: claims(j.token).email || s.email || null, expiresAt: j.expiresAt || null, verifiedAt: Date.now() });
           return j.member ? unlock() : show('lapsed');
         }
         show('guest');
       })
       .catch(function () {
-        // Offline or webhook down: same grace as WILD OS, trust an unexpired member token.
-        if (trusted) unlock(); else show('guest');
+        // Offline or webhook down: only a session this browser has had verified by the
+        // server in the last 24h keeps the page open. A record typed into localStorage
+        // by hand has no verifiedAt, so it locks.
+        var ok = trusted && s.verifiedAt && (Date.now() - s.verifiedAt) < 86400000;
+        if (ok) unlock(); else show('guest');
       });
   }
   function start() { check(); }

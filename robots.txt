@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://smith912000.github.io/wild-programme/sitemap.xml
+Disallow: /09%20-%20Course%20Portal/
+Disallow: /hub/
