@@ -118,6 +118,8 @@
   #intro[hidden] { display:none; }
   #intro video { width:100%; height:100%; object-fit:cover; }
   #intro .skip { position:absolute; right:16px; bottom:16px; }
+  #intro .tap { position:absolute; left:50%; bottom:22%; transform:translateX(-50%); font:inherit; border:0; cursor:pointer; }
+  #intro .tap[hidden] { display:none; }
   #intro.out { transition:clip-path .9s cubic-bezier(.7,0,.3,1); clip-path:circle(0 at var(--ox, 75%) var(--oy, 50%)); }
   #intro { clip-path:circle(150% at var(--ox, 75%) var(--oy, 50%)); }
 
@@ -149,6 +151,7 @@
 
 <div id="intro" hidden>
   <video id="intro-video" muted playsinline preload="none" aria-label="Introduction to the Inner Room"></video>
+  <button type="button" class="tap wild-btn wild-btn-gold" id="tap" hidden>Play the intro</button>
   <button type="button" class="quiet skip" id="skip">Skip</button>
 </div>
 <div id="wipe" aria-hidden="true"></div>
@@ -353,32 +356,44 @@
   requestAnimationFrame(loop);
 
   // the intro film: once per device, skippable, replayable; closes into the mark
-  var intro = document.getElementById('intro'), vid = document.getElementById('intro-video'), KEY = 'wild_hub_intro_seen';
+  var intro = document.getElementById('intro'), vid = document.getElementById('intro-video'), tap = document.getElementById('tap'), KEY = 'wild_hub_intro_seen';
   function closeIntro(e) {
     // a blocked autoplay or a failed load does not count as seen, so it tries again next visit
     if (!(e && (e.type === 'error' || e.name))) { try { localStorage.setItem(KEY, '1'); } catch (x) {} }
+    tap.hidden = true;
     vid.pause();
     var door = nodes.filter(function (n) { return n.kind === 'door'; })[0];
     if (door) { var r = door.el.getBoundingClientRect(); intro.style.setProperty('--ox', r.left + 'px'); intro.style.setProperty('--oy', r.top + 'px'); }
     intro.classList.add('out');
     setTimeout(function () { intro.hidden = true; intro.classList.remove('out'); arrive(); }, reduce ? 0 : 850);
   }
-  function playIntro() {
+  // when the browser will not start it alone (Low Power Mode, data saver, reduced motion),
+  // the film waits on its poster with a play button instead of vanishing unseen
+  function waitForTap() { tap.hidden = false; tap.focus(); }
+  function playIntro(auto) {
     var tall = innerHeight > innerWidth;
     var ext = vid.canPlayType('video/mp4; codecs="avc1.640028"') ? '.mp4' : '.webm';
     vid.src = 'intro/intro-' + (tall ? '9x16' : '16x9') + ext;
     vid.poster = 'intro/poster-' + (tall ? '9x16' : '16x9') + '.jpg';
     nodes.forEach(function (n) { n.el.classList.remove('in'); });
     intro.hidden = false;
-    var p = vid.play(); if (p && p.catch) p.catch(closeIntro);
+    if (auto === true && reduce) { vid.preload = 'metadata'; waitForTap(); return; }
+    tap.hidden = true;
+    var p = vid.play(); if (p && p.catch) p.catch(function (e) { if (e && e.name === 'NotAllowedError') waitForTap(); else closeIntro(e); });
   }
   vid.addEventListener('ended', closeIntro);
   vid.addEventListener('error', closeIntro);
   document.getElementById('skip').onclick = closeIntro;
-  document.getElementById('replay').onclick = playIntro;
+  document.getElementById('replay').onclick = function () { playIntro(); };
+  tap.onclick = function () { tap.hidden = true; var p = vid.play(); if (p && p.catch) p.catch(closeIntro); };
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !intro.hidden) closeIntro(); });
   var seen = false; try { seen = localStorage.getItem(KEY) === '1'; } catch (e) {}
-  if (!seen && !reduce) playIntro(); else arrive();
+  // a newcomer meets the members' gate first; the film waits until the gate opens, so
+  // it is never played (and counted as seen) behind the sign-in screen
+  function begin() { if (!seen) playIntro(true); else arrive(); }
+  if (document.documentElement.classList.contains('wild-locked')) document.addEventListener('wild:unlocked', begin, { once: true });
+  else begin();
+  document.addEventListener('wild:locked', function () { if (!intro.hidden) { vid.pause(); intro.hidden = true; } });
 
   // greeting and sign out
   var s = null;

@@ -38,12 +38,19 @@
       return JSON.parse(decodeURIComponent(escape(atob(p + '='.repeat((4 - p.length % 4) % 4)))));
     } catch (e) { return {}; }
   }
+  // Pages can wait for 'wild:unlocked' before playing anything the visitor should see
+  // (the hub's intro film), and stop it on 'wild:locked'.
+  function tell(name) { try { document.dispatchEvent(new Event(name)); } catch (e) {} }
   function unlock() {
+    var was = root.classList.contains('wild-locked');
     root.classList.remove('wild-locked');
     var g = document.getElementById('wild-gate');
     if (g) g.remove();
+    if (was) tell('wild:unlocked');
   }
-  function lock() { root.classList.add('wild-locked'); }
+  function lock() {
+    if (!root.classList.contains('wild-locked')) { root.classList.add('wild-locked'); tell('wild:locked'); }
+  }
   function show(kind) {
     lock();
     if (kind === 'checking') return paint('<div class="box"><p>Checking your membership…</p></div>');

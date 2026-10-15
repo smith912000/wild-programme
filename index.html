@@ -49,8 +49,6 @@
       radial-gradient(ellipse 50% 45% at 100% 100%, rgba(138,111,224,.16), transparent 65%),
       radial-gradient(ellipse 35% 30% at 62% 45%, rgba(201,168,76,.07), transparent 65%); }
   .aurora i { display:none; }
-  body::before { content:''; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.035;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
   /* nav */
   .nav { position:sticky; top:0; z-index:10; display:flex; align-items:center; justify-content:space-between;
@@ -80,6 +78,13 @@
   /* hero */
   .hero { text-align:center; padding:13vh 20px 10vh; }
   .mark { width:80px; height:96px; margin:0 auto 24px; display:block; overflow:visible; }
+  /* the 3D mark (assets/wild-3d.js) sits over the flat one and replaces it once it has drawn */
+  .mark-wrap { position:relative; width:80px; height:150px; margin:0 auto 12px; display:flex; align-items:center; }
+  .mark-wrap .mark { margin:0 auto; }
+  .mark3d { position:absolute; left:50%; top:50%; width:360px; height:360px; transform:translate(-50%,-50%); z-index:-1; pointer-events:none; opacity:0; transition:opacity .8s ease;
+    -webkit-mask-image:radial-gradient(circle, #000 42%, transparent 70%); mask-image:radial-gradient(circle, #000 42%, transparent 70%); }
+  .hero.is-3d .mark3d { opacity:1; }
+  .hero.is-3d .mark { visibility:hidden; }
   .mark circle { transform-origin:50px 60px; }
   .mark .ring { animation:breathe 7s ease-in-out infinite; }
   .mark .ring2 { animation:breathe 7s ease-in-out infinite reverse; }
@@ -87,8 +92,8 @@
   @keyframes breathe { 0%,100%{opacity:.85;transform:scale(1)} 50%{opacity:1;transform:scale(1.025)} }
   @keyframes glow { 0%,100%{opacity:.7} 50%{opacity:1;filter:drop-shadow(0 0 6px rgba(233,199,102,.8))} }
   .wordmark { font-family:var(--serif); font-weight:600; font-size:clamp(3.4rem,12vw,6rem); letter-spacing:.14em; line-height:1; margin-left:.14em;
-    background:linear-gradient(180deg,#FFFEFA 0%,#E9DEC8 55%,var(--amber) 130%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-  .kicker { font-family:var(--serif); font-style:italic; font-size:clamp(1.15rem,3.4vw,1.6rem); color:var(--amber); margin-top:12px; }
+    color:var(--text); }
+  .kicker { font-family:var(--sans); font-size:var(--wild-fs-xs); font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--amber); margin-top:18px; }
   .lede { margin:22px auto 0; max-width:520px; font-size:1.02rem; color:var(--dim); }
   .lede .em { color:var(--text); }
   .hero-ctas { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:34px; }
@@ -100,7 +105,7 @@
   .narrow { max-width:640px; margin:0 auto; }
   .eyebrow { font-size:.72rem; font-weight:700; letter-spacing:var(--wild-track-label); text-transform:uppercase; color:var(--amber); margin-bottom:12px; }
   h2 { font-family:var(--serif); font-weight:600; font-size:clamp(2rem,5.2vw,2.9rem); line-height:1.1; }
-  h2 em { color:var(--amber); font-weight:500; }
+  h2 em { color:var(--amber); font-weight:500; font-style:normal; }
   .sub { color:var(--dim); margin-top:14px; max-width:600px; }
   .center { text-align:center; }
   .center .sub { margin-left:auto; margin-right:auto; }
@@ -234,12 +239,13 @@
 </nav>
 <!-- ══ HERO ══ -->
 <header class="hero" id="top">
+  <div class="mark-wrap"><canvas class="mark3d" id="mark3d" aria-hidden="true"></canvas>
   <svg class="mark" viewBox="0 0 100 120" role="img" aria-label="WILD">
     <defs><radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(99,73,184,.45)"/><stop offset="100%" stop-color="rgba(99,73,184,0)"/></radialGradient></defs>
     <ellipse cx="50" cy="60" rx="46" ry="54" fill="url(#halo)"/>
     <g fill="none" stroke="#6349B8" stroke-width="2.4"><circle class="ring" cx="50" cy="44" r="34"/><circle class="ring2" cx="50" cy="76" r="34"/></g>
     <line class="aperture" x1="50" y1="51" x2="50" y2="69" stroke="#E9C766" stroke-width="3.4" stroke-linecap="round"/>
-  </svg>
+  </svg></div>
   <h1 class="wordmark">WILD</h1>
   <p class="kicker">The threshold most people walk past</p>
   <p class="lede">Every night you cross a threshold. <span class="em">You have never been awake for it.</span> WILD is the practice of being there, learned together, every week.</p>
@@ -493,5 +499,30 @@
 
 <script id="wild-consent-js" data-legal="02%20-%20Landing%20Pages/legal.html" src="assets/consent.js" defer></script>
 <script src="assets/founders-door.js" defer></script>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/" } }</script>
+<script type="module">
+// The 3D mark: only with WebGL, only without reduced motion or data saver, and it
+// sleeps when scrolled out of view. Otherwise the flat SVG mark stays.
+const cv = document.getElementById('mark3d'), hero = document.querySelector('.hero');
+const quiet = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection && navigator.connection.saveData);
+if (cv && !quiet && !!document.createElement('canvas').getContext('webgl2')) {
+  import('./assets/wild-3d.js').then(({ createMark }) => {
+    const m = createMark(cv, { distance: 16, stars: 160 });
+    const size = () => m.resize(cv.clientWidth, cv.clientHeight); size(); addEventListener('resize', size);
+    let on = true, gx = 0, gy = 0, tx = 0, ty = 0, vx = 0, vy = 0, t0 = performance.now(), first = true;
+    new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on) requestAnimationFrame(loop); }).observe(hero);
+    addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; gx = e.clientX / innerWidth * 2 - 1; gy = e.clientY / innerHeight * 2 - 1; });
+    function loop(now) {
+      if (!on) return;
+      const dt = 1 / 60; // a damped spring toward the pointer, so the lean settles rather than follows
+      vx += ((gx - tx) * 60 - vx * 14) * dt; vy += ((gy - ty) * 60 - vy * 14) * dt; tx += vx * dt; ty += vy * dt;
+      m.render((now - t0) / 1000, tx, ty);
+      if (first) { first = false; hero.classList.add('is-3d'); }
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  }).catch(() => {});
+}
+</script>
 </body>
 </html>
