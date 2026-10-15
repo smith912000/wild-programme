@@ -15,6 +15,7 @@
   if (saved) {
     if (saved === 'accept' && typeof gtag === 'function') {
       try { gtag('consent', 'update', { analytics_storage: 'granted' }); } catch (e) {}
+      if (typeof window.wildLoadAnalytics === 'function') window.wildLoadAnalytics();
     }
     return; /* already chosen — no banner */
   }
@@ -41,6 +42,7 @@
       bar.remove();
       if (v === 'accept' && typeof gtag === 'function') {
         try { gtag('consent', 'update', { analytics_storage: 'granted' }); } catch (e) {}
+      if (typeof window.wildLoadAnalytics === 'function') window.wildLoadAnalytics();
       }
     }
     bar.addEventListener('click', function (e) {

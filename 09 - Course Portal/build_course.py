@@ -317,9 +317,7 @@ def build_lesson_page(
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{safe_title} &mdash; WILD Programme</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://smith912000.github.io/wild-programme/assets/fonts/gf-e0a10894cc.css" rel="stylesheet">
   <link rel="stylesheet" href="{css_path(depth)}">
 </head>
 <body data-tier-id="{tier_id_attr}" data-lesson-id="{lesson_id_attr}">
@@ -427,9 +425,7 @@ def build_tier_index(
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tier {tier_num}: {tier_title} &mdash; WILD Programme</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://smith912000.github.io/wild-programme/assets/fonts/gf-e0a10894cc.css" rel="stylesheet">
   <link rel="stylesheet" href="{css_path(depth)}">
 </head>
 <body data-page="dashboard" data-tier-id="tier{tier_num}">
@@ -468,9 +464,7 @@ def build_home_index() -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WILD Programme &mdash; Course Portal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://smith912000.github.io/wild-programme/assets/fonts/gf-e0a10894cc.css" rel="stylesheet">
   <link rel="stylesheet" href="css/course.css">
 </head>
 <body class="home" data-page="home">

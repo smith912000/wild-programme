@@ -52,7 +52,7 @@ export function GuestScreen() {
         </div>
 
         <p className="text-text-muted text-xs mt-4">
-          Included with membership. Sign in with the email you used on Whop.
+          Included with membership. Sign in with the email you used on Whop. Memberships renew automatically each month or year until you cancel; cancel any time in Whop. 18+ only.
         </p>
         <p className="text-text-muted text-xs mt-1">
           <a href={WHOP_ANNUAL_URL} className="underline underline-offset-2">Or £100 a year</a>
