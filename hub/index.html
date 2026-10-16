@@ -126,6 +126,15 @@
   .call h3 { font-family:var(--wild-serif); font-weight:600; font-size:1.5rem; }
   .call p { color:var(--wild-dim); font-size:var(--wild-fs-base); }
   .call a { color:var(--wild-indigo-3); font-weight:600; text-decoration:none; white-space:nowrap; }
+  .guides { margin-top:var(--wild-s6); }
+  .guides h3 { font-family:var(--wild-serif); font-weight:600; font-size:1.5rem; margin:6px 0 4px; }
+  .guides > p { color:var(--wild-dim); font-size:var(--wild-fs-base); }
+  .guide-list { list-style:none; display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:12px; margin-top:16px; }
+  .guide-list a { display:block; height:100%; padding:16px 18px; border-radius:var(--wild-r-lg); background:var(--wild-bg-elev); border:1px solid var(--wild-border); text-decoration:none; transition:border-color var(--wild-t-fast), transform .4s var(--spring); }
+  .guide-list a:hover { border-color:var(--wild-border-lit); transform:translateY(-2px); }
+  .guide-list b { display:block; font-family:var(--wild-serif); font-weight:600; font-size:1.2rem; line-height:1.2; }
+  .guide-list span { display:block; margin-top:4px; color:var(--wild-dim); font-size:var(--wild-fs-sm); line-height:1.45; }
+  .guides .all { display:inline-block; margin-top:12px; color:var(--wild-indigo-3); font-weight:600; font-size:var(--wild-fs-sm); text-decoration:none; }
   .help { margin-top:var(--wild-s6); color:var(--wild-faint); font-size:var(--wild-fs-sm); display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; align-items:center; }
   .help a { color:var(--wild-indigo-3); }
   footer { text-align:center; padding:24px 20px 40px; color:var(--wild-faint); font-size:var(--wild-fs-xs); }
@@ -192,6 +201,19 @@
       <p>One hour on the WILD Discord. This week's topic is posted in announcements on Thursday.</p>
     </div>
     <a href="https://discord.gg/jRzKq6Hb6N" target="_blank" rel="noopener">Open the Discord →</a>
+  </section>
+
+  <section class="guides" aria-labelledby="guides-h">
+    <p class="eyebrow">Guides</p>
+    <h3 id="guides-h">Lucid dreaming, explained</h3>
+    <p>Plain, sourced guides to the practice. They are public, so you can share them with anyone curious.</p>
+    <ul class="guide-list">
+      <li><a href="../guides/how-to-wild.html"><b>How to do WILD</b><span>Staying aware while your body falls asleep, step by step.</span></a></li>
+      <li><a href="../guides/hypnagogia.html"><b>Hypnagogia</b><span>The images, sounds and sensations at the edge of sleep.</span></a></li>
+      <li><a href="../guides/sleep-paralysis-and-lucid-dreaming.html"><b>Sleep paralysis</b><span>What to do in an episode, and how it links to lucid dreams.</span></a></li>
+      <li><a href="../guides/is-lucid-dreaming-safe.html"><b>Is lucid dreaming safe?</b><span>What the research says, and how to protect your sleep.</span></a></li>
+    </ul>
+    <a class="all" href="../guides/">All guides →</a>
   </section>
 
   <div class="help">
