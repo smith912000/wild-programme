@@ -2,6 +2,7 @@
    every companion app. Add a future app by adding one line to APPS.
    Usage on an app:  <script src="https://smith912000.github.io/wild-programme/assets/wild-nav.js" data-app="codex" defer></script>
    Usage on the members' hub (hub/index.html): <script src="../assets/wild-nav.js" data-mode="hub" defer></script> and an element with id="wild-apps-menu". */
+(function(){if(window.__wildCompanyFooter||document.querySelector('script[src*="company-footer.js"]'))return;var s=document.createElement('script');s.src='https://smith912000.github.io/wild-programme/assets/company-footer.js';s.defer=true;(document.head||document.documentElement).appendChild(s);})(); /* company details on every page (Companies Act / E-Commerce Regs) */
 (function(){if(window.__wildCheckoutTerms||document.querySelector('script[src*="checkout-terms.js"]'))return;var s=document.createElement('script');s.src='https://smith912000.github.io/wild-programme/assets/checkout-terms.js';s.defer=true;(document.head||document.documentElement).appendChild(s);})(); /* renewal terms + 18+ tick before any Whop checkout */
 (function () {
   var HUB = 'https://smith912000.github.io/wild-programme/hub/';
