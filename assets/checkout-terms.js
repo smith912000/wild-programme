@@ -16,7 +16,7 @@
 
   var LEGAL = 'https://smith912000.github.io/wild-programme/02%20-%20Landing%20Pages/legal.html';
   var EMAIL = 'smith@negotiorum.com';
-  var STD_REFUND = 'You have 14 days from purchase to cancel for a refund less a proportionate charge for the days used. On top of that, if you cancel within 30 days of your first payment, email us for a full refund of that payment.';
+  var STD_REFUND = 'You have 14 days from purchase to cancel for a refund less a proportionate charge for the days used. On top of that, if you cancel within 30 days of your first payment, or within 30 days of a yearly renewal charge, email us for a full refund of that payment.';
   var STD_TICKS = [
     'I ask WILD to start my membership and give me access to the digital content immediately, and I acknowledge that I lose my 14-day right to cancel for that digital content once access begins. I can still cancel the membership itself within 14 days for a proportionate refund.',
     'I am 18 or over and have read the Membership Terms and Privacy Notice.'
