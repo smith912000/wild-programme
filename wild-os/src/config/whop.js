@@ -15,7 +15,7 @@ export const WHOP_ANNUAL_URL = env.VITE_WHOP_ANNUAL_URL || 'https://whop.com/che
 export const REDIRECT_URI = env.VITE_AUTH_REDIRECT_URI || 'https://smith912000.github.io/wild-os/auth/callback'
 
 // Base URL of the n8n webhooks: POST {base}/wild/auth/callback and /wild/auth/verify
-export const N8N_AUTH_BASE = env.VITE_N8N_AUTH_BASE || 'https://smith912000.app.n8n.cloud/webhook'
+export const N8N_AUTH_BASE = env.VITE_N8N_AUTH_BASE || 'https://helpful-vision-boards-helen.trycloudflare.com/webhook'
 export const CALLBACK_ENDPOINT = `${N8N_AUTH_BASE}/wild/auth/callback`
 export const VERIFY_ENDPOINT = `${N8N_AUTH_BASE}/wild/auth/verify`
 
