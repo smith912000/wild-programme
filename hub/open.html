@@ -376,7 +376,7 @@
   requestAnimationFrame(loop);
 
   // the intro film: once per device, skippable, replayable; closes into the mark
-  var intro = document.getElementById('intro'), vid = document.getElementById('intro-video'), tap = document.getElementById('tap'), KEY = 'wild_hub_intro_seen';
+  var intro = document.getElementById('intro'), vid = document.getElementById('intro-video'), tap = document.getElementById('tap'), KEY = 'wild_hub_open_intro_seen'; // own key: visitors who saw the film on the gated hub still get it here once
   function closeIntro(e) {
     // a blocked autoplay or a failed load does not count as seen, so it tries again next visit
     if (!(e && (e.type === 'error' || e.name))) { try { localStorage.setItem(KEY, '1'); } catch (x) {} }
