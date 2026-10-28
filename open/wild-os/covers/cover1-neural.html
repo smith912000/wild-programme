@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #080c14; }
+</style>
+</head>
+<body>
+<svg width="1920" height="1080" style="position:absolute;top:0;left:0;">
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(201,168,76,0.035)" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="bgGlow" cx="72%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="rgba(80,120,220,0.14)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+    <filter id="blur4"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="blur14"><feGaussianBlur stdDeviation="14"/></filter>
+    <linearGradient id="leftFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#080c14" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#080c14" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+  <rect width="1920" height="1080" fill="url(#bgGlow)"/>
+
+  <!-- ── TITLE  (left, x: 80–1020, clear of EEG panel starting at x=1060) ── -->
+  <text x="80" y="142" fill="rgba(201,168,76,0.55)" font-size="18" font-family="Courier New" letter-spacing="5">WILD OS  ·  SCIENTIFIC PROTOCOL</text>
+
+  <!-- THE -->
+  <text x="74" y="330" fill="#f0ece0" font-size="210" font-weight="900" font-family="Georgia" letter-spacing="-5">THE</text>
+
+  <!-- NEURO (white) -->
+  <text x="74" y="545" fill="#f0ece0" font-size="168" font-weight="900" font-family="Georgia" letter-spacing="-4">NEURO</text>
+
+  <!-- SCIENCE (gold, shifted right to create offset rhythm) -->
+  <text x="74" y="730" fill="#c9a84c" font-size="168" font-weight="900" font-family="Georgia" letter-spacing="-4">SCIENCE</text>
+
+  <!-- OF DREAMS -->
+  <text x="82" y="888" fill="rgba(240,236,224,0.55)" font-size="90" font-weight="900" font-family="Georgia" letter-spacing="-2">OF DREAMS</text>
+
+  <!-- Divider + subtitle -->
+  <line x1="82" y1="924" x2="220" y2="924" stroke="#c9a84c" stroke-width="2" opacity="0.45"/>
+  <text x="82" y="966" fill="#4a6080" font-size="20" font-family="Courier New" letter-spacing="4">WAKE-INITIATED LUCID DREAMING  ·  EVIDENCE-BASED PRACTICE</text>
+
+  <!-- ── EEG PANEL  x: 1060–1900 ── -->
+  <text x="1888" y="104" fill="rgba(201,168,76,0.22)" font-size="13" font-family="Courier New" letter-spacing="2" text-anchor="end">EEG MONTAGE  ·  10-20 SYSTEM</text>
+  <line x1="1060" y1="118" x2="1060" y2="950" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+
+  <!-- DELTA  y=230 -->
+  <text x="1048" y="218" fill="rgba(201,168,76,0.5)" font-size="14" font-family="Courier New" letter-spacing="1" text-anchor="end">DELTA  0.5–4 Hz</text>
+  <path d="M1072,230 Q1112,230 1126,174 Q1140,118 1172,230 Q1204,342 1236,230 Q1268,118 1300,230 Q1332,342 1360,230 Q1388,148 1418,230 Q1450,316 1490,230 Q1528,154 1580,230 Q1640,302 1710,230 Q1768,172 1858,230 Q1892,260 1920,230"
+    fill="none" stroke="rgba(201,168,76,0.35)" stroke-width="2.5"/>
+  <path d="M1072,230 Q1112,230 1126,174 Q1140,118 1172,230 Q1204,342 1236,230 Q1268,118 1300,230 Q1332,342 1360,230 Q1388,148 1418,230 Q1450,316 1490,230 Q1528,154 1580,230 Q1640,302 1710,230 Q1768,172 1858,230 Q1892,260 1920,230"
+    fill="none" stroke="rgba(201,168,76,0.1)" stroke-width="12" filter="url(#blur4)"/>
+  <line x1="1060" y1="328" x2="1920" y2="328" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
+
+  <!-- THETA  y=450 -->
+  <text x="1048" y="438" fill="rgba(100,149,237,0.6)" font-size="14" font-family="Courier New" letter-spacing="1" text-anchor="end">THETA  4–8 Hz</text>
+  <path d="M1072,450 Q1094,420 1118,450 Q1142,480 1166,450 Q1190,420 1218,450 Q1246,480 1274,450 Q1302,420 1334,450 Q1366,480 1402,450 Q1438,420 1478,450 Q1518,480 1562,450 Q1608,418 1658,450 Q1708,482 1768,450 Q1824,418 1892,450 Q1912,462 1920,450"
+    fill="none" stroke="rgba(100,149,237,0.55)" stroke-width="2.5"/>
+  <path d="M1072,450 Q1094,420 1118,450 Q1142,480 1166,450 Q1190,420 1218,450 Q1246,480 1274,450 Q1302,420 1334,450 Q1366,480 1402,450 Q1438,420 1478,450 Q1518,480 1562,450 Q1608,418 1658,450 Q1708,482 1768,450 Q1824,418 1892,450 Q1912,462 1920,450"
+    fill="none" stroke="rgba(100,149,237,0.12)" stroke-width="12" filter="url(#blur4)"/>
+  <line x1="1060" y1="548" x2="1920" y2="548" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
+
+  <!-- ALPHA  y=660 -->
+  <text x="1048" y="648" fill="rgba(100,210,180,0.6)" font-size="14" font-family="Courier New" letter-spacing="1" text-anchor="end">ALPHA  8–12 Hz</text>
+  <path d="M1072,660 Q1084,642 1096,660 Q1108,678 1120,660 Q1132,642 1148,660 Q1164,678 1180,660 Q1196,642 1216,660 Q1236,678 1258,660 Q1282,640 1318,660 Q1354,680 1400,660 Q1448,638 1506,660 Q1564,682 1634,660 Q1704,636 1790,660 Q1862,680 1920,660"
+    fill="none" stroke="rgba(100,210,180,0.48)" stroke-width="2.5"/>
+  <path d="M1072,660 Q1084,642 1096,660 Q1108,678 1120,660 Q1132,642 1148,660 Q1164,678 1180,660 Q1196,642 1216,660 Q1236,678 1258,660 Q1282,640 1318,660 Q1354,680 1400,660 Q1448,638 1506,660 Q1564,682 1634,660 Q1704,636 1790,660 Q1862,680 1920,660"
+    fill="none" stroke="rgba(100,210,180,0.1)" stroke-width="12" filter="url(#blur4)"/>
+  <line x1="1060" y1="760" x2="1920" y2="760" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
+
+  <!-- GAMMA  y=858 — highlighted -->
+  <text x="1048" y="842" fill="rgba(201,168,76,0.9)" font-size="14" font-family="Courier New" letter-spacing="1" text-anchor="end">GAMMA  40 Hz</text>
+  <text x="1048" y="862" fill="rgba(201,168,76,0.48)" font-size="12" font-family="Courier New" letter-spacing="1" text-anchor="end">LUCID STATE ██</text>
+  <path id="gp" fill="none" stroke="rgba(201,168,76,0.88)" stroke-width="2.5"/>
+  <path id="gg" fill="none" stroke="rgba(201,168,76,0.22)" stroke-width="18" filter="url(#blur14)"/>
+
+  <!-- REM scan line -->
+  <line x1="1600" y1="118" x2="1600" y2="950" stroke="rgba(201,168,76,0.09)" stroke-width="1" stroke-dasharray="5,7"/>
+  <text x="1610" y="140" fill="rgba(201,168,76,0.32)" font-size="12" font-family="Courier New" letter-spacing="1">REM ONSET</text>
+
+  <!-- Bottom data strip -->
+  <text x="1072" y="988" fill="rgba(100,149,237,0.28)" font-size="13" font-family="Courier New" letter-spacing="3">DLPFC  ·  40Hz γ  ·  ACh ↑  ·  REM PRESSURE  ·  AWARENESS ANCHOR</text>
+
+  <!-- Left fade to keep EEG from bleeding into title -->
+  <rect width="1040" height="1080" fill="url(#leftFade)"/>
+</svg>
+
+<script>
+  const step = 6, cy = 858, amp = 12
+  let d = `M1072,${cy}`
+  for (let x = 1072; x <= 1912; x += step)
+    d += ` L${x},${cy + (Math.floor((x-1072)/step)%2===0 ? -amp : amp)}`
+  document.getElementById('gp').setAttribute('d', d)
+  document.getElementById('gg').setAttribute('d', d)
+</script>
+</body>
+</html>
