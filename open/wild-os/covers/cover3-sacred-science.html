@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #07090f; }
+</style>
+</head>
+<body>
+<svg width="1920" height="1080" style="position:absolute;top:0;left:0;">
+  <defs>
+    <pattern id="dots" width="44" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="22" cy="22" r="0.9" fill="rgba(201,168,76,0.1)"/>
+    </pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="aura"><feGaussianBlur stdDeviation="35"/></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="16"/></filter>
+    <radialGradient id="cg" cx="65%" cy="50%" r="42%">
+      <stop offset="0%"   stop-color="rgba(201,168,76,0.22)"/>
+      <stop offset="55%"  stop-color="rgba(80,120,220,0.06)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+    <!-- Fade: left side solid for title legibility, blending into geometry -->
+    <linearGradient id="lf" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#07090f" stop-opacity="1"/>
+      <stop offset="32%" stop-color="#07090f" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="rf" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="78%" stop-color="#07090f" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#07090f" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#07090f"/>
+  <rect width="1920" height="1080" fill="url(#dots)"/>
+  <rect width="1920" height="1080" fill="url(#cg)"/>
+
+  <!--
+    LAYOUT:
+      Title:       x 80–500   (clear left column)
+      Geometry:    centre (1120, 540), R1=340
+      Annotations: right side x 1500–1880  +  top/bottom only
+  -->
+
+  <!-- ── SACRED GEOMETRY  centre (1120, 540) ── -->
+  <circle cx="1120" cy="540" r="320" fill="rgba(201,168,76,0.22)" filter="url(#aura)" opacity="0.7"/>
+  <circle cx="1120" cy="540" r="340" stroke="rgba(201,168,76,0.2)" stroke-width="1.2" fill="none"/>
+  <polygon points="1120,200 1460,540 1120,880 780,540"
+    stroke="rgba(201,168,76,0.3)" stroke-width="1.2" fill="none"/>
+  <circle cx="1120" cy="540" r="240" stroke="rgba(201,168,76,0.16)" stroke-width="1" fill="none"/>
+  <polygon points="1120,300 1896.2,660 876.2,660"
+    stroke="rgba(201,168,76,0.3)" stroke-width="1.2" fill="none"/>
+  <polygon points="1120,300 1343.8,660 896.2,660"
+    stroke="rgba(201,168,76,0.3)" stroke-width="1.2" fill="none"/>
+  <circle cx="1120" cy="540" r="120" stroke="rgba(201,168,76,0.14)" stroke-width="1" fill="none"/>
+
+  <!-- Hexagram -->
+  <polygon points="1120,300 1343.8,660 896.2,660"
+    stroke="rgba(201,168,76,0.75)" stroke-width="1.8" fill="none" filter="url(#glow)" opacity="0.78"/>
+  <polygon points="1120,780 896.2,420 1343.8,420"
+    stroke="rgba(201,168,76,0.75)" stroke-width="1.8" fill="none" filter="url(#glow)" opacity="0.78"/>
+
+  <!-- Octagram — two squares -->
+  <rect x="880" y="300" width="480" height="480" stroke="rgba(100,149,237,0.52)" stroke-width="1.8" fill="none" filter="url(#glow)" opacity="0.65"/>
+  <rect x="880" y="300" width="480" height="480" stroke="rgba(100,149,237,0.52)" stroke-width="1.8" fill="none"
+    transform="rotate(45 1120 540)" filter="url(#glow)" opacity="0.65"/>
+
+  <!-- Flower of life -->
+  <circle cx="1120" cy="420" r="120" stroke="rgba(201,168,76,0.08)" stroke-width="0.8" fill="none"/>
+  <circle cx="1224" cy="480" r="120" stroke="rgba(201,168,76,0.08)" stroke-width="0.8" fill="none"/>
+  <circle cx="1224" cy="600" r="120" stroke="rgba(201,168,76,0.08)" stroke-width="0.8" fill="none"/>
+  <circle cx="1120" cy="660" r="120" stroke="rgba(201,168,76,0.08)" stroke-width="0.8" fill="none"/>
+  <circle cx="1016" cy="600" r="120" stroke="rgba(201,168,76,0.08)" stroke-width="0.8" fill="none"/>
+  <circle cx="1016" cy="480" r="120" stroke="rgba(201,168,76,0.08)" stroke-width="0.8" fill="none"/>
+
+  <!-- Centre dot -->
+  <circle cx="1120" cy="540" r="5" fill="rgba(201,168,76,0.92)" filter="url(#glow)"/>
+
+  <!-- ── ANNOTATIONS (right side + top/bottom, no left overlap) ── -->
+
+  <!-- DLPFC — top -->
+  <line x1="1120" y1="198" x2="1120" y2="112" stroke="rgba(201,168,76,0.25)" stroke-width="1" stroke-dasharray="5,6"/>
+  <line x1="1120" y1="112" x2="1560" y2="112" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+  <text x="1132" y="105" fill="rgba(201,168,76,0.72)" font-size="15" font-family="Courier New" letter-spacing="2">DLPFC REACTIVATION</text>
+  <text x="1132" y="84"  fill="rgba(201,168,76,0.32)" font-size="12" font-family="Courier New">Dorsolateral Prefrontal Cortex  ·  Self-Awareness</text>
+
+  <!-- 40Hz Gamma — right upper -->
+  <line x1="1460" y1="420" x2="1560" y2="370" stroke="rgba(100,210,180,0.3)" stroke-width="1" stroke-dasharray="5,6"/>
+  <line x1="1560" y1="370" x2="1880" y2="370" stroke="rgba(100,210,180,0.3)" stroke-width="1"/>
+  <text x="1572" y="362" fill="rgba(100,210,180,0.75)" font-size="15" font-family="Courier New" letter-spacing="2">40 Hz GAMMA BURST</text>
+  <text x="1572" y="384" fill="rgba(100,210,180,0.32)" font-size="12" font-family="Courier New">Neural binding  ·  Conscious experience</text>
+
+  <!-- ACh — right middle -->
+  <line x1="1460" y1="540" x2="1560" y2="510" stroke="rgba(100,149,237,0.3)" stroke-width="1" stroke-dasharray="5,6"/>
+  <line x1="1560" y1="510" x2="1880" y2="510" stroke="rgba(100,149,237,0.3)" stroke-width="1"/>
+  <text x="1572" y="502" fill="rgba(100,149,237,0.75)" font-size="15" font-family="Courier New" letter-spacing="2">ACETYLCHOLINE ↑</text>
+  <text x="1572" y="524" fill="rgba(100,149,237,0.32)" font-size="12" font-family="Courier New">REM neuromodulator  ·  Dream vividness</text>
+
+  <!-- Atonia — right lower -->
+  <line x1="1460" y1="660" x2="1560" y2="650" stroke="rgba(180,100,230,0.28)" stroke-width="1" stroke-dasharray="5,6"/>
+  <line x1="1560" y1="650" x2="1880" y2="650" stroke="rgba(180,100,230,0.28)" stroke-width="1"/>
+  <text x="1572" y="642" fill="rgba(180,100,230,0.68)" font-size="15" font-family="Courier New" letter-spacing="2">MUSCLE ATONIA</text>
+  <text x="1572" y="664" fill="rgba(180,100,230,0.3)" font-size="12" font-family="Courier New">Brainstem inhibition  ·  Entry window</text>
+
+  <!-- Breathwork — bottom -->
+  <line x1="1120" y1="882" x2="1120" y2="958" stroke="rgba(255,150,50,0.25)" stroke-width="1" stroke-dasharray="5,6"/>
+  <line x1="800"  y1="958" x2="1440" y2="958" stroke="rgba(255,150,50,0.25)" stroke-width="1"/>
+  <text x="820" y="950" fill="rgba(255,150,50,0.65)" font-size="14" font-family="Courier New" letter-spacing="2">COHERENT BREATHING  ·  5.5 BPM  ·  HRV RESONANCE</text>
+
+  <!-- ── TITLE BLOCK (left, x: 80–500) ── -->
+  <text x="80" y="235" fill="rgba(201,168,76,0.48)" font-size="16" font-family="Courier New" letter-spacing="5">WILD OS  ·  FRAMEWORK</text>
+
+  <!-- THE — very large -->
+  <text x="74" y="430" fill="#f0ece0" font-size="230" font-weight="900" font-family="Georgia" letter-spacing="-6">THE</text>
+
+  <!-- SYSTEM — one line, gold -->
+  <text x="74" y="640" fill="#c9a84c" font-size="185" font-weight="900" font-family="Georgia" letter-spacing="-5">SYSTEM</text>
+
+  <line x1="80" y1="688" x2="230" y2="688" stroke="#c9a84c" stroke-width="2" opacity="0.4"/>
+  <text x="80" y="732" fill="#3d5060" font-size="22" font-family="Georgia" letter-spacing="1" font-style="italic">of Conscious Dreaming</text>
+
+  <!-- Bottom tag -->
+  <text x="80" y="1018" fill="rgba(201,168,76,0.22)" font-size="13" font-family="Courier New" letter-spacing="4">NEUROSCIENCE  ·  BREATHWORK  ·  PROTOCOL  ·  PRACTICE</text>
+
+  <!-- Fades -->
+  <rect width="560" height="1080" fill="url(#lf)"/>
+  <rect x="1880" width="40" height="1080" fill="url(#rf)"/>
+</svg>
+</body>
+</html>
