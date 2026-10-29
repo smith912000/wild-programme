@@ -1,0 +1,1 @@
+import{P as m}from"./planetInSign-C64jJKF1.js";import{t as o}from"./terse-A2TJSHx3.js";const a=Object.fromEntries(Object.entries(m).map(([t,e])=>[t,Object.fromEntries(Object.entries(e).map(([r,s])=>[r,o(s)]))]));export{a as P};
