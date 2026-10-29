@@ -1,0 +1,1 @@
+const n=t=>{if(typeof t!="string"||!t)return"";let e=t.split(new RegExp("(?<=\\.)\\s"))[0].replace(/\.$/,"");return e.length>90&&(e=e.split(/[—;:,]/)[0].trim()),e};function r(t){if(!t)return[];if(Array.isArray(t.energies)&&t.energies.length)return t.energies;const e=n(t.plain);return e?[e]:[]}function i(t){const e=r(t);return e.length?e.join(" · "):""}export{r as a,i as t};
