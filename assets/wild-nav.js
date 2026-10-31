@@ -11,6 +11,7 @@
     { id: 'codex',   name: 'Codex Pharmakon', role: 'Codex',     url: 'https://smith912000.github.io/codex-pharmakon/' },
     { id: 'sge',     name: 'SGE',             role: 'Stars',     url: 'https://smith912000.github.io/SGE/' },
     { id: 'parser',  name: 'Symbolic Parser', role: 'Tarot',     url: HUB + 'parser/' },
+    { id: 'maryada', name: 'Maryada',         role: 'Daily practice', url: HUB + 'maryada/' },
     { id: 'discord', name: 'Discord',         role: 'The Open Door', url: 'https://discord.gg/jRzKq6Hb6N', external: true },
     { id: 'soon',    name: 'More soon',       role: 'Coming soon', url: null }
   ];

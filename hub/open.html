@@ -240,6 +240,7 @@
     codex: 'The old medicine of the earth. A historical reference, not medical advice.',
     sge: 'The sky you were born under: charts, symbolism and numerology.',
     parser: 'A suit and three numbers, read as one closed system.',
+    maryada: 'The eight daily boundaries of light, water, earth, breath, food, sleep, movement and fasting, ticked off each day.',
     discord: 'The community: pods, monthly challenges, sharing circles and the Sunday call.',
     soon: 'New tools land on the empty points of the circle as they are built.'
   };
@@ -248,6 +249,7 @@
     codex: '<path d="M0,-15 C10,-8 10,5 0,12 C-10,5 -10,-8 0,-15 Z M0,-8 L0,18 M0,18 L-6,23 M0,18 L6,23"/>',
     os: '<path d="M5,-14 A15,15 0 1 0 5,14 A11.5,11.5 0 1 1 5,-14 Z"/>',
     parser: '<path d="M-10,-15 H10 A2,2 0 0 1 12,-13 V13 A2,2 0 0 1 10,15 H-10 A2,2 0 0 1 -12,13 V-13 A2,2 0 0 1 -10,-15 Z M-6,0 Q0,-7 6,0 Q0,7 -6,0 Z"/>',
+    maryada: '<path d="M0,-7 A7,7 0 1 1 0,7 A7,7 0 1 1 0,-7 Z M0,-15 V-11 M0,11 V15 M-15,0 H-11 M11,0 H15 M-10.6,-10.6 L-7.8,-7.8 M7.8,7.8 L10.6,10.6 M-10.6,10.6 L-7.8,7.8 M7.8,-7.8 L10.6,-10.6"/>',
     other: '<path d="M0,-12 A12,12 0 1 1 0,12 A12,12 0 1 1 0,-12 Z M0,-4 L0,4"/>'
   };
   var MARK = '<svg viewBox="0 0 100 120" aria-hidden="true"><g class="rings"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><path class="lens" pathLength="100" d="M50 5A65 65 0 0 1 50 115A65 65 0 0 1 50 5Z"/><path class="arch" pathLength="100" d="M38 93V62A12 12 0 0 1 62 62V93"/><line class="slit" x1="50" y1="51" x2="50" y2="69"/><circle class="knob" cx="56" cy="78" r="3.5"/></svg>';
@@ -283,10 +285,10 @@
   }
 
   // entrance: the circle draws, then each app arrives in the order the film shows them
-  var ORDER = ['sge', 'codex', 'os', 'parser', 'discord'];
+  var ORDER = ['sge', 'codex', 'os', 'parser', 'maryada', 'discord'];
   function arrive() {
     nodes.forEach(function (n) {
-      var i = n.a ? ORDER.indexOf(n.a.id) : -1; if (i < 0) i = 5;
+      var i = n.a ? ORDER.indexOf(n.a.id) : -1; if (i < 0) i = 6;
       setTimeout(function () { n.el.classList.add('in'); }, reduce ? 0 : 500 + i * 140);
     });
   }
