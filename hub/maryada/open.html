@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>WILD · Maryada, the daily practice</title>
+<meta name="description" content="A daily checklist for the eight Maryada practices: light, water, earth, breath, food, sleep, movement and fasting.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Crect width='100' height='120' fill='%23050309'/%3E%3Cg fill='none' stroke='%236349B8' stroke-width='7'%3E%3Ccircle cx='50' cy='44' r='34'/%3E%3Ccircle cx='50' cy='76' r='34'/%3E%3C/g%3E%3Cline x1='50' y1='51' x2='50' y2='69' stroke='%23E9C766' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E">
+<link href="https://smith912000.github.io/wild-programme/assets/fonts/gf-c30d3915af.css" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/wild.css">
+<style>
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--wild-bg); color:var(--wild-text); font-family:var(--wild-sans); line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; overflow-x:hidden; }
+  /* warm dawn on the left, night on the right: the posters' sun and moon */
+  body::before { content:''; position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(ellipse 55% 45% at 12% 0%, rgba(201,168,76,.16), transparent 65%),
+      radial-gradient(ellipse 50% 45% at 100% 8%, rgba(99,73,184,.22), transparent 65%),
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(224,164,88,.06), transparent 70%); }
+  #sky { position:fixed; inset:0; z-index:-1; pointer-events:none; }
+  a { color:inherit; }
+
+  main { max-width:760px; margin:0 auto; padding:var(--wild-s7) 20px var(--wild-s8); }
+  .eyebrow { font-size:var(--wild-fs-xs); font-weight:700; letter-spacing:var(--wild-track-label); text-transform:uppercase; color:var(--wild-gold); }
+  h1 { font-family:var(--wild-serif); font-weight:500; font-size:clamp(2.4rem, 7vw, 3.4rem); line-height:1.05; margin:10px 0 12px; }
+  .lede { color:var(--wild-dim); max-width:520px; }
+
+  /* today: the sun ring fills as the day's practice is done */
+  .today { display:grid; grid-template-columns:auto minmax(0, 1fr); gap:var(--wild-s5); align-items:center; margin-top:var(--wild-s6);
+           padding:20px 22px; border-radius:var(--wild-r-lg); background:var(--wild-bg-elev); border:1px solid var(--wild-border); }
+  .ring { position:relative; width:112px; height:112px; }
+  .ring svg { width:100%; height:100%; transform:rotate(-90deg); }
+  .ring .track { fill:none; stroke:rgba(244,241,237,.08); stroke-width:6; }
+  .ring .fill { fill:none; stroke:var(--wild-gold); stroke-width:6; stroke-linecap:round; transition:stroke-dashoffset .6s var(--wild-ease); }
+  .ring .rays line { stroke:var(--wild-gold); stroke-width:1.4; stroke-linecap:round; opacity:.18; transition:opacity .4s; }
+  .ring .rays line.lit { opacity:.75; }
+  .ring .num { position:absolute; inset:0; display:grid; place-content:center; text-align:center; }
+  .ring .num b { font-family:var(--wild-serif); font-weight:600; font-size:2rem; line-height:1; }
+  .ring .num small { font-size:var(--wild-fs-xs); color:var(--wild-faint); }
+  .today h2 { font-family:var(--wild-serif); font-weight:600; font-size:1.5rem; line-height:1.15; }
+  .today .date { color:var(--wild-dim); font-size:var(--wild-fs-sm); }
+  .week { display:flex; gap:6px; margin-top:12px; align-items:flex-end; height:34px; }
+  .week span { position:relative; flex:1; max-width:22px; height:100%; border-radius:4px; background:rgba(244,241,237,.06); overflow:hidden; }
+  .week span i { position:absolute; left:0; right:0; bottom:0; background:var(--wild-indigo-2); opacity:.8; }
+  .week span.is-today i { background:var(--wild-indigo-3); }
+  .week-cap { display:flex; justify-content:space-between; margin-top:4px; font-size:var(--wild-fs-xs); color:var(--wild-faint); }
+
+  /* the practices */
+  .practice { margin-top:var(--wild-s5); border-radius:var(--wild-r-lg); background:var(--wild-bg-elev); border:1px solid var(--wild-border); }
+  .practice[hidden] { display:none; }
+  .p-head { display:flex; align-items:center; gap:14px; width:100%; padding:16px 18px; background:none; border:0; color:inherit; font:inherit; text-align:left; cursor:pointer; border-radius:var(--wild-r-lg); }
+  .p-head:focus-visible { outline:2px solid var(--wild-indigo-3); outline-offset:2px; }
+  .glyph { flex:none; width:42px; height:42px; border-radius:50%; display:grid; place-items:center; background:var(--wild-surface); color:var(--wild-indigo-3); transition:color .3s, background .3s; }
+  .glyph svg { width:24px; height:24px; overflow:visible; }
+  .glyph svg path, .glyph svg circle { fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+  .practice.done .glyph { color:var(--wild-on-gold); background:var(--wild-gold-2); }
+  .p-title { flex:1; min-width:0; }
+  .p-title b { display:block; font-family:var(--wild-serif); font-weight:600; font-size:1.35rem; line-height:1.15; }
+  .p-title small { display:block; color:var(--wild-faint); font-size:var(--wild-fs-xs); letter-spacing:.06em; }
+  .p-count { font-family:var(--wild-mono, monospace); font-size:var(--wild-fs-sm); color:var(--wild-dim); white-space:nowrap; }
+  .chev { width:14px; height:14px; flex:none; color:var(--wild-faint); transition:transform .3s var(--wild-ease); }
+  .practice.closed .chev { transform:rotate(-90deg); }
+  .p-body { padding:0 18px 14px; }
+  .practice.closed .p-body { display:none; }
+  .sub { margin:10px 0 2px; font-size:var(--wild-fs-xs); font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--wild-indigo-3); }
+  .note { margin:10px 0 4px; padding:10px 12px; border-radius:var(--wild-r-sm); background:rgba(224,164,88,.08); color:var(--wild-dim); font-size:var(--wild-fs-sm); line-height:1.5; }
+  .note b { color:var(--wild-warn); font-weight:600; }
+
+  ul.items { list-style:none; }
+  .item { display:flex; align-items:flex-start; gap:12px; padding:10px 4px; border-top:1px solid var(--wild-border); cursor:pointer; }
+  .item:first-child { border-top:0; }
+  .item input { position:absolute; opacity:0; pointer-events:none; }
+  .box { flex:none; width:22px; height:22px; margin-top:1px; border-radius:6px; border:1.5px solid var(--wild-indigo-2); display:grid; place-items:center; transition:background .2s, border-color .2s; }
+  .box svg { width:14px; height:14px; stroke:var(--wild-on-gold); stroke-width:2.4; fill:none; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:20; stroke-dashoffset:20; transition:stroke-dashoffset .3s var(--wild-ease); }
+  .item input:checked + .box { background:var(--wild-indigo-3); border-color:var(--wild-indigo-3); }
+  .item input:checked + .box svg { stroke-dashoffset:0; }
+  .item input:focus-visible + .box { box-shadow:0 0 0 3px var(--wild-bg), 0 0 0 5px var(--wild-indigo-3); }
+  .item .txt { flex:1; min-width:0; }
+  .item input:checked ~ .txt { color:var(--wild-dim); }
+  .when { display:block; font-size:var(--wild-fs-xs); color:var(--wild-faint); }
+
+  /* the water cups: three or more, one tap each */
+  .cups { display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
+  .cups button { width:30px; height:30px; border-radius:50%; border:1.5px solid var(--wild-indigo-2); background:transparent; color:var(--wild-indigo-3); font:600 var(--wild-fs-xs)/1 var(--wild-sans); cursor:pointer; }
+  .cups button.full { background:var(--wild-indigo-3); border-color:var(--wild-indigo-3); color:var(--wild-on-gold); }
+  .cups button:focus-visible { outline:2px solid var(--wild-indigo-3); outline-offset:2px; }
+
+  .settings { margin-top:var(--wild-s6); padding:18px 20px; border-radius:var(--wild-r-lg); border:1px solid var(--wild-border); }
+  .settings h3 { font-family:var(--wild-serif); font-weight:600; font-size:1.3rem; }
+  .settings > p { color:var(--wild-dim); font-size:var(--wild-fs-sm); margin:2px 0 10px; }
+  .toggles { display:flex; flex-wrap:wrap; gap:8px; }
+  .toggles label { display:inline-flex; align-items:center; gap:8px; padding:7px 12px; border-radius:var(--wild-r-pill); border:1px solid var(--wild-border-lit); font-size:var(--wild-fs-sm); cursor:pointer; }
+  .toggles input { accent-color:var(--wild-indigo-2); }
+  .quiet { background:none; border:1px solid var(--wild-border-lit); color:var(--wild-text); border-radius:var(--wild-r-pill); padding:7px 14px; font:inherit; font-size:var(--wild-fs-sm); cursor:pointer; }
+  .quiet:hover { background:rgba(99,73,184,.16); }
+  .row { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; margin-top:14px; }
+  .fine { color:var(--wild-faint); font-size:var(--wild-fs-xs); line-height:1.5; }
+
+  footer { text-align:center; padding:24px 20px 40px; color:var(--wild-faint); font-size:var(--wild-fs-xs); }
+
+  @media (max-width:520px) {
+    main { padding-top:var(--wild-s6); }
+    .today { grid-template-columns:1fr; justify-items:start; }
+    .ring { width:96px; height:96px; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<!-- Open copy: no membership check while member sign-in is paused. The original is the same path without "open". -->
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<main>
+  <p class="eyebrow">The daily practice</p>
+  <h1>Maryada</h1>
+  <p class="lede">Eight boundaries for the day: light, water, earth, breath, food, sleep, movement and fasting. Tick each one as you keep it. The list clears at midnight and starts again.</p>
+
+  <section class="today" aria-label="Today's progress">
+    <div class="ring" id="ring">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <g class="rays" id="rays"></g>
+        <circle class="track" cx="60" cy="60" r="42"/>
+        <circle class="fill" id="ring-fill" cx="60" cy="60" r="42"/>
+      </svg>
+      <div class="num"><b id="pct">0</b><small>of <span id="total">0</span></small></div>
+    </div>
+    <div>
+      <h2 id="today-line">A new day.</h2>
+      <p class="date" id="today-date"></p>
+      <div class="week" id="week" aria-hidden="true"></div>
+      <div class="week-cap" aria-hidden="true"><span>Two weeks ago</span><span>Today</span></div>
+      <p class="fine" id="week-text" style="margin-top:6px"></p>
+    </div>
+  </section>
+
+  <div id="practices"></div>
+
+  <section class="settings" aria-labelledby="set-h">
+    <h3 id="set-h">Your practices</h3>
+    <p>Turn off any practice you are not keeping yet. It leaves today's count and comes back when you turn it on.</p>
+    <div class="toggles" id="toggles"></div>
+    <div class="row">
+      <p class="fine">Your ticks stay on this device only. Nothing is sent anywhere.</p>
+      <button type="button" class="quiet" id="clear-today">Clear today</button>
+    </div>
+  </section>
+
+  <p class="fine" style="margin-top:var(--wild-s5)">Traditional daily practices, offered for reflection. This is not medical advice. Check with your GP before changing how you eat, fast, sleep or exercise, especially if you are pregnant, have a health condition or take regular medication.</p>
+</main>
+
+<footer>The Wild Project</footer>
+
+<script src="../../assets/wild-nav-open.js" data-app="maryada"></script>
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // The eight posters, one practice each. Item ids are stored, so never reuse or rename one.
+  var G = {
+    sun:   '<path d="M0,-6 A6,6 0 1 1 0,6 A6,6 0 1 1 0,-6 Z M0,-12 V-9 M0,9 V12 M-12,0 H-9 M9,0 H12 M-8.5,-8.5 L-6.4,-6.4 M6.4,6.4 L8.5,8.5 M-8.5,8.5 L-6.4,6.4 M6.4,-6.4 L8.5,-8.5"/>',
+    water: '<path d="M0,-12 C5,-5 8,-1 8,4 A8,8 0 0 1 -8,4 C-8,-1 -5,-5 0,-12 Z M-3.5,5 A4,4 0 0 0 1,8.5"/>',
+    earth: '<path d="M-12,7 H12 M-9,11 H9 M-10,7 L-3,-4 L1,2 L5,-6 L11,7"/>',
+    breath:'<path d="M-11,-4 H4 A4,4 0 1 0 0,-8 M-11,2 H8 A4,4 0 1 1 4,6 M-11,8 H-2"/>',
+    food:  '<path d="M-11,0 H11 A11,9 0 0 1 -11,0 Z M-4,-4 C-4,-7 -1,-7 -1,-10 M3,-4 C3,-7 6,-7 6,-10"/>',
+    sleep: '<path d="M4,-11 A11,11 0 1 0 11,4 A8.5,8.5 0 0 1 4,-11 Z"/>',
+    move:  '<path d="M2,-11 A2.5,2.5 0 1 1 2,-6 A2.5,2.5 0 1 1 2,-11 Z M-8,-4 L1,-3 L7,-7 M1,-3 L-1,4 L5,11 M-1,4 L-7,10"/>',
+    fast:  '<path d="M0,-11 A11,11 0 0 1 0,11 Z M0,-11 A11,11 0 0 0 0,11"/>'
+  };
+  var PRACTICES = [
+    { id:'solari', name:'Solari Maryada', sub:'Light and circadian alignment', glyph:'sun', groups:[
+      { label:'Morning: solar resonance', items:[
+        { id:'s1', t:'Spend 30 to 60 minutes in direct natural light after waking' },
+        { id:'s2', t:'Watch the sunrise for 2 to 3 minutes, barefoot if you can' },
+        { id:'s3', t:'In cold weather, open a window or let the light reach your forehead and skin' } ] },
+      { label:'Evening: dimming ritual', items:[
+        { id:'s4', t:'No blue light after sunset: candles or firelight' },
+        { id:'s5', t:'Blue-blocking glasses or amber lights indoors' },
+        { id:'s6', t:'Watch the sunset for 2 to 3 minutes' } ] } ] },
+    { id:'aqualis', name:'Aqualis Maryada', sub:'Water structure and resonance', glyph:'water', groups:[
+      { items:[
+        { id:'a1', t:'Filtered or spring water, left in sunlight for 15 minutes or more' },
+        { id:'a2', t:'Room-temperature water from a copper or silver vessel', cups:3, when:'3 cups or more today' },
+        { id:'a3', t:'A pinch of natural salt or a tulsi leaf in your water' },
+        { id:'a4', t:'A cold rinse or contrast shower in the morning' } ] } ] },
+    { id:'geon', name:'Geon Maryada', sub:'Earth and magnetic field grounding', glyph:'earth', groups:[
+      { items:[
+        { id:'g1', t:'Stand or walk barefoot on earth or grass for 20 to 30 minutes' },
+        { id:'g2', t:'No synthetic footwear indoors; leather or cork soles when needed' },
+        { id:'g3', t:'Sleep with your head facing south' } ] } ] },
+    { id:'pranithis', name:'Pranithis Maryada', sub:'Breath, air and subtle body', glyph:'breath', groups:[
+      { items:[
+        { id:'p1', t:'Begin the day with 5 minutes of conscious breath', when:'Box breathing or alternate nostril' },
+        { id:'p2', t:'Open-window breathing: 10 deep nasal breaths facing the morning sun' },
+        { id:'p3', t:'Breathe in through the nose only; a long exhale through the mouth when needed' } ] } ] },
+    { id:'anna', name:'Anna Devi Maryada', sub:'Food rhythm and digestive fire', glyph:'food', groups:[
+      { items:[
+        { id:'n1', t:'First meal after sunrise, ideally between 8 and 10am' },
+        { id:'n2', t:'Last meal before sunset, no later than 6pm' },
+        { id:'n3', t:'No snacking between meals; 4 to 6 hours between them' },
+        { id:'n4', t:'Eat sitting down, in silence or with a short gratitude' } ] } ] },
+    { id:'nidra', name:'Nidranishtha Maryada', sub:'Sleep rhythm and mind reset', glyph:'sleep', groups:[
+      { items:[
+        { id:'d1', t:'Screens and work finished by sunset, when possible' },
+        { id:'d2', t:'Woke naturally with sunlight or birdsong' },
+        { id:'d3', t:'No alarm, unless it was truly needed' },
+        { id:'d4', t:'Sleeping in total darkness and silence, or with theta-level ambient sound' },
+        { id:'d5', t:'Asleep by 10pm' } ] } ] },
+    { id:'vyayama', name:'Vyayama Maryada', sub:'Energetic awareness and movement', glyph:'move', groups:[
+      { items:[
+        { id:'v1', t:'Begin the day with 5 to 10 minutes of stretching, yoga, qigong or Sun Salutation' },
+        { id:'v2', t:'20 to 30 minutes of low-intensity exercise in sunlight', when:'Jogging or hiking' },
+        { id:'v3', t:'Bodyweight exercises, with present awareness' },
+        { id:'v4', t:'Use exercise to discharge restless mental or emotional energy' } ] } ] },
+    { id:'fasting', name:'Resonant Fasting', sub:'Daily window and the lunar fast', glyph:'fast', groups:[
+      { label:'Daily intermittent fasting', items:[
+        { id:'f1', t:'Fast for 21 to 22 hours, with a 2 to 3 hour eating window' },
+        { id:'f2', t:'Eat at midday, with enough nutrition in the window' },
+        { id:'f3', t:'Only water, herbal tea or black coffee while fasting' } ] },
+      { label:'Periodic 72-hour fast', lunar:true, items:[
+        { id:'m1', t:'A 72-hour water-only fast this lunar month', lunar:true } ] } ],
+      note:'<b>Go slowly.</b> If you are new to fasting, build up from an overnight fast. Long fasts are not safe for everyone: speak to your GP first, and do not fast if you are under 18, pregnant or breastfeeding, diabetic, underweight, have had an eating disorder, or take regular medication.' }
+  ];
+
+  // ---- storage: one key, today's ticks plus a short history; reads and writes never throw
+  var KEY = 'wild_maryada_v1';
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || 'null') || {}; } catch (e) { return {}; } }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+  var st = load(); st.days = st.days || {}; st.off = st.off || {}; st.closed = st.closed || {}; st.lunar = st.lunar || {};
+
+  function dayKey(d) { d = d || new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  // lunar month: counted from a known new moon (6 Jan 2000, 18:14 UTC), 29.53 days each
+  var REF = Date.UTC(2000, 0, 6, 18, 14), SYN = 29.530588853 * 864e5;
+  function lunarCycle(t) { return Math.floor((t - REF) / SYN); }
+  var today, cycle;
+
+  function day() { var d = st.days[today]; if (!d) d = st.days[today] = { t:{} }; return d; }
+  function prune() {
+    var keep = {}, cut = new Date(); cut.setDate(cut.getDate() - 60); var c = dayKey(cut);
+    Object.keys(st.days).forEach(function (k) { if (k >= c) keep[k] = st.days[k]; }); st.days = keep;
+    if (st.lunar.cycle !== cycle) st.lunar = { cycle:cycle, t:{} };
+  }
+
+  function val(it) { return it.lunar ? (st.lunar.t[it.id] || 0) : (day().t[it.id] || 0); }
+  function isDone(it) { return it.cups ? val(it) >= it.cups : !!val(it); }
+  function active() { return PRACTICES.filter(function (p) { return !st.off[p.id]; }); }
+  function itemsOf(p) { var a = []; p.groups.forEach(function (g) { a = a.concat(g.items); }); return a; }
+  // the lunar fast is once a month, so it never counts against a single day
+  function dailyItems(p) { return itemsOf(p).filter(function (i) { return !i.lunar; }); }
+
+  // ---- build
+  var wrap = document.getElementById('practices');
+  var TICK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>';
+  var CHEV = '<svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var els = {};
+
+  function lunarSpan() {
+    var s = new Date(REF + cycle * SYN), e = new Date(REF + (cycle + 1) * SYN);
+    var f = function (d) { return d.toLocaleDateString('en-GB', { day:'numeric', month:'short' }); };
+    return 'New moon ' + f(s) + ' to ' + f(e);
+  }
+
+  PRACTICES.forEach(function (p) {
+    var sec = document.createElement('section');
+    sec.className = 'practice' + (st.closed[p.id] ? ' closed' : '');
+    sec.setAttribute('aria-labelledby', 'h-' + p.id);
+    var html = '<button type="button" class="p-head" aria-expanded="' + !st.closed[p.id] + '" aria-controls="b-' + p.id + '">' +
+      '<span class="glyph"><svg viewBox="-14 -14 28 28" aria-hidden="true">' + G[p.glyph] + '</svg></span>' +
+      '<span class="p-title"><b id="h-' + p.id + '">' + p.name + '</b><small>' + p.sub + '</small></span>' +
+      '<span class="p-count"></span>' + CHEV + '</button><div class="p-body" id="b-' + p.id + '">';
+    p.groups.forEach(function (g) {
+      if (g.label) html += '<p class="sub">' + g.label + (g.lunar ? ' <span class="when" style="display:inline;letter-spacing:0;text-transform:none;font-weight:400" data-lunar></span>' : '') + '</p>';
+      html += '<ul class="items">';
+      g.items.forEach(function (it) {
+        html += '<li><label class="item"><input type="checkbox" data-id="' + it.id + '"><span class="box">' + TICK + '</span><span class="txt">' + it.t +
+          (it.when ? '<span class="when">' + it.when + '</span>' : '') +
+          (it.cups ? '<span class="cups" data-cups="' + it.id + '"></span>' : '') + '</span></label></li>';
+      });
+      html += '</ul>';
+    });
+    if (p.note) html += '<p class="note">' + p.note + '</p>';
+    html += '</div>';
+    sec.innerHTML = html;
+    wrap.appendChild(sec);
+    els[p.id] = sec;
+
+    sec.querySelector('.p-head').addEventListener('click', function () {
+      var closed = sec.classList.toggle('closed');
+      this.setAttribute('aria-expanded', !closed);
+      if (closed) st.closed[p.id] = 1; else delete st.closed[p.id];
+      save();
+    });
+    itemsOf(p).forEach(function (it) {
+      var box = sec.querySelector('input[data-id="' + it.id + '"]');
+      box.addEventListener('change', function () {
+        var store = it.lunar ? st.lunar.t : day().t;
+        if (it.cups) { if (box.checked) store[it.id] = Math.max(it.cups, store[it.id] || 0); else delete store[it.id]; }
+        else if (box.checked) store[it.id] = 1; else delete store[it.id];
+        save(); render();
+      });
+      if (it.cups) {
+        var cups = sec.querySelector('[data-cups="' + it.id + '"]');
+        for (var i = 1; i <= it.cups + 2; i++) (function (n) {
+          var b = document.createElement('button'); b.type = 'button'; b.textContent = n;
+          b.setAttribute('aria-label', n + (n === 1 ? ' cup' : ' cups'));
+          b.addEventListener('click', function (e) {
+            e.preventDefault(); e.stopPropagation();
+            // tapping the last full cup again empties it
+            var t = day().t, next = (t[it.id] || 0) === n ? n - 1 : n;
+            if (next) t[it.id] = next; else delete t[it.id];
+            save(); render();
+          });
+          cups.appendChild(b);
+        })(i);
+      }
+    });
+  });
+
+  // toggles
+  var tg = document.getElementById('toggles');
+  PRACTICES.forEach(function (p) {
+    var l = document.createElement('label');
+    l.innerHTML = '<input type="checkbox"' + (st.off[p.id] ? '' : ' checked') + '> ' + p.name.replace(' Maryada', '');
+    l.querySelector('input').addEventListener('change', function () { if (this.checked) delete st.off[p.id]; else st.off[p.id] = 1; save(); render(); });
+    tg.appendChild(l);
+  });
+  document.getElementById('clear-today').addEventListener('click', function () {
+    if (!confirm('Clear all of today\'s ticks?')) return;
+    st.days[today] = { t:{} }; save(); render();
+  });
+
+  // sun rays round the ring, one per practice
+  var rays = document.getElementById('rays');
+  PRACTICES.forEach(function (p, i) {
+    var a = (i / PRACTICES.length) * Math.PI * 2, l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l.setAttribute('x1', 60 + Math.cos(a) * 50); l.setAttribute('y1', 60 + Math.sin(a) * 50);
+    l.setAttribute('x2', 60 + Math.cos(a) * 57); l.setAttribute('y2', 60 + Math.sin(a) * 57);
+    l.setAttribute('data-p', p.id); rays.appendChild(l);
+  });
+  var C = 2 * Math.PI * 42, fill = document.getElementById('ring-fill');
+  fill.style.strokeDasharray = C;
+
+  function render() {
+    var done = 0, total = 0;
+    PRACTICES.forEach(function (p) {
+      var sec = els[p.id], on = !st.off[p.id];
+      sec.hidden = !on;
+      var d = 0, n = 0;
+      itemsOf(p).forEach(function (it) {
+        var ok = isDone(it), box = sec.querySelector('input[data-id="' + it.id + '"]');
+        box.checked = ok;
+        if (it.cups) {
+          var v = val(it);
+          [].forEach.call(sec.querySelectorAll('[data-cups="' + it.id + '"] button'), function (b, i) { b.classList.toggle('full', i < v); b.setAttribute('aria-pressed', i < v); });
+        }
+        if (!it.lunar) { n++; if (ok) d++; }
+      });
+      sec.querySelector('.p-count').textContent = d + '/' + n;
+      sec.classList.toggle('done', d === n && n > 0);
+      var ray = rays.querySelector('[data-p="' + p.id + '"]'); ray.classList.toggle('lit', on && d === n); ray.style.display = on ? '' : 'none';
+      if (on) { done += d; total += n; }
+    });
+    var lab = document.querySelector('[data-lunar]'); if (lab) lab.textContent = '· ' + lunarSpan();
+    document.getElementById('pct').textContent = done;
+    document.getElementById('total').textContent = total;
+    fill.style.strokeDashoffset = total ? C * (1 - done / total) : C;
+    var r = total ? done / total : 0;
+    document.getElementById('today-line').textContent =
+      r === 1 ? 'The full practice, kept.' : r >= .5 ? 'More than halfway.' : done ? 'Under way.' : 'A new day.';
+    // remember today's share for the two-week strip
+    day().s = total ? Math.round(r * 100) : 0; save();
+    week();
+  }
+
+  function week() {
+    var w = document.getElementById('week'), html = '', full = 0, kept = 0;
+    for (var i = 13; i >= 0; i--) {
+      var d = new Date(); d.setDate(d.getDate() - i); var k = dayKey(d), s = st.days[k] ? st.days[k].s || 0 : 0;
+      if (s === 100) full++; if (s > 0) kept++;
+      html += '<span class="' + (i === 0 ? 'is-today' : '') + '" title="' + d.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' }) + ': ' + s + '%"><i style="height:' + s + '%"></i></span>';
+    }
+    w.innerHTML = html;
+    document.getElementById('week-text').textContent = 'Last 14 days: practised on ' + kept + (kept === 1 ? ' day' : ' days') + ', the full list on ' + full + '.';
+  }
+
+  function tick() {
+    var k = dayKey(), c = lunarCycle(Date.now());
+    if (k === today && c === cycle) return;
+    today = k; cycle = c; prune();
+    document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' });
+    render();
+  }
+  tick();
+  setInterval(tick, 60000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) tick(); });
+
+  // the same quiet star field as the hub
+  var cv = document.getElementById('sky'), cx = cv.getContext('2d'), stars = [];
+  (function () { var s = 20261031; function r() { s = (s * 16807) % 2147483647; return s / 2147483647; }
+    for (var i = 0; i < 90; i++) stars.push([r(), r(), .4 + r() * 1.1, r() * 6.28, .3 + r() * .9]); })();
+  function sky(t) {
+    var w = cv.width = innerWidth * devicePixelRatio, h = cv.height = innerHeight * devicePixelRatio;
+    cx.clearRect(0, 0, w, h);
+    stars.forEach(function (s) {
+      var a = reduce ? .35 : .2 + .5 * Math.pow(.5 + .5 * Math.sin(t / 1000 * s[4] + s[3]), 2);
+      cx.globalAlpha = a * .6; cx.fillStyle = '#F4F1ED';
+      cx.beginPath(); cx.arc(s[0] * w, s[1] * h, s[2] * devicePixelRatio, 0, 6.283); cx.fill();
+    });
+  }
+  var last = 0;
+  function loop(t) { if (t - last > 66) { sky(t); last = t; } if (!reduce) requestAnimationFrame(loop); }
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

@@ -13,6 +13,7 @@
     { id: 'codex',   name: 'Codex Pharmakon', role: 'Codex',     url: 'https://smith912000.github.io/wild-programme/open/codex/' },
     { id: 'sge',     name: 'SGE',             role: 'Stars',     url: 'https://smith912000.github.io/wild-programme/open/sge/' },
     { id: 'parser',  name: 'Symbolic Parser', role: 'Tarot',     url: 'https://smith912000.github.io/wild-programme/hub/parser/open.html' },
+    { id: 'maryada', name: 'Maryada',         role: 'Daily practice', url: 'https://smith912000.github.io/wild-programme/hub/maryada/open.html' },
     { id: 'discord', name: 'Discord',         role: 'The Open Door', url: 'https://discord.gg/jRzKq6Hb6N', external: true },
     { id: 'soon',    name: 'More soon',       role: 'Coming soon', url: null }
   ];
