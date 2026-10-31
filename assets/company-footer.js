@@ -4,6 +4,16 @@
    one small line at the foot of any page that loads it, plus the "not therapy"
    disclaimer. Loaded by founders-door.js and wild-nav.js, so every WILD page
    and app carries it. Update VAT and ICO lines here when registered. */
+/* Frame guard (clickjacking). GitHub Pages cannot send X-Frame-Options or a
+   CSP frame-ancestors header, so this runs on every WILD page that loads the
+   footer: if another site puts the page inside a frame, the page hides itself
+   and tries to open at the top level. Frames from our own origin still work. */
+(function () {
+  if (window.top === window.self) return;
+  try { if (window.top.location.origin === window.location.origin) return; } catch (e) {}
+  document.documentElement.style.display = 'none';
+  try { window.top.location = window.location.href; } catch (e) {}
+})();
 (function () {
   if (window.__wildCompanyFooter) return;
   window.__wildCompanyFooter = true;
