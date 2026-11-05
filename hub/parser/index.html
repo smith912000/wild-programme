@@ -96,6 +96,56 @@
     .drift { transition:none; }
     .map .in { animation:none; opacity:1; } .map .draw { animation:none; stroke-dashoffset:0; }
   }
+
+  /* Mode switch: numerology figures or the tarot cards themselves. */
+  .modes { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .mode-opt { position:relative; display:block; cursor:pointer; }
+  .mode-opt input { position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; pointer-events:none; }
+  .mode-opt span { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; min-height:60px; padding:8px 12px; text-align:center; border-radius:var(--wild-r-md);
+    border:1px solid var(--wild-border); background:var(--wild-surface); color:var(--wild-indigo-3); font-family:var(--wild-serif); font-size:1.15rem; font-weight:600;
+    transition:border-color var(--wild-t), color var(--wild-t), background var(--wild-t), box-shadow var(--wild-t); }
+  .mode-opt em { font-family:var(--wild-sans); font-style:normal; font-weight:400; font-size:var(--wild-fs-xs); color:var(--wild-faint); letter-spacing:.04em; }
+  .mode-opt:hover span { border-color:var(--wild-border-lit); color:var(--wild-text); }
+  .mode-opt input:checked + span { border-color:var(--wild-indigo-2); color:var(--wild-text); background:rgba(99,73,184,.22); box-shadow:0 0 24px -8px rgba(138,111,224,.7); }
+  .mode-opt input:focus-visible + span { outline:2px solid var(--wild-indigo-2); outline-offset:3px; }
+
+  /* Tarot mode: card tiles on the map, the cards panel below. */
+  .map .tile rect { fill:#0A0612; stroke:currentColor; stroke-width:1.6; }
+  .map .tile text { fill:currentColor; stroke:none; text-anchor:middle; font-family:var(--wild-serif); }
+  .map .tile .tn { font-weight:600; }
+  .map .tile .tname { font-family:var(--wild-sans); letter-spacing:.02em; opacity:.85; }
+  .map .tile .em { fill:none; stroke-width:1.6; stroke-linejoin:round; }
+  .console[data-mode="tarot"] .legend { display:none; }
+  .console[data-mode="numerology"] .tarot { display:none; }
+  .tarot { margin-top:var(--wild-s6); }
+  .tarot h3 { font-family:var(--wild-serif); font-weight:500; font-size:1.5rem; margin:var(--wild-s5) 0 8px; }
+  .tarot .intro { color:var(--wild-dim); font-size:var(--wild-fs-sm); max-width:640px; }
+  .fig { margin-top:12px; border:1px solid var(--wild-border); border-radius:var(--wild-r-lg); background:linear-gradient(180deg, rgba(18,12,31,.86), rgba(10,6,18,.9)); }
+  .fig > summary { cursor:pointer; list-style:none; padding:14px 18px; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 14px; }
+  .fig > summary::-webkit-details-marker { display:none; }
+  .fig > summary:focus-visible { outline:2px solid var(--wild-indigo-2); outline-offset:2px; border-radius:var(--wild-r-lg); }
+  .fig > summary .t { font-family:var(--wild-serif); font-size:1.3rem; color:var(--wild-text); }
+  .fig > summary .s { font-size:var(--wild-fs-xs); color:var(--wild-faint); letter-spacing:.04em; }
+  .fig[open] > summary { border-bottom:1px solid var(--wild-border); }
+  .fig .body { padding:6px 18px 18px; display:grid; gap:18px; }
+  .fig .where { color:var(--wild-faint); font-size:var(--wild-fs-xs); letter-spacing:.04em; padding-top:10px; }
+  .tcard h4 { font-family:var(--wild-serif); font-weight:600; font-size:1.2rem; line-height:1.25; }
+  .tcard h4 small { display:block; font-family:var(--wild-sans); font-weight:700; font-size:var(--wild-fs-xs); letter-spacing:.14em; text-transform:uppercase; color:var(--wild-indigo-3); margin-top:2px; }
+  .tcard p { margin-top:8px; color:var(--wild-dim); font-size:var(--wild-fs-sm); line-height:1.6; }
+  .tcard p b, .tcard li b { color:var(--wild-text); font-weight:600; }
+  .tcard ul.sym { list-style:none; margin-top:8px; display:grid; gap:4px; color:var(--wild-dim); font-size:var(--wild-fs-sm); line-height:1.5; }
+  .tcard ul.sym li::before { content:'\25C7'; color:var(--wild-gold); margin-right:8px; }
+  .tcard .lens.oppose { color:#E7A8A0; }
+  .tcard .lens.reinforce, .tcard .lens.same { color:#A9D6B5; }
+  .rel { margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; list-style:none; }
+  .rel li { padding:4px 10px; border:1px solid var(--wild-border); border-radius:999px; font-size:var(--wild-fs-xs); color:var(--wild-dim); background:var(--wild-surface); }
+  .rel li b { color:var(--wild-text); font-weight:600; }
+  .rel li i { font-style:normal; color:var(--wild-faint); margin-left:4px; }
+  .rel-label { margin-top:12px; font-size:var(--wild-fs-xs); font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--wild-indigo-3); }
+  .threads { list-style:none; margin-top:10px; display:grid; gap:8px; color:var(--wild-dim); font-size:var(--wild-fs-sm); line-height:1.55; }
+  .threads li { padding-left:16px; position:relative; }
+  .threads li::before { content:''; position:absolute; left:0; top:.7em; width:8px; border-top:1px dotted var(--wild-gold); }
+  .threads b { color:var(--wild-text); font-weight:600; }
 </style>
 </head>
 <body>
@@ -119,6 +169,13 @@
   <p class="lede">Choose a suit and place three numbers into their containers. The parser reduces each one, finds what repeats, traces the movement between them and names the tension they hold. It does not predict. It reads structure.</p>
 
   <form id="form" novalidate>
+    <div class="field wide">
+      <span class="field-label"><small>Mode</small>Numerology or the cards</span>
+      <div class="modes" role="radiogroup" aria-label="Reading mode">
+        <label class="mode-opt"><input type="radio" name="mode" value="numerology" checked><span>Numerology<em>Pythagorean figures</em></span></label>
+        <label class="mode-opt"><input type="radio" name="mode" value="tarot"><span>Tarot<em>The cards themselves</em></span></label>
+      </div>
+    </div>
     <div class="field wide">
       <span class="field-label"><small>Domain</small>The Elemental Physics</span>
       <div class="suits" role="radiogroup" aria-label="Suit">
@@ -146,10 +203,11 @@
     </div>
   </form>
 
-  <section class="console" id="console" aria-live="polite">
+  <section class="console" id="console" data-mode="numerology" aria-live="polite">
     <p class="eyebrow">The matrix</p>
     <svg class="map" id="map" viewBox="0 0 720 520" role="img" aria-label="Symbolic map of the reading"></svg>
     <div class="key" id="key"></div>
+    <div class="tarot" id="tarot"></div>
     <ul class="legend">
       <li><svg viewBox="0 0 40 24" aria-hidden="true"><line x1="2" y1="20" x2="38" y2="20" stroke="rgba(244,241,237,.2)"/><line x1="2" y1="4" x2="38" y2="4" stroke="rgba(244,241,237,.2)"/><polyline points="4,18 20,6 36,12" fill="none" stroke="#8A6FE0" stroke-width="2"/></svg><div><b>Height.</b> Every figure sits at the height of its number, 0 at the bottom and 9 at the top. The line through the three large figures is the trajectory: rising means momentum building, falling means a return to source, a peak means a swell that falls back.</div></li>
       <li><svg viewBox="0 0 40 24" aria-hidden="true"><text x="20" y="16" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" fill="#B9A9F0">I II III</text></svg><div><b>Columns.</b> I is the seed, your single digit. II is the bridge, your two digits. III is the field, your three digits. The large figure in each column is its root, the single number its digits reduce to.</div></li>
@@ -166,6 +224,7 @@
 <footer>The Wild Project</footer>
 
 <script src="../../assets/wild-nav.js" data-app="parser"></script>
+<script src="tarot.js"></script>
 <script>
 (function () {
   /* Layer 1: Elemental Physics */
@@ -278,7 +337,7 @@
     for (var v = 0; v <= 9; v++) {
       out.push('<line class="lad" x1="44" x2="690" y1="' + Y(v) + '" y2="' + Y(v) + '"/>');
       out.push('<text class="num' + (present[v] ? '' : ' off') + '" x="20" y="' + (Y(v) + 4) + '">' + v + '</text>');
-      if (!present[v]) out.push('<g style="color:' + DIM + '">' + glyph(v, 58, Y(v), 7) + '</g>');
+      if (!present[v]) out.push('<g style="color:' + DIM + '">' + fig(v, 58, Y(v), 7) + '</g>');
     }
 
     /* the three containers */
@@ -316,8 +375,8 @@
     /* the figures themselves, roots large, digits small */
     nodes.forEach(function (n) {
       var col = colour(n.v) || (n.root ? '#F4F1ED' : IND3);
-      if (n.root) out.push('<circle cx="' + n.x + '" cy="' + n.y + '" r="34" fill="#0A0612" stroke="' + (colour(n.v) ? 'rgba(233,199,102,.45)' : 'rgba(138,111,224,.45)') + '" class="in"' + delay() + '/>');
-      out.push('<g style="color:' + col + '" class="in"' + delay() + '>' + glyph(n.v, n.x, n.y, n.root ? 22 : 11) + '</g>');
+      if (n.root && mode !== 'tarot') out.push('<circle cx="' + n.x + '" cy="' + n.y + '" r="34" fill="#0A0612" stroke="' + (colour(n.v) ? 'rgba(233,199,102,.45)' : 'rgba(138,111,224,.45)') + '" class="in"' + delay() + '/>');
+      out.push('<g style="color:' + col + '" class="in"' + delay() + '>' + fig(n.v, n.x, n.y, n.root ? 22 : 11) + '</g>');
     });
 
     /* the polarity: two figures on one axis, as far apart as their numbers */
@@ -327,7 +386,7 @@
     out.push('<line x1="' + ax(pol[0]) + '" x2="' + ax(pol[1]) + '" y1="' + py + '" y2="' + py + '" stroke="' + IND + '" stroke-width="2.4" marker-start="url(#arrow2)" marker-end="url(#arrow)" class="in"' + delay() + '/>');
     pol.forEach(function (v, i) {
       out.push('<circle cx="' + ax(v) + '" cy="' + py + '" r="20" fill="#0A0612" class="in"' + delay() + '/>');
-      out.push('<g style="color:' + (i === 0 && centre.length ? GOLD : '#F4F1ED') + '" class="in"' + delay() + '>' + glyph(v, ax(v), py, 13) + '</g>');
+      out.push('<g style="color:' + (i === 0 && centre.length ? GOLD : '#F4F1ED') + '" class="in"' + delay() + '>' + fig(v, ax(v), py, 13) + '</g>');
     });
     out.push('<text class="num" x="20" y="' + (py + 4) + '">⟷</text>');
 
@@ -338,8 +397,94 @@
     /* key: only the figures that appear, one word each */
     var shown = Object.keys(present).map(Number).sort();
     $('key').innerHTML = shown.map(function (v) {
+      if (mode === 'tarot') return '<span><svg viewBox="0 0 24 24" style="color:' + (colour(v) || IND3) + '">' + tile(v, 12, 12, 6.5) + '</svg>' + window.WILD_TAROT.roman[v] + ' ' + window.WILD_TAROT.major(v).short + '</span>';
       return '<span><svg viewBox="0 0 24 24" style="color:' + (colour(v) || IND3) + '">' + glyph(v, 12, 12, 9) + '</svg>' + v + ' ' + KEY[v].replace('the ', '') + '</span>';
     }).join('');
+    $('tarot').innerHTML = tarotPanel(suit, p);
+    $('map').setAttribute('aria-label', mode === 'tarot' ? 'Map of the reading as tarot cards' : 'Symbolic map of the reading');
+  }
+
+
+  /* ---- Tarot mode ---- */
+  var mode = 'numerology', last = null;
+  var TINT = { Fire: '#E0895F', Water: '#7FB2E5', Air: '#9ED0D6', Earth: '#93B89A' };
+  function elementMark(el, cx, cy, s) {
+    var up = el === 'Fire' || el === 'Air', k = s * .87, t = up ? -s : s, b = up ? s * .5 : -s * .5;
+    var d = 'M' + cx + ' ' + (cy + t) + ' L' + (cx + k) + ' ' + (cy + b) + ' L' + (cx - k) + ' ' + (cy + b) + ' Z';
+    if (el === 'Air' || el === 'Earth') d += ' M' + (cx - k * .7) + ' ' + cy + ' L' + (cx + k * .7) + ' ' + cy;
+    return '<path class="em" d="' + d + '" style="stroke:' + TINT[el] + '"/>';
+  }
+  /* A card as a tile on the map: Roman numeral, element mark (a ring for a planet), short name on the large ones. */
+  function tile(n, cx, cy, r) {
+    var T = window.WILD_TAROT, c = T.major(n), h = r * 3, y = cy - h / 2, el = T.cardElement(c), s = '<g class="tile">';
+    s += '<rect x="' + (cx - r) + '" y="' + y.toFixed(1) + '" width="' + (r * 2) + '" height="' + h + '" rx="' + (r * .2).toFixed(1) + '"/>';
+    if (r >= 9) s += '<text class="tn" x="' + cx + '" y="' + (y + r * .72).toFixed(1) + '" font-size="' + (r * .52).toFixed(1) + '">' + c.numeral + '</text>';
+    var my = cy + (r >= 20 ? -r * .05 : 0), ms = r * .42;
+    s += el ? elementMark(el, cx, my, ms) : '<circle class="em" cx="' + cx + '" cy="' + my + '" r="' + (ms * .9).toFixed(1) + '" style="stroke:#C9B6F5"/><circle cx="' + cx + '" cy="' + my + '" r="' + (ms * .2).toFixed(1) + '" style="fill:#C9B6F5;stroke:none"/>';
+    if (r >= 20) s += '<text class="tname" x="' + cx + '" y="' + (y + h - r * .3).toFixed(1) + '" font-size="7.5">' + c.short + '</text>';
+    return s + '</g>';
+  }
+  function fig(n, cx, cy, r, cls) { return mode === 'tarot' ? tile(n, cx, cy, r) : glyph(n, cx, cy, r, cls); }
+
+  function astroLine(c) {
+    var bits = [];
+    if (c.arcana === 'major') {
+      if (c.planet) bits.push(c.planet);
+      if (c.sign) bits.push(c.sign + ' (' + window.WILD_TAROT.signs[c.sign].e + ')');
+      if (c.elem) bits.push(c.elem);
+      return 'Major Arcana' + (bits.length ? ' · ' + bits.join(' · ') : '');
+    }
+    var S = window.WILD_TAROT.suits[c.suit];
+    if (c.arcana === 'court') return 'Court · ' + S.name + ' (' + S.e + ') · ' + c.courtElem + ' of ' + S.e + ' · counted ' + c.n + ' in the numeric convention';
+    return 'Minor Arcana · ' + S.name + ' (' + S.e + ')' + (c.planet ? ' · ' + c.planet + ' in ' + c.sign + ' (decan)' : ' · root of the suit');
+  }
+  function chip(r) {
+    var c = r.card, num = c.arcana === 'major' ? ' ' + c.numeral : '';
+    return '<li><b>' + c.name + '</b>' + num + '<i>' + r.text + '</i></li>';
+  }
+  function cardBlock(c, suit) {
+    var T = window.WILD_TAROT, h = '<section class="tcard"><h4>' + (c.arcana === 'major' ? c.numeral + ' · ' : '') + c.name + '<small>' + astroLine(c) + '</small></h4>';
+    h += '<p><b>The picture.</b> ' + c.scene + '</p>';
+    if (c.sym) h += '<ul class="sym">' + c.sym.map(function (x) { return '<li><b>' + x[0] + '</b>: ' + x[1] + '</li>'; }).join('') + '</ul>';
+    h += '<p><b>The energy.</b> ' + c.energy + '</p><p><b>Upright, as the tradition gives it.</b> ' + c.kw + '.</p>';
+    var lens = T.suitLens(c, suit);
+    if (lens) h += '<p class="lens ' + lens.relation + '">' + lens.text + '</p>';
+    var rel = T.related(c, suit, 8);
+    if (rel.length) h += '<div class="rel-label">Joined to</div><ul class="rel">' + rel.map(chip).join('') + '</ul>';
+    return h + '</section>';
+  }
+  function positions(p) {
+    var where = {}, put = function (v, w) { (where[v] = where[v] || []).push(w); };
+    put(p.container_1, 'the seed (C1)');
+    p.container_2.digits.forEach(function (d) { put(d, 'a digit of the bridge (C2)'); }); put(p.container_2.root, 'the root of the bridge (C2)');
+    p.container_3.digits.forEach(function (d) { put(d, 'a digit of the field (C3)'); }); put(p.container_3.root, 'the root of the field (C3)');
+    return where;
+  }
+  function tarotPanel(suit, p) {
+    var T = window.WILD_TAROT, S = T.suits[suit], c = p.correlations, roots = c.trajectory.roots, where = positions(p), seen = {}, order = [];
+    roots.concat([p.container_1], p.container_2.digits, p.container_3.digits).forEach(function (v) { if (!seen[v]) { seen[v] = 1; order.push(v); } });
+    var rest = order.filter(function (v) { return roots.indexOf(v) < 0; }).sort(function (a, b) { return a - b; });
+    order = order.filter(function (v) { return roots.indexOf(v) > -1; }).concat(rest);
+    var shown = [], h = '<p class="eyebrow">The cards</p><h3>Each number, read as its card</h3>';
+    h += '<p class="intro">Every figure on the map is the Major Arcana card of that number, with the same number in the chosen suit beside it: ' +
+      S.name + ', which is ' + S.e + ', so the Ace stands for 1 and the Fool stands alone at 0. Cards are joined where they share a number or its root, a planet, a sign or an element. Planets and signs follow the Golden Dawn; other lineages place some of them differently.</p>';
+    order.forEach(function (v) {
+      var m = T.major(v), pc = T.pip(suit, v), open = roots.indexOf(v) > -1 || c.gravitational_centre.indexOf(v) > -1;
+      shown.push(m); if (pc) shown.push(pc);
+      h += '<details class="fig"' + (open ? ' open' : '') + '><summary><span class="t">' + m.numeral + ' · ' + m.name + (pc ? ' + ' + pc.name : '') + '</span><span class="s">Number ' + v + ' · ' + T.numberKey[v] + '</span></summary><div class="body">';
+      h += '<div class="where">Stands as ' + where[v].join(', ') + '.</div>' + cardBlock(m, suit) + (pc ? cardBlock(pc, suit) : '') + '</div></details>';
+    });
+    var lines = [], done = {};
+    shown.forEach(function (a) {
+      shown.forEach(function (b) {
+        var k = [a.id, b.id].sort().join('|');
+        if (a.id === b.id || done[k] || (a.n === b.n && a.arcana !== b.arcana)) return;
+        var r = T.reasonBetween(a, b);
+        if (r && r.type !== 'sequence') { done[k] = 1; lines.push('<li><b>' + a.name + '</b> and <b>' + b.name + '</b>: ' + r.text + '.</li>'); }
+      });
+    });
+    h += '<h3>Threads between these cards</h3>' + (lines.length ? '<ul class="threads">' + lines.slice(0, 14).join('') + '</ul>' : '<p class="intro">No shared planet, sign or element joins these cards beyond their numbers.</p>');
+    return h;
   }
 
   /* UI */
@@ -402,11 +547,21 @@
     $('err').textContent = '';
     var payload = parse(suit, c1, c2, c3);
     payload.correlations.polarity = polarity(payload);
+    last = { suit: suit, payload: payload };
     aperture().then(function () {
       $('console').classList.remove('on'); void $('console').offsetWidth;
       draw(suit, payload);
       $('console').classList.add('on');
       $('console').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
+  /* Switching mode redraws the reading already on screen, without the aperture. */
+  document.querySelectorAll('input[name=mode]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      if (!this.checked) return;
+      mode = this.value; $('console').setAttribute('data-mode', mode);
+      if (last) draw(last.suit, last.payload);
     });
   });
 
