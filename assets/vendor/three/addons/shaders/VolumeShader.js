@@ -1,35 +1,4 @@
-import {
-	Vector2,
-	Vector3
-} from 'three';
-
-/**
- * @module VolumeShader
- * @three_import import { VolumeRenderShader1 } from 'three/addons/shaders/VolumeShader.js';
- */
-
-/**
- * Shaders to render 3D volumes using raycasting.
- * The applied techniques are based on similar implementations in the Visvis and Vispy projects.
- * This is not the only approach, therefore it's marked 1.
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const VolumeRenderShader1 = {
-
-	name: 'VolumeRenderShader1',
-
-	uniforms: {
-		'u_size': { value: new Vector3( 1, 1, 1 ) },
-		'u_renderstyle': { value: 0 },
-		'u_renderthreshold': { value: 0.5 },
-		'u_clim': { value: new Vector2( 1, 1 ) },
-		'u_data': { value: null },
-		'u_cmdata': { value: null }
-	},
-
-	vertexShader: /* glsl */`
+import{Vector2 as e,Vector3 as a}from"three";const t={name:"VolumeRenderShader1",uniforms:{u_size:{value:new a(1,1,1)},u_renderstyle:{value:0},u_renderthreshold:{value:.5},u_clim:{value:new e(1,1)},u_data:{value:null},u_cmdata:{value:null}},vertexShader:`
 
 		varying vec3 v_position;
 		varying vec3 v_cameraInObj;
@@ -48,9 +17,7 @@ const VolumeRenderShader1 = {
 				v_viewDirInObj = (inverse(modelViewMatrix) * vec4(0.0, 0.0, -1.0, 0.0)).xyz;
 
 				gl_Position = projectionMatrix * modelViewMatrix * position4;
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 				precision highp float;
 				precision mediump sampler3D;
@@ -278,8 +245,4 @@ const VolumeRenderShader1 = {
 						final_color = color * (ambient_color + diffuse_color) + specular_color;
 						final_color.a = color.a;
 						return final_color;
-				}`
-
-};
-
-export { VolumeRenderShader1 };
+				}`};export{t as VolumeRenderShader1};

@@ -1,28 +1,4 @@
-/**
- * @module MirrorShader
- * @three_import import { MirrorShader } from 'three/addons/shaders/MirrorShader.js';
- */
-
-/**
- * Copies half the input to the other half.
- *
- * side: side of input to mirror (0 = left, 1 = right, 2 = top, 3 = bottom).
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const MirrorShader = {
-
-	name: 'MirrorShader',
-
-	uniforms: {
-
-		'tDiffuse': { value: null },
-		'side': { value: 1 }
-
-	},
-
-	vertexShader: /* glsl */`
+const e={name:"MirrorShader",uniforms:{tDiffuse:{value:null},side:{value:1}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -31,9 +7,7 @@ const MirrorShader = {
 			vUv = uv;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		uniform sampler2D tDiffuse;
 		uniform int side;
@@ -55,8 +29,4 @@ const MirrorShader = {
 			vec4 color = texture2D(tDiffuse, p);
 			gl_FragColor = color;
 
-		}`
-
-};
-
-export { MirrorShader };
+		}`};export{e as MirrorShader};

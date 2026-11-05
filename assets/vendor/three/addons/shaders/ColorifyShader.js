@@ -1,30 +1,4 @@
-import {
-	Color
-} from 'three';
-
-/**
- * @module ColorifyShader
- * @three_import import { ColorifyShader } from 'three/addons/shaders/ColorifyShader.js';
- */
-
-/**
- * Colorify shader.
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const ColorifyShader = {
-
-	name: 'ColorifyShader',
-
-	uniforms: {
-
-		'tDiffuse': { value: null },
-		'color': { value: new Color( 0xffffff ) }
-
-	},
-
-	vertexShader: /* glsl */`
+import{Color as e}from"three";const o={name:"ColorifyShader",uniforms:{tDiffuse:{value:null},color:{value:new e(16777215)}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -33,9 +7,7 @@ const ColorifyShader = {
 			vUv = uv;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		uniform vec3 color;
 		uniform sampler2D tDiffuse;
@@ -50,8 +22,4 @@ const ColorifyShader = {
 
 			gl_FragColor = vec4( v * color, texel.w );
 
-		}`
-
-};
-
-export { ColorifyShader };
+		}`};export{o as ColorifyShader};

@@ -1,40 +1,4 @@
-/**
- * @module HalftoneShader
- * @three_import import { HalftoneShader } from 'three/addons/shaders/HalftoneShader.js';
- */
-
-/**
- * RGB Halftone shader.
- *
- * Used by {@link HalftonePass}.
- *
- * Shape (1 = Dot, 2 = Ellipse, 3 = Line, 4 = Square, 5 = Diamond)
- * Blending Mode (1 = Linear, 2 = Multiply, 3 = Add, 4 = Lighter, 5 = Darker)
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const HalftoneShader = {
-
-	name: 'HalftoneShader',
-
-	uniforms: {
-		'tDiffuse': { value: null },
-		'shape': { value: 1 },
-		'radius': { value: 4 },
-		'rotateR': { value: Math.PI / 12 * 1 },
-		'rotateG': { value: Math.PI / 12 * 2 },
-		'rotateB': { value: Math.PI / 12 * 3 },
-		'scatter': { value: 0 },
-		'width': { value: 1 },
-		'height': { value: 1 },
-		'blending': { value: 1 },
-		'blendingMode': { value: 1 },
-		'greyscale': { value: false },
-		'disable': { value: false }
-	},
-
-	vertexShader: /* glsl */`
+const e={name:"HalftoneShader",uniforms:{tDiffuse:{value:null},shape:{value:1},radius:{value:4},rotateR:{value:Math.PI/12*1},rotateG:{value:Math.PI/12*2},rotateB:{value:Math.PI/12*3},scatter:{value:0},width:{value:1},height:{value:1},blending:{value:1},blendingMode:{value:1},greyscale:{value:!1},disable:{value:!1}},vertexShader:`
 
 		varying vec2 vUV;
 
@@ -43,9 +7,7 @@ const HalftoneShader = {
 			vUV = uv;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		#define SQRT2_MINUS_ONE 0.41421356
 		#define SQRT2_HALF_MINUS_ONE 0.20710678
@@ -325,8 +287,4 @@ const HalftoneShader = {
 
 			}
 
-		}`
-
-};
-
-export { HalftoneShader };
+		}`};export{e as HalftoneShader};

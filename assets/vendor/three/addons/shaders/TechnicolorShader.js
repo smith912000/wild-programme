@@ -1,27 +1,4 @@
-/**
- * @module TriangleBlurShader
- * @three_import import { TriangleBlurShader } from 'three/addons/shaders/TriangleBlurShader.js';
- */
-
-/**
- * Simulates the look of the two-strip technicolor process popular in early 20th century films.
- * More historical info here: {@link http://www.widescreenmuseum.com/oldcolor/technicolor1.htm}
- * Demo here: {@link http://charliehoey.com/technicolor_shader/shader_test.html}
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const TechnicolorShader = {
-
-	name: 'TechnicolorShader',
-
-	uniforms: {
-
-		'tDiffuse': { value: null }
-
-	},
-
-	vertexShader: /* glsl */`
+const e={name:"TechnicolorShader",uniforms:{tDiffuse:{value:null}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -30,9 +7,7 @@ const TechnicolorShader = {
 			vUv = uv;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		uniform sampler2D tDiffuse;
 		varying vec2 vUv;
@@ -44,8 +19,4 @@ const TechnicolorShader = {
 
 			gl_FragColor = newTex;
 
-		}`
-
-};
-
-export { TechnicolorShader };
+		}`};export{e as TechnicolorShader};

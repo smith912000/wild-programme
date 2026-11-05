@@ -1,97 +1,4 @@
-import {
-	BackSide,
-	BoxGeometry,
-	Mesh,
-	ShaderMaterial,
-	UniformsUtils,
-	Vector3
-} from 'three';
-
-/**
- * Represents a skydome for scene backgrounds. Based on [A Practical Analytic Model for Daylight](https://www.researchgate.net/publication/220720443_A_Practical_Analytic_Model_for_Daylight)
- * aka The Preetham Model, the de facto standard for analytical skydomes.
- *
- * Note that this class can only be used with {@link WebGLRenderer}.
- * When using {@link WebGPURenderer}, use {@link SkyMesh}.
- *
- * More references:
- *
- * - {@link http://simonwallner.at/project/atmospheric-scattering/}
- * - {@link http://blenderartists.org/forum/showthread.php?245954-preethams-sky-impementation-HDR}
- *
- *
- * ```js
- * const sky = new Sky();
- * sky.scale.setScalar( 10000 );
- * scene.add( sky );
- * ```
- *
- * It can be useful to hide the sun disc when generating an environment map to avoid artifacts
- *
- * ```js
- * // disable before rendering environment map
- * sky.material.uniforms.showSunDisc.value = false;
- * // ...
- * // re-enable before scene sky box rendering
- * sky.material.uniforms.showSunDisc.value = true;
- * ```
- *
- * @augments Mesh
- * @three_import import { Sky } from 'three/addons/objects/Sky.js';
- */
-class Sky extends Mesh {
-
-	/**
-	 * Constructs a new skydome.
-	 */
-	constructor() {
-
-		const shader = Sky.SkyShader;
-
-		const material = new ShaderMaterial( {
-			name: shader.name,
-			uniforms: UniformsUtils.clone( shader.uniforms ),
-			vertexShader: shader.vertexShader,
-			fragmentShader: shader.fragmentShader,
-			side: BackSide,
-			depthWrite: false
-		} );
-
-		super( new BoxGeometry( 1, 1, 1 ), material );
-
-		/**
-		 * This flag can be used for type testing.
-		 *
-		 * @type {boolean}
-		 * @readonly
-		 * @default true
-		 */
-		this.isSky = true;
-
-	}
-
-}
-
-Sky.SkyShader = {
-
-	name: 'SkyShader',
-
-	uniforms: {
-		'turbidity': { value: 2 },
-		'rayleigh': { value: 1 },
-		'mieCoefficient': { value: 0.005 },
-		'mieDirectionalG': { value: 0.8 },
-		'sunPosition': { value: new Vector3() },
-		'cloudScale': { value: 0.0002 },
-		'cloudSpeed': { value: 0.00002 },
-		'cloudCoverage': { value: 0.4 },
-		'cloudDensity': { value: 0.4 },
-		'cloudElevation': { value: 0.5 },
-		'showSunDisc': { value: 1 },
-		'time': { value: 0.0 }
-	},
-
-	vertexShader: /* glsl */`
+import{BackSide as a,BoxGeometry as i,Mesh as n,ShaderMaterial as l,UniformsUtils as r,Vector3 as c}from"three";class o extends n{constructor(){const e=o.SkyShader,t=new l({name:e.name,uniforms:r.clone(e.uniforms),vertexShader:e.vertexShader,fragmentShader:e.fragmentShader,side:a,depthWrite:!1});super(new i(1,1,1),t),this.isSky=!0}}o.SkyShader={name:"SkyShader",uniforms:{turbidity:{value:2},rayleigh:{value:1},mieCoefficient:{value:.005},mieDirectionalG:{value:.8},sunPosition:{value:new c},cloudScale:{value:2e-4},cloudSpeed:{value:2e-5},cloudCoverage:{value:.4},cloudDensity:{value:.4},cloudElevation:{value:.5},showSunDisc:{value:1},time:{value:0}},vertexShader:`
 		uniform vec3 sunPosition;
 		uniform float rayleigh;
 		uniform float turbidity;
@@ -160,9 +67,7 @@ Sky.SkyShader = {
 			// mie coefficients
 			vBetaM = totalMie( turbidity ) * mieCoefficient;
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 		varying vec3 vWorldPosition;
 		varying vec3 vSunDirection;
 		varying vec3 vBetaR;
@@ -335,8 +240,4 @@ Sky.SkyShader = {
 			#include <tonemapping_fragment>
 			#include <colorspace_fragment>
 
-		}`
-
-};
-
-export { Sky };
+		}`};export{o as Sky};

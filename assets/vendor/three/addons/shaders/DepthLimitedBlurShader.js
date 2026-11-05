@@ -1,45 +1,4 @@
-import {
-	Vector2
-} from 'three';
-
-/**
- * @module DepthLimitedBlurShader
- * @three_import import { DepthLimitedBlurShader, BlurShaderUtils } from 'three/addons/shaders/DepthLimitedBlurShader.js';
- */
-
-/**
- * A separable Gaussian blur shader that limits blurring across depth
- * discontinuities, stopping when the view-space depth difference to a
- * neighboring sample exceeds `depthCutoff`. This preserves edges and
- * avoids bleeding across them.
- *
- * Used by {@link SAOPass}.
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const DepthLimitedBlurShader = {
-
-	name: 'DepthLimitedBlurShader',
-
-	defines: {
-		'KERNEL_RADIUS': 4,
-		'DEPTH_PACKING': 1,
-		'PERSPECTIVE_CAMERA': 1
-	},
-
-	uniforms: {
-		'tDiffuse': { value: null },
-		'size': { value: new Vector2( 512, 512 ) },
-		'sampleUvOffsets': { value: [ new Vector2( 0, 0 ) ] },
-		'sampleWeights': { value: [ 1.0 ] },
-		'tDepth': { value: null },
-		'cameraNear': { value: 10 },
-		'cameraFar': { value: 1000 },
-		'depthCutoff': { value: 10 },
-	},
-
-	vertexShader: /* glsl */`
+import{Vector2 as f}from"three";const s={name:"DepthLimitedBlurShader",defines:{KERNEL_RADIUS:4,DEPTH_PACKING:1,PERSPECTIVE_CAMERA:1},uniforms:{tDiffuse:{value:null},size:{value:new f(512,512)},sampleUvOffsets:{value:[new f(0,0)]},sampleWeights:{value:[1]},tDepth:{value:null},cameraNear:{value:10},cameraFar:{value:1e3},depthCutoff:{value:10}},vertexShader:`
 
 		#include <common>
 
@@ -53,9 +12,7 @@ const DepthLimitedBlurShader = {
 			vInvSize = 1.0 / size;
 
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		#include <common>
 		#include <packing>
@@ -129,55 +86,4 @@ const DepthLimitedBlurShader = {
 			}
 
 			gl_FragColor = diffuseSum / weightSum;
-		}`
-
-};
-
-const BlurShaderUtils = {
-
-	createSampleWeights: function ( kernelRadius, stdDev ) {
-
-		const weights = [];
-
-		for ( let i = 0; i <= kernelRadius; i ++ ) {
-
-			weights.push( gaussian( i, stdDev ) );
-
-		}
-
-		return weights;
-
-	},
-
-	createSampleOffsets: function ( kernelRadius, uvIncrement ) {
-
-		const offsets = [];
-
-		for ( let i = 0; i <= kernelRadius; i ++ ) {
-
-			offsets.push( uvIncrement.clone().multiplyScalar( i ) );
-
-		}
-
-		return offsets;
-
-	},
-
-	configure: function ( material, kernelRadius, stdDev, uvIncrement ) {
-
-		material.defines[ 'KERNEL_RADIUS' ] = kernelRadius;
-		material.uniforms[ 'sampleUvOffsets' ].value = BlurShaderUtils.createSampleOffsets( kernelRadius, uvIncrement );
-		material.uniforms[ 'sampleWeights' ].value = BlurShaderUtils.createSampleWeights( kernelRadius, stdDev );
-		material.needsUpdate = true;
-
-	}
-
-};
-
-function gaussian( x, stdDev ) {
-
-	return Math.exp( - ( x * x ) / ( 2.0 * ( stdDev * stdDev ) ) ) / ( Math.sqrt( 2.0 * Math.PI ) * stdDev );
-
-}
-
-export { DepthLimitedBlurShader, BlurShaderUtils };
+		}`},r={createSampleWeights:function(e,t){const a=[];for(let i=0;i<=e;i++)a.push(n(i,t));return a},createSampleOffsets:function(e,t){const a=[];for(let i=0;i<=e;i++)a.push(t.clone().multiplyScalar(i));return a},configure:function(e,t,a,i){e.defines.KERNEL_RADIUS=t,e.uniforms.sampleUvOffsets.value=r.createSampleOffsets(t,i),e.uniforms.sampleWeights.value=r.createSampleWeights(t,a),e.needsUpdate=!0}};function n(e,t){return Math.exp(-(e*e)/(2*(t*t)))/(Math.sqrt(2*Math.PI)*t)}export{r as BlurShaderUtils,s as DepthLimitedBlurShader};

@@ -1,31 +1,4 @@
-/**
- * @module FilmShader
- * @three_import import { FilmShader } from 'three/addons/shaders/FilmShader.js';
- */
-
-/**
- * Film grain shader that adds animated noise to the image, with an optional
- * grayscale conversion.
- *
- * Used by {@link FilmPass}.
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const FilmShader = {
-
-	name: 'FilmShader',
-
-	uniforms: {
-
-		'tDiffuse': { value: null },
-		'time': { value: 0.0 },
-		'intensity': { value: 0.5 },
-		'grayscale': { value: false }
-
-	},
-
-	vertexShader: /* glsl */`
+const e={name:"FilmShader",uniforms:{tDiffuse:{value:null},time:{value:0},intensity:{value:.5},grayscale:{value:!1}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -34,9 +7,7 @@ const FilmShader = {
 			vUv = uv;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		#include <common>
 
@@ -66,8 +37,4 @@ const FilmShader = {
 
 			gl_FragColor = vec4( color, base.a );
 
-		}`,
-
-};
-
-export { FilmShader };
+		}`};export{e as FilmShader};

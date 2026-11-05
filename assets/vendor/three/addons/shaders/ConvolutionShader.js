@@ -1,38 +1,4 @@
-import {
-	Vector2
-} from 'three';
-
-/**
- * @module ConvolutionShader
- * @three_import import { ConvolutionShader } from 'three/addons/shaders/ConvolutionShader.js';
- */
-
-/**
- * Convolution shader ported from o3d sample to WebGL / GLSL.
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const ConvolutionShader = {
-
-	name: 'ConvolutionShader',
-
-	defines: {
-
-		'KERNEL_SIZE_FLOAT': '25.0',
-		'KERNEL_SIZE_INT': '25'
-
-	},
-
-	uniforms: {
-
-		'tDiffuse': { value: null },
-		'uImageIncrement': { value: new Vector2( 0.001953125, 0.0 ) },
-		'cKernel': { value: [] }
-
-	},
-
-	vertexShader: /* glsl */`
+import{Vector2 as e}from"three";const n={name:"ConvolutionShader",defines:{KERNEL_SIZE_FLOAT:"25.0",KERNEL_SIZE_INT:"25"},uniforms:{tDiffuse:{value:null},uImageIncrement:{value:new e(.001953125,0)},cKernel:{value:[]}},vertexShader:`
 
 		uniform vec2 uImageIncrement;
 
@@ -43,9 +9,7 @@ const ConvolutionShader = {
 			vUv = uv - ( ( KERNEL_SIZE_FLOAT - 1.0 ) / 2.0 ) * uImageIncrement;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		uniform float cKernel[ KERNEL_SIZE_INT ];
 
@@ -68,7 +32,4 @@ const ConvolutionShader = {
 
 			gl_FragColor = sum;
 
-		}`
-};
-
-export { ConvolutionShader };
+		}`};export{n as ConvolutionShader};

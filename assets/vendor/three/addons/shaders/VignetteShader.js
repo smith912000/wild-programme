@@ -1,27 +1,4 @@
-/**
- * @module VignetteShader
- * @three_import import { VignetteShader } from 'three/addons/shaders/VignetteShader.js';
- */
-
-/**
- * Based on [PaintEffect postprocess from ro.me](https://github.com/dataarts/3-dreams-of-black/blob/master/deploy/js/effects/PaintEffect.js).
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const VignetteShader = {
-
-	name: 'VignetteShader',
-
-	uniforms: {
-
-		'tDiffuse': { value: null },
-		'offset': { value: 1.0 },
-		'darkness': { value: 1.0 }
-
-	},
-
-	vertexShader: /* glsl */`
+const e={name:"VignetteShader",uniforms:{tDiffuse:{value:null},offset:{value:1},darkness:{value:1}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -30,9 +7,7 @@ const VignetteShader = {
 			vUv = uv;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		uniform float offset;
 		uniform float darkness;
@@ -49,8 +24,4 @@ const VignetteShader = {
 			vec2 uv = ( vUv - vec2( 0.5 ) ) * vec2( offset );
 			gl_FragColor = vec4( mix( texel.rgb, vec3( 1.0 - darkness ), dot( uv, uv ) ), texel.a );
 
-		}`
-
-};
-
-export { VignetteShader };
+		}`};export{e as VignetteShader};

@@ -1,33 +1,4 @@
-/**
- * @module HorizontalBlurShader
- * @three_import import { HorizontalBlurShader } from 'three/addons/shaders/HorizontalBlurShader.js';
- */
-
-/**
- * Two pass Gaussian blur filter (horizontal and vertical blur shaders).
- *
- * References:
- * - {@link http://www.cake23.de/traveling-wavefronts-lit-up.html}.
- *
- * - 9 samples per pass
- * - standard deviation 2.7
- * - "h" and "v" parameters should be set to "1 / width" and "1 / height"
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const HorizontalBlurShader = {
-
-	name: 'HorizontalBlurShader',
-
-	uniforms: {
-
-		'tDiffuse': { value: null },
-		'h': { value: 1.0 / 512.0 }
-
-	},
-
-	vertexShader: /* glsl */`
+const v={name:"HorizontalBlurShader",uniforms:{tDiffuse:{value:null},h:{value:.001953125}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -36,9 +7,7 @@ const HorizontalBlurShader = {
 			vUv = uv;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		uniform sampler2D tDiffuse;
 		uniform float h;
@@ -61,8 +30,4 @@ const HorizontalBlurShader = {
 
 			gl_FragColor = sum;
 
-		}`
-
-};
-
-export { HorizontalBlurShader };
+		}`};export{v as HorizontalBlurShader};
