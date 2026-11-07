@@ -1,27 +1,4 @@
-/**
- * @module AfterimageShader
- * @three_import import { AfterimageShader } from 'three/addons/shaders/AfterimageShader.js';
- */
-
-/**
- * Inspired by [Three.js FBO motion trails](https://codepen.io/brunoimbrizi/pen/MoRJaN?page=1&).
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const AfterimageShader = {
-
-	name: 'AfterimageShader',
-
-	uniforms: {
-
-		'damp': { value: 0.96 },
-		'tOld': { value: null },
-		'tNew': { value: null }
-
-	},
-
-	vertexShader: /* glsl */`
+const e={name:"AfterimageShader",uniforms:{damp:{value:.96},tOld:{value:null},tNew:{value:null}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -30,9 +7,7 @@ const AfterimageShader = {
 			vUv = uv;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		uniform float damp;
 
@@ -56,8 +31,4 @@ const AfterimageShader = {
 
 			gl_FragColor = max(texelNew, texelOld);
 
-		}`
-
-};
-
-export { AfterimageShader };
+		}`};export{e as AfterimageShader};

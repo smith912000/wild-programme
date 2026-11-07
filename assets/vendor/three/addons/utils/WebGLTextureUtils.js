@@ -1,48 +1,9 @@
-import {
-	PlaneGeometry,
-	ShaderMaterial,
-	Uniform,
-	Mesh,
-	PerspectiveCamera,
-	Scene,
-	WebGLRenderer,
-	CanvasTexture,
-	SRGBColorSpace
-} from 'three';
-
-/**
- * @module WebGLTextureUtils
- * @three_import import * as WebGLTextureUtils from 'three/addons/utils/WebGLTextureUtils.js';
- */
-
-let _renderer;
-let fullscreenQuadGeometry;
-let fullscreenQuadMaterial;
-let fullscreenQuad;
-
-/**
- * Returns an uncompressed version of the given compressed texture.
- *
- * This module can only be used with {@link WebGLRenderer}. When using {@link WebGPURenderer},
- * import the function from {@link module:WebGPUTextureUtils}.
- *
- * @param {CompressedTexture} texture - The compressed texture.
- * @param {number} [maxTextureSize=Infinity] - The maximum size of the uncompressed texture.
- * @param {?WebGLRenderer} [renderer=null] - A reference to a renderer.
- * @return {CanvasTexture} The uncompressed texture.
- */
-export function decompress( texture, maxTextureSize = Infinity, renderer = null ) {
-
-	if ( ! fullscreenQuadGeometry ) fullscreenQuadGeometry = new PlaneGeometry( 2, 2, 1, 1 );
-	if ( ! fullscreenQuadMaterial ) fullscreenQuadMaterial = new ShaderMaterial( {
-		uniforms: { blitTexture: new Uniform( texture ) },
-		vertexShader: `
+import{PlaneGeometry as g,ShaderMaterial as u,Uniform as p,Mesh as w,PerspectiveCamera as h,Scene as S,WebGLRenderer as T,CanvasTexture as C,SRGBColorSpace as _}from"three";let l,c,i,o;function U(e,m=1/0,n=null){c||(c=new g(2,2,1,1)),i||(i=new u({uniforms:{blitTexture:new p(e)},vertexShader:`
 			varying vec2 vUv;
 			void main(){
 				vUv = uv;
 				gl_Position = vec4(position.xy * 1.0,0.,.999999);
-			}`,
-		fragmentShader: `
+			}`,fragmentShader:`
 			uniform sampler2D blitTexture; 
 			varying vec2 vUv;
 
@@ -54,62 +15,4 @@ export function decompress( texture, maxTextureSize = Infinity, renderer = null 
 				#else
 				gl_FragColor = texture2D( blitTexture, vUv);
 				#endif
-			}`
-	} );
-
-	fullscreenQuadMaterial.uniforms.blitTexture.value = texture;
-	fullscreenQuadMaterial.defines.IS_SRGB = texture.colorSpace == SRGBColorSpace;
-	fullscreenQuadMaterial.needsUpdate = true;
-
-	if ( ! fullscreenQuad ) {
-
-		fullscreenQuad = new Mesh( fullscreenQuadGeometry, fullscreenQuadMaterial );
-		fullscreenQuad.frustumCulled = false;
-
-	}
-
-	const _camera = new PerspectiveCamera();
-	const _scene = new Scene();
-	_scene.add( fullscreenQuad );
-
-	if ( renderer === null ) {
-
-		renderer = _renderer = new WebGLRenderer( { antialias: false } );
-
-	}
-
-	const width = Math.min( texture.image.width, maxTextureSize );
-	const height = Math.min( texture.image.height, maxTextureSize );
-
-	renderer.setSize( width, height );
-	renderer.clear();
-	renderer.render( _scene, _camera );
-
-	const canvas = document.createElement( 'canvas' );
-	const context = canvas.getContext( '2d' );
-
-	canvas.width = width;
-	canvas.height = height;
-
-	context.drawImage( renderer.domElement, 0, 0, width, height );
-
-	const readableTexture = new CanvasTexture( canvas );
-
-	readableTexture.minFilter = texture.minFilter;
-	readableTexture.magFilter = texture.magFilter;
-	readableTexture.wrapS = texture.wrapS;
-	readableTexture.wrapT = texture.wrapT;
-	readableTexture.colorSpace = texture.colorSpace;
-	readableTexture.name = texture.name;
-
-	if ( _renderer ) {
-
-		_renderer.forceContextLoss();
-		_renderer.dispose();
-		_renderer = null;
-
-	}
-
-	return readableTexture;
-
-}
+			}`})),i.uniforms.blitTexture.value=e,i.defines.IS_SRGB=e.colorSpace==_,i.needsUpdate=!0,o||(o=new w(c,i),o.frustumCulled=!1);const f=new h,v=new S;v.add(o),n===null&&(n=l=new T({antialias:!1}));const r=Math.min(e.image.width,m),s=Math.min(e.image.height,m);n.setSize(r,s),n.clear(),n.render(v,f);const t=document.createElement("canvas"),d=t.getContext("2d");t.width=r,t.height=s,d.drawImage(n.domElement,0,0,r,s);const a=new C(t);return a.minFilter=e.minFilter,a.magFilter=e.magFilter,a.wrapS=e.wrapS,a.wrapT=e.wrapT,a.colorSpace=e.colorSpace,a.name=e.name,l&&(l.forceContextLoss(),l.dispose(),l=null),a}export{U as decompress};

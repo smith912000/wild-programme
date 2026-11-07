@@ -1,32 +1,4 @@
-import {
-	Vector3
-} from 'three';
-
-/**
- * @module ColorCorrectionShader
- * @three_import import { ColorCorrectionShader } from 'three/addons/shaders/ColorCorrectionShader.js';
- */
-
-/**
- * Color correction shader.
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const ColorCorrectionShader = {
-
-	name: 'ColorCorrectionShader',
-
-	uniforms: {
-
-		'tDiffuse': { value: null },
-		'powRGB': { value: new Vector3( 2, 2, 2 ) },
-		'mulRGB': { value: new Vector3( 1, 1, 1 ) },
-		'addRGB': { value: new Vector3( 0, 0, 0 ) }
-
-	},
-
-	vertexShader: /* glsl */`
+import{Vector3 as o}from"three";const r={name:"ColorCorrectionShader",uniforms:{tDiffuse:{value:null},powRGB:{value:new o(2,2,2)},mulRGB:{value:new o(1,1,1)},addRGB:{value:new o(0,0,0)}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -36,9 +8,7 @@ const ColorCorrectionShader = {
 
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		uniform sampler2D tDiffuse;
 		uniform vec3 powRGB;
@@ -52,8 +22,4 @@ const ColorCorrectionShader = {
 			gl_FragColor = texture2D( tDiffuse, vUv );
 			gl_FragColor.rgb = mulRGB * pow( ( gl_FragColor.rgb + addRGB ), powRGB );
 
-		}`
-
-};
-
-export { ColorCorrectionShader };
+		}`};export{r as ColorCorrectionShader};

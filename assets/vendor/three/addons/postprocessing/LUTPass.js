@@ -1,19 +1,4 @@
-import { ShaderPass } from './ShaderPass.js';
-
-const LUTShader = {
-
-	name: 'LUTShader',
-
-	uniforms: {
-
-		lut: { value: null },
-		lutSize: { value: 0 },
-
-		tDiffuse: { value: null },
-		intensity: { value: 1.0 },
-	},
-
-	vertexShader: /* glsl */`
+import{ShaderPass as i}from"./ShaderPass.js";const l={name:"LUTShader",uniforms:{lut:{value:null},lutSize:{value:0},tDiffuse:{value:null},intensity:{value:1}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -24,9 +9,7 @@ const LUTShader = {
 
 		}
 
-	`,
-
-	fragmentShader: /* glsl */`
+	`,fragmentShader:`
 
 		uniform float lutSize;
 		uniform sampler3D lut;
@@ -52,87 +35,4 @@ const LUTShader = {
 
 		}
 
-	`,
-
-};
-
-/**
- * Pass for color grading via lookup tables.
- *
- * ```js
- * const lutPass = new LUTPass( { lut: lut.texture3D } );
- * composer.addPass( lutPass );
- * ```
- *
- * @augments ShaderPass
- * @three_import import { LUTPass } from 'three/addons/postprocessing/LUTPass.js';
- */
-class LUTPass extends ShaderPass {
-
-	/**
-	 * Constructs a LUT pass.
-	 *
-	 * @param {{lut:Data3DTexture,intensity:number}} [options={}] - The pass options.
-	 */
-	constructor( options = {} ) {
-
-		super( LUTShader );
-
-		/**
-		 * The LUT as a 3D texture.
-		 *
-		 * @type {?Data3DTexture}
-		 * @default null
-		 */
-		this.lut = options.lut || null;
-
-		/**
-		 * The intensity.
-		 *
-		 * @type {?number}
-		 * @default 1
-		 */
-		this.intensity = 'intensity' in options ? options.intensity : 1;
-
-	}
-
-	set lut( v ) {
-
-		const material = this.material;
-
-		if ( v !== this.lut ) {
-
-			material.uniforms.lut.value = null;
-
-			if ( v ) {
-
-				material.uniforms.lutSize.value = v.image.width;
-				material.uniforms.lut.value = v;
-
-			}
-
-		}
-
-	}
-
-	get lut() {
-
-		return this.material.uniforms.lut.value;
-
-	}
-
-	set intensity( v ) {
-
-		this.material.uniforms.intensity.value = v;
-
-	}
-
-	get intensity() {
-
-		return this.material.uniforms.intensity.value;
-
-	}
-
-}
-
-export { LUTPass };
+	`};class a extends i{constructor(t={}){super(l),this.lut=t.lut||null,this.intensity="intensity"in t?t.intensity:1}set lut(t){const e=this.material;t!==this.lut&&(e.uniforms.lut.value=null,t&&(e.uniforms.lutSize.value=t.image.width,e.uniforms.lut.value=t))}get lut(){return this.material.uniforms.lut.value}set intensity(t){this.material.uniforms.intensity.value=t}get intensity(){return this.material.uniforms.intensity.value}}export{a as LUTPass};

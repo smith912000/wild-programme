@@ -157,7 +157,7 @@
   </video>
 </div>
 <div class="aperture" id="aperture" aria-hidden="true">
-  <video id="aperture-video" muted playsinline preload="auto">
+  <video id="aperture-video" muted playsinline preload="metadata">
     <source src="parser-aperture.mp4" type="video/mp4">
     <source src="parser-aperture.webm" type="video/webm">
   </video>
@@ -527,6 +527,9 @@
       }, 5600);
     }, n * 1800);
   });
+
+  // the aperture clip is only needed after Submit, so it fetches once the page has loaded
+  addEventListener('load', function () { try { $('aperture-video').preload = 'auto'; } catch (e) {} });
 
   function aperture() {
     return new Promise(function (done) {

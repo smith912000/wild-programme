@@ -1,57 +1,4 @@
-import {
-	Matrix4,
-	Vector2
-} from 'three';
-
-
-/**
- * A collection of shaders used for SSR.
- *
- * References:
- * - [3D Game Shaders For Beginners, Screen Space Reflection (SSR)](https://lettier.github.io/3d-game-shaders-for-beginners/screen-space-reflection.html).
- *
- * @module SSRShader
- * @three_import import * as SSRShader from 'three/addons/shaders/SSRShader.js';
- */
-
-/**
- * SSR shader.
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const SSRShader = {
-
-	name: 'SSRShader',
-
-	defines: {
-		MAX_STEP: 0,
-		PERSPECTIVE_CAMERA: true,
-		DISTANCE_ATTENUATION: true,
-		FRESNEL: true,
-		INFINITE_THICK: false,
-		SELECTIVE: false,
-	},
-
-	uniforms: {
-
-		'tDiffuse': { value: null },
-		'tNormal': { value: null },
-		'tMetalness': { value: null },
-		'tDepth': { value: null },
-		'cameraNear': { value: null },
-		'cameraFar': { value: null },
-		'resolution': { value: new Vector2() },
-		'cameraProjectionMatrix': { value: new Matrix4() },
-		'cameraInverseProjectionMatrix': { value: new Matrix4() },
-		'opacity': { value: .5 },
-		'maxDistance': { value: 180 },
-		'cameraRange': { value: 0 },
-		'thickness': { value: .018 }
-
-	},
-
-	vertexShader: /* glsl */`
+import{Matrix4 as e,Vector2 as t}from"three";const i={name:"SSRShader",defines:{MAX_STEP:0,PERSPECTIVE_CAMERA:!0,DISTANCE_ATTENUATION:!0,FRESNEL:!0,INFINITE_THICK:!1,SELECTIVE:!1},uniforms:{tDiffuse:{value:null},tNormal:{value:null},tMetalness:{value:null},tDepth:{value:null},cameraNear:{value:null},cameraFar:{value:null},resolution:{value:new t},cameraProjectionMatrix:{value:new e},cameraInverseProjectionMatrix:{value:new e},opacity:{value:.5},maxDistance:{value:180},cameraRange:{value:0},thickness:{value:.018}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -63,9 +10,7 @@ const SSRShader = {
 
 		}
 
-	`,
-
-	fragmentShader: /* glsl */`
+	`,fragmentShader:`
 		// precision highp float;
 		precision highp sampler2D;
 		varying vec2 vUv;
@@ -243,33 +188,7 @@ const SSRShader = {
 				s+=sStep;
 			}
 		}
-	`
-
-};
-
-/**
- * SSR Depth shader.
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const SSRDepthShader = {
-
-	name: 'SSRDepthShader',
-
-	defines: {
-		'PERSPECTIVE_CAMERA': 1
-	},
-
-	uniforms: {
-
-		'tDepth': { value: null },
-		'cameraNear': { value: null },
-		'cameraFar': { value: null },
-
-	},
-
-	vertexShader: /* glsl */`
+	`},a={name:"SSRDepthShader",defines:{PERSPECTIVE_CAMERA:1},uniforms:{tDepth:{value:null},cameraNear:{value:null},cameraFar:{value:null}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -280,9 +199,7 @@ const SSRDepthShader = {
 
 		}
 
-	`,
-
-	fragmentShader: /* glsl */`
+	`,fragmentShader:`
 
 		uniform sampler2D tDepth;
 
@@ -318,29 +235,7 @@ const SSRDepthShader = {
 
 		}
 
-	`
-
-};
-
-/**
- * SSR Blur shader.
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const SSRBlurShader = {
-
-	name: 'SSRBlurShader',
-
-	uniforms: {
-
-		'tDiffuse': { value: null },
-		'resolution': { value: new Vector2() },
-		'opacity': { value: .5 },
-
-	},
-
-	vertexShader: /* glsl */`
+	`},o={name:"SSRBlurShader",uniforms:{tDiffuse:{value:null},resolution:{value:new t},opacity:{value:.5}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -351,9 +246,7 @@ const SSRBlurShader = {
 
 		}
 
-	`,
-
-	fragmentShader: /* glsl */`
+	`,fragmentShader:`
 
 		uniform sampler2D tDiffuse;
 		uniform vec2 resolution;
@@ -388,9 +281,4 @@ const SSRBlurShader = {
 			gl_FragColor=vec4(rgb,a);
 
 		}
-	`
-
-
-};
-
-export { SSRShader, SSRDepthShader, SSRBlurShader };
+	`};export{o as SSRBlurShader,a as SSRDepthShader,i as SSRShader};

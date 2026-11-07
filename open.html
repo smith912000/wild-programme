@@ -596,7 +596,9 @@
 const cv = document.getElementById('mark3d'), hero = document.querySelector('.hero');
 const quiet = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection && navigator.connection.saveData);
 if (cv && !quiet && !!document.createElement('canvas').getContext('webgl2')) {
-  import('./assets/wild-3d.js').then(({ createMark }) => {
+  // start fetching the 3D library only once the page has loaded and the browser is idle, so it never competes with the text, fonts and styles
+  const later = fn => (document.readyState === 'complete' ? Promise.resolve() : new Promise(r => addEventListener('load', r, { once: true }))).then(() => new Promise(r => (window.requestIdleCallback ? requestIdleCallback(r, { timeout: 2000 }) : setTimeout(r, 200)))).then(fn);
+  later(() => import('./assets/wild-3d.js')).then(({ createMark }) => {
     const m = createMark(cv, { distance: 16, stars: 160 });
     const size = () => m.resize(cv.clientWidth, cv.clientHeight); size(); addEventListener('resize', size);
     let on = true, gx = 0, gy = 0, tx = 0, ty = 0, vx = 0, vy = 0, t0 = performance.now(), first = true;

@@ -1,28 +1,4 @@
-/**
- * @module GammaCorrectionShader
- * @three_import import { GammaCorrectionShader } from 'three/addons/shaders/GammaCorrectionShader.js';
- */
-
-/**
- * Gamma Correction Shader
- *
- * References:
- * - {@link http://en.wikipedia.org/wiki/gamma_correction}.
- *
- * @constant
- * @type {ShaderMaterial~Shader}
- */
-const GammaCorrectionShader = {
-
-	name: 'GammaCorrectionShader',
-
-	uniforms: {
-
-		'tDiffuse': { value: null }
-
-	},
-
-	vertexShader: /* glsl */`
+const e={name:"GammaCorrectionShader",uniforms:{tDiffuse:{value:null}},vertexShader:`
 
 		varying vec2 vUv;
 
@@ -31,9 +7,7 @@ const GammaCorrectionShader = {
 			vUv = uv;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}`,
-
-	fragmentShader: /* glsl */`
+		}`,fragmentShader:`
 
 		uniform sampler2D tDiffuse;
 
@@ -45,8 +19,4 @@ const GammaCorrectionShader = {
 
 			gl_FragColor = sRGBTransferOETF( tex );
 
-		}`
-
-};
-
-export { GammaCorrectionShader };
+		}`};export{e as GammaCorrectionShader};
