@@ -1,3 +1,7 @@
+# Performance rules (every change, every page)
+
+Brandon, 6 Nov 2026: the load speed-up (PR #45) applies to everything. Before and after any page or app change, run `node scripts/measure-page-weight.js` and follow the checklist and size budgets in `PERFORMANCE.md` (minified vendor code, heavy libraries deferred until after load, non-critical media `preload=metadata`, re-encoded media, lazy sized images, code-split bundles, own woff2 fonts). Put the before/after sizes in the PR.
+
 # Launch safety rules (every change, every page)
 
 These rules come from Master Principles rule 23 (web launch legal checks, 15 Oct 2026). Treat a change that breaks one as broken.
