@@ -1,3 +1,4 @@
+(function(){var t=document.createElement("script");t.src="https://smith912000.github.io/wild-programme/assets/wild-time.js";document.head.appendChild(t);})();
 /* WILD shared navigation, OPEN copy: links point at the open versions of the hub and apps
    (no membership check) used while member sign-in is paused. Original: wild-nav.js.
    WILD shared navigation. One list of apps for the hub menu and the bar on
