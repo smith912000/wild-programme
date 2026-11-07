@@ -142,9 +142,9 @@
   /* Three still washes painted once by the compositor: no blur filter, no animation, nothing repaints. */
   .aurora { position:fixed; inset:0; z-index:-2; pointer-events:none;
     background:
-      radial-gradient(ellipse 60% 50% at 8% 0%, rgba(99,73,184,.30), transparent 65%),
-      radial-gradient(ellipse 50% 45% at 100% 100%, rgba(138,111,224,.16), transparent 65%),
-      radial-gradient(ellipse 35% 30% at 62% 45%, rgba(201,168,76,.07), transparent 65%); }
+      radial-gradient(ellipse 60% 50% at 8% 0%, rgba(47,143,124,.30), transparent 65%),
+      radial-gradient(ellipse 50% 45% at 100% 100%, rgba(77,184,162,.16), transparent 65%),
+      radial-gradient(ellipse 35% 30% at 62% 45%, rgba(210,130,90,.07), transparent 65%); }
   .aurora i { display:none; }
 
   /* nav */
@@ -157,19 +157,19 @@
   .nav-links { display:flex; align-items:center; gap:22px; font-size:.82rem; }
   .nav-links a { text-decoration:none; color:var(--dim); transition:color .3s; }
   .nav-links a:hover { color:var(--text); }
-  .nav-links .members-link { border:1px solid var(--border-lit); padding:8px 14px; border-radius:999px; color:var(--text); }
-  .nav-links .members-link:hover { background:rgba(99,73,184,.16); }
-  .nav-links .btn-sm { color:var(--wild-on-gold); background:var(--amber); padding:9px 16px; border-radius:999px; font-weight:700; }
+  .nav-links .members-link { border:1px solid var(--border-lit); padding:8px 14px; border-radius:6px; color:var(--text); }
+  .nav-links .members-link:hover { background:rgba(47,143,124,.16); }
+  .nav-links .btn-sm { color:var(--wild-on-gold); background:var(--amber); padding:9px 16px; border-radius:6px; font-weight:700; }
   .nav-links .btn-sm:hover { color:var(--wild-on-gold); background:var(--amber-lit); }
 
   /* buttons */
-  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:14px 26px; min-height:48px; border-radius:999px;
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:14px 26px; min-height:48px; border-radius:6px;
          font-weight:700; font-size:.95rem; text-decoration:none; transition:transform .3s var(--ease-out), background .3s, border-color .3s; }
   .btn:hover { transform:translateY(-2px); }
   .btn-gold { background:var(--amber); color:var(--wild-on-gold); box-shadow:var(--wild-glow-gold); }
   .btn-gold:hover { background:var(--amber-lit); }
-  .btn-ghost { border:1px solid var(--border-lit); color:var(--text); background:rgba(99,73,184,.08); }
-  .btn-ghost:hover { border-color:var(--indigo-2); background:rgba(99,73,184,.16); }
+  .btn-ghost { border:1px solid var(--border-lit); color:var(--text); background:rgba(47,143,124,.08); }
+  .btn-ghost:hover { border-color:var(--indigo-2); background:rgba(47,143,124,.16); }
   .btn:focus-visible, .nav a:focus-visible, summary:focus-visible, .door:focus-visible, .free-item:focus-visible { outline:2px solid var(--indigo-2); outline-offset:3px; }
 
   /* hero */
@@ -187,13 +187,14 @@
   .mark .ring2 { animation:breathe 7s ease-in-out infinite reverse; }
   .mark .aperture { animation:glow 5s ease-in-out infinite; }
   @keyframes breathe { 0%,100%{opacity:.85;transform:scale(1)} 50%{opacity:1;transform:scale(1.025)} }
-  @keyframes glow { 0%,100%{opacity:.7} 50%{opacity:1;filter:drop-shadow(0 0 6px rgba(233,199,102,.8))} }
+  @keyframes glow { 0%,100%{opacity:.7} 50%{opacity:1;filter:drop-shadow(0 0 6px rgba(235,163,127,.8))} }
   .wordmark { font-family:var(--serif); font-weight:600; font-size:clamp(3.4rem,12vw,6rem); letter-spacing:.14em; line-height:1; margin-left:.14em;
     color:var(--text); }
   .kicker { font-family:var(--sans); font-size:var(--wild-fs-xs); font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--amber); margin-top:18px; }
   .lede { margin:22px auto 0; max-width:520px; font-size:1.02rem; color:var(--dim); }
   .lede .em { color:var(--text); }
   .hero-ctas { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:34px; }
+  @media (min-width:900px){ .hero{ text-align:left; padding-left:max(20px,calc((100vw - 1040px)/2)); padding-right:20px; } .mark-wrap{ margin-left:0; } .hero-ctas{ justify-content:flex-start; } .hero p{ margin-left:0; margin-right:0; } }
   .hero-note { margin-top:16px; font-size:.8rem; color:var(--dimmer); }
 
   /* sections */
@@ -239,27 +240,27 @@
   .feat p { font-size:.86rem; color:var(--dim); }
   .feat .tag { display:inline-block; font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); margin-bottom:10px; }
   .apps { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-  .apps a { font-size:.78rem; text-decoration:none; padding:5px 11px; border-radius:999px; border:1px solid var(--border-lit); color:var(--text); }
-  .apps a:hover { background:rgba(99,73,184,.18); }
+  .apps a { font-size:.78rem; text-decoration:none; padding:5px 11px; border-radius:6px; border:1px solid var(--border-lit); color:var(--text); }
+  .apps a:hover { background:rgba(47,143,124,.18); }
 
   /* compare */
   .compare { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:36px; }
   .col { border:1px solid var(--border); border-radius:18px; padding:28px 26px; background:var(--bg-elev); display:flex; flex-direction:column; }
-  .col.member { border-color:rgba(201,168,76,.4); background:linear-gradient(160deg,rgba(201,168,76,.08),var(--bg-elev) 60%); }
+  .col.member { border-color:rgba(210,130,90,.4); background:linear-gradient(160deg,rgba(210,130,90,.08),var(--bg-elev) 60%); }
   .col-name { font-family:var(--serif); font-size:1.7rem; font-weight:600; }
   .col-price { margin:6px 0 18px; color:var(--dim); font-size:.9rem; }
   .col-price strong { color:var(--text); font-size:1.5rem; font-family:var(--serif); }
   .col ul { list-style:none; display:grid; gap:10px; margin-bottom:24px; }
   .col li { position:relative; padding-left:22px; font-size:.9rem; color:var(--dim); }
   .col li::before { content:''; position:absolute; left:2px; top:.55em; width:8px; height:8px; border-radius:50%; border:1.5px solid var(--indigo-2); }
-  .col.member li::before { border-color:var(--amber); background:rgba(201,168,76,.35); }
+  .col.member li::before { border-color:var(--amber); background:rgba(210,130,90,.35); }
   .col li strong { color:var(--text); font-weight:600; }
   .col .btn { margin-top:auto; width:100%; }
 
   /* pricing */
   .plans { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:36px; max-width:720px; margin-left:auto; margin-right:auto; }
   .plan { border:1px solid var(--border); border-radius:18px; padding:30px 26px; background:var(--bg-elev); text-align:center; display:flex; flex-direction:column; }
-  .plan.main { border-color:rgba(201,168,76,.5); box-shadow:0 20px 60px -30px rgba(201,168,76,.5); }
+  .plan.main { border-color:rgba(210,130,90,.5); box-shadow:0 20px 60px -30px rgba(210,130,90,.5); }
   .plan-name { font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); }
   .plan-price, .col-price strong { font-variant-numeric:lining-nums; }
   .plan-price { font-family:var(--serif); font-size:3.4rem; font-weight:600; line-height:1; margin:14px 0 4px; }
@@ -278,7 +279,7 @@
   .free-item .t { font-weight:600; font-size:.92rem; }
   .free-item .d { font-size:.8rem; color:var(--dim); }
   .free-item .b { margin-left:auto; flex-shrink:0; font-size:.6rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:4px 9px; border-radius:20px;
-                  color:var(--amber-lit); border:1px solid rgba(201,168,76,.3); background:rgba(201,168,76,.1); }
+                  color:var(--amber-lit); border:1px solid rgba(210,130,90,.3); background:rgba(210,130,90,.1); }
 
   /* faq */
   .faq { margin-top:30px; border-top:1px solid var(--border); }
@@ -324,7 +325,7 @@
 
 <nav class="nav" aria-label="Main">
   <a class="nav-brand" href="#top">
-    <svg viewBox="0 0 100 120" aria-hidden="true"><g fill="none" stroke="#8A6FE0" stroke-width="6"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><line x1="50" y1="51" x2="50" y2="69" stroke="#E9C766" stroke-width="7" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 100 120" aria-hidden="true"><g fill="none" stroke="#4DB8A2" stroke-width="6"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><line x1="50" y1="51" x2="50" y2="69" stroke="#EBA37F" stroke-width="7" stroke-linecap="round"/></svg>
     WILD
   </a>
   <div class="nav-links">
@@ -340,10 +341,10 @@
 <header class="hero" id="top">
   <div class="mark-wrap"><canvas class="mark3d" id="mark3d" aria-hidden="true"></canvas>
   <svg class="mark" viewBox="0 0 100 120" role="img" aria-label="WILD">
-    <defs><radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(99,73,184,.45)"/><stop offset="100%" stop-color="rgba(99,73,184,0)"/></radialGradient></defs>
+    <defs><radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(47,143,124,.45)"/><stop offset="100%" stop-color="rgba(47,143,124,0)"/></radialGradient></defs>
     <ellipse cx="50" cy="60" rx="46" ry="54" fill="url(#halo)"/>
-    <g fill="none" stroke="#6349B8" stroke-width="2.4"><circle class="ring" cx="50" cy="44" r="34"/><circle class="ring2" cx="50" cy="76" r="34"/></g>
-    <line class="aperture" x1="50" y1="51" x2="50" y2="69" stroke="#E9C766" stroke-width="3.4" stroke-linecap="round"/>
+    <g fill="none" stroke="#2F8F7C" stroke-width="2.4"><circle class="ring" cx="50" cy="44" r="34"/><circle class="ring2" cx="50" cy="76" r="34"/></g>
+    <line class="aperture" x1="50" y1="51" x2="50" y2="69" stroke="#EBA37F" stroke-width="3.4" stroke-linecap="round"/>
   </svg></div>
   <h1 class="wordmark">WILD</h1>
   <p class="kicker">The threshold most people walk past</p>

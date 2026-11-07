@@ -21,7 +21,7 @@ SRC = {
  "ghibellini": ('Ghibellini, R., &amp; Meier, B. (2020). Hypnagogic states are quite common: evidence from a Swiss population. Conference poster, University of Bern (preliminary results).', "https://boris.unibe.ch/154680/"),
 }
 
-MARK = '<svg viewBox="0 0 100 120" aria-hidden="true"><g fill="none" stroke="#8A6FE0" stroke-width="6"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><line x1="50" y1="51" x2="50" y2="69" stroke="#E9C766" stroke-width="7" stroke-linecap="round"/></svg>'
+MARK = '<svg viewBox="0 0 100 120" aria-hidden="true"><g fill="none" stroke="#4DB8A2" stroke-width="6"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><line x1="50" y1="51" x2="50" y2="69" stroke="#EBA37F" stroke-width="7" stroke-linecap="round"/></svg>'
 FAVICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Crect width='100' height='120' fill='%23050309'/%3E%3Cg fill='none' stroke='%236349B8' stroke-width='3'%3E%3Ccircle cx='50' cy='44' r='34'/%3E%3Ccircle cx='50' cy='76' r='34'/%3E%3C/g%3E%3Cline x1='50' y1='52' x2='50' y2='68' stroke='%23C9A84C' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"
 
 GUIDES = []  # filled below: dict(slug, title, h1, desc, card, minutes, answer, body, faq, sources)

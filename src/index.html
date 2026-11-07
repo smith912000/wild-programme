@@ -8,21 +8,21 @@ fonts: true
 ---
 <style>
   :root {
-    --bg:        #050309;
-    --bg-elev:   #0A0612;
-    --surface:   #120C1F;
+    --bg:        #06100E;
+    --bg-elev:   #0B1613;
+    --surface:   #11201C;
     --surface-2: #160F26;
-    --border:    rgba(244,241,237,.08);
-    --border-lit:rgba(99,73,184,.45);
-    --text:      #F4F1ED;
-    --dim:       rgba(244,241,237,.58);
-    --dimmer:    rgba(244,241,237,.38);
-    --indigo:    #6349B8;
-    --indigo-2:  #8A6FE0;
-    --indigo-deep:#2D1B69;
-    --amber:     #C9A84C;
-    --amber-lit: #E9C766;
-    --serif: 'Cormorant Garamond', Georgia, serif;
+    --border:    rgba(237,239,230,.08);
+    --border-lit:rgba(47,143,124,.45);
+    --text:      #EDEFE6;
+    --dim:       rgba(237,239,230,.58);
+    --dimmer:    rgba(237,239,230,.38);
+    --indigo:    #2F8F7C;
+    --indigo-2:  #4DB8A2;
+    --indigo-deep:#12453B;
+    --amber:     #D2825A;
+    --amber-lit: #EBA37F;
+    --serif: 'Cinzel', Georgia, serif;
     --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
     --ease: cubic-bezier(.22,.61,.36,1);
     --ease-out: cubic-bezier(.16,1,.3,1);
@@ -49,13 +49,13 @@ fonts: true
     mix-blend-mode: screen; will-change: transform; display: block;
   }
   .aurora .a1 { width: 70vmax; height: 70vmax; top: -26%; left: -20%;
-    background: radial-gradient(circle, rgba(99,73,184,.30), transparent 62%);
+    background: radial-gradient(circle, rgba(47,143,124,.30), transparent 62%);
     animation: aur1 38s ease-in-out infinite alternate; }
   .aurora .a2 { width: 60vmax; height: 60vmax; bottom: -26%; right: -18%;
-    background: radial-gradient(circle, rgba(138,111,224,.18), transparent 62%);
+    background: radial-gradient(circle, rgba(77,184,162,.18), transparent 62%);
     animation: aur2 50s ease-in-out infinite alternate; }
   .aurora .a3 { width: 48vmax; height: 48vmax; top: 30%; left: 40%;
-    background: radial-gradient(circle, rgba(201,168,76,.10), transparent 60%);
+    background: radial-gradient(circle, rgba(210,130,90,.10), transparent 60%);
     animation: aur3 60s ease-in-out infinite alternate; }
   @keyframes aur1 { to { transform: translate(12vw,9vh) scale(1.15); } }
   @keyframes aur2 { to { transform: translate(-10vw,-7vh) scale(.92); } }
@@ -75,7 +75,7 @@ fonts: true
   .mark .ring2 { animation: breathe 7s ease-in-out infinite reverse; }
   .mark .aperture { animation: glow 5s ease-in-out infinite; }
   @keyframes breathe { 0%,100%{ opacity:.85; transform:scale(1); } 50%{ opacity:1; transform:scale(1.025); } }
-  @keyframes glow { 0%,100%{ opacity:.7; } 50%{ opacity:1; filter:drop-shadow(0 0 6px rgba(233,199,102,.8)); } }
+  @keyframes glow { 0%,100%{ opacity:.7; } 50%{ opacity:1; filter:drop-shadow(0 0 6px rgba(235,163,127,.8)); } }
 
   .wordmark {
     font-family: var(--serif);
@@ -84,10 +84,10 @@ fonts: true
     letter-spacing: .14em;
     line-height: 1;
     margin-left: .14em;
-    background: linear-gradient(180deg, #FFFEFA 0%, #E9DEC8 55%, var(--amber) 130%);
+    background: linear-gradient(180deg, #FBFCF7 0%, #E9DEC8 55%, var(--amber) 130%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 30px rgba(201,168,76,.18));
+    filter: drop-shadow(0 2px 30px rgba(210,130,90,.18));
   }
   .kicker {
     font-family: var(--serif);
@@ -169,7 +169,7 @@ fonts: true
   }
   .card::after { /* sheen */
     content:''; position:absolute; top:0; left:-65%; width:55%; height:100%;
-    background: linear-gradient(100deg, transparent, rgba(244,241,237,.06), transparent);
+    background: linear-gradient(100deg, transparent, rgba(237,239,230,.06), transparent);
     transform: skewX(-18deg); transition: left .7s var(--ease); pointer-events:none;
   }
   .card:hover { transform: translateY(-2px); border-color: var(--border-lit); background: var(--surface); }
@@ -184,11 +184,11 @@ fonts: true
     font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
     padding: 4px 9px; border-radius: 20px; flex-shrink: 0; white-space: nowrap;
   }
-  .badge.free  { background: rgba(201,168,76,.12); color: var(--amber-lit); border: 1px solid rgba(201,168,76,.3); }
-  .badge.pdf   { background: rgba(99,73,184,.14);  color: var(--indigo-2); border: 1px solid rgba(99,73,184,.3); }
-  .badge.price { background: rgba(99,73,184,.14);  color: var(--indigo-2); border: 1px solid rgba(99,73,184,.3); }
-  .badge.sub   { background: rgba(201,168,76,.1);  color: var(--amber);    border: 1px solid rgba(201,168,76,.25); }
-  .card.feature { background: linear-gradient(135deg, rgba(99,73,184,.10), var(--bg-elev) 70%); border-color: var(--border-lit); }
+  .badge.free  { background: rgba(210,130,90,.12); color: var(--amber-lit); border: 1px solid rgba(210,130,90,.3); }
+  .badge.pdf   { background: rgba(47,143,124,.14);  color: var(--indigo-2); border: 1px solid rgba(47,143,124,.3); }
+  .badge.price { background: rgba(47,143,124,.14);  color: var(--indigo-2); border: 1px solid rgba(47,143,124,.3); }
+  .badge.sub   { background: rgba(210,130,90,.1);  color: var(--amber);    border: 1px solid rgba(210,130,90,.25); }
+  .card.feature { background: linear-gradient(135deg, rgba(47,143,124,.10), var(--bg-elev) 70%); border-color: var(--border-lit); }
   .card.amber .card-ico { color: var(--amber); }
 
   /* tier row */
@@ -237,16 +237,16 @@ fonts: true
   <svg class="mark" viewBox="0 0 100 120" role="img" aria-label="WILD">
     <defs>
       <radialGradient id="halo" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="rgba(99,73,184,.45)"/>
-        <stop offset="100%" stop-color="rgba(99,73,184,0)"/>
+        <stop offset="0%" stop-color="rgba(47,143,124,.45)"/>
+        <stop offset="100%" stop-color="rgba(47,143,124,0)"/>
       </radialGradient>
     </defs>
     <ellipse cx="50" cy="60" rx="46" ry="54" fill="url(#halo)"/>
-    <g fill="none" stroke="#6349B8" stroke-width="2.4">
+    <g fill="none" stroke="#2F8F7C" stroke-width="2.4">
       <circle class="ring"  cx="50" cy="44" r="34"/>
       <circle class="ring2" cx="50" cy="76" r="34"/>
     </g>
-    <line class="aperture" x1="50" y1="51" x2="50" y2="69" stroke="#E9C766" stroke-width="3.4" stroke-linecap="round"/>
+    <line class="aperture" x1="50" y1="51" x2="50" y2="69" stroke="#EBA37F" stroke-width="3.4" stroke-linecap="round"/>
   </svg>
   <h1 class="wordmark">WILD</h1>
   <p class="kicker">The threshold most people walk past</p>
@@ -431,10 +431,10 @@ fonts: true
 
 <footer class="footer">
   <svg class="fmark" viewBox="0 0 100 120" aria-hidden="true">
-    <g fill="none" stroke="#C9A84C" stroke-width="2.4" opacity=".9">
+    <g fill="none" stroke="#D2825A" stroke-width="2.4" opacity=".9">
       <circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/>
     </g>
-    <line x1="50" y1="51" x2="50" y2="69" stroke="#C9A84C" stroke-width="3.4" stroke-linecap="round"/>
+    <line x1="50" y1="51" x2="50" y2="69" stroke="#D2825A" stroke-width="3.4" stroke-linecap="round"/>
   </svg>
   <div class="footer-brand">WILD&nbsp;·&nbsp;NEGOTIORUM</div>
   <a href="/wild-programme/02%20-%20Landing%20Pages/legal.html">Privacy &amp; Terms</a>

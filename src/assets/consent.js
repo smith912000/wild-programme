@@ -25,16 +25,16 @@
     bar.id = 'wild-consent';
     bar.setAttribute('style',
       'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:rgba(10,6,18,.97);' +
-      'border-top:1px solid rgba(99,73,184,.4);color:#F4F1ED;font-family:-apple-system,BlinkMacSystemFont,' +
+      'border-top:1px solid rgba(47,143,124,.4);color:#EDEFE6;font-family:-apple-system,BlinkMacSystemFont,' +
       "'Segoe UI',sans-serif;font-size:13px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:12px;" +
       'align-items:center;justify-content:center;text-align:center');
     bar.innerHTML =
       '<span style="max-width:560px">We use only essential cookies. Optional analytics stay off unless you accept. ' +
-      'See our <a href="' + legal + '" style="color:#C9A84C;text-decoration:none">privacy notice</a>.</span>' +
+      'See our <a href="' + legal + '" style="color:#D2825A;text-decoration:none">privacy notice</a>.</span>' +
       '<span style="display:flex;gap:8px">' +
-      '<button data-consent="decline" style="padding:7px 16px;border:1px solid rgba(244,241,237,.2);' +
-      'background:transparent;color:#F4F1ED;border-radius:6px;cursor:pointer;font-size:13px">Essential only</button>' +
-      '<button data-consent="accept" style="padding:7px 16px;border:none;background:#C9A84C;color:#0A0612;' +
+      '<button data-consent="decline" style="padding:7px 16px;border:1px solid rgba(237,239,230,.2);' +
+      'background:transparent;color:#EDEFE6;border-radius:6px;cursor:pointer;font-size:13px">Essential only</button>' +
+      '<button data-consent="accept" style="padding:7px 16px;border:none;background:#D2825A;color:#0B1613;' +
       'border-radius:6px;cursor:pointer;font-weight:700;font-size:13px">Accept analytics</button></span>';
 
     function set(v) {

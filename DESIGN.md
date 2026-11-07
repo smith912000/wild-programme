@@ -6,8 +6,8 @@ The tokens live in `assets/wild.css`. Change a value there and every surface fol
 
 ## 1. The idea
 
-Night, and one point of light. The ground is near-black indigo (`--wild-bg`), the structure is indigo
-(`--wild-indigo`), and gold (`--wild-gold`) is reserved for the aperture: the one action, the one label,
+Deep water, and one ember. The ground is near-black verdigris (`--wild-bg`), the structure is teal
+(`--wild-indigo`), and ember copper (`--wild-gold`, name kept so nothing breaks) is reserved for the aperture: the one action, the one label,
 the line that marks the threshold. If a screen has two gold things, one of them is wrong.
 
 Voice follows `WILD_Manifesto.md`: short declarative sentences, no exclamation marks, no hype, British
@@ -18,25 +18,25 @@ other surface.
 
 | Group | Token | Value | Use |
 |---|---|---|---|
-| Ground | `--wild-bg` | `#050309` | page and app background |
-| | `--wild-bg-elev` | `#0A0612` | cards on the ground |
-| | `--wild-surface` | `#120C1F` | inputs, panels, nav |
-| | `--wild-surface-2` | `#19112B` | selected row, hover |
-| | `--wild-border` | `rgba(244,241,237,.09)` | hairlines |
+| Ground | `--wild-bg` | `#06100E` | page and app background |
+| | `--wild-bg-elev` | `#0B1613` | cards on the ground |
+| | `--wild-surface` | `#11201C` | inputs, panels, nav |
+| | `--wild-surface-2` | `#172B25` | selected row, hover |
+| | `--wild-border` | `rgba(237,239,230,.09)` | hairlines |
 | | `--wild-border-lit` | `rgba(138,111,224,.45)` | focused or hovered border |
-| Text | `--wild-text` | `#F4F1ED` | headings, body (16.7:1 on bg) |
-| | `--wild-dim` | `rgba(244,241,237,.68)` | secondary text (8.5:1) |
-| | `--wild-faint` | `rgba(244,241,237,.5)` | captions, 12px and up only (5:1) |
-| | `--wild-on-gold` | `#0B0714` | text on a gold button (9.4:1) |
-| Threshold | `--wild-indigo` | `#6349B8` | strokes, fills, halos. Never body text (2.8:1) |
-| | `--wild-indigo-2` | `#8A6FE0` | icons, hover, large text (4.2:1) |
-| | `--wild-indigo-3` | `#B9A9F0` | indigo when it has to be read (8.7:1) |
-| | `--wild-gold` | `#C9A84C` | the primary action, eyebrows, the aperture (8.9:1) |
-| | `--wild-gold-2` | `#E9C766` | hover, the lit aperture |
+| Text | `--wild-text` | `#EDEFE6` | headings, body (16.7:1 on bg) |
+| | `--wild-dim` | `rgba(237,239,230,.68)` | secondary text (8.5:1) |
+| | `--wild-faint` | `rgba(237,239,230,.5)` | captions, 12px and up only (5:1) |
+| | `--wild-on-gold` | `#08130F` | text on a gold button (9.4:1) |
+| Threshold | `--wild-indigo` | `#2F8F7C` | strokes, fills, halos. Never body text (2.8:1) |
+| | `--wild-indigo-2` | `#4DB8A2` | icons, hover, large text (4.2:1) |
+| | `--wild-indigo-3` | `#9EDCCB` | indigo when it has to be read (8.7:1) |
+| | `--wild-gold` | `#D2825A` | the primary action, eyebrows, the aperture (8.9:1) |
+| | `--wild-gold-2` | `#EBA37F` | hover, the lit aperture |
 | Signals | `--wild-ok` / `--wild-warn` / `--wild-danger` | `#86B894` / `#E0A458` / `#E07A85` | one quiet hue each |
-| Type | `--wild-serif` | Cormorant Garamond | display, headings, numerals that matter |
+| Type | `--wild-serif` | Cinzel | display, headings, numerals that matter |
 | | `--wild-sans` | DM Sans | body, UI, buttons, labels |
-| | `--wild-mono` | JetBrains Mono | times and tabular numbers in the app |
+| | `--wild-mono` | system monospace | times and tabular numbers in the app |
 | Scale | `--wild-fs-xs` to `--wild-fs-5xl` | 12 13 14 16 18 22 28 36 48 64 | type sizes (rem) |
 | Space | `--wild-s1` to `--wild-s9` | 4 8 12 16 24 32 48 64 96 | padding and gaps (px) |
 | Shape | `--wild-r-sm/md/lg/pill` | 10 14 18 999 | radii |
@@ -55,12 +55,12 @@ aperture in the centre.
   Markup is in `index.html` (hero) and `wild-os/src/shared/ui/Mark.jsx`.
 - **Compact mark** (favicons, PWA icons, avatars, the shared app bar): the closed lens with a gold dot,
   from `wild/brand/wild-mark-gold.svg`. Same geometry, one colour, reads at 16px.
-- The wordmark is WILD in Cormorant Garamond 600, letter-spaced `--wild-track-word`, with the
+- The wordmark is WILD in Cinzel 600, letter-spaced `--wild-track-word`, with the
   cream-to-gold gradient (`.wild-wordmark` in the app, `.wordmark` on the hub).
 
 ## 4. Type
 
-- Display: Cormorant Garamond 600 for headings, 500 italic for the kicker line under a heading.
+- Display: Cinzel 600 for headings, 500 italic for the kicker line under a heading.
   Cormorant has a small x-height, so display sizes run one step larger than the sans would.
 - Body: DM Sans 400, 1.6 line height. Labels and eyebrows: DM Sans 700, 12px, uppercase,
   letter-spacing `.22em`, gold.
