@@ -9,7 +9,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
-const INDIGO = 0x6349b8, INDIGO_2 = 0x8a6fe0, GOLD = 0xe9c766, BG = 0x050309;
+const INDIGO = 0x2f8f7c, INDIGO_2 = 0x4db8a2, GOLD = 0xeba37f, BG = 0x06100e;
 
 export function createMark(canvas, opts = {}) {
   const dpr = Math.min(opts.dpr || window.devicePixelRatio || 1, 2);
@@ -41,7 +41,7 @@ export function createMark(canvas, opts = {}) {
   mark.add(inner);
 
   scene.add(new THREE.HemisphereLight(INDIGO_2, BG, 0.6));
-  const key = new THREE.DirectionalLight(0xf4f1ed, 1.4);
+  const key = new THREE.DirectionalLight(0xedefe6, 1.4);
   key.position.set(-3, 4, 5);
   scene.add(key);
 
@@ -56,7 +56,7 @@ export function createMark(canvas, opts = {}) {
   }
   const starGeo = new THREE.BufferGeometry();
   starGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  const starMat = new THREE.PointsMaterial({ color: 0xf4f1ed, size: 0.045, transparent: true, opacity: 0.7, depthWrite: false });
+  const starMat = new THREE.PointsMaterial({ color: 0xedefe6, size: 0.045, transparent: true, opacity: 0.7, depthWrite: false });
   const stars = new THREE.Points(starGeo, starMat);
   scene.add(stars);
 

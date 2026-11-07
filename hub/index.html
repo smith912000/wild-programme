@@ -14,8 +14,8 @@
   body { background:var(--wild-bg); color:var(--wild-text); font-family:var(--wild-sans); line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; overflow-x:hidden; }
   body::before { content:''; position:fixed; inset:0; z-index:-2; pointer-events:none;
     background:
-      radial-gradient(ellipse 60% 50% at 8% 0%, rgba(99,73,184,.28), transparent 65%),
-      radial-gradient(ellipse 45% 40% at 100% 100%, rgba(201,168,76,.08), transparent 65%); }
+      radial-gradient(ellipse 60% 50% at 8% 0%, rgba(47,143,124,.28), transparent 65%),
+      radial-gradient(ellipse 45% 40% at 100% 100%, rgba(210,130,90,.08), transparent 65%); }
   a { color:inherit; }
   #sky { position:fixed; inset:0; z-index:-1; pointer-events:none; }
 
@@ -24,7 +24,7 @@
   .brand svg { width:20px; height:24px; }
   .who { display:flex; align-items:center; gap:12px; font-size:var(--wild-fs-sm); color:var(--wild-dim); }
   .who button, .quiet { background:none; border:1px solid var(--wild-border-lit); color:var(--wild-text); border-radius:var(--wild-r-pill); padding:6px 12px; font:inherit; font-size:var(--wild-fs-sm); cursor:pointer; }
-  .who button:hover, .quiet:hover { background:rgba(99,73,184,.16); }
+  .who button:hover, .quiet:hover { background:rgba(47,143,124,.16); }
 
   main { max-width:1120px; margin:0 auto; padding:var(--wild-s7) 20px var(--wild-s8); }
   .stage { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.15fr); column-gap:var(--wild-s6); align-items:center; }
@@ -34,7 +34,7 @@
 
   /* the pop-up: a short note beside the app under the pointer */
   .tip { position:absolute; z-index:5; left:0; top:0; width:230px; padding:12px 14px; border-radius:var(--wild-r-md); pointer-events:none;
-         background:rgba(18,12,31,.94); border:1px solid var(--wild-border-lit); box-shadow:var(--wild-shadow-float); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+         background:rgba(17,32,28,.94); border:1px solid var(--wild-border-lit); box-shadow:var(--wild-shadow-float); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
          opacity:0; transform:translateY(6px) scale(.96); transform-origin:var(--ox, 50%) var(--oy, 0); transition:opacity .2s, transform .45s var(--spring); }
   .tip.show { opacity:1; transform:none; }
   .tip b { display:block; font-family:var(--wild-serif); font-weight:600; font-size:1.25rem; line-height:1.15; margin:2px 0 4px; }
@@ -101,7 +101,7 @@
   .node.door.on .slit, .node.door:focus-visible .slit { transform:translateY(33px) rotate(90deg) scaleY(1.75); }
   .node.door.on .knob, .node.door:focus-visible .knob { transform:scale(1); }
   .door .halo { position:absolute; left:-70px; top:-70px; width:140px; height:140px; border-radius:50%; pointer-events:none;
-                background:radial-gradient(circle, rgba(233,199,102,.28), transparent 65%); animation:glow 5s ease-in-out infinite; }
+                background:radial-gradient(circle, rgba(235,163,127,.28), transparent 65%); animation:glow 5s ease-in-out infinite; }
   .node.door .label { top:52px; }
   @keyframes breathe { 50% { transform:scale(1.035); } }
   .node.door.on .rings, .node.door:focus-visible .rings { animation:none; }
@@ -112,7 +112,7 @@
   #wipe.go { transition:clip-path .6s cubic-bezier(.7,0,.3,1); clip-path:circle(150% at var(--wx, 50%) var(--wy, 50%)); }
 
   /* first-visit intro film */
-  #intro { position:fixed; inset:0; z-index:100; background:#050309; display:flex; align-items:center; justify-content:center; }
+  #intro { position:fixed; inset:0; z-index:100; background:#06100E; display:flex; align-items:center; justify-content:center; }
   #intro[hidden] { display:none; }
   #intro video { width:100%; height:100%; object-fit:cover; }
   #intro .skip { position:absolute; right:16px; bottom:16px; }
@@ -122,7 +122,7 @@
   #intro { clip-path:circle(150% at var(--ox, 75%) var(--oy, 50%)); }
 
   .call { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; padding:22px; border-radius:var(--wild-r-lg); margin-top:var(--wild-s7);
-          background:linear-gradient(135deg, rgba(99,73,184,.22), rgba(201,168,76,.08)); border:1px solid var(--wild-border-lit); }
+          background:linear-gradient(135deg, rgba(47,143,124,.22), rgba(210,130,90,.08)); border:1px solid var(--wild-border-lit); }
   .call h3 { font-family:var(--wild-serif); font-weight:600; font-size:1.5rem; }
   .call p { color:var(--wild-dim); font-size:var(--wild-fs-base); }
   .call a { color:var(--wild-indigo-3); font-weight:600; text-decoration:none; white-space:nowrap; }
@@ -152,6 +152,7 @@
     *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
   }
 </style>
+<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js"></script>
 </head>
 <body>
 <canvas id="sky" aria-hidden="true"></canvas>
@@ -165,7 +166,7 @@
 
 <header class="top">
   <a class="brand" href="../">
-    <svg viewBox="0 0 100 120" aria-hidden="true"><g fill="none" stroke="#8A6FE0" stroke-width="6"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><line x1="50" y1="51" x2="50" y2="69" stroke="#E9C766" stroke-width="7" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 100 120" aria-hidden="true"><g fill="none" stroke="#4DB8A2" stroke-width="6"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><line x1="50" y1="51" x2="50" y2="69" stroke="#EBA37F" stroke-width="7" stroke-linecap="round"/></svg>
     WILD
   </a>
   <div class="who"><span class="name" id="who-name"></span><button type="button" id="sign-out">Sign out</button></div>
@@ -369,7 +370,7 @@
     cx.clearRect(0, 0, w, h);
     stars.forEach(function (s) {
       var a = reduce ? .35 : .2 + .5 * Math.pow(.5 + .5 * Math.sin(t / 1000 * s[4] + s[3]), 2);
-      cx.globalAlpha = a * .7; cx.fillStyle = '#F4F1ED';
+      cx.globalAlpha = a * .7; cx.fillStyle = '#EDEFE6';
       cx.beginPath(); cx.arc(s[0] * w - tx * s[4] * devicePixelRatio, s[1] * h - ty * s[4] * devicePixelRatio, s[2] * devicePixelRatio, 0, 6.283); cx.fill();
     });
   }

@@ -1,23 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <radialGradient id="a1" cx="15%" cy="10%" r="60%"><stop offset="0%" stop-color="#6349B8" stop-opacity=".34"/><stop offset="100%" stop-color="#6349B8" stop-opacity="0"/></radialGradient>
-    <radialGradient id="a2" cx="90%" cy="95%" r="50%"><stop offset="0%" stop-color="#8A6FE0" stop-opacity=".16"/><stop offset="100%" stop-color="#8A6FE0" stop-opacity="0"/></radialGradient>
-    <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#6349B8" stop-opacity=".45"/><stop offset="100%" stop-color="#6349B8" stop-opacity="0"/></radialGradient>
-    <linearGradient id="word" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFEFA"/><stop offset="55%" stop-color="#E9DEC8"/><stop offset="130%" stop-color="#C9A84C"/></linearGradient>
+    <radialGradient id="a1" cx="15%" cy="10%" r="60%"><stop offset="0%" stop-color="#2F8F7C" stop-opacity=".34"/><stop offset="100%" stop-color="#2F8F7C" stop-opacity="0"/></radialGradient>
+    <radialGradient id="a2" cx="90%" cy="95%" r="50%"><stop offset="0%" stop-color="#4DB8A2" stop-opacity=".16"/><stop offset="100%" stop-color="#4DB8A2" stop-opacity="0"/></radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2F8F7C" stop-opacity=".45"/><stop offset="100%" stop-color="#2F8F7C" stop-opacity="0"/></radialGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FBFCF7"/><stop offset="55%" stop-color="#E9DEC8"/><stop offset="130%" stop-color="#D2825A"/></linearGradient>
   </defs>
-  <rect width="1200" height="630" fill="#050309"/>
+  <rect width="1200" height="630" fill="#06100E"/>
   <rect width="1200" height="630" fill="url(#a1)"/>
   <rect width="1200" height="630" fill="url(#a2)"/>
   <!-- the mark -->
   <g transform="translate(160,195) scale(2)">
     <ellipse cx="50" cy="60" rx="46" ry="54" fill="url(#halo)"/>
-    <g fill="none" stroke="#6349B8" stroke-width="2.4"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g>
-    <line x1="50" y1="51" x2="50" y2="69" stroke="#E9C766" stroke-width="3.4" stroke-linecap="round"/>
+    <g fill="none" stroke="#2F8F7C" stroke-width="2.4"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g>
+    <line x1="50" y1="51" x2="50" y2="69" stroke="#EBA37F" stroke-width="3.4" stroke-linecap="round"/>
   </g>
-  <text x="430" y="300" font-family="'Cormorant Garamond',Georgia,serif" font-weight="600" font-size="150" letter-spacing="21" fill="url(#word)">WILD</text>
-  <text x="434" y="356" font-family="'Cormorant Garamond',Georgia,serif" font-style="italic" font-weight="500" font-size="40" fill="#C9A84C">The threshold most people walk past</text>
-  <text x="434" y="412" font-family="'DM Sans',-apple-system,sans-serif" font-size="22" fill="#F4F1ED" fill-opacity=".68">One membership. The weekly call, both tracks, every course, the app.</text>
-  <rect x="434" y="452" width="268" height="52" rx="26" fill="#C9A84C"/>
-  <text x="568" y="486" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-weight="700" font-size="21" fill="#0B0714">Join WILD · £13 a month</text>
-  <text x="1140" y="590" text-anchor="end" font-family="'DM Sans',-apple-system,sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="#C9A84C">SMITH912000.GITHUB.IO/WILD-PROGRAMME</text>
+  <text x="430" y="300" font-family="'Cinzel',Georgia,serif" font-weight="600" font-size="150" letter-spacing="21" fill="url(#word)">WILD</text>
+  <text x="434" y="356" font-family="'Cinzel',Georgia,serif" font-style="italic" font-weight="500" font-size="40" fill="#D2825A">The threshold most people walk past</text>
+  <text x="434" y="412" font-family="'DM Sans',-apple-system,sans-serif" font-size="22" fill="#EDEFE6" fill-opacity=".68">One membership. The weekly call, both tracks, every course, the app.</text>
+  <rect x="434" y="452" width="268" height="52" rx="26" fill="#D2825A"/>
+  <text x="568" y="486" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-weight="700" font-size="21" fill="#08130F">Join WILD · £13 a month</text>
+  <text x="1140" y="590" text-anchor="end" font-family="'DM Sans',-apple-system,sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="#D2825A">SMITH912000.GITHUB.IO/WILD-PROGRAMME</text>
 </svg>

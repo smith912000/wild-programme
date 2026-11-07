@@ -4,17 +4,19 @@
 <meta charset="UTF-8">
 <title>WILD · Inner Room intro (T2)</title>
 <style>
-@font-face{font-family:'Cormorant Garamond';font-weight:500;src:url(fonts/cormorant-garamond-latin-500-normal.woff2) format('woff2')}
-@font-face{font-family:'Cormorant Garamond';font-weight:600;src:url(fonts/cormorant-garamond-latin-600-normal.woff2) format('woff2')}
-@font-face{font-family:'Cormorant Garamond';font-weight:500;font-style:italic;src:url(fonts/cormorant-garamond-latin-500-italic.woff2) format('woff2')}
+@font-face{font-family:'Cinzel';font-weight:500;src:url(fonts/cormorant-garamond-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Cinzel';font-weight:600;src:url(fonts/cormorant-garamond-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Cinzel';font-weight:500;font-style:italic;src:url(fonts/cormorant-garamond-latin-500-italic.woff2) format('woff2')}
 @font-face{font-family:'DM Sans';font-weight:400;src:url(fonts/dm-sans-latin-400-normal.woff2) format('woff2')}
 @font-face{font-family:'DM Sans';font-weight:500;src:url(fonts/dm-sans-latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'DM Sans';font-weight:700;src:url(fonts/dm-sans-latin-700-normal.woff2) format('woff2')}
-html,body{margin:0;background:#050309;overflow:hidden}
+html,body{margin:0;background:#06100E;overflow:hidden}
 svg{display:block}
-.serif{font-family:'Cormorant Garamond',Georgia,serif}
+.serif{font-family:'Cinzel',Georgia,serif}
 .sans{font-family:'DM Sans',Helvetica,sans-serif}
 </style>
+<style>@font-face{font-family:'Cinzel';font-style:normal;font-weight:400 700;font-display:swap;src:url(https://smith912000.github.io/wild-programme/assets/fonts/files/46932d16807ab0f1.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}</style>
+<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js"></script>
 </head>
 <body>
 <svg id="stage" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -22,7 +24,7 @@ svg{display:block}
 /* ---------- CONFIG: every timing, colour and size lives here ---------- */
 var C = {
   dur: 15,
-  col: { bg:'#050309', surf:'#120C1F', ind:'#6349B8', ind2:'#8A6FE0', ind3:'#B9A9F0', gold:'#C9A84C', gold2:'#E9C766', text:'#F4F1ED', dim:'rgba(244,241,237,.68)', faint:'rgba(244,241,237,.5)' },
+  col: { bg:'#06100E', surf:'#11201C', ind:'#2F8F7C', ind2:'#4DB8A2', ind3:'#9EDCCB', gold:'#D2825A', gold2:'#EBA37F', text:'#EDEFE6', dim:'rgba(237,239,230,.68)', faint:'rgba(237,239,230,.5)' },
   // the beat sheet (seconds)
   t: { point:.12, strike:.35, rings:.7, word:2.1, wordOut:4.3, orbit:4.45, nodes:[5.5,7.0,8.5,10.0], door:11.5, end:13.0 },
   spring: { ui:{k:170,d:26}, type:{k:170,d:26.1}, heavy:{k:60,d:15.5}, snap:{k:320,d:34} },

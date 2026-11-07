@@ -15,8 +15,8 @@
   /* warm dawn on the left, night on the right: the posters' sun and moon */
   body::before { content:''; position:fixed; inset:0; z-index:-2; pointer-events:none;
     background:
-      radial-gradient(ellipse 55% 45% at 12% 0%, rgba(201,168,76,.16), transparent 65%),
-      radial-gradient(ellipse 50% 45% at 100% 8%, rgba(99,73,184,.22), transparent 65%),
+      radial-gradient(ellipse 55% 45% at 12% 0%, rgba(210,130,90,.16), transparent 65%),
+      radial-gradient(ellipse 50% 45% at 100% 8%, rgba(47,143,124,.22), transparent 65%),
       radial-gradient(ellipse 60% 40% at 50% 100%, rgba(224,164,88,.06), transparent 70%); }
   #sky { position:fixed; inset:0; z-index:-1; pointer-events:none; }
   a { color:inherit; }
@@ -31,7 +31,7 @@
            padding:20px 22px; border-radius:var(--wild-r-lg); background:var(--wild-bg-elev); border:1px solid var(--wild-border); }
   .ring { position:relative; width:112px; height:112px; }
   .ring svg { width:100%; height:100%; transform:rotate(-90deg); }
-  .ring .track { fill:none; stroke:rgba(244,241,237,.08); stroke-width:6; }
+  .ring .track { fill:none; stroke:rgba(237,239,230,.08); stroke-width:6; }
   .ring .fill { fill:none; stroke:var(--wild-gold); stroke-width:6; stroke-linecap:round; transition:stroke-dashoffset .6s var(--wild-ease); }
   .ring .rays line { stroke:var(--wild-gold); stroke-width:1.4; stroke-linecap:round; opacity:.18; transition:opacity .4s; }
   .ring .rays line.lit { opacity:.75; }
@@ -41,7 +41,7 @@
   .today h2 { font-family:var(--wild-serif); font-weight:600; font-size:1.5rem; line-height:1.15; }
   .today .date { color:var(--wild-dim); font-size:var(--wild-fs-sm); }
   .week { display:flex; gap:6px; margin-top:12px; align-items:flex-end; height:34px; }
-  .week span { position:relative; flex:1; max-width:22px; height:100%; border-radius:4px; background:rgba(244,241,237,.06); overflow:hidden; }
+  .week span { position:relative; flex:1; max-width:22px; height:100%; border-radius:4px; background:rgba(237,239,230,.06); overflow:hidden; }
   .week span i { position:absolute; left:0; right:0; bottom:0; background:var(--wild-indigo-2); opacity:.8; }
   .week span.is-today i { background:var(--wild-indigo-3); }
   .week-cap { display:flex; justify-content:space-between; margin-top:4px; font-size:var(--wild-fs-xs); color:var(--wild-faint); }
@@ -93,7 +93,7 @@
   .toggles label { display:inline-flex; align-items:center; gap:8px; padding:7px 12px; border-radius:var(--wild-r-pill); border:1px solid var(--wild-border-lit); font-size:var(--wild-fs-sm); cursor:pointer; }
   .toggles input { accent-color:var(--wild-indigo-2); }
   .quiet { background:none; border:1px solid var(--wild-border-lit); color:var(--wild-text); border-radius:var(--wild-r-pill); padding:7px 14px; font:inherit; font-size:var(--wild-fs-sm); cursor:pointer; }
-  .quiet:hover { background:rgba(99,73,184,.16); }
+  .quiet:hover { background:rgba(47,143,124,.16); }
   .row { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; margin-top:14px; }
   .fine { color:var(--wild-faint); font-size:var(--wild-fs-xs); line-height:1.5; }
 
@@ -108,6 +108,7 @@
     *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
   }
 </style>
+<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js"></script>
 </head>
 <body>
 <!-- Open copy: no membership check while member sign-in is paused. The original is the same path without "open". -->
@@ -405,7 +406,7 @@
     cx.clearRect(0, 0, w, h);
     stars.forEach(function (s) {
       var a = reduce ? .35 : .2 + .5 * Math.pow(.5 + .5 * Math.sin(t / 1000 * s[4] + s[3]), 2);
-      cx.globalAlpha = a * .6; cx.fillStyle = '#F4F1ED';
+      cx.globalAlpha = a * .6; cx.fillStyle = '#EDEFE6';
       cx.beginPath(); cx.arc(s[0] * w, s[1] * h, s[2] * devicePixelRatio, 0, 6.283); cx.fill();
     });
   }

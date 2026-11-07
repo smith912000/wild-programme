@@ -56,14 +56,14 @@
   var css = document.createElement('style');
   css.textContent =
     '.wct-back{position:fixed;inset:0;z-index:2147483000;background:rgba(5,3,9,.78);display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}' +
-    '.wct{max-width:480px;width:100%;max-height:calc(100vh - 32px);overflow:auto;background:#0E0A18;color:#F4F1ED;border:1px solid rgba(201,168,76,.35);border-radius:14px;padding:22px 22px 18px;' +
+    '.wct{max-width:480px;width:100%;max-height:calc(100vh - 32px);overflow:auto;background:#0E0A18;color:#EDEFE6;border:1px solid rgba(210,130,90,.35);border-radius:14px;padding:22px 22px 18px;' +
     'font:400 14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.6)}' +
-    '.wct h2{margin:0 0 10px;font:600 20px/1.25 "Cormorant Garamond",Georgia,serif;letter-spacing:.02em;color:#E9C766}' +
-    '.wct ul{margin:0 0 14px;padding-left:18px}.wct li{margin:4px 0}.wct a{color:#B9A9F0}' +
+    '.wct h2{margin:0 0 10px;font:600 20px/1.25 "Cormorant Garamond",Georgia,serif;letter-spacing:.02em;color:#EBA37F}' +
+    '.wct ul{margin:0 0 14px;padding-left:18px}.wct li{margin:4px 0}.wct a{color:#9EDCCB}' +
     '.wct label{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}.wct input{margin-top:3px;width:18px;height:18px;flex:none}' +
     '.wct .wct-row{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}' +
-    '.wct button{font:600 14px/1 inherit;border-radius:999px;padding:11px 16px;cursor:pointer;border:1px solid rgba(244,241,237,.2);background:none;color:inherit}' +
-    '.wct button.wct-go{background:#C9A84C;border-color:#C9A84C;color:#0E0A18}.wct button.wct-go:disabled{opacity:.4;cursor:not-allowed}';
+    '.wct button{font:600 14px/1 inherit;border-radius:6px;padding:11px 16px;cursor:pointer;border:1px solid rgba(237,239,230,.2);background:none;color:inherit}' +
+    '.wct button.wct-go{background:#D2825A;border-color:#D2825A;color:#0E0A18}.wct button.wct-go:disabled{opacity:.4;cursor:not-allowed}';
   (document.head || document.documentElement).appendChild(css);
 
   function planOf(href) {

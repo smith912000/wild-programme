@@ -21,12 +21,12 @@ permalink: "02 - Landing Pages/micropages/02_the_fraction.html"
 
 :root {
   --bg: #000000;
-  --text: #F4F1ED;
-  --text-primed: #FFFEFA;
-  --indigo: #2D1B69;
+  --text: #EDEFE6;
+  --text-primed: #FBFCF7;
+  --indigo: #12453B;
   --indigo-glow: rgba(45, 27, 105, 0.4);
-  --indigo-resonant: rgba(99, 73, 184, 0.5);
-  --serif: 'Cormorant Garamond', Georgia, serif;
+  --indigo-resonant: rgba(47,143,124, 0.5);
+  --serif: 'Cinzel', Georgia, serif;
   --beat-fade: 800ms;
   --reveal-fade: 1200ms;
 }
@@ -139,18 +139,18 @@ body::before {
 
 .fraction-circle .ring-fill.completing {
   stroke-dasharray: 188.5 188.5;
-  filter: drop-shadow(0 0 8px rgba(99, 73, 184, 0.6));
+  filter: drop-shadow(0 0 8px rgba(47,143,124, 0.6));
 }
 
 /* Intermediate ring states — grow per Yes answer */
 .fraction-circle .ring-fill.stage-60 {
   stroke-dasharray: 113.1 188.5;
-  filter: drop-shadow(0 0 4px rgba(99, 73, 184, 0.4));
+  filter: drop-shadow(0 0 4px rgba(47,143,124, 0.4));
 }
 
 .fraction-circle .ring-fill.stage-80 {
   stroke-dasharray: 150.8 188.5;
-  filter: drop-shadow(0 0 6px rgba(99, 73, 184, 0.5));
+  filter: drop-shadow(0 0 6px rgba(47,143,124, 0.5));
 }
 
 /* ───── Q LEAD STAGE — absolute-positioned container so swaps don't shift layout ───── */
@@ -199,7 +199,7 @@ body.struck::after {
 
 .gate-button {
   background: transparent;
-  border: 1px solid rgba(244, 241, 237, 0.4);
+  border: 1px solid rgba(237,239,230, 0.4);
   color: var(--text);
   font-family: var(--serif);
   font-weight: 400;
@@ -216,7 +216,7 @@ body.struck::after {
 
 .gate-button:hover, .gate-button:focus-visible {
   border-color: var(--text);
-  background: rgba(244, 241, 237, 0.04);
+  background: rgba(237,239,230, 0.04);
   box-shadow: 0 0 24px var(--indigo-glow);
 }
 
@@ -255,7 +255,7 @@ body.struck::after {
 .continue-button {
   opacity: 0;
   background: var(--indigo);
-  border: 1px solid rgba(244, 241, 237, 0.6);
+  border: 1px solid rgba(237,239,230, 0.6);
   color: var(--text);
   font-family: var(--serif);
   font-weight: 500;
@@ -299,7 +299,7 @@ body.struck::after {
 .branch-b-close {
   position: absolute; bottom: 32px;
   font-size: 13px; font-weight: 300;
-  color: rgba(244, 241, 237, 0.4);
+  color: rgba(237,239,230, 0.4);
   letter-spacing: 0.1em;
   opacity: 0; transition: opacity 2000ms ease-out;
 }
@@ -310,9 +310,9 @@ body.struck::after {
   position: fixed; top: 24px; right: 24px;
   width: 32px; height: 32px;
   background: transparent;
-  border: 1px solid rgba(244, 241, 237, 0.2);
+  border: 1px solid rgba(237,239,230, 0.2);
   border-radius: 50%;
-  color: rgba(244, 241, 237, 0.5);
+  color: rgba(237,239,230, 0.5);
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   font-size: 12px; z-index: 50;
@@ -322,7 +322,7 @@ body.struck::after {
 }
 .audio-toggle.visible { opacity: 1; }
 .audio-toggle:hover, .audio-toggle:focus-visible {
-  border-color: rgba(244, 241, 237, 0.5);
+  border-color: rgba(237,239,230, 0.5);
   color: var(--text);
 }
 
@@ -331,7 +331,7 @@ body.struck::after {
   position: fixed; bottom: 24px; left: 50%;
   transform: translateX(-50%);
   font-size: 12px; font-weight: 300;
-  color: rgba(244, 241, 237, 0.35);
+  color: rgba(237,239,230, 0.35);
   letter-spacing: 0.1em;
   opacity: 0; transition: opacity 2000ms ease-out;
   z-index: 50; pointer-events: none;
@@ -364,7 +364,7 @@ body.struck::after {
   height: 40vh;
   background: radial-gradient(
     ellipse at bottom center,
-    rgba(99, 73, 184, 0.18) 0%,
+    rgba(47,143,124, 0.18) 0%,
     rgba(45, 27, 105, 0.08) 30%,
     transparent 70%
   );
@@ -394,12 +394,12 @@ body.struck::after {
 }
 @keyframes resonant-pulse {
   0%, 100% {
-    box-shadow: 0 0 0 rgba(99, 73, 184, 0);
-    border-color: rgba(244, 241, 237, 0.4);
+    box-shadow: 0 0 0 rgba(47,143,124, 0);
+    border-color: rgba(237,239,230, 0.4);
   }
   50% {
-    box-shadow: 0 0 32px rgba(99, 73, 184, 0.35), inset 0 0 16px rgba(99, 73, 184, 0.08);
-    border-color: rgba(244, 241, 237, 0.65);
+    box-shadow: 0 0 32px rgba(47,143,124, 0.35), inset 0 0 16px rgba(47,143,124, 0.08);
+    border-color: rgba(237,239,230, 0.65);
   }
 }
 
@@ -407,11 +407,11 @@ body.struck::after {
 .vibrance-bg {
   position: fixed; inset: -20%;
   background:
-    radial-gradient(circle at 20% 30%, rgba(99, 73, 184, 0.20) 0%, transparent 50%),
+    radial-gradient(circle at 20% 30%, rgba(47,143,124, 0.20) 0%, transparent 50%),
     radial-gradient(circle at 80% 65%, rgba(45, 27, 105, 0.26) 0%, transparent 55%),
     radial-gradient(circle at 60% 20%, rgba(160, 120, 240, 0.12) 0%, transparent 40%),
     radial-gradient(circle at 30% 85%, rgba(100, 60, 180, 0.16) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(99, 73, 184, 0.08) 0%, transparent 60%);
+    radial-gradient(circle at 50% 50%, rgba(47,143,124, 0.08) 0%, transparent 60%);
   pointer-events: none; z-index: 0;
   filter: blur(60px);
   opacity: 0;
@@ -423,11 +423,11 @@ body.struck::after {
 }
 .vibrance-bg.peak {
   background:
-    radial-gradient(circle at 20% 30%, rgba(99, 73, 184, 0.34) 0%, transparent 55%),
+    radial-gradient(circle at 20% 30%, rgba(47,143,124, 0.34) 0%, transparent 55%),
     radial-gradient(circle at 80% 65%, rgba(45, 27, 105, 0.40) 0%, transparent 60%),
     radial-gradient(circle at 60% 20%, rgba(180, 140, 250, 0.22) 0%, transparent 45%),
     radial-gradient(circle at 30% 85%, rgba(120, 80, 200, 0.26) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(99, 73, 184, 0.14) 0%, transparent 65%);
+    radial-gradient(circle at 50% 50%, rgba(47,143,124, 0.14) 0%, transparent 65%);
 }
 @keyframes vibrance-drift {
   0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
@@ -451,6 +451,8 @@ body.struck::after {
 }
 </style>
   <script src="../../assets/analytics.js"></script>
+<style>@font-face{font-family:'Cinzel';font-style:normal;font-weight:400 700;font-display:swap;src:url(https://smith912000.github.io/wild-programme/assets/fonts/files/46932d16807ab0f1.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}</style>
+<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js"></script>
 </head>
 <body>
 
