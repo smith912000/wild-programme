@@ -6,7 +6,7 @@
 <script src="https://smith912000.github.io/wild-programme/assets/wild-nav-open.js" data-app="codex" defer></script><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Codex Pharmakon Universalis</title>
 <meta name="description" content="The materia medica of nine traditions, one substance per entry, sourced and deduplicated. A historical reference, not medical advice. Included with WILD membership.">
-<meta name="theme-color" content="#050309">
+<meta name="theme-color" content="#06100E">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23050309'/%3E%3Cpath d='M 256,69.8 A 215 215 0 0 1 256,442.2 A 215 215 0 0 1 256,69.8 Z' fill='none' stroke='%23C9A84C' stroke-width='18'/%3E%3Ccircle cx='256' cy='238' r='23' fill='%23C9A84C'/%3E%3C/svg%3E">
 <link href="https://smith912000.github.io/wild-programme/assets/fonts/gf-bdfd8e58f1.css" rel="stylesheet">
 <link rel="stylesheet" href="https://smith912000.github.io/codex-pharmakon/wild.css">
@@ -21,13 +21,13 @@ function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;',
 :root{--bg:var(--wild-bg);--panel:var(--wild-bg-elev);--surface:var(--wild-surface);--line:var(--wild-border);--line-lit:var(--wild-border-lit);
   --gold:var(--wild-gold);--gold2:var(--wild-gold-2);--tx:var(--wild-text);--dim:var(--wild-dim);--faint:var(--wild-faint);
   --indigo:var(--wild-indigo);--indigo2:var(--wild-indigo-2);--indigo3:var(--wild-indigo-3);
-  --plant:#86B894;--mineral:#C9A84C;--animal:#E0A458;
+  --plant:#86B894;--mineral:#D2825A;--animal:#E0A458;
   --serif:var(--wild-serif);--sans:var(--wild-sans)}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{background:var(--bg);color:var(--tx);font:15px/1.6 var(--sans);display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(ellipse 70% 40% at 10% 0%,rgba(99,73,184,.22),transparent 60%),radial-gradient(ellipse 50% 40% at 100% 100%,rgba(138,111,224,.10),transparent 60%)}
+  background:radial-gradient(ellipse 70% 40% at 10% 0%,rgba(47,143,124,.22),transparent 60%),radial-gradient(ellipse 50% 40% at 100% 100%,rgba(77,184,162,.10),transparent 60%)}
 a{color:var(--gold2)}
 :focus-visible{outline:2px solid var(--indigo2);outline-offset:2px}
 
@@ -49,15 +49,15 @@ header .stats b{color:var(--gold);font:600 1.5rem/1 var(--serif);display:block;m
 #med-notice .card{max-width:520px;background:var(--surface);border:1px solid var(--line-lit);border-radius:var(--wild-r-lg);padding:28px 30px;box-shadow:var(--wild-shadow-float)}
 #med-notice h2{font:600 1.75rem/1.1 var(--serif);color:var(--tx);margin-bottom:14px}
 #med-notice p{color:var(--dim);font-size:.95rem;margin-bottom:10px}
-#med-notice button{margin-top:10px;width:100%;min-height:48px;border:0;border-radius:999px;background:var(--gold);color:var(--wild-on-gold);font:600 .95rem var(--sans);cursor:pointer}
+#med-notice button{margin-top:10px;width:100%;min-height:48px;border:0;border-radius:6px;background:var(--gold);color:var(--wild-on-gold);font:600 .95rem var(--sans);cursor:pointer}
 #med-notice button:hover{background:var(--gold2)}
 
 /* tabs */
 nav.tabs{display:flex;gap:6px;padding:10px 20px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
 nav.tabs::-webkit-scrollbar{display:none}
-nav.tabs button{font:600 .78rem var(--sans);letter-spacing:.02em;color:var(--dim);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;min-height:36px;cursor:pointer;white-space:nowrap;transition:color .2s,background .2s,border-color .2s}
-nav.tabs button:hover{color:var(--tx);background:rgba(244,241,237,.05)}
-nav.tabs button.on{color:var(--gold);background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3)}
+nav.tabs button{font:600 .78rem var(--sans);letter-spacing:.02em;color:var(--dim);background:none;border:1px solid transparent;border-radius:6px;padding:8px 14px;min-height:36px;cursor:pointer;white-space:nowrap;transition:color .2s,background .2s,border-color .2s}
+nav.tabs button:hover{color:var(--tx);background:rgba(237,239,230,.05)}
+nav.tabs button.on{color:var(--gold);background:rgba(210,130,90,.12);border-color:rgba(210,130,90,.3)}
 nav.tabs button.soon{opacity:.55}
 nav.tabs button .tag{font-size:.58rem;color:var(--gold);margin-left:6px;letter-spacing:.14em}
 
@@ -71,19 +71,19 @@ aside{width:360px;flex:none;border-right:1px solid var(--line);display:flex;flex
 #q::placeholder{color:var(--faint)}
 #q:focus{outline:none;border-color:var(--indigo2)}
 .chips{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
-.chip{font:600 .68rem var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;min-height:30px;border-radius:999px;border:1px solid var(--line);color:var(--dim);cursor:pointer;background:none;transition:color .2s,background .2s}
+.chip{font:600 .68rem var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;min-height:30px;border-radius:6px;border:1px solid var(--line);color:var(--dim);cursor:pointer;background:none;transition:color .2s,background .2s}
 .chip:hover{color:var(--tx)}
 .chip.on{background:var(--gold);color:var(--wild-on-gold);border-color:var(--gold)}
 #list{overflow:auto;flex:1}
-.row{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid rgba(244,241,237,.04);cursor:pointer;transition:background .15s}
-.row:hover{background:rgba(244,241,237,.04)}
-.row.sel{background:rgba(99,73,184,.16);box-shadow:inset 2px 0 0 var(--gold)}
+.row{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid rgba(237,239,230,.04);cursor:pointer;transition:background .15s}
+.row:hover{background:rgba(237,239,230,.04)}
+.row.sel{background:rgba(47,143,124,.16);box-shadow:inset 2px 0 0 var(--gold)}
 .dot{width:8px;height:8px;border-radius:50%;flex:none;box-shadow:0 0 0 2px rgba(5,3,9,.6)}
 .row .nm{flex:1;min-width:0;font-size:.95rem;line-height:1.3}
 .row .nm i{display:block;font:italic 400 .76rem/1.3 var(--serif);font-size:.84rem;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .row .meta{display:flex;align-items:center;gap:6px;font:600 .64rem var(--sans);color:var(--faint);letter-spacing:.05em}
 .row .meta .k{color:var(--indigo3)}
-.row .src{min-width:24px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0 7px;border-radius:999px;color:var(--gold);border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.1);font-variant-numeric:lining-nums}
+.row .src{min-width:24px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0 7px;border-radius:6px;color:var(--gold);border:1px solid rgba(210,130,90,.3);background:rgba(210,130,90,.1);font-variant-numeric:lining-nums}
 .backbar{display:none;width:100%;text-align:left;background:var(--panel);border:none;border-bottom:1px solid var(--line);color:var(--gold);font:600 .85rem var(--sans);padding:14px 16px;cursor:pointer;position:sticky;top:0;z-index:5}
 
 /* reading */
@@ -98,11 +98,11 @@ aside{width:360px;flex:none;border-right:1px solid var(--line);display:flex;flex
 #detail h1{font:600 2.6rem/1.05 var(--serif);color:var(--tx);letter-spacing:.01em}
 #detail .bot{font:italic 500 1.25rem/1.3 var(--serif);color:var(--gold);margin:6px 0 16px}
 .badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.badge{font:700 .62rem var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--line-lit);color:var(--indigo3);background:rgba(99,73,184,.1)}
+.badge{font:700 .62rem var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:6px;border:1px solid var(--line-lit);color:var(--indigo3);background:rgba(47,143,124,.1)}
 .badge.warn{color:var(--wild-warn);border-color:rgba(224,164,88,.4);background:rgba(224,164,88,.1)}
 .attest{margin:16px 0;padding:14px 18px;background:linear-gradient(180deg,var(--surface),var(--panel));border:1px solid var(--line);border-radius:var(--wild-r-md);box-shadow:var(--wild-shadow-card)}
 .attest .lbl{font:700 .68rem var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.trad{display:inline-block;font-size:.82rem;color:var(--tx);border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin:3px 4px 0 0;background:rgba(244,241,237,.03)}
+.trad{display:inline-block;font-size:.82rem;color:var(--tx);border:1px solid var(--line);border-radius:6px;padding:4px 12px;margin:3px 4px 0 0;background:rgba(237,239,230,.03)}
 .note{margin-top:18px;padding:14px 18px;border-left:2px solid var(--gold);background:var(--panel);color:var(--dim);font-size:.92rem;border-radius:0 var(--wild-r-sm) var(--wild-r-sm) 0}
 .note b{color:var(--tx)}
 .draftbanner{margin:16px 0;padding:10px 14px;background:rgba(224,164,88,.08);border:1px solid rgba(224,164,88,.3);border-radius:var(--wild-r-sm);color:var(--wild-warn);font-size:.82rem}
@@ -119,9 +119,9 @@ aside{width:360px;flex:none;border-right:1px solid var(--line);display:flex;flex
 /* docs */
 .docnav{width:300px;border-right:1px solid var(--line);background:rgba(10,6,18,.6);overflow:auto;flex:0 0 300px}
 .docnav .intro{padding:16px;color:var(--dim);font-size:.84rem;border-bottom:1px solid var(--line)}
-.docrow{padding:12px 16px;border-bottom:1px solid rgba(244,241,237,.04);cursor:pointer;font-size:.92rem;color:var(--dim);transition:background .15s,color .15s}
-.docrow:hover{background:rgba(244,241,237,.04);color:var(--tx)}
-.docrow.sel{background:rgba(99,73,184,.16);box-shadow:inset 2px 0 0 var(--gold);color:var(--tx)}
+.docrow{padding:12px 16px;border-bottom:1px solid rgba(237,239,230,.04);cursor:pointer;font-size:.92rem;color:var(--dim);transition:background .15s,color .15s}
+.docrow:hover{background:rgba(237,239,230,.04);color:var(--tx)}
+.docrow.sel{background:rgba(47,143,124,.16);box-shadow:inset 2px 0 0 var(--gold);color:var(--tx)}
 .soonwrap{flex:1;display:flex;align-items:center;justify-content:center;padding:40px}
 .soonwrap div{max-width:520px;color:var(--dim)}.soonwrap h2{font:600 2rem/1.1 var(--serif);color:var(--tx);margin-bottom:12px}
 
@@ -152,12 +152,13 @@ aside{width:360px;flex:none;border-right:1px solid var(--line);display:flex;flex
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style><script src="https://smith912000.github.io/wild-programme/assets/wild-time.js"></script>
+<style>@font-face{font-family:'Cinzel';font-style:normal;font-weight:400 700;font-display:swap;src:url(https://smith912000.github.io/wild-programme/assets/fonts/files/46932d16807ab0f1.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}</style>
 </head>
 <body>
 <!-- Open copy: no membership check while member sign-in is paused. The original is the same path without "open". -->
 <header>
   <a class="brand" href="#materia" aria-label="Codex Pharmakon Universalis">
-    <svg viewBox="0 0 512 512" aria-hidden="true"><path d="M 256,69.8 A 215 215 0 0 1 256,442.2 A 215 215 0 0 1 256,69.8 Z" fill="none" stroke="#C9A84C" stroke-width="18"/><circle cx="256" cy="238" r="23" fill="#C9A84C"/></svg>
+    <svg viewBox="0 0 512 512" aria-hidden="true"><path d="M 256,69.8 A 215 215 0 0 1 256,442.2 A 215 215 0 0 1 256,69.8 Z" fill="none" stroke="#D2825A" stroke-width="18"/><circle cx="256" cy="238" r="23" fill="#D2825A"/></svg>
     <h1>Codex Pharmakon<small>Universalis</small></h1>
   </a>
   <span class="sub">The materia medica of nine traditions, one substance per entry.</span>
@@ -206,7 +207,7 @@ aside{width:360px;flex:none;border-right:1px solid var(--line);display:flex;flex
   <main>
     <button class="backbar" id="backbtn">← All substances</button>
     <div id="detail"><div class="welcome">
-      <svg class="mark" viewBox="0 0 100 120" aria-hidden="true"><g fill="none" stroke="#6349B8" stroke-width="2.4"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><line x1="50" y1="51" x2="50" y2="69" stroke="#E9C766" stroke-width="3.4" stroke-linecap="round"/></svg>
+      <svg class="mark" viewBox="0 0 100 120" aria-hidden="true"><g fill="none" stroke="#2F8F7C" stroke-width="2.4"><circle cx="50" cy="44" r="34"/><circle cx="50" cy="76" r="34"/></g><line x1="50" y1="51" x2="50" y2="69" stroke="#EBA37F" stroke-width="3.4" stroke-linecap="round"/></svg>
       <h2>One substance, <em>nine traditions.</em></h2>
       <p>Every entry is one verified substance, deduplicated across nine historical medical traditions, from the Ebers Papyrus of about 1550 BCE to the Northwest Amazon. Choose a substance from the list, or search.</p>
       <p>The gold number beside each name is how many traditions attest it. A diamond marks a written entry.</p>
@@ -228,7 +229,7 @@ aside{width:360px;flex:none;border-right:1px solid var(--line);display:flex;flex
 
 <script>
 const RAW='https://raw.githubusercontent.com/smith912000/codex-pharmakon/main/';
-const CLR={plant:'#86B894',mineral:'#C9A84C',animal:'#E0A458'};
+const CLR={plant:'#86B894',mineral:'#D2825A',animal:'#E0A458'};
 let DATA=[], ALIAS={}, filt='all', q='', TABS=[], dataLoaded=false;
 const listEl=document.getElementById('list'), detEl=document.getElementById('detail');
 

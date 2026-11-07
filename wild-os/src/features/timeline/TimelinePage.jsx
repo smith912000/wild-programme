@@ -9,8 +9,8 @@ import { format, parseISO } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
 
 const TYPE_CONFIG = {
-  dream:   { icon: Moon,  color: '#C9A84C', label: 'Dream'   },
-  attempt: { icon: Flame, color: '#B9A9F0', label: 'Attempt' },
+  dream:   { icon: Moon,  color: '#D2825A', label: 'Dream'   },
+  attempt: { icon: Flame, color: '#9EDCCB', label: 'Attempt' },
 }
 
 function LucidityDot({ score }) {

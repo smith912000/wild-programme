@@ -10,9 +10,9 @@ import toast from 'react-hot-toast'
 const STORAGE_KEY = 'wos_integrations'
 
 const CATEGORIES = [
-  { id: 'dream', label: 'Dream Content', color: '#8A6FE0' },
-  { id: 'emotional', label: 'Emotional Processing', color: '#B9A9F0' },
-  { id: 'insight', label: 'Insight', color: '#C9A84C' },
+  { id: 'dream', label: 'Dream Content', color: '#4DB8A2' },
+  { id: 'emotional', label: 'Emotional Processing', color: '#9EDCCB' },
+  { id: 'insight', label: 'Insight', color: '#D2825A' },
   { id: 'symbol', label: 'Symbol / Archetype', color: '#A9B8F0' },
   { id: 'somatic', label: 'Somatic (Body)', color: '#86B894' },
   { id: 'spiritual', label: 'Spiritual', color: '#E0A458' },

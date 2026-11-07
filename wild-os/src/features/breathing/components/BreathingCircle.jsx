@@ -8,9 +8,9 @@ const PHASE_SCALES = {
 }
 
 const PHASE_COLORS = {
-  INHALE: '#8A6FE0',
-  HOLD: '#C9A84C',
-  EXHALE: '#B9A9F0',
+  INHALE: '#4DB8A2',
+  HOLD: '#D2825A',
+  EXHALE: '#9EDCCB',
   HOLD_OUT: '#6E6A80',
 }
 

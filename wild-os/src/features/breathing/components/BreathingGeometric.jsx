@@ -249,10 +249,10 @@ function createRenderer(nodes) {
 // Component
 // ═══════════════════════════════════════════════════════════════
 const green  = '#86B894'   // circles / rings / FOL spheres
-const blue   = '#8A6FE0'   // triangle A / tetra A
+const blue   = '#4DB8A2'   // triangle A / tetra A
 const red    = '#E07A85'   // triangle B / tetra B
-const amber  = '#E9C766'   // hexagon + 3 spokes / cube
-const purple = '#8A6FE0'   // inner hexagon / inner octahedron (violet)
+const amber  = '#EBA37F'   // hexagon + 3 spokes / cube
+const purple = '#4DB8A2'   // inner hexagon / inner octahedron (violet)
 const white  = '#FFFFFF'
 
 // Near, mid, far: stroke width and opacity multipliers, in bucket order

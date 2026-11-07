@@ -31,7 +31,7 @@
   --color-text:            var(--wild-text);
   --color-text-color-muted: var(--wild-dim);
   --color-accent:          var(--wild-indigo-2);
-  --color-accent-glow:     rgba(138, 111, 224, 0.35);
+  --color-accent-glow:     rgba(77,184,162, 0.35);
   --color-tier1:           var(--wild-ok);
   --color-tier2:           var(--wild-indigo-2);
   --color-tier3:           var(--wild-gold);
@@ -73,12 +73,12 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes glow-gold {
-  0%, 100% { box-shadow: 0 0 10px rgba(201, 168, 76, 0.2); }
-  50%       { box-shadow: 0 0 24px rgba(201, 168, 76, 0.45); }
+  0%, 100% { box-shadow: 0 0 10px rgba(210,130,90, 0.2); }
+  50%       { box-shadow: 0 0 24px rgba(210,130,90, 0.45); }
 }
 @keyframes glow-accent {
-  0%, 100% { box-shadow: 0 0 8px rgba(138, 111, 224, 0.3); }
-  50%       { box-shadow: 0 0 20px rgba(138, 111, 224, 0.6); }
+  0%, 100% { box-shadow: 0 0 8px rgba(77,184,162, 0.3); }
+  50%       { box-shadow: 0 0 20px rgba(77,184,162, 0.6); }
 }
 @keyframes spin {
   to { transform: rotate(360deg); }
@@ -124,8 +124,8 @@ body.theme-soul {
   display: flex;
   flex-direction: column;
   background:
-    radial-gradient(ellipse 120% 50% at 20% -10%, rgba(99,73,184,.28) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 40% at 90% 110%, rgba(138,111,224,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 120% 50% at 20% -10%, rgba(47,143,124,.28) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 40% at 90% 110%, rgba(77,184,162,.12) 0%, transparent 60%),
     var(--wild-bg);
 }
 
@@ -203,13 +203,13 @@ body.theme-soul {
    ============================================================ */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(244,241,237,.15); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(237,239,230,.15); border-radius: 2px; }
 
 /* ============================================================
    TEXT SELECTION
    ============================================================ */
 ::selection {
-  background: rgba(201, 168, 76, 0.25);
+  background: rgba(210,130,90, 0.25);
   color: var(--color-text-primary);
 }
 
@@ -233,7 +233,7 @@ input[type="range"] {
   cursor: pointer;
 }
 input[type="range"]::-webkit-slider-runnable-track {
-  background: rgba(244,241,237,.15);
+  background: rgba(237,239,230,.15);
   height: 4px;
   border-radius: 2px;
 }
@@ -244,7 +244,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   background: var(--color-accent-gold);
   margin-top: -7px;
-  box-shadow: 0 0 8px rgba(201, 168, 76, 0.4);
+  box-shadow: 0 0 8px rgba(210,130,90, 0.4);
 }
 input[type="range"]:focus { outline: none; }
 
@@ -268,13 +268,13 @@ input[type="range"]:focus { outline: none; }
    THE MARK (vesica with aperture), shared with the hub
    ============================================================ */
 @keyframes wild-breathe { 0%,100%{opacity:.85;transform:scale(1)} 50%{opacity:1;transform:scale(1.025)} }
-@keyframes wild-glow { 0%,100%{opacity:.7} 50%{opacity:1;filter:drop-shadow(0 0 6px rgba(233,199,102,.8))} }
+@keyframes wild-glow { 0%,100%{opacity:.7} 50%{opacity:1;filter:drop-shadow(0 0 6px rgba(235,163,127,.8))} }
 .wild-mark circle { transform-origin: 50px 60px; }
 .wild-mark .ring  { animation: wild-breathe 7s ease-in-out infinite; }
 .wild-mark .ring2 { animation: wild-breathe 7s ease-in-out infinite reverse; }
 .wild-mark .aperture { animation: wild-glow 5s ease-in-out infinite; }
 .wild-wordmark { font-family: var(--wild-serif); font-weight: 600; letter-spacing: var(--wild-track-word);
-  background: linear-gradient(180deg,#FFFEFA 0%,#E9DEC8 55%,var(--wild-gold) 130%);
+  background: linear-gradient(180deg,#FBFCF7 0%,#E9DEC8 55%,var(--wild-gold) 130%);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   .wild-mark .ring, .wild-mark .ring2, .wild-mark .aperture, .animate-fade-in, .animate-slide-up { animation: none; }

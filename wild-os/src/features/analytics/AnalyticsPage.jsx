@@ -17,17 +17,17 @@ const RANGE_OPTIONS = [
 
 const PIE_COLORS = {
   Full: '#86B894',
-  Partial: '#8A6FE0',
+  Partial: '#4DB8A2',
   Sleep: '#E0A458',
   Fail: '#E07A85',
 }
 
 const CustomTooltipStyle = {
-  backgroundColor: '#120C1F',
-  border: '1px solid #231838',
+  backgroundColor: '#11201C',
+  border: '1px solid #183229',
   borderRadius: '8px',
   padding: '8px 12px',
-  color: '#F4F1ED',
+  color: '#EDEFE6',
   fontSize: '12px',
 }
 
@@ -35,7 +35,7 @@ function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null
   return (
     <div style={CustomTooltipStyle}>
-      <p style={{ color: '#A6A2B0', marginBottom: 4 }}>{label}</p>
+      <p style={{ color: '#A3B0AB', marginBottom: 4 }}>{label}</p>
       {payload.map(entry => (
         <p key={entry.dataKey} style={{ color: entry.color }}>
           {entry.name}: {entry.value}
@@ -131,9 +131,9 @@ export function AnalyticsContent() {
                   <p className="text-sm font-semibold mb-4" style={{ color: 'var(--color-text)' }}>Lucidity Over Time</p>
                   <ResponsiveContainer width="100%" height={160}>
                     <LineChart data={data.lucidityData} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#231838" />
-                      <XAxis dataKey="date" tick={{ fill: '#A6A2B0', fontSize: 10 }} interval="preserveStartEnd" />
-                      <YAxis domain={[0, 10]} tick={{ fill: '#A6A2B0', fontSize: 10 }} />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#183229" />
+                      <XAxis dataKey="date" tick={{ fill: '#A3B0AB', fontSize: 10 }} interval="preserveStartEnd" />
+                      <YAxis domain={[0, 10]} tick={{ fill: '#A3B0AB', fontSize: 10 }} />
                       <Tooltip content={<CustomTooltip />} />
                       <Line
                         type="monotone"

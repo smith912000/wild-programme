@@ -8,16 +8,16 @@ const PHASE_LABELS = {
 }
 
 const PHASE_COLORS = {
-  INHALE: '#8A6FE0',
-  HOLD: '#C9A84C',
-  EXHALE: '#B9A9F0',
+  INHALE: '#4DB8A2',
+  HOLD: '#D2825A',
+  EXHALE: '#9EDCCB',
   HOLD_OUT: '#6E6A80',
 }
 
 export function PhaseLabel({ phase }) {
   const name = phase?.name || 'INHALE'
   const label = PHASE_LABELS[name] || name
-  const color = PHASE_COLORS[name] || '#F4F1ED'
+  const color = PHASE_COLORS[name] || '#EDEFE6'
 
   return (
     <p

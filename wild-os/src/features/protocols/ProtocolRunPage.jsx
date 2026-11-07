@@ -9,11 +9,11 @@ import { getProtocol } from '@lib/db'
 import { useAudio } from '@hooks/useAudio'
 
 const STEP_TYPE_COLORS = {
-  breathing: '#8A6FE0',
-  meditation: '#B9A9F0',
+  breathing: '#4DB8A2',
+  meditation: '#9EDCCB',
   binaural: '#A9B8F0',
   rest: '#6E6A80',
-  journal: '#C9A84C',
+  journal: '#D2825A',
   intention: '#86B894',
   custom: '#E0A458',
 }
