@@ -232,34 +232,79 @@
   }
   function cardElement(c) { return c.elem || c.signElem || null; }
 
-  /* One reason two cards belong together, or null. Strongest reason first. */
-  function reasonBetween(a, b) {
+  /* ---------- symbolism first ----------
+     What a card shows and means comes first: the imagery on it, the themes in its keywords and picture, its number,
+     its own element. The zodiac (planet, sign, ruler) is a second, clearly labelled layer, kept for those who want it. */
+  var IMAGERY = [
+    ['a lion', /\blions?\b/], ['an infinity loop', /infinity/], ['a horse and rider', /\b(horse|rider)\b/], ['pillars', /pillars?|towers?/],
+    ['mountains or high ground', /mountain|summit|high ground|cliff|hill/], ['a crown or wreath', /crown|laurel|wreath|garland/],
+    ['a crowd of staves', /staves/], ['water, sea or a river', /\b(sea|river|stream|pool|water|ships?|ocean)\b/],
+    ['flowers, roses or wheat', /flower|rose|lil(y|ies)|wheat|garden|sunflower/], ['a sun or star', /\bsun\b|stars?\b|sunrise/],
+    ['a castle or home', /castle|house|home|city/], ['a pair or couple', /couple|pair|two (figures|people|cups|wands)|man and woman/],
+    ['a lantern or flame', /lantern|flame/], ['a throne, armour or shield', /armour|shield|throne|sceptre/]
+  ];
+  var THEMES = [
+    ['courage and endurance', /courage|fortitude|resilien|patience|last stand|persever|endur/],
+    ['contest and defence', /friction|competition|contest|defen[cs]e|argument|conflict|holding position|wariness|fend/],
+    ['victory and recognition', /victory|acclaim|recogni|celebrat|homecoming|triumph/],
+    ['speed and movement', /speed|momentum|haste|pursuit|message|passage|travel|rush/],
+    ['order and authority', /structure|authority|stability|protection|control|tradition|institution|order\b|rule\b/],
+    ['foresight and inner guidance', /foresight|insight|guidance|search|introspect|solitude|vision|intuition/],
+    ['will and initiative', /\bwill\b|initiative|skill|ambition|resources|spark/],
+    ['union and choice', /union|choice|alignment|partnership/],
+    ['abundance and nurture', /abundan|fertil|nurtur|sensual|prosper|growth|expansion/],
+    ['force held gently', /gentl|compassion|tame|mastery|temper/]
+  ];
+  var motifCache = {};
+  function motifs(c) {
+    if (motifCache[c.id]) return motifCache[c.id];
+    var txt = (c.scene + ' ' + c.kw + ' ' + (c.arcana === 'major' ? c.energy : '') + ' ' + (c.sym ? c.sym.map(function (x) { return x[0] + ' ' + x[1]; }).join(' ') : '')).toLowerCase();
+    var pick = function (list) { return list.filter(function (m) { return m[1].test(txt); }).map(function (m) { return m[0]; }); };
+    return (motifCache[c.id] = { imagery: pick(IMAGERY), themes: pick(THEMES) });
+  }
+  function shared(x, y) { return x.filter(function (v) { return y.indexOf(v) > -1; }); }
+  function joinWords(l) { return l.length < 2 ? l.join('') : l.slice(0, -1).join(', ') + ' and ' + l[l.length - 1]; }
+
+  /* Symbolic reason (number, picture, theme, element, sequence) or null. Strongest first. */
+  function symbolicBetween(a, b) {
     if (a.id === b.id) return null;
     var ra = a.root, rb = b.root;
     if (a.arcana !== 'court' && b.arcana !== 'court' && ra === rb && (a.arcana === 'major' || b.arcana === 'major' || a.suit === b.suit)) return { type: 'number', text: a.n === b.n ? 'both are the number ' + a.n : 'both reduce to ' + ra };
     if (a.arcana === 'court' && b.arcana !== 'court' && ra === rb && (b.arcana === 'major' || b.suit === a.suit)) return { type: 'number', text: 'the court counted ' + a.n + ' reduces to ' + ra };
     if (b.arcana === 'court' && a.arcana !== 'court' && ra === rb && (a.arcana === 'major' || a.suit === b.suit)) return { type: 'number', text: 'the court counted ' + b.n + ' reduces to ' + rb };
+    var ma = motifs(a), mb = motifs(b), si = shared(ma.imagery, mb.imagery), st = shared(ma.themes, mb.themes);
+    if (si.length && st.length) return { type: 'imagery', text: 'both show ' + joinWords(si.slice(0, 2)) + ' and carry ' + joinWords(st.slice(0, 1)), score: si.length + st.length };
+    if (st.length) return { type: 'theme', text: 'both carry ' + joinWords(st.slice(0, 2)), score: st.length };
+    if (si.length) return { type: 'imagery', text: 'both show ' + joinWords(si.slice(0, 2)), score: si.length };
     if (a.arcana === 'major' && b.arcana === 'major' && Math.abs(a.n - b.n) === 1) return { type: 'sequence', text: 'neighbouring steps on the road of the Major Arcana' };
+    if (a.elem && b.elem && a.elem === b.elem) return { type: 'element', text: 'both are ' + a.elem };
+    return null;
+  }
+  /* Astrological reason (planet, sign, ruler, opposition) or null. A separate, optional layer. */
+  function astroBetween(a, b) {
+    if (a.id === b.id) return null;
     if (a.planet && b.planet && a.planet === b.planet) return { type: 'planet', text: 'both carry ' + a.planet };
     if (a.sign && b.sign && a.sign === b.sign) return { type: 'sign', text: 'both sit in ' + a.sign };
     if (a.planet && b.sign && SIGNS[b.sign].rul === a.planet) return { type: 'rule', text: a.planet + ' rules ' + b.sign };
     if (b.planet && a.sign && SIGNS[a.sign].rul === b.planet) return { type: 'rule', text: b.planet + ' rules ' + a.sign };
     if (a.sign && b.sign && SIGNS[a.sign].opp === b.sign) return { type: 'opposition', text: a.sign + ' and ' + b.sign + ' face each other across the zodiac' };
-    if (a.elem && b.elem && a.elem === b.elem) return { type: 'element', text: 'both are ' + a.elem };
     return null;
   }
-  var PRIORITY = { number: 0, rule: 1, planet: 1, sign: 1, opposition: 2, element: 3, sequence: 4 };
+  var ASTRO_TYPES = { planet: 1, sign: 1, rule: 1, opposition: 1 };
+  /* One reason two cards belong together, or null: symbolism if there is any, the zodiac only when nothing else joins them. */
+  function reasonBetween(a, b) { return symbolicBetween(a, b) || astroBetween(a, b); }
+  var PRIORITY = { number: 0, imagery: 1, theme: 2, element: 3, sequence: 4, planet: 5, sign: 5, rule: 5, opposition: 6 };
 
-  /* The cards that share a number, a planet, a sign, an element or a neighbouring step with this one.
+  /* The cards that share a number, a picture, a theme, an element or (last) a planet or sign with this one.
      Majors, plus the cards of the chosen suit. */
   function related(c, suit, max) {
     var out = [];
     cards.forEach(function (o) {
       if (o.arcana !== 'major' && o.suit !== suit) return;
       var r = reasonBetween(c, o);
-      if (r) out.push({ card: o, type: r.type, text: r.text });
+      if (r) out.push({ card: o, type: r.type, text: r.text, score: r.score || 0 });
     });
-    out.sort(function (a, b) { return PRIORITY[a.type] - PRIORITY[b.type] || a.card.n - b.card.n; });
+    out.sort(function (a, b) { return PRIORITY[a.type] - PRIORITY[b.type] || b.score - a.score || a.card.n - b.card.n; });
     return max ? out.slice(0, max) : out;
   }
 
@@ -279,7 +324,7 @@
 
   window.WILD_TAROT = {
     cards: cards, byId: byId, suits: SUITS, signs: SIGNS, numberKey: NUMBER_KEY, roman: ROMAN,
-    major: major, pip: pip, root: root, related: related, reasonBetween: reasonBetween, suitLens: suitLens,
+    major: major, pip: pip, root: root, related: related, reasonBetween: reasonBetween, symbolicBetween: symbolicBetween, astroBetween: astroBetween, astroTypes: ASTRO_TYPES, motifs: motifs, suitLens: suitLens,
     cardElement: cardElement, courtN: COURT_N
   };
 })();
