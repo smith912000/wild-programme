@@ -10,9 +10,9 @@ import { WaveformCanvas } from './components/WaveformCanvas'
 import { useAudio } from '@hooks/useAudio'
 
 const BANDS = [
-  { id: 'delta', label: 'Delta', hz: '0.5–4 Hz', desc: 'Deep dreamless sleep', color: '#B9A9F0', beatFreq: 2,
+  { id: 'delta', label: 'Delta', hz: '0.5–4 Hz', desc: 'Deep dreamless sleep', color: '#9EDCCB', beatFreq: 2,
     tooltip: 'Delta waves (0.5–4 Hz) dominate in deep, dreamless sleep. Entraining to delta can deepen sleep stages and promote physical restoration.' },
-  { id: 'theta', label: 'Theta', hz: '4–8 Hz', desc: 'REM / hypnagogic state', color: '#8A6FE0', beatFreq: 6,
+  { id: 'theta', label: 'Theta', hz: '4–8 Hz', desc: 'REM / hypnagogic state', color: '#4DB8A2', beatFreq: 6,
     tooltip: 'Theta waves (4–8 Hz) appear during REM sleep, the hypnagogic state, and deep meditation. Optimal for WILD entry and vivid dreaming.' },
   { id: 'alpha', label: 'Alpha', hz: '8–12 Hz', desc: 'Relaxed awareness', color: '#86B894', beatFreq: 10,
     tooltip: 'Alpha waves (8–12 Hz) appear in relaxed, eyes-closed waking. Good for relaxation before sleep or light meditation.' },
@@ -23,8 +23,8 @@ const BANDS = [
 ]
 
 const ZHAARIC_LAYERS = [
-  { label: 'Induction',     detail: '110 / 114 Hz',    beat: '4 Hz',    desc: 'Theta–delta boundary — lowest frequency that preserves consciousness', color: '#B9A9F0' },
-  { label: 'Stabilization', detail: '220 / 227.83 Hz', beat: '7.83 Hz', desc: 'Schumann coherence anchor — prevents cognitive collapse', color: '#8A6FE0' },
+  { label: 'Induction',     detail: '110 / 114 Hz',    beat: '4 Hz',    desc: 'Theta–delta boundary — lowest frequency that preserves consciousness', color: '#9EDCCB' },
+  { label: 'Stabilization', detail: '220 / 227.83 Hz', beat: '7.83 Hz', desc: 'Schumann coherence anchor — prevents cognitive collapse', color: '#4DB8A2' },
   { label: 'Awareness',     detail: '880 / 894 Hz',    beat: '14 Hz',   desc: 'Low-beta thread — minimum viable conscious signal', color: '#86B894' },
   { label: 'Gamma Trigger', detail: '500 / 540 Hz',    beat: '40 Hz',   desc: 'Exit-event burst every 45s — simulates separation ignition', color: '#E07A85' },
   { label: 'AM Modulation', detail: '0.15 Hz LFO',     beat: '—',       desc: 'Breath-rate volume oscillation — recreates vibrational pre-exit signature', color: '#E0A458' },

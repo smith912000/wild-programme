@@ -1,7 +1,7 @@
 import React from 'react'
 
 export function LuciditySlider({ value, onChange }) {
-  const color = value >= 7 ? '#86B894' : value >= 4 ? '#E0A458' : '#8A6FE0'
+  const color = value >= 7 ? '#86B894' : value >= 4 ? '#E0A458' : '#4DB8A2'
 
   return (
     <div className="flex flex-col gap-2">

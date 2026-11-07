@@ -12,10 +12,10 @@ import { formatDuration } from '@utils/formatters'
 
 function buildCustomPattern({ inhale, hold, exhale, holdOut, cycles }) {
   const phases = [
-    { name: 'INHALE',    duration: inhale,   color: '#8A6FE0' },
-    ...(hold    > 0 ? [{ name: 'HOLD',     duration: hold,    color: '#C9A84C' }] : []),
-    { name: 'EXHALE',    duration: exhale,   color: '#B9A9F0' },
-    ...(holdOut > 0 ? [{ name: 'HOLD_OUT', duration: holdOut, color: '#6349B8' }] : []),
+    { name: 'INHALE',    duration: inhale,   color: '#4DB8A2' },
+    ...(hold    > 0 ? [{ name: 'HOLD',     duration: hold,    color: '#D2825A' }] : []),
+    { name: 'EXHALE',    duration: exhale,   color: '#9EDCCB' },
+    ...(holdOut > 0 ? [{ name: 'HOLD_OUT', duration: holdOut, color: '#2F8F7C' }] : []),
   ]
   const total = phases.reduce((s, p) => s + p.duration, 0)
   return {

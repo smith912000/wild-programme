@@ -16,28 +16,28 @@ const CATEGORIES = [
     sub: 'Breathe · Meditate · Tones · The edge',
     icon: Activity,
     path: '/practice',
-    color: '#8A6FE0',
+    color: '#4DB8A2',
   },
   {
     label: 'Sleep',
     sub: 'Seven nights · Wake windows · Environment',
     icon: Moon,
     path: '/sleep',
-    color: '#B9A9F0',
+    color: '#9EDCCB',
   },
   {
     label: 'Log',
     sub: 'Journal · Attempts · Analytics',
     icon: BookOpen,
     path: '/log',
-    color: '#C9A84C',
+    color: '#D2825A',
   },
   {
     label: 'Explore',
     sub: 'Symbols · Protocols · Rituals · Shadow work',
     icon: MoreHorizontal,
     path: '/explore',
-    color: '#B9A9F0',
+    color: '#9EDCCB',
   },
 ]
 
@@ -77,7 +77,7 @@ export function DashboardPage() {
             <p className="text-text-muted text-[11px] mt-1.5 font-body uppercase tracking-widest">Nights</p>
           </Card>
           <Card className="p-4 flex items-center justify-center">
-            <ProgressRing size={56} progress={completedNights / 7} color="#C9A84C" strokeWidth={4}>
+            <ProgressRing size={56} progress={completedNights / 7} color="#D2825A" strokeWidth={4}>
               <span className="text-xs font-mono text-accent-gold">{completedNights}/7</span>
             </ProgressRing>
           </Card>
@@ -90,7 +90,7 @@ export function DashboardPage() {
           className="w-full p-5 mb-6 text-left flex items-center gap-4"
         >
           <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#C9A84C22' }}>
-            <Compass className="w-5 h-5" style={{ color: '#C9A84C' }} />
+            <Compass className="w-5 h-5" style={{ color: '#D2825A' }} />
           </div>
           <div>
             <p className="font-display text-xl text-text-primary leading-tight">Your path</p>

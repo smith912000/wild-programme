@@ -69,7 +69,7 @@ export function BottomNav() {
               {active && (
                 <span
                   className="absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 w-5 rounded-full bg-accent-gold"
-                  style={{ boxShadow: '0 0 8px rgba(201,168,76,0.8)' }}
+                  style={{ boxShadow: '0 0 8px rgba(210,130,90,0.8)' }}
                 />
               )}
             </button>

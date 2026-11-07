@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function MandalaAnimation({ color = '#C9A84C', size = 240 }) {
+export function MandalaAnimation({ color = '#D2825A', size = 240 }) {
   const r = size / 2
   const petals = 8
   const petalRadius = r * 0.35

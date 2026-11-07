@@ -18,8 +18,8 @@ export function Mark({ size = 64, halo = true, className = '', ...props }) {
         <>
           <defs>
             <radialGradient id="wild-halo" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="rgba(99,73,184,.45)" />
-              <stop offset="100%" stopColor="rgba(99,73,184,0)" />
+              <stop offset="0%" stopColor="rgba(47,143,124,.45)" />
+              <stop offset="100%" stopColor="rgba(47,143,124,0)" />
             </radialGradient>
           </defs>
           <ellipse cx="50" cy="60" rx="46" ry="54" fill="url(#wild-halo)" />

@@ -15,7 +15,7 @@ const SESSIONS = [
     freq: 'Theta (6 Hz)',
     band: 'theta',
     desc: 'Light theta induction for beginners',
-    color: '#8A6FE0',
+    color: '#4DB8A2',
     tooltip: 'Gentle 6 Hz theta induction to guide you to the hypnagogic threshold. Ideal for new practitioners.',
   },
   {
@@ -25,7 +25,7 @@ const SESSIONS = [
     freq: 'Theta (4 Hz)',
     band: 'theta',
     desc: 'Progressive depth with tonal shifts',
-    color: '#B9A9F0',
+    color: '#9EDCCB',
     tooltip: 'Deeper 4 Hz theta for experienced practitioners — slower oscillations support longer hypnagogic imagery sequences.',
   },
   {
@@ -35,7 +35,7 @@ const SESSIONS = [
     freq: 'Delta (2 Hz)',
     band: 'delta',
     desc: 'Optimal pre-entry state preparation',
-    color: '#C9A84C',
+    color: '#D2825A',
     tooltip: 'Full 90-minute session at 2 Hz delta — matches the depth of stage 3 NREM. Use for serious WILD attempts following WBTB.',
   },
   {
