@@ -4,40 +4,56 @@ import { Spinner } from '@shared/ui/Spinner'
 import { MemberGate } from '@features/member/MemberGate'
 import { CallbackPage } from '@features/member/CallbackPage'
 
-// Lazy-load all feature pages
-const DashboardPage = lazy(() => import('@features/dashboard/DashboardPage').then(m => ({ default: m.DashboardPage })))
-const BreathingPage = lazy(() => import('@features/breathing/BreathingPage').then(m => ({ default: m.BreathingPage })))
-const BreathingSessionPage = lazy(() => import('@features/breathing/BreathingSessionPage').then(m => ({ default: m.BreathingSessionPage })))
-const MeditationPage = lazy(() => import('@features/meditation/MeditationPage').then(m => ({ default: m.MeditationPage })))
-const JournalPage = lazy(() => import('@features/journal/JournalPage').then(m => ({ default: m.JournalPage })))
-const JournalEntryPage = lazy(() => import('@features/journal/JournalEntryPage').then(m => ({ default: m.JournalEntryPage })))
-const JournalViewPage = lazy(() => import('@features/journal/JournalViewPage').then(m => ({ default: m.JournalViewPage })))
-const TrackerPage = lazy(() => import('@features/tracker/TrackerPage').then(m => ({ default: m.TrackerPage })))
-const SymbolLibraryPage = lazy(() => import('@features/symbolLibrary/SymbolLibraryPage').then(m => ({ default: m.SymbolLibraryPage })))
-const SleepCalcPage = lazy(() => import('@features/sleepCalc/SleepCalcPage').then(m => ({ default: m.SleepCalcPage })))
-const BinauralPage = lazy(() => import('@features/binaural/BinauralPage').then(m => ({ default: m.BinauralPage })))
-const AttemptLogPage = lazy(() => import('@features/attemptLog/AttemptLogPage').then(m => ({ default: m.AttemptLogPage })))
-const AttemptEntryPage = lazy(() => import('@features/attemptLog/AttemptEntryPage').then(m => ({ default: m.AttemptEntryPage })))
-const SupplementPage = lazy(() => import('@features/supplements/SupplementPage').then(m => ({ default: m.SupplementPage })))
-const RealityCheckPage = lazy(() => import('@features/realityCheck/RealityCheckPage').then(m => ({ default: m.RealityCheckPage })))
-const HypnagogicPage = lazy(() => import('@features/hypnagogic/HypnagogicPage').then(m => ({ default: m.HypnagogicPage })))
-const SleepEnvPage = lazy(() => import('@features/sleepEnv/SleepEnvPage').then(m => ({ default: m.SleepEnvPage })))
-const ProtocolsPage = lazy(() => import('@features/protocols/ProtocolsPage').then(m => ({ default: m.ProtocolsPage })))
-const ProtocolEditorPage = lazy(() => import('@features/protocols/ProtocolEditorPage').then(m => ({ default: m.ProtocolEditorPage })))
-const ProtocolRunPage = lazy(() => import('@features/protocols/ProtocolRunPage').then(m => ({ default: m.ProtocolRunPage })))
-const RitualsPage = lazy(() => import('@features/rituals/RitualsPage').then(m => ({ default: m.RitualsPage })))
-const ShadowWorkPage = lazy(() => import('@features/shadowWork/ShadowWorkPage').then(m => ({ default: m.ShadowWorkPage })))
-const AnalyticsPage = lazy(() => import('@features/analytics/AnalyticsPage').then(m => ({ default: m.AnalyticsPage })))
-const IncubationPage = lazy(() => import('@features/incubation/IncubationPage').then(m => ({ default: m.IncubationPage })))
-const IntegrationPage = lazy(() => import('@features/integration/IntegrationPage').then(m => ({ default: m.IntegrationPage })))
-const RetreatPage = lazy(() => import('@features/retreat/RetreatPage').then(m => ({ default: m.RetreatPage })))
-const TimelinePage = lazy(() => import('@features/timeline/TimelinePage').then(m => ({ default: m.TimelinePage })))
-const SettingsPage = lazy(() => import('@features/settings/SettingsPage').then(m => ({ default: m.SettingsPage })))
-const PracticePage = lazy(() => import('@features/practice/PracticePage').then(m => ({ default: m.PracticePage })))
-const SleepHubPage = lazy(() => import('@features/sleep/SleepHubPage').then(m => ({ default: m.SleepHubPage })))
-const LogHubPage   = lazy(() => import('@features/log/LogHubPage').then(m => ({ default: m.LogHubPage })))
-const PathPage     = lazy(() => import('@features/path/PathPage').then(m => ({ default: m.PathPage })))
-const ExplorePage  = lazy(() => import('@features/explore/ExplorePage').then(m => ({ default: m.ExplorePage })))
+// Lazy-load all feature pages. Each loader is also kept so the pages can be fetched
+// in the background once the first screen is up: a tap then opens an already-downloaded page.
+const loaders = []
+function lz(loader) { loaders.push(loader); return lazy(loader) }
+const DashboardPage = lz(() => import('@features/dashboard/DashboardPage').then(m => ({ default: m.DashboardPage })))
+const BreathingPage = lz(() => import('@features/breathing/BreathingPage').then(m => ({ default: m.BreathingPage })))
+const BreathingSessionPage = lz(() => import('@features/breathing/BreathingSessionPage').then(m => ({ default: m.BreathingSessionPage })))
+const MeditationPage = lz(() => import('@features/meditation/MeditationPage').then(m => ({ default: m.MeditationPage })))
+const JournalPage = lz(() => import('@features/journal/JournalPage').then(m => ({ default: m.JournalPage })))
+const JournalEntryPage = lz(() => import('@features/journal/JournalEntryPage').then(m => ({ default: m.JournalEntryPage })))
+const JournalViewPage = lz(() => import('@features/journal/JournalViewPage').then(m => ({ default: m.JournalViewPage })))
+const TrackerPage = lz(() => import('@features/tracker/TrackerPage').then(m => ({ default: m.TrackerPage })))
+const SymbolLibraryPage = lz(() => import('@features/symbolLibrary/SymbolLibraryPage').then(m => ({ default: m.SymbolLibraryPage })))
+const SleepCalcPage = lz(() => import('@features/sleepCalc/SleepCalcPage').then(m => ({ default: m.SleepCalcPage })))
+const BinauralPage = lz(() => import('@features/binaural/BinauralPage').then(m => ({ default: m.BinauralPage })))
+const AttemptLogPage = lz(() => import('@features/attemptLog/AttemptLogPage').then(m => ({ default: m.AttemptLogPage })))
+const AttemptEntryPage = lz(() => import('@features/attemptLog/AttemptEntryPage').then(m => ({ default: m.AttemptEntryPage })))
+const SupplementPage = lz(() => import('@features/supplements/SupplementPage').then(m => ({ default: m.SupplementPage })))
+const RealityCheckPage = lz(() => import('@features/realityCheck/RealityCheckPage').then(m => ({ default: m.RealityCheckPage })))
+const HypnagogicPage = lz(() => import('@features/hypnagogic/HypnagogicPage').then(m => ({ default: m.HypnagogicPage })))
+const SleepEnvPage = lz(() => import('@features/sleepEnv/SleepEnvPage').then(m => ({ default: m.SleepEnvPage })))
+const ProtocolsPage = lz(() => import('@features/protocols/ProtocolsPage').then(m => ({ default: m.ProtocolsPage })))
+const ProtocolEditorPage = lz(() => import('@features/protocols/ProtocolEditorPage').then(m => ({ default: m.ProtocolEditorPage })))
+const ProtocolRunPage = lz(() => import('@features/protocols/ProtocolRunPage').then(m => ({ default: m.ProtocolRunPage })))
+const RitualsPage = lz(() => import('@features/rituals/RitualsPage').then(m => ({ default: m.RitualsPage })))
+const ShadowWorkPage = lz(() => import('@features/shadowWork/ShadowWorkPage').then(m => ({ default: m.ShadowWorkPage })))
+const AnalyticsPage = lz(() => import('@features/analytics/AnalyticsPage').then(m => ({ default: m.AnalyticsPage })))
+const IncubationPage = lz(() => import('@features/incubation/IncubationPage').then(m => ({ default: m.IncubationPage })))
+const IntegrationPage = lz(() => import('@features/integration/IntegrationPage').then(m => ({ default: m.IntegrationPage })))
+const RetreatPage = lz(() => import('@features/retreat/RetreatPage').then(m => ({ default: m.RetreatPage })))
+const TimelinePage = lz(() => import('@features/timeline/TimelinePage').then(m => ({ default: m.TimelinePage })))
+const SettingsPage = lz(() => import('@features/settings/SettingsPage').then(m => ({ default: m.SettingsPage })))
+const PracticePage = lz(() => import('@features/practice/PracticePage').then(m => ({ default: m.PracticePage })))
+const SleepHubPage = lz(() => import('@features/sleep/SleepHubPage').then(m => ({ default: m.SleepHubPage })))
+const LogHubPage   = lz(() => import('@features/log/LogHubPage').then(m => ({ default: m.LogHubPage })))
+const PathPage     = lz(() => import('@features/path/PathPage').then(m => ({ default: m.PathPage })))
+const ExplorePage  = lz(() => import('@features/explore/ExplorePage').then(m => ({ default: m.ExplorePage })))
+
+function prefetchPages() {
+  const c = navigator.connection
+  if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return
+  let i = 0
+  const next = () => {
+    if (i >= loaders.length) return
+    loaders[i++]().catch(() => {})
+    idle(next)
+  }
+  idle(next)
+}
+const idle = (fn) => (window.requestIdleCallback ? window.requestIdleCallback(fn, { timeout: 4000 }) : setTimeout(fn, 300))
 
 function PageFallback() {
   return (
@@ -48,6 +64,7 @@ function PageFallback() {
 }
 
 export default function App() {
+  React.useEffect(() => { const t = setTimeout(prefetchPages, 1500); return () => clearTimeout(t) }, [])
   return (
         <Suspense fallback={<PageFallback />}>
           <Routes>

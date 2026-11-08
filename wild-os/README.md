@@ -30,3 +30,7 @@ npm run dev
 `VITE_WHOP_AUTH_MOCK=member` (or `expired`) in `.env.local` fakes the n8n endpoints in dev so the gates can be tried before the workflow is live. It is ignored in production builds.
 
 `npm run build` writes `dist/`; the built output is deployed to the `smith912000/wild-os` repo (GitHub Pages, base path `/wild-os/`).
+
+## Open copy (no sign-in)
+
+`VITE_OPEN=1 npx vite build --outDir /tmp/open-build` builds the no-membership copy served from `/wild-programme/open/wild-os/`: no member gate, no sign-in server calls, no service worker. Copy `assets/` and `index.html` into `open/wild-os/`, then re-add `<meta name="robots" content="noindex">` and swap `wild-nav.js` for `wild-nav-open.js` in the page.

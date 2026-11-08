@@ -8,7 +8,21 @@ import { GuestScreen } from './GuestScreen'
 import { LapsedScreen } from './LapsedScreen'
 import { FirstRun } from '../onboarding/FirstRun'
 
+// The open (no sign-in) build never asks for a membership and never waits on the sign-in server.
+const OPEN = import.meta.env.VITE_OPEN === '1'
+
 export function MemberGate() {
+  if (OPEN) return <OpenGate />
+  return <MemberGateInner />
+}
+
+function OpenGate() {
+  const [done, setDone] = React.useState(false)
+  if (!done && !hasOnboarded()) return <FirstRun onDone={() => setDone(true)} />
+  return <Outlet />
+}
+
+function MemberGateInner() {
   const status = useMemberStore((s) => s.status)
   const refresh = useMemberStore((s) => s.refresh)
   const token = useMemberStore((s) => s.token)

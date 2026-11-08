@@ -7,13 +7,16 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// OPEN=1 builds the no-sign-in copy served from /wild-programme/open/wild-os/ (no service worker).
+const OPEN = process.env.VITE_OPEN === '1'
+
 export default defineConfig({
   define: { __BUILD_ID__: JSON.stringify(new Date().toISOString().slice(0, 16).replace('T', ' ')) },
-  base: '/wild-os/',
+  base: OPEN ? '/wild-programme/open/wild-os/' : '/wild-os/',
   plugins: [
     tailwindcss(),
     react(),
-    VitePWA({
+    !OPEN && VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/*.png', 'audio/*.mp3'],
       manifest: {

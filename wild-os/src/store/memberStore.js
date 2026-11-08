@@ -72,7 +72,7 @@ function view(r) {
 }
 
 export const useMemberStore = create((set, get) => ({
-  status: 'unknown', // unknown | guest | member | expired | stale
+  status: import.meta.env.VITE_OPEN === '1' ? 'member' : 'unknown', // unknown | guest | member | expired | stale
   token: null,
   name: null,
   email: null,
