@@ -13,6 +13,7 @@ export async function intake(token, answers) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(answers ? { token, answers } : { token }),
+    signal: AbortSignal.timeout(10000),
   })
   const data = await res.json().catch(() => null)
   if (!res.ok || !data?.ok) throw new Error(data?.error || `status ${res.status}`)
