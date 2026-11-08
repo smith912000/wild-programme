@@ -469,23 +469,27 @@
     order = order.filter(function (v) { return roots.indexOf(v) > -1; }).concat(rest);
     var shown = [], h = '<p class="eyebrow">The cards</p><h3>Each number, read as its card</h3>';
     h += '<p class="intro">Every figure on the map is the Major Arcana card of that number, with the same number in the chosen suit beside it: ' +
-      S.name + ', which is ' + S.e + ', so the Ace stands for 1 and the Fool stands alone at 0. Cards are joined where they share a number or its root, a planet, a sign or an element. Planets and signs follow the Golden Dawn; other lineages place some of them differently.</p>';
+      S.name + ', which is ' + S.e + ', so the Ace stands for 1 and the Fool stands alone at 0. Cards are joined first by what they show and mean: the number or its root, the picture, the theme in their keywords, the element. Planets and signs follow the Golden Dawn and sit in a separate, optional layer; other lineages place some of them differently.</p>';
     order.forEach(function (v) {
       var m = T.major(v), pc = T.pip(suit, v), open = roots.indexOf(v) > -1 || c.gravitational_centre.indexOf(v) > -1;
       shown.push(m); if (pc) shown.push(pc);
       h += '<details class="fig"' + (open ? ' open' : '') + '><summary><span class="t">' + m.numeral + ' · ' + m.name + (pc ? ' + ' + pc.name : '') + '</span><span class="s">Number ' + v + ' · ' + T.numberKey[v] + '</span></summary><div class="body">';
       h += '<div class="where">Stands as ' + where[v].join(', ') + '.</div>' + cardBlock(m, suit) + (pc ? cardBlock(pc, suit) : '') + '</div></details>';
     });
-    var lines = [], done = {};
+    var lines = [], astro = [], done = {}, rank = { number: 0, imagery: 1, theme: 2, element: 3 };
     shown.forEach(function (a) {
       shown.forEach(function (b) {
         var k = [a.id, b.id].sort().join('|');
         if (a.id === b.id || done[k] || (a.n === b.n && a.arcana !== b.arcana)) return;
-        var r = T.reasonBetween(a, b);
-        if (r && r.type !== 'sequence') { done[k] = 1; lines.push('<li><b>' + a.name + '</b> and <b>' + b.name + '</b>: ' + r.text + '.</li>'); }
+        var li = function (r) { return '<li><b>' + a.name + '</b> and <b>' + b.name + '</b>: ' + r.text + '.</li>'; };
+        var r = T.symbolicBetween(a, b), z = T.astroBetween(a, b);
+        if (r && r.type !== 'sequence') { done[k] = 1; lines.push({ r: rank[r.type] * 10 - (r.score || 0), h: li(r) }); }
+        if (z) astro.push(li(z));
       });
     });
-    h += '<h3>Threads between these cards</h3>' + (lines.length ? '<ul class="threads">' + lines.slice(0, 14).join('') + '</ul>' : '<p class="intro">No shared planet, sign or element joins these cards beyond their numbers.</p>');
+    lines.sort(function (x, y) { return x.r - y.r; });
+    h += '<h3>Threads between these cards</h3>' + (lines.length ? '<ul class="threads">' + lines.slice(0, 14).map(function (x) { return x.h; }).join('') + '</ul>' : '<p class="intro">No shared picture, theme or number joins these cards.</p>');
+    if (astro.length) h += '<details class="fig"><summary><span class="t">Astrological correspondences (optional layer)</span><span class="s">Golden Dawn planets and signs, apart from the symbolism above</span></summary><div class="body"><ul class="threads">' + astro.slice(0, 14).join('') + '</ul></div></details>';
     return h;
   }
 
