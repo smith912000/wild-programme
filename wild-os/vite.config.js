@@ -32,6 +32,14 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,mp3}'],
+        // Audio and chart libraries are cached when first used, not all at install,
+        // so the first visit's bandwidth goes to the page the member opened.
+        globIgnores: ['**/vendor-tone-*.js', '**/vendor-recharts-*.js'],
+        runtimeCaching: [{
+          urlPattern: /\/assets\/vendor-(tone|recharts)-.*\.js$/,
+          handler: 'CacheFirst',
+          options: { cacheName: 'wos-heavy-vendor', expiration: { maxEntries: 4 } },
+        }],
       },
     }),
   ],

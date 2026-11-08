@@ -44,6 +44,7 @@ async function post(url, body) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
+      signal: AbortSignal.timeout(6000), // a stalled sign-in server must not hold the app open
     })
   } catch {
     throw new NetworkError('offline')

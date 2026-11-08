@@ -70,6 +70,7 @@ async function call(token, data) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data ? { token, data } : { token }),
+    signal: AbortSignal.timeout(data ? 20000 : 6000), // pulls give up fast; pushes get longer
   })
   const body = await res.json().catch(() => null)
   if (!res.ok || !body?.ok) throw new Error(body?.error || `status ${res.status}`)

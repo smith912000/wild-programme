@@ -85,8 +85,12 @@
     // membership has ended or the session is rejected.
     var trusted = !!(s.member && c.exp && c.exp > now);
     if (trusted) unlock(); else show('checking');
-    fetch(VERIFY, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: s.token }) })
-      .then(function (r) { return r.json().then(function (j) { return { status: r.status, body: j }; }); })
+    // A stalled webhook must not hold the page on "Checking your membership": give up after 6 s
+    // (the catch below then keeps trusted sessions open and locks the rest).
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 6000);
+    fetch(VERIFY, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: s.token }), signal: ctl ? ctl.signal : undefined })
+      .then(function (r) { clearTimeout(timer); return r.json().then(function (j) { return { status: r.status, body: j }; }); })
       .then(function (r) {
         var j = r.body || {};
         if (j.ok && j.token) {
