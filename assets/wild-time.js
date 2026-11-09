@@ -9,7 +9,9 @@
       gives each hour's planet a colour. A lens colour with little or no colour lets the foundation show
       through: the planet's measured colour in the sky (colour index B-V, Mallama et al. 2017).
    4. Balance (our rule, golden ratio): accent = 0.618 x planetary hour + 0.382 x clock, scaled by how
-      coloured the hour's planet is, so a grey or white planet leaves the clock in charge. Each hour holds
+      coloured the hour's planet is, so a grey or white planet leaves the clock in charge, and by where the
+      planet really is today (JPL orbital elements): faint when lost in the Sun's glare, full at its
+      brightest; the Moon by its phase. So no two weeks are the same. Each hour holds
       its colour for its first 61.8% and glides into the next hour over the last 38.2%.
    5. Night hours keep the accent out of the blue band that most suppresses melatonin (446-477 nm,
       Brainard et al. 2001), here hues 190-240.
@@ -80,24 +82,77 @@
     return null;
   }
 
+  /* ---- where the planets really are: JPL approximate Keplerian elements (Standish, valid 1800-2050) ----
+     [a, e, I, L, long. perihelion, long. node] and their rates per Julian century from J2000. */
+  var EL = {
+    Mercury: [[0.38709927, 0.20563593, 7.00497902, 252.25032350, 77.45779628, 48.33076593], [0.00000037, 0.00001906, -0.00594749, 149472.67411175, 0.16047689, -0.12534081]],
+    Venus: [[0.72333566, 0.00677672, 3.39467605, 181.97909950, 131.60246718, 76.67984255], [0.00000390, -0.00004107, -0.00078890, 58517.81538729, 0.00268329, -0.27769418]],
+    Earth: [[1.00000261, 0.01671123, -0.00001531, 100.46457166, 102.93768193, 0], [0.00000562, -0.00004392, -0.01294668, 35999.37244981, 0.32327364, 0]],
+    Mars: [[1.52371034, 0.09339410, 1.84969142, -4.55343205, -23.94362959, 49.55953891], [0.00001847, 0.00007882, -0.00813131, 19140.30268499, 0.44441088, -0.29257343]],
+    Jupiter: [[5.20288700, 0.04838624, 1.30439695, 34.39644051, 14.72847983, 100.47390909], [-0.00011607, -0.00013253, -0.00183714, 3034.74612775, 0.21252668, 0.20469106]],
+    Saturn: [[9.53667594, 0.05386179, 2.48599187, 49.95424423, 92.59887831, 113.66242448], [-0.00125060, -0.00050991, 0.00193609, 1222.49362201, -0.41897216, 0.28867794]]
+  };
+  function helio(p, T) {
+    var E0 = EL[p][0], d = EL[p][1], x = [];
+    for (var i = 0; i < 6; i++) x[i] = E0[i] + d[i] * T;
+    var a = x[0], e = x[1], I = x[2] * R, w = (x[4] - x[5]) * R, O = x[5] * R, M = ((x[3] - x[4]) % 360) * R, E = M;
+    for (var k = 0; k < 8; k++) E = E - (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E));
+    var xp = a * (Math.cos(E) - e), yp = a * Math.sqrt(1 - e * e) * Math.sin(E);
+    var cw = Math.cos(w), sw = Math.sin(w), cO = Math.cos(O), sO = Math.sin(O), cI = Math.cos(I), sI = Math.sin(I);
+    return [(cw * cO - sw * sO * cI) * xp + (-sw * cO - cw * sO * cI) * yp,
+      (cw * sO + sw * cO * cI) * xp + (-sw * sO + cw * cO * cI) * yp, sw * sI * xp + cw * sI * yp];
+  }
+  function sub(u, v) { return [u[0] - v[0], u[1] - v[1], u[2] - v[2]]; }
+  function len(u) { return Math.sqrt(u[0] * u[0] + u[1] * u[1] + u[2] * u[2]); }
+  function angle(u, v) { return Math.acos(Math.max(-1, Math.min(1, (u[0] * v[0] + u[1] * v[1] + u[2] * v[2]) / (len(u) * len(v))))) / R; }
+  /* reflected light seen from Earth: half-lit-disc law (1 + cos phase) / 2 over r^2 Delta^2 */
+  function flux(r, D, alpha) { return (1 + Math.cos(alpha * R)) / 2 / (r * r * D * D); }
+  var BEST = {};
+  function best(p) { /* brightest the planet gets, on near-circular orbits, sampled once */
+    if (BEST[p]) return BEST[p];
+    var a = EL[p][0][0], m = 0;
+    for (var k = 0; k < 720; k++) {
+      var th = k / 2 * R, P = [a * Math.cos(th), a * Math.sin(th), 0], Dv = sub(P, [1, 0, 0]);
+      if (angle([-1, 0, 0], Dv) < 15) continue;
+      m = Math.max(m, flux(a, len(Dv), angle(sub([1, 0, 0], P), [-P[0], -P[1], 0])));
+    }
+    return (BEST[p] = m);
+  }
+  function sky(t) { /* (c) each planet's state at instant t: elongation from the Sun, brightness, Moon phase */
+    var T = (t / 864e5 + 2440587.5 - 2451545) / 36525, Eh = helio('Earth', T), out = {};
+    ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn'].forEach(function (p) {
+      var P = helio(p, T), D = sub(P, Eh), elong = angle([-Eh[0], -Eh[1], -Eh[2]], D), alpha = angle(sub(Eh, P), [-P[0], -P[1], -P[2]]);
+      var mag = -2.5 * Math.log(flux(len(P), len(D), alpha) / best(p)) / Math.LN10; /* magnitudes below its best */
+      var glare = Math.max(0, Math.min(1, (elong - 10) / 15)); glare = glare * glare * (3 - 2 * glare);
+      out[p] = { elongation: elong, belowBest: mag, visibility: glare * Math.max(0, Math.min(1, 1 - mag / 5)) };
+    });
+    /* Moon: mean synodic month from the new moon of 2000-01-06 18:14 UTC (Meeus) */
+    var age = (((t - Date.UTC(2000, 0, 6, 18, 14)) / 864e5) % 29.530589 + 29.530589) % 29.530589, lit = (1 - Math.cos(age / 29.530589 * 2 * Math.PI)) / 2;
+    out.Moon = { age: age, illuminated: lit, visibility: lit };
+    out.Sun = { visibility: 1 };
+    return out;
+  }
+
   /* ---- colour ---- */
-  function vec(lens, planet) {
-    var i = CH.indexOf(planet), c = LENS[lens][i] || SKY[i];
-    return [c[1] * Math.cos(c[0] * R), c[1] * Math.sin(c[0] * R)];
+  /* A planet's colour strength = its lens saturation x (1/phi^2 + 1/phi x how visible it is today), so the
+     tradition's ruler always shows, and the real sky decides how strongly (hidden 0.382, at its best 1). */
+  function vec(lens, planet, S) {
+    var i = CH.indexOf(planet), c = LENS[lens][i] || SKY[i], k = c[1] * (1 - G + G * S[planet].visibility);
+    return [k * Math.cos(c[0] * R), k * Math.sin(c[0] * R)];
   }
   function hueOf(v) { var h = Math.atan2(v[1], v[0]) / R; return (h + 360) % 360; }
   function accent(t, lat, lon, clockMin) {
     var clock = clockMin / 1440 * 360, P = planetary(t, lat, lon);
     if (!P) return { hue: clock, clock: clock, planetary: null };
     var lens = DAYLENS[P.dayRuler], nextLens = P.hour === 24 ? DAYLENS[P.nextDayRuler] : lens;
-    var a = vec(lens, P.hourRuler), b = vec(nextLens, P.nextRuler), g = 0;
+    var S = sky(t), a = vec(lens, P.hourRuler, S), b = vec(nextLens, P.nextRuler, S), g = 0;
     if (P.frac > G) { g = (P.frac - G) / (1 - G); g = g * g * (3 - 2 * g); }
     var p = [a[0] + (b[0] - a[0]) * g, a[1] + (b[1] - a[1]) * g], m = Math.min(1, Math.sqrt(p[0] * p[0] + p[1] * p[1]));
     var wc = 1 - G * m, c = [Math.cos(clock * R), Math.sin(clock * R)];
     var h = hueOf([G * p[0] + wc * c[0], G * p[1] + wc * c[1]]);
     if (P.part === 'night' && h > NIGHT_BAND[0] && h < NIGHT_BAND[1])
       h = h - NIGHT_BAND[0] < NIGHT_BAND[1] - h ? NIGHT_BAND[0] : NIGHT_BAND[1];
-    return { hue: h, clock: clock, planetWeight: G * m, lens: lens, planetary: P };
+    return { hue: h, clock: clock, planetWeight: G * m, lens: lens, planetary: P, sky: S };
   }
 
   /* ---- place from time zone (no prompt). Fallback: longitude from the UTC offset, latitude 51.5. ---- */
@@ -114,7 +169,7 @@
     return [51.5, -now.getTimezoneOffset() / 4];
   }
 
-  W.WILD_TIME = { planetary: planetary, accent: accent, LENS: LENS, DAYLENS: DAYLENS, SKY: SKY, CH: CH, BASE: BASE, NIGHT_BAND: NIGHT_BAND };
+  W.WILD_TIME = { planetary: planetary, accent: accent, sky: sky, LENS: LENS, DAYLENS: DAYLENS, SKY: SKY, CH: CH, BASE: BASE, NIGHT_BAND: NIGHT_BAND };
   if (typeof document === 'undefined' || !document.documentElement) return;
 
   var d = document.documentElement, search = location.search;

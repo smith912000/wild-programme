@@ -46,12 +46,26 @@ check('Queen lens on Friday', q.lens === 'queen', q.lens);
 // Holding: within the first 61.8% of an hour the planet colour is the ruler's own.
 const s0 = hold.sunrise, L = hold.minutes * 6e4;
 const early = T.accent(s0 + 0.1 * L, ...LON, 0), late = T.accent(s0 + 0.6 * L, ...LON, 0);
-check('Hour colour held for the first 61.8% of the hour', Math.abs(early.hue - late.hue) < 1e-9, [early.hue, late.hue]);
+// The planet itself keeps moving, so 'held' means steady to within half a degree of hue.
+check('Hour colour held for the first 61.8% of the hour', Math.abs(early.hue - late.hue) < 0.5, [early.hue, late.hue]);
 
 console.log('Night rule (melanopsin, Brainard 2001)');
 let blue = 0;
 for (let h = 0; h < 24 * 14; h += 0.1) { const t = at('2026-11-02T00:00:00Z') + h * 36e5, A = T.accent(t, ...LON, (h % 24) * 60); if (A.planetary && A.planetary.part === 'night' && A.hue > T.NIGHT_BAND[0] && A.hue < T.NIGHT_BAND[1]) blue++; }
 check('Two weeks of night hours never sit in the 190-240 blue band', blue === 0, blue);
+
+console.log('Real sky (JPL elements) against published events');
+const sk = (d, p) => T.sky(Date.parse(d))[p];
+check('Mars opposition 16 Jan 2025: opposite the Sun (elongation > 170)', sk('2025-01-16T00:00Z', 'Mars').elongation > 170, sk('2025-01-16T00:00Z', 'Mars'));
+check('Jupiter opposition 7 Dec 2024: elongation > 170', sk('2024-12-07T00:00Z', 'Jupiter').elongation > 170);
+check('Saturn opposition 21 Sep 2025: elongation > 170', sk('2025-09-21T00:00Z', 'Saturn').elongation > 170);
+check('Venus greatest elongation 10 Jan 2025 is 47.2 deg (+-0.5)', Math.abs(sk('2025-01-10T00:00Z', 'Venus').elongation - 47.2) < 0.5, sk('2025-01-10T00:00Z', 'Venus').elongation);
+check('Venus at inferior conjunction 22 Mar 2025 is lost in the glare (visibility 0)', sk('2025-03-22T12:00Z', 'Venus').visibility === 0);
+check('Planets at opposition are at full strength (visibility > 0.85)', ['2025-01-16T00:00Z|Mars', '2024-12-07T00:00Z|Jupiter', '2025-09-21T00:00Z|Saturn'].every(x => sk(...x.split('|')).visibility > 0.85));
+check('Full Moon 5 Nov 2025 13:19 UTC: over 98% lit', sk('2025-11-05T13:19Z', 'Moon').illuminated > 0.98);
+check('New Moon 21 Sep 2025 19:54 UTC: under 2% lit', sk('2025-09-21T19:54Z', 'Moon').illuminated < 0.02);
+const wk = [0, 7, 14, 21].map(w => T.accent(Date.parse('2026-11-08T12:00:00Z') + w * 7 * 864e5, ...LON, 720).hue.toFixed(2));
+check('Same weekday and clock time, four weeks running: four different colours', new Set(wk).size === 4, wk);
 
 console.log(`\nRESULTS: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
