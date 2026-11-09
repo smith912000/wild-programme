@@ -10,13 +10,12 @@
 @font-face{font-family:'DM Sans';font-weight:400;src:url(fonts/dm-sans-latin-400-normal.woff2) format('woff2')}
 @font-face{font-family:'DM Sans';font-weight:500;src:url(fonts/dm-sans-latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'DM Sans';font-weight:700;src:url(fonts/dm-sans-latin-700-normal.woff2) format('woff2')}
-html,body{margin:0;background:#06100E;overflow:hidden}
+html,body{margin:0;background:#000000;overflow:hidden}
 svg{display:block}
 .serif{font-family:'Cinzel',Georgia,serif}
 .sans{font-family:'DM Sans',Helvetica,sans-serif}
 </style>
 <style>@font-face{font-family:'Cinzel';font-style:normal;font-weight:400 700;font-display:swap;src:url(https://smith912000.github.io/wild-programme/assets/fonts/files/46932d16807ab0f1.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}</style>
-<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js"></script>
 </head>
 <body>
 <svg id="stage" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -24,7 +23,7 @@ svg{display:block}
 /* ---------- CONFIG: every timing, colour and size lives here ---------- */
 var C = {
   dur: 15,
-  col: { bg:'#06100E', surf:'#11201C', ind:'#2F8F7C', ind2:'#4DB8A2', ind3:'#9EDCCB', gold:'#D2825A', gold2:'#EBA37F', text:'#EDEFE6', dim:'rgba(237,239,230,.68)', faint:'rgba(237,239,230,.5)' },
+  col: { bg:'#000000', surf:'#111111', ind:'#FFFFFF', ind2:'#FFFFFF', ind3:'#FFFFFF', gold:'#FFFFFF', gold2:'#FFFFFF', text:'#FFFFFF', dim:'rgba(255,255,255,.68)', faint:'rgba(255,255,255,.5)' }, // pure white on black (Brandon, 9 Nov 2026): no palette in the film, so it never shows an old colour scheme
   // the beat sheet (seconds)
   t: { point:.12, strike:.35, rings:.7, word:2.1, wordOut:4.3, orbit:4.45, nodes:[5.5,7.0,8.5,10.0], door:11.5, end:13.0 },
   spring: { ui:{k:170,d:26}, type:{k:170,d:26.1}, heavy:{k:60,d:15.5}, snap:{k:320,d:34} },
@@ -70,9 +69,9 @@ function set(e, attrs) { for (var k in attrs) e.setAttribute(k, attrs[k]); }
 
 var defs = el('defs', {});
 var rg = el('radialGradient', { id:'wash', cx:'50%', cy:'50%', r:'50%' }, defs);
-el('stop', { offset:'0', 'stop-color':C.col.ind, 'stop-opacity':.32 }, rg); el('stop', { offset:'1', 'stop-color':C.col.ind, 'stop-opacity':0 }, rg);
+el('stop', { offset:'0', 'stop-color':C.col.ind, 'stop-opacity':.06 }, rg); el('stop', { offset:'1', 'stop-color':C.col.ind, 'stop-opacity':0 }, rg);
 var rg2 = el('radialGradient', { id:'gwash', cx:'50%', cy:'50%', r:'50%' }, defs);
-el('stop', { offset:'0', 'stop-color':C.col.gold2, 'stop-opacity':.55 }, rg2); el('stop', { offset:'1', 'stop-color':C.col.gold2, 'stop-opacity':0 }, rg2);
+el('stop', { offset:'0', 'stop-color':C.col.gold2, 'stop-opacity':.3 }, rg2); el('stop', { offset:'1', 'stop-color':C.col.gold2, 'stop-opacity':0 }, rg2);
 
 el('rect', { width:W, height:H, fill:C.col.bg });
 var wash = el('ellipse', { fill:'url(#wash)' });
