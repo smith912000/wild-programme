@@ -67,5 +67,17 @@ check('New Moon 21 Sep 2025 19:54 UTC: under 2% lit', sk('2025-09-21T19:54Z', 'M
 const wk = [0, 7, 14, 21].map(w => T.accent(Date.parse('2026-11-08T12:00:00Z') + w * 7 * 864e5, ...LON, 720).hue.toFixed(2));
 check('Same weekday and clock time, four weeks running: four different colours', new Set(wk).size === 4, wk);
 
+console.log('The visitor\'s own place (time zone)');
+const zp = T.zonePlace, near = (p, la, lo) => p && Math.abs(p[0] - la) < 0.3 && Math.abs(p[1] - lo) < 0.3;
+const allZones = Intl.supportedValuesOf ? Intl.supportedValuesOf('timeZone').filter(z => z.includes('/') && !z.startsWith('Etc/')) : [];
+const unplaced = allZones.filter(z => !zp(z));
+check('Every time zone this JavaScript engine can report is placed (' + allZones.length + ' zones)', allZones.length > 300 && unplaced.length === 0, unplaced);
+check('Mumbai clock (Asia/Kolkata) is placed in India, not London', near(zp('Asia/Kolkata'), 22.5, 88.4), zp('Asia/Kolkata'));
+check('Old names browsers still report: Asia/Calcutta, Europe/Kiev, US/Eastern', near(zp('Asia/Calcutta'), 22.5, 88.4) && near(zp('Europe/Kiev'), 50.4, 30.5) && near(zp('US/Eastern'), 40.7, -74), [zp('Asia/Calcutta'), zp('Europe/Kiev'), zp('US/Eastern')]);
+const sunLon = T.planetary(at('2026-06-21T12:00:00Z'), ...zp('Europe/London')).sunrise, sunSyd = T.planetary(at('2026-06-21T12:00:00Z'), ...zp('Australia/Sydney')).sunrise;
+check('Same instant, London and Sydney: different sunrises, so different planetary hours', Math.abs(sunLon - sunSyd) > 36e5, [new Date(sunLon).toISOString(), new Date(sunSyd).toISOString()]);
+const hL = T.accent(at('2026-11-09T10:00:00Z'), ...zp('Europe/London'), 600).hue, hT = T.accent(at('2026-11-09T10:00:00Z'), ...zp('Asia/Tokyo'), 19 * 60).hue;
+check('Same instant, London and Tokyo: different colours', Math.abs(hL - hT) > 1, [hL, hT]);
+
 console.log(`\nRESULTS: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
