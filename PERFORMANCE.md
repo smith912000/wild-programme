@@ -13,6 +13,7 @@ Standing rule from Brandon, 6 Nov 2026, after the speed-up in PR #45 (landing 54
 8. **Own fonts only, subset, woff2.** No third-party requests on load (launch rule 1). Load only the weights used.
 9. **Text pages stay tiny.** Plain HTML and CSS, system fonts where the design allows (the Q mentorship pages are about 13 KB in total).
 10. **Check nothing broke.** The deferred thing still appears (for example the 3D mark gets `is-3d`), no console errors, behaviour unchanged.
+12. **Never wait on a server to show the page.** Members' pages open at once from the saved session and check it in the background; any wait on the sign-in or data server has a short limit (gate 4 s in the background, WILD OS first-device data pull 2 s). App pages show the shared WILD loading screen (`assets/wild-loader.js`, carried inside `member-gate.js`), which lifts as soon as the page is parsed and by 3 s at most. `wild-time.js` loads `async` and only once per page.
 11. **Caching.** GitHub Pages sets its own cache headers and they cannot be changed; use hashed filenames (Vite does) so files cache well anyway.
 
 ## Size budgets (gzip transfer, first load)
