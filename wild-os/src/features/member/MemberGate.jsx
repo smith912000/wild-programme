@@ -1,9 +1,9 @@
+import { BootScreen } from '@shared/ui/BootScreen'
 import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useMemberStore } from '@store/memberStore'
 import { hasOnboarded } from '@store/onboardingStore'
 import { syncAccount } from '@lib/accountSync'
-import { Spinner } from '@shared/ui/Spinner'
 import { GuestScreen } from './GuestScreen'
 import { LapsedScreen } from './LapsedScreen'
 import { FirstRun } from '../onboarding/FirstRun'
@@ -45,9 +45,7 @@ function MemberGateInner() {
 
   if (status === 'unknown' || (status === 'member' && !dataReady)) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--color-bg)' }}>
-        <Spinner size="lg" />
-      </div>
+      <BootScreen />
     )
   }
   if (status === 'guest') return <GuestScreen />

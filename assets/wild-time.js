@@ -22,6 +22,7 @@
    on <html> for other features. */
 (function () {
   var W = typeof window !== 'undefined' ? window : this;
+  if (W.WILD_TIME) return; /* loaded once per page, however many tags or navs ask for it */
   var R = Math.PI / 180, PHI = (1 + Math.sqrt(5)) / 2, G = 1 / PHI;
   var CH = ['Saturn', 'Jupiter', 'Mars', 'Sun', 'Venus', 'Mercury', 'Moon'];
   var DAYRULER = ['Sun', 'Moon', 'Mars', 'Mercury', 'Jupiter', 'Venus', 'Saturn']; /* JS getUTCDay order */
@@ -179,7 +180,7 @@
   var reduce = W.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var s = document.createElement('style');
   s.textContent = 'html{filter:hue-rotate(var(--wild-hue,0deg))}' +
-    (reduce ? '' : 'html{transition:filter 30s linear}') +
+    (reduce ? '' : 'html.wild-hue-glide{transition:filter 2s linear}') +
     'img,video,picture,[data-keep-hue]{filter:hue-rotate(calc(-1 * var(--wild-hue,0deg)))}';
   (document.head || d).appendChild(s);
   function set() {
@@ -199,8 +200,13 @@
     if (last != null) deg = last + ((((deg - last) % 360) + 540) % 360 - 180); /* shortest way round, no full spins */
     last = deg;
     d.style.setProperty('--wild-hue', (Math.round(deg * 10) / 10) + 'deg');
+    /* remembered so the next page's loading screen paints in today's colour straight away */
+    if (!q && !at) { try { localStorage.setItem('wild_hue', String(Math.round(deg * 10) / 10)); } catch (e) {} }
   }
   var last = null;
   set();
+  /* the first colour lands at once; later minute steps glide for 2 s (a 30 s glide kept the whole page
+     re-filtering half of every minute, which costs phones battery and frames) */
+  if (W.requestAnimationFrame) requestAnimationFrame(function () { requestAnimationFrame(function () { d.classList.add('wild-hue-glide'); }); });
   if (!q && !at) setInterval(set, 60000);
 })();

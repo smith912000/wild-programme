@@ -147,13 +147,13 @@
   .threads b { color:var(--wild-text); font-weight:600; }
 </style>
 <style>@font-face{font-family:'Cinzel';font-style:normal;font-weight:400 700;font-display:swap;src:url(https://smith912000.github.io/wild-programme/assets/fonts/files/46932d16807ab0f1.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}</style>
-<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js"></script>
+<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js" async></script>
 </head>
 <body>
 <!-- Open copy: no membership check while member sign-in is paused. The original is the same path without "open". -->
 
 <div class="ambient" aria-hidden="true">
-  <video id="ambient" poster="parser-ambient.jpg" autoplay muted loop playsinline preload="auto">
+  <video id="ambient" poster="parser-ambient.jpg" muted loop playsinline preload="none">
     <source src="parser-ambient.mp4" type="video/mp4">
     <source src="parser-ambient.webm" type="video/webm">
   </video>
@@ -535,7 +535,11 @@
   });
 
   // the aperture clip is only needed after Submit, so it fetches once the page has loaded
-  addEventListener('load', function () { try { $('aperture-video').preload = 'auto'; } catch (e) {} });
+  addEventListener('load', function () {
+    try { $('aperture-video').preload = 'auto'; } catch (e) {}
+    /* the ambient loop starts once the page has loaded, so its 96 kB never queues ahead of the page's own scripts (the poster shows until then) */
+    try { var amb = $('ambient'); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) { amb.preload = 'auto'; var p = amb.play(); if (p && p.catch) p.catch(function () {}); } } catch (e) {}
+  });
 
   function aperture() {
     return new Promise(function (done) {

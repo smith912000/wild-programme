@@ -73,7 +73,7 @@ def page(g):
 <script type="application/ld+json">
 {ld}
 </script>
-<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js"></script>\n</head>
+<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js" async></script>\n</head>
 <body>
 <a class="skip" href="#main">Skip to the guide</a>
 <header class="g-top">
@@ -144,7 +144,7 @@ def index_page():
 <script type="application/ld+json">
 {ld}
 </script>
-<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js"></script>\n</head>
+<script src="https://smith912000.github.io/wild-programme/assets/wild-time.js" async></script>\n</head>
 <body>
 <a class="skip" href="#main">Skip to the guides</a>
 <header class="g-top">

@@ -1,6 +1,6 @@
+import { BootScreen } from '@shared/ui/BootScreen'
 import React, { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { Spinner } from '@shared/ui/Spinner'
 import { MemberGate } from '@features/member/MemberGate'
 import { CallbackPage } from '@features/member/CallbackPage'
 
@@ -57,9 +57,7 @@ const idle = (fn) => (window.requestIdleCallback ? window.requestIdleCallback(fn
 
 function PageFallback() {
   return (
-    <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--color-bg)' }}>
-      <Spinner size="lg" />
-    </div>
+    <BootScreen />
   )
 }
 

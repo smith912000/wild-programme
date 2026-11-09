@@ -55,9 +55,9 @@ async function loadAccountData(set, token) {
     return
   }
   set({ dataReady: false })
-  // First use on this device: wait for the pull, but never longer than 4 s. If the server is slow
+  // First use on this device: wait for the pull, but never longer than 2 s. If the server is slow
   // the app opens on the device copy and the pull finishes in the background.
-  await Promise.race([syncAccount(token).catch(() => {}), new Promise((r) => setTimeout(r, 4000))])
+  await Promise.race([syncAccount(token).catch(() => {}), new Promise((r) => setTimeout(r, 2000))])
   set({ dataReady: true })
 }
 
