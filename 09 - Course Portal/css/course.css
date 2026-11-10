@@ -900,3 +900,8 @@ body.home { display: flex; flex-direction: column; align-items: center; }
 .lesson-check.check-visible svg {
   animation: checkmarkDraw 0.5s ease forwards;
 }
+
+/* No picture file in the repo: collapse the blank band instead of showing an empty hero */
+.lesson-hero.no-art, .tier-header.no-art { height: auto; padding-top: 28px; }
+.lesson-hero.no-art .hero-overlay, .tier-header.no-art .tier-header-overlay { display: none; }
+.tier-card-cover.no-art { display: none; }
