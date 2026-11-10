@@ -36,6 +36,16 @@ CONTENT_DIR     = os.path.join(BASE_DIR, "06 - Course Content")
 PORTAL_DIR      = os.path.join(BASE_DIR, "09 - Course Portal")
 BRAND_DIR       = os.path.join(BASE_DIR, "08 - Brand Assets")
 
+def art_attr(css_class: str, rel_path: str) -> str:
+    """class + background image for a hero or cover. If the picture file is not
+    in the repo, emit the class with "no-art" (CSS collapses the blank band)
+    rather than a broken image request."""
+    local = os.path.join(BASE_DIR, rel_path.replace("../", ""))
+    if os.path.exists(local):
+        return f'class="{css_class}" style="background-image:url(\'{rel_path}\')"'
+    return f'class="{css_class} no-art"'
+
+
 # Source markdown files
 MD_TIER1        = os.path.join(CONTENT_DIR, "Tier_1_Biohacker_Foundation.md")
 MD_T2_BODY      = os.path.join(CONTENT_DIR, "Tier_2_Body_Written.md")
@@ -328,7 +338,7 @@ def build_lesson_page(
   <main class="lesson-main" data-page="lesson">
 
     <!-- Hero -->
-    <div class="lesson-hero" style="background-image:url('{thumbnail_path}')">
+    <div {art_attr("lesson-hero", thumbnail_path)}>
       <div class="hero-content">
         <span class="pillar-badge {badge_class}">{badge_label}</span>
         <span class="lesson-number">{lesson_label}</span>
@@ -430,7 +440,7 @@ def build_tier_index(
 </head>
 <body data-page="dashboard" data-tier-id="tier{tier_num}">
 
-  <header class="tier-header" style="background-image: url('{cover_img}');">
+  <header {art_attr("tier-header", cover_img)}>
     <div class="tier-header-overlay"></div>
     <div class="tier-header-content">
       <a href="{back_link}" class="back-home">&#8592; All Tiers</a>
@@ -479,7 +489,7 @@ def build_home_index() -> str:
 
       <!-- Tier 1 -->
       <a href="tier1/index.html" class="tier-card tier1">
-        <div class="tier-card-cover" style="background-image: url('../08 - Brand Assets/Tier_Covers/cover_tier1.png');"></div>
+        <div class="tier-card-cover no-art"></div>
         <div class="tier-card-body">
           <div class="tier-card-pillars">
             <span class="pillar-badge soul">SOUL</span>
@@ -498,7 +508,7 @@ def build_home_index() -> str:
 
       <!-- Tier 2 -->
       <a href="tier2/index.html" class="tier-card tier2">
-        <div class="tier-card-cover" style="background-image: url('../08 - Brand Assets/Tier_Covers/cover_tier2.png');"></div>
+        <div class="tier-card-cover no-art"></div>
         <div class="tier-card-body">
           <div class="tier-card-pillars">
             <span class="pillar-badge body">BODY</span>
@@ -518,7 +528,7 @@ def build_home_index() -> str:
 
       <!-- Tier 3 -->
       <a href="tier3/index.html" class="tier-card tier3">
-        <div class="tier-card-cover" style="background-image: url('../08 - Brand Assets/Tier_Covers/cover_tier3.png');"></div>
+        <div class="tier-card-cover no-art"></div>
         <div class="tier-card-body">
           <div class="tier-card-pillars">
             <span class="pillar-badge body">BODY</span>
@@ -1279,6 +1289,10 @@ body.home { display: flex; flex-direction: column; align-items: center; }
   .tier-header-content { padding: 24px 16px; }
   .tier-cards-grid { grid-template-columns: 1fr; }
 }
+/* No picture file in the repo: collapse the blank band instead of showing an empty hero */
+.lesson-hero.no-art, .tier-header.no-art { height: auto; padding-top: 28px; }
+.lesson-hero.no-art .hero-overlay, .tier-header.no-art .tier-header-overlay { display: none; }
+.tier-card-cover.no-art { display: none; }
 """
 
 COURSE_JS = """\

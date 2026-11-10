@@ -33,6 +33,8 @@
     '.wn-user{display:flex;align-items:center;gap:10px;white-space:nowrap}.wn-user button{background:none;border:1px solid rgba(237,239,230,.18);color:inherit;border-radius:6px;padding:5px 10px;font:inherit;cursor:pointer}' +
     '.wn-user button:hover{color:#EDEFE6}.wn-name{max-width:120px;overflow:hidden;text-overflow:ellipsis}' +
     '@media(max-width:560px){.wn-name{display:none}.wn-home span{display:none}}' +
+    /* phones and touch screens: every control in the bar is at least 44px tall */
+    '@media(max-width:560px),(pointer:coarse){.wn-bar{height:52px}.wn-home{min-height:44px;min-width:44px;justify-content:center}.wn-apps a{display:flex;align-items:center;min-height:44px;padding:0 12px}.wn-user button{min-height:44px;padding:0 12px}}' +
     '.wn-menu{display:grid;gap:6px}.wn-menu .wn-item{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#EDEFE6}' +
     'a.wn-item:hover{background:rgba(237,239,230,.06)}.wn-item small{color:rgba(237,239,230,.5);font-size:.75rem;letter-spacing:.04em}.wn-item.soon{opacity:.5}';
   document.head.appendChild(css);
